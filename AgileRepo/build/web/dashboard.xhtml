@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Eventos</ui:define>
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#007be5', '#20d077'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>  
+        </script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="ui-g ui-fluid dashboard">
+            <div class="ui-g-12">
+
+                <h:form id="eventos">
+
+                    <ui:repeat  value="#{eventcontroller.listaEventos()}" var="evento">
+
+                           
+                         
+                        <div class="card clearfix summary">
+
+                            <span class="count visitors">#{evento.duracion}</span>
+                            <div style="width:90%">
+                            <span class="title">#{evento.nombre}</span>        
+                            </div>
+                            
+                          
+                            
+                            
+                            <div >
+                           
+                                 <span class="options">
+                                
+                                 <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
+                                    <p:menu overlay="true" trigger="smallmenu" my="left top" at="left bottom">
+                                        <p:menuitem value="Editar" icon="ui-icon-pencil"/>
+                                        <p:menuitem value="Cronograma" icon="ui-icon-clipboard fa fa-clipboard"/>
+                                        <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"/>
+                                    </p:menu>
+                                
+                            </span>
+                                
+                            </div>
+                           
+                            <div>
+                                <span class="detail">#{evento.desc}</span>        
+                            </div>
+                            
+                            <div>
+                                <span class="tags">
+                                  #{evento.losTags} 
+                                </span>
+                             
+                            </div>
+                  
+
+
+
+
+                        </div>
+
+
+
+
+                    </ui:repeat>
+
+
+                </h:form>
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,46 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/omega">
+  <h:form id="menuform">
+    <div class="sidebar">
+        <div class="nano">
+            <div class="nano-content sidebar-scroll-content">
+                <div class="logo">
+                    <p:graphicImage name="images/logoCCI.png" library="omega-layout" width="50" />
+                    <p:outputLabel class="text" value="AgileRepo"></p:outputLabel>
+                </div>
+
+                <div class="profile">
+                    <p:graphicImage name="images/wes.png" library="omega-layout" />
+                    <a id="profile-button" href="#">
+                        <span class="username">Wes Mena</span>
+                        <i class="fa fa-fw fa-cog"></i>
+                    </a>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Perfil</span></a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notificaciones</span><span class="menu-badge">2</span></a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-sign-out"></i><span>Cerrar Sesión</span></a></li>
+                        <a href="misc.xhtml"></a>
+                    </ul>
+                </div>
+
+                <div class="menu">
+                    <po:menu>
+                        <p:menuitem id="om_dashboard" value="Eventos" icon="fa fa-calendar" outcome="/dashboard"/>
+                        <p:menuitem id="om_Type" value="Tipos" icon="fa fa-tag" outcome="/dashboard"/>
+                        <p:menuitem id="om_users" value="Manejo de Usuarios" icon="fa fa-gear" outcome="/dashboard"/>
+                       
+                       
+                       
+                       
+                    </po:menu>
+                </div>
+            </div>
+        </div>
+    </div>
+  </h:form>
+</ui:composition>
