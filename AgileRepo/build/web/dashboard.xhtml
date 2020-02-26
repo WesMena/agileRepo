@@ -49,14 +49,32 @@
         <div class="ui-g ui-fluid dashboard">
             <div class="ui-g-12">
 
+                
                 <h:form id="eventos">
 
+                    <!-->
+                    Esto vendría a ser como un For. Lo que está haciendo es tomar
+                    la lista de eventos(que se obtiene de base de datos 
+                    usando eventDao) de eventcontroller, recorrerla y armar 
+                    tarjetas con cada uno de los objetos de tipo Evento que 
+                    contiene.
+                    
+                    </!-->
                     <ui:repeat  value="#{eventcontroller.listaEventos()}" var="evento">
-
-                           
+                     
+                       
                          
                         <div class="card clearfix summary">
 
+                            <h:commandButton styleClass="boton" action="#{detallecontroller.redireccionar(evento.id,evento.nombre)}">
+                       
+                        </h:commandButton>
+                                
+                  
+                            
+                            <!-->
+                            Aquí está el título del evento y su duración
+                            </!-->
                             <span class="count visitors">#{evento.duracion}</span>
                             <div style="width:90%">
                             <span class="title">#{evento.nombre}</span>        
@@ -64,6 +82,10 @@
                             
                           
                             
+                            
+                               <!-->
+                           Este es el botón "..."
+                            </!-->
                             
                             <div >
                            
@@ -80,9 +102,21 @@
                                 
                             </div>
                            
+                              <!-->
+                            Aquí está la descripción, simplemente accede al 
+                              String "desc" del objeto Evento actual de la lista
+                            </!-->    
+                               
                             <div>
                                 <span class="detail">#{evento.desc}</span>        
                             </div>
+                            
+                            
+                             <!-->
+                            Aquí están los tags, los cuales vienen en un solo 
+                             String, separados por espacios y demarcados con 
+                             "#" 
+                            </!-->   
                             
                             <div>
                                 <span class="tags">

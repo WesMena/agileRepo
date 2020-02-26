@@ -2159,6 +2159,13 @@ h2 {
   content: " ";
   display: block;
   clear: both; }
+.drag{
+  
+   border:none;
+     height:500px;  
+   
+    width:100%;  
+}
 
 .card {
   background-color: #ffffff;
@@ -2177,6 +2184,8 @@ h2 {
 /* Dashboard */
 .dashboard {
   margin-top: 16px; }
+
+
   .dashboard .card {
     
         margin-left:10%;
@@ -2190,6 +2199,8 @@ h2 {
     display:block;
     
     position:relative; }
+  
+
     .dashboard .summary .title {
       font-size:20px;
       display:block;
@@ -2202,7 +2213,18 @@ h2 {
      
       
     }
-    
+    .dashboard .summary .boton{
+        border:none;
+        background:none;
+        height:93%;
+        width:95%;
+        position:absolute;
+         outline:none;
+    }
+    .dashboard .summary .boton:after{
+        border:none;
+        outline:none;
+    }
     .dashboard .summary .options{
       top:10px;
       right:10px;

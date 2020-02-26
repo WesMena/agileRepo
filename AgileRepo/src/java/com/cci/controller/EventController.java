@@ -21,11 +21,20 @@ import javax.faces.event.ActionEvent;
  * @author wesli
  */
 @ManagedBean(name="eventcontroller")
-@ApplicationScoped
+@SessionScoped
 
 public class EventController implements Serializable {
 private String filtro="";    
+
+
     public List<Evento> listaEventos(){
+       /*
+Este es el método que envía los Eventos que se obtienen de EventDao 
+al dashboard. Si la variable de clase "filtro" está vacía, muestra todos los 
+eventos existentes, pero si se le envía algo, buscará coincidencias a nivel 
+de nombre y tags
+*/ 
+        
         EventDao eventos=new EventDao(filtro);
         return eventos.getAll();
     }
@@ -38,5 +47,8 @@ private String filtro="";
         this.filtro = filtro;
         System.out.println(filtro);
     }
+
+  
+    
     
 }

@@ -3,9 +3,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                template="/WEB-INF/templateEventos.xhtml">
 
-    <ui:define name="title">Eventos</ui:define>
+    <ui:define name="title">#{detallecontroller.nombreEvento}</ui:define>
 
     <ui:define name="head">
         <script type="text/javascript">
@@ -46,11 +46,12 @@
 
     <ui:define name="content">
 
-        <div class="ui-g ui-fluid dashboard">
-            <div class="ui-g-12">
+        <div class="dashboard">
+            
+      
 
                 
-                <h:form id="eventos">
+                <h:form id="eventos" >
 
                     <!-->
                     Esto vendría a ser como un For. Lo que está haciendo es tomar
@@ -60,24 +61,23 @@
                     contiene.
                     
                     </!-->
-                    <ui:repeat  value="#{eventcontroller.listaEventos()}" var="evento">
-                     
-                       
-                         
-                        <div class="card clearfix summary">
-
-                            <h:commandButton styleClass="boton" action="#{detallecontroller.redireccionar(evento.id,evento.nombre)}">
-                       
-                        </h:commandButton>
-                                
-                  
+                 
+                        
+                        <p:orderList value="#{detallecontroller.listaDetalles()}" var="detalle"
+                                     itemLabel="#{detalle}" controlsLocation="none"  itemValue="#{detalle}"  responsive="true" 
+                                     class="drag">
+                              <div class="ui-g ui-fluid dashboard" style="width:100%">
+            <div class="ui-g-12" style="width:100%">
+                        
+                        <p:column style="width:90%; height:100%;">
                             
+                        <div class="card clearfix summary">
                             <!-->
                             Aquí está el título del evento y su duración
                             </!-->
-                            <span class="count visitors">#{evento.duracion}</span>
+                            <span class="count visitors">#{detalle.duracion}</span>
                             <div style="width:90%">
-                            <span class="title">#{evento.nombre}</span>        
+                                <span class="title">#{detalle.titulo}</span>        
                             </div>
                             
                           
@@ -87,20 +87,7 @@
                            Este es el botón "..."
                             </!-->
                             
-                            <div >
                            
-                                 <span class="options">
-                                
-                                 <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
-                                    <p:menu overlay="true" trigger="smallmenu" my="left top" at="left bottom">
-                                        <p:menuitem value="Editar" icon="ui-icon-pencil"/>
-                                        <p:menuitem value="Cronograma" icon="ui-icon-clipboard fa fa-clipboard"/>
-                                        <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"/>
-                                    </p:menu>
-                                
-                            </span>
-                                
-                            </div>
                            
                               <!-->
                             Aquí está la descripción, simplemente accede al 
@@ -108,7 +95,7 @@
                             </!-->    
                                
                             <div>
-                                <span class="detail">#{evento.desc}</span>        
+                                <span class="detail">#{detalle.descripcion}</span>        
                             </div>
                             
                             
@@ -130,17 +117,28 @@
 
 
                         </div>
+                            
+                            
+                            
+                            
+                        </p:column>  
+                      
+                      </div>
+            </div> 
 
-
-
-
-                    </ui:repeat>
+                    
+                    </p:orderList>       
+                        
+                  
+                    
+                        
+                   
+                    
+                
 
 
                 </h:form>
 
-
-            </div>
 
 
 

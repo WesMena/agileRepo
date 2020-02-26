@@ -7,12 +7,23 @@ package com.cci.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.io.Serializable;
+import java.util.List;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.faces.event.ActionEvent;
 /**
  *
  * @author wesli
  */
-public class Evento {
+@ManagedBean(name="evento")
+@SessionScoped
+public class Evento implements Serializable {
     private String nombre;
    private String desc;
    private int id;
@@ -21,6 +32,7 @@ public class Evento {
    private String duracion;
    private String losTags="";
    public static List<Tag> tags=new ArrayList<>();
+   
     public Evento() {
     }
 
@@ -30,12 +42,17 @@ public class Evento {
         this.id = id;
         this.horas = horas;
         this.dias = dias;
+        
+        //Esto es lo que se usa para saber qué mostrar en el cuadro de duración 
+        //de las tarjetas de evento 
         if(this.dias>1){
             duracion=dias+"d";
         }else{
             duracion=horas+"h";
         }
         
+        
+        //Limita el tamaño de la descripción que se muestra en las tarjetas de evento
         if(desc.length()>80){
             this.desc=desc.substring(0,80)+"...";
         }else{
