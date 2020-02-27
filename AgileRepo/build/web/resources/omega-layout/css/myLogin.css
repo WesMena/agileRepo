@@ -115,7 +115,7 @@ body , html{
         margin-top:1%;
         overflow:auto; 
         border:#C7C1C8;
-        border-style:dotted;
+        border-style:none;
         border-radius:2.5%;
   }
   .dashboard .summary {

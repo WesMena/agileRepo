@@ -34,6 +34,12 @@ public class DetalleController implements Serializable {
         this.nombreEvento = nombreEvento;
     }
     public List<DetalleEvento>listaDetalles(){
+        /*
+Este es el método que envía los Eventos que se obtienen de DetalleDao 
+a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir 
+     cuales detalles de qué evento se van a cargar
+*/   
+        
         DetalleDao detalle=new DetalleDao(idEvento);
         return detalle.getAll();
     }

@@ -20,6 +20,12 @@ public class DetalleDao implements Dao<DetalleEvento> {
 public static List<DetalleEvento> detalles=new ArrayList<>();
 
     public DetalleDao(int evento) {
+       /*
+Este constructor trae los detalles de evento de la base de datos y crea una lista de los objetos
+de tipo DetalleEvento que coincidan con el id que viene por parámetro
+
+*/        
+        
     detalles=new ArrayList<>();    
     ResultSet rs=null;
     Statement stmt=null;
