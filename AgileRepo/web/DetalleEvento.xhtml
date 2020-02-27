@@ -46,98 +46,96 @@
 
     <ui:define name="content">
 
-        <div class="dashboard">
-            
-      
+        <div class="dashboard" style="height:100%; width:100%; min-height:100%; ">
 
+
+
+
+            <h:form id="eventos" style="height:100%; width:100%; min-height:100%;" >
+
+                <!-->
+                Esto vendría a ser como un For. Lo que está haciendo es tomar
+                la lista de eventos(que se obtiene de base de datos 
+                usando eventDao) de eventcontroller, recorrerla y armar 
+                tarjetas con cada uno de los objetos de tipo Evento que 
+                contiene.
                 
-                <h:form id="eventos" >
+                </!-->
 
-                    <!-->
-                    Esto vendría a ser como un For. Lo que está haciendo es tomar
-                    la lista de eventos(que se obtiene de base de datos 
-                    usando eventDao) de eventcontroller, recorrerla y armar 
-                    tarjetas con cada uno de los objetos de tipo Evento que 
-                    contiene.
+
+                <p:orderList value="#{detallecontroller.listaDetalles()}" var="detalle"
+                             itemLabel="#{detalle}" controlsLocation="none"  itemValue="#{detalle}"  responsive="true" 
+                            style="height:100%; width:100%; min-height:100%;">
                     
-                    </!-->
-                 
-                        
-                        <p:orderList value="#{detallecontroller.listaDetalles()}" var="detalle"
-                                     itemLabel="#{detalle}" controlsLocation="none"  itemValue="#{detalle}"  responsive="true" 
-                                     class="drag">
-                              <div class="ui-g ui-fluid dashboard" style="width:100%">
-            <div class="ui-g-12" style="width:100%">
-                        
-                        <p:column style="width:90%; height:100%;">
-                            
-                        <div class="card clearfix summary">
-                            <!-->
-                            Aquí está el título del evento y su duración
-                            </!-->
-                            <span class="count visitors">#{detalle.duracion}</span>
-                            <div style="width:90%">
-                                <span class="title">#{detalle.titulo}</span>        
-                            </div>
-                            
-                          
-                            
-                            
-                               <!-->
-                           Este es el botón "..."
-                            </!-->
-                            
-                           
-                           
-                              <!-->
-                            Aquí está la descripción, simplemente accede al 
-                              String "desc" del objeto Evento actual de la lista
-                            </!-->    
-                               
-                            <div>
-                                <span class="detail">#{detalle.descripcion}</span>        
-                            </div>
-                            
-                            
-                             <!-->
-                            Aquí están los tags, los cuales vienen en un solo 
-                             String, separados por espacios y demarcados con 
-                             "#" 
-                            </!-->   
-                            
-                            <div>
-                                <span class="tags">
-                                  #{evento.losTags} 
-                                </span>
-                             
-                            </div>
                   
 
+                           <p:column style="width:100%; height:100%;">
+
+                                <div class="card clearfix summary"  >
+                                    <!-->
+                                    Aquí está el título del evento y su duración
+                                    </!-->
+                                    <span class="count visitors">#{detalle.duracion}</span>
+                                    <div style="width:90%">
+                                        <span class="title">#{detalle.titulo}</span>        
+                                    </div>
 
 
 
-                        </div>
-                            
-                            
-                            
-                            
-                        </p:column>  
-                      
-                      </div>
-            </div> 
 
-                    
-                    </p:orderList>       
-                        
-                  
-                    
-                        
-                   
-                    
-                
+                                    <!-->
+                                Este es el botón "..."
+                                 </!-->
 
 
-                </h:form>
+
+                                    <!-->
+                                  Aquí está la descripción, simplemente accede al 
+                                    String "desc" del objeto Evento actual de la lista
+                                  </!-->    
+
+                                    <div>
+                                        <span class="detail">#{detalle.descripcion}</span>        
+                                    </div>
+
+
+                                    <!-->
+                                   Aquí están los tags, los cuales vienen en un solo 
+                                    String, separados por espacios y demarcados con 
+                                    "#" 
+                                   </!-->   
+
+                                    <div>
+                                        <span class="tags">
+                                            #{evento.losTags} 
+                                        </span>
+
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+
+
+                            </p:column>  
+
+                       
+
+                </p:orderList>       
+
+
+
+
+
+
+
+
+
+            </h:form>
 
 
 
@@ -147,7 +145,9 @@
 
 
         </div>
-
+        
+ 
     </ui:define>
 
+    
 </ui:composition>
