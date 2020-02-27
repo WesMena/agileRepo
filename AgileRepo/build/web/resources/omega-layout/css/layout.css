@@ -1596,6 +1596,8 @@ html {
 
 /* Main Layout */
 .main-body {
+    height: 100%;
+    min-height: 100%;   
   font-family: "latoregular", "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 14px;
   margin: 0;
@@ -1603,6 +1605,8 @@ html {
   background-color: #edf0f5; }
 
 .wrapper {
+  height: 100%;
+    min-height: 100%;  
   padding: 0; }
   .wrapper .topbar {
     -moz-transition: left 0.3s;
@@ -1893,6 +1897,8 @@ html {
       .wrapper .sidebar ul li:last-child > a {
         border-bottom: 1px solid #4e5159; }
   .wrapper .main {
+        height: 100%;
+    min-height: 100%; 
     -moz-transition: margin-left 0.3s;
     -o-transition: margin-left 0.3s;
     -webkit-transition: margin-left 0.3s;
@@ -2159,6 +2165,13 @@ h2 {
   content: " ";
   display: block;
   clear: both; }
+.drag{
+  
+   border:none;
+     height:500px !important;  
+   
+    width:100% !important;  
+}
 
 .card {
   background-color: #ffffff;
@@ -2177,6 +2190,8 @@ h2 {
 /* Dashboard */
 .dashboard {
   margin-top: 16px; }
+
+
   .dashboard .card {
     
         margin-left:10%;
@@ -2190,6 +2205,8 @@ h2 {
     display:block;
     
     position:relative; }
+  
+
     .dashboard .summary .title {
       font-size:20px;
       display:block;
@@ -2202,7 +2219,18 @@ h2 {
      
       
     }
-    
+    .dashboard .summary .boton{
+        border:none;
+        background:none;
+        height:93%;
+        width:95%;
+        position:absolute;
+         outline:none;
+    }
+    .dashboard .summary .boton:after{
+        border:none;
+        outline:none;
+    }
     .dashboard .summary .options{
       top:10px;
       right:10px;
@@ -2264,6 +2292,9 @@ h2 {
         background-color: #f9c851; }
       .dashboard .summary .count.revenue {
         background-color: #007be5; }
+      
+      
+      
   .dashboard .task-list {
     list-style-type: none;
     margin: 0;

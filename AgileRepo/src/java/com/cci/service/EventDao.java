@@ -21,8 +21,17 @@ import java.util.Optional;
 public class EventDao implements Dao<Evento> {
 public static List<Evento> eventos=new ArrayList<>();
  
-    
+
       public EventDao(String filtro) {
+     /*
+Este constructor trae los eventos de la base de datos y crea una lista de los objetos
+de tipo Evento cuyo nombre o uno de sus tags inicie con lo definido en el parámetro
+"filtro"(si está vacío, manda a llamar a todos los que están en la tabla.
+
+La segunda sentencia de SQL se encarga de asignar los tags correspondientes a cada 
+uno de los eventos que se encuentran en el ArrayList "eventos"
+*/     
+          
       eventos=new ArrayList<>();
       ResultSet rs=null;
       Statement stmt=null;
@@ -42,7 +51,7 @@ public static List<Evento> eventos=new ArrayList<>();
                int horas=rs.getInt("horas");
                int dias=rs.getInt("dias");
                eventos.add(new Evento(nombre,desc,id,horas,dias));
-               System.out.print(nombre);
+            
            }
            
       }catch(Exception e){

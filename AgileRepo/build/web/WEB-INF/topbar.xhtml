@@ -22,7 +22,13 @@
                 <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}"  />;
                 
            
-                     
+                     <!-->
+                     Este es el botón de búsqueda.Manda a actualizar el form 
+                     "eventos" que está en dashboard.xhtml y a ejecutar la 
+                     asignación del valor del inputText a la variable filtro 
+                     de la clase EventController(com.cci.controller)
+                 
+                     </!-->
                     <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" >
                         <f:ajax execute="filtro" render="eventos"/>  
                     </p:commandButton>
