@@ -7,6 +7,12 @@
 
     <h:head>
         <f:facet name="first">
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+            <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+            <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -14,23 +20,23 @@
         </f:facet>
         <title>PrimeFaces Omega</title>
         <script type="text/javascript">
-        $(function() {
-            $('#menu-button').on('click', function(e) {
-                $('#menu').toggleClass('overlay-menu');
-                e.preventDefault();
+            $(function () {
+                $('#menu-button').on('click', function (e) {
+                    $('#menu').toggleClass('overlay-menu');
+                    e.preventDefault();
+                });
             });
-        });
         </script>
         <ui:insert name="head"/>
     </h:head>
 
     <h:body styleClass="landing-body">
-        
+
         <div class="landing-wrapper">
             <div class="landing-header">
                 <div class="landing-header-content clearfix">
                     <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
-                    
+
                     <a id="menu-button" href="#">
                         <span class="fa fa-bars"></span>
                     </a>
@@ -44,22 +50,22 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div id="introduction">
                 <div class="introduction-content">
                     <span class="title">PrimeFaces Omega</span>
                     <span class="subtitle">Clean, Elegant and Functional</span>
                     <p:graphicImage name="images/landing/section1_logo.png" library="omega-layout" />
-                    <p:commandButton type="button" value="Sign Up"></p:commandButton>
+                    <p:commandButton  onclick="googleLogOut()" id="btnLogOutGoogle" type="button" value="Log Out"></p:commandButton>
                 </div>
             </div>
-            
+
             <div id="features">
                 <div class="features-content">
                     <span class="feature-title">Omega Features</span>
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
                         doloremque.</p>
-                        
+
                     <div class="ui-g">
                         <div class="ui-g-12 ui-md-4">
                             <p:graphicImage name="images/landing/section2_1.png" library="omega-layout" styleClass="feature-icon"/>
@@ -106,7 +112,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="mobile">
                 <div class="mobile-content">
                     <span class="title">Try Our Mobile App!</span>
@@ -115,43 +121,43 @@
                     <p:commandButton type="button" value="Learn More"></p:commandButton>
                 </div>
             </div>
-            
+
             <div id="pricing">
                 <div class="pricing-content">
                     <span class="pricing-title">Pricing</span>
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
                         doloremque laudantium, totam rem aperiam.</p>
-                        
+
                     <div class="ui-g">
                         <div class="ui-g-12 ui-md-4">
                             <div class="pricing-basic pricing-box">
                                 <span class="pricing-name">Basic</span>
                                 <div class="pricing-fee">1$</div>
-                                
+
                                 <p>50GB Disk Space</p>
                                 <p>500GB Monthly Bandwith</p>
                                 <p>20 Email Accounts</p>
                                 <p>5 Subdomain</p>
                             </div>
                         </div>
-                        
+
                         <div class="ui-g-12 ui-md-4">
                             <div class="pricing-standard pricing-box">
                                 <span class="pricing-name">Standard</span>
                                 <div class="pricing-fee">5$</div>
-                                
+
                                 <p>200GB Disk Space</p>
                                 <p>1TB Monthly Bandwith</p>
                                 <p>50 Email Accounts</p>
                                 <p>10 Subdomain</p>
                             </div>
                         </div>
-                        
+
                         <div class="ui-g-12 ui-md-4">
                             <div class="pricing-professional pricing-box">
                                 <span class="pricing-name">Professional</span>
                                 <div class="pricing-fee">10$</div>
-                                
+
                                 <p>2TB Disk Space</p>
                                 <p>10TB Monthly Bandwith</p>
                                 <p>Unlimited Email Accounts</p>
@@ -161,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="video">
                 <div class="video-content">
                     <span class="video-title">Video</span>
@@ -172,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="landing-footer">
                 <div class="landing-footer-content">
                     <div class="footer-top">
@@ -195,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="footer-bottom">
                         All Rights Reserved
                     </div>
@@ -204,6 +210,16 @@
         </div>
 
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+        <h:outputScript name="omega-layout/js/fireInit.js"></h:outputScript>
+        <script type="text/javascript">
+            function googleLogOut() {
+                firebase.auth().signOut().then(function () {
+                    window.location.assign('faces/login.xhtml');
+                }).catch(function (error) {
+                });
+            }
+        </script>
+
     </h:body>
 
 </html>

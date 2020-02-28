@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"></link>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous"></link>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title> Registro </title>
+    </h:head>
+
+    <h:body styleClass="login-body">
+
+        <div clas="container"  style="text-align: center;margin: 0 auto;width: 55%">
+
+            <div class="row" style="text-align: center;">
+
+                <div class="col-sm-12" style="text-align: center">
+
+                    <p:graphicImage name="images/login-logo.png" library="omega-layout"/>
+                    <span style="font-size: x-large;display: block" >Recuperación de contraseña</span>
+                    <h:form onsubmit="return false" prependId="false" id="frmaX" style="   margin-top: 20px;
+                            box-sizing: border-box;
+                            height: 40%;
+                            width: 100%;
+                            background-color: #ffffff;
+                            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+                            padding: 2em;
+                            text-align: center;
+                            color: #4f575b; ">
+                        <div style="text-align: justify;margin-bottom: 15px">
+                            <span style="font-size: medium;">¿ Tienes una crisis de identidad ? Puedes recuperar tu contraseña de <b>AgilRepo</b> utilizando el correo electronico
+                                asociado con tu cuenta</span>
+                        </div>
+
+                        <p:outputLabel   style="block" value="Email :" for="txtEmail" ></p:outputLabel>
+                        <p:inputText  dir="email"   required="true" requiredMessage="Campo obligatorio" style="display: block;width: 100%" id="txtEmail"  >
+                            <f:validator validatorId="custom.emailValidator"></f:validator>
+                            <p:clientValidator></p:clientValidator>
+                        </p:inputText>
+                        <p:message id="msgEmail"  for="txtEmail"></p:message>
+                        <p:spacer></p:spacer>
+                        <button 
+                            id="submitButton" style="display: block;width: 100%;line-height: 2em"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+                            value="Enviar correo de recuperacion"
+                            type="submit">Enviar correo de recuperacion
+                        </button>
+                        <p:spacer></p:spacer>
+                        <div style="text-align: left;margin: 0">
+                            <p:link style="color: #03A8E4" href="faces/login.xhtml">Regresar al login</p:link>
+                        </div>
+                    </h:form>
+                </div>
+            </div>    
+        </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 style="color: red" class="modal-title">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>La información proporcionada es incorrecta.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+        <h:outputScript name="js/fireInit.js" library="omega-layout"></h:outputScript>
+        <h:outputScript name="js/fireResetPass.js" library="omega-layout"></h:outputScript>
+        <script type="text/javascript">
+            //<![CDATA[
+            /**
+             * Faces Validator
+             */
+            PrimeFaces.validator['custom.emailValidator'] = {
+
+                pattern: /\S+@\S+/,
+
+                validate: function (element, value) {
+                    //use element.data() to access validation metadata, in this case there is none.
+                    if (!this.pattern.test(value)) {
+                        throw {
+                            summary: 'Validation Error',
+                            detail: value + ' No es un email valido.'
+                        }
+                    }
+                }
+            };
+
+            /**
+             * Bean validator
+             */
+            PrimeFaces.validator['Email'] = {
+
+                pattern: /\S+@\S+/,
+
+                MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
+
+                validate: function (element, value) {
+                    var vc = PrimeFaces.util.ValidationContext;
+
+                    if (!this.pattern.test(value)) {
+                        var msgStr = element.data('p-email-msg'),
+                                msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
+
+                        throw msg;
+                    }
+                }
+            };
+            //]]>
+        </script>
+    </h:body>
+
+
+</html>
