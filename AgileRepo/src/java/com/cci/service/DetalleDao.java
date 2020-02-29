@@ -76,8 +76,31 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
     }
 
     @Override
-    public void update(DetalleEvento t, String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(DetalleEvento t) {
+      //Se usa un array de 1 posición
+        //Posición 0:Nombre Categoría
+        
+        
+        Statement stmt=null;
+     
+      
+        try{
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            sql="UPDATE agilerepo.detalleevento SET indiceEvento="+t.getIndice()+",duracion="+t.getDuracion()+
+                    ",titulo='"+t.getTitulo()+"',descripcion='"+t.getDescripcion()+
+                    
+                    "' WHERE idDetalleEvento="+t.getId();
+            
+    
+            stmt.executeUpdate(sql);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+//        
     }
 
     @Override

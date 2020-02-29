@@ -61,10 +61,11 @@
                 </!-->
 
 
-                <p:orderList value="#{detallecontroller.listaDetalles()}" var="detalle"
-                             itemLabel="#{detalle}" controlsLocation="none"  itemValue="#{detalle}"  responsive="true" 
+                <p:orderList value="#{detallecontroller.detalles}" var="detalle"
+                             itemLabel="#{detalle}" controlsLocation="none" converter="#{detalleconverter}" itemValue="#{detalle}"  responsive="true" 
                             style="height:100%; width:100%; min-height:100%;">
                     
+                    <p:ajax event="reorder" listener="#{detallecontroller.onReorder()}"/>
                   
                     <!-->
                     Esto es lo que controla las tarjetas. 

@@ -113,7 +113,7 @@ uno de los eventos que se encuentran en el ArrayList "eventos"
     }
 
     @Override
-    public void update(Evento t, String[] params) {
+    public void update(Evento t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
