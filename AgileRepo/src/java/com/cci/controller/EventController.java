@@ -140,11 +140,16 @@ public class EventController implements Serializable {
             eventos existentes, pero si se le envía algo, buscará coincidencias a nivel 
             de nombre y tags
          */
-
+        
         EventDao eventos = new EventDao(filtro);
         return eventos.getAll();
     }
 
+    public void filtrarEventos(){
+            System.out.println("Entró");
+         EventDao eventos = new EventDao(filtro);
+         lstEvt =eventos.getAll();
+    }
     public String getFiltro() {
         return filtro;
     }
@@ -158,7 +163,7 @@ public class EventController implements Serializable {
     public void edit(String nombre, String desc, int id, String tags) {
         //Escondiendo el boton
         Dao dao = new EventDao();
-        ((EventDao) dao).update(new Evento(nombre, desc, id, tags), new String[]{});
+        ((EventDao) dao).update(new Evento(nombre, desc, id, tags));
         System.out.println("" + nombre + " entrando a edicion");
 
     }
@@ -168,7 +173,7 @@ public class EventController implements Serializable {
         //Escondiendo el boton
         Dao dao = new EventDao();
         System.out.println("" + tags + " Tags");
-        ((EventDao) dao).update(new Evento(ev.getNombre(), ev.getDesc(), ev.getId(), ev.getLosTags()), new String[]{});
+        ((EventDao) dao).update(new Evento(ev.getNombre(), ev.getDesc(), ev.getId(), ev.getLosTags()));
         System.out.println("" + ev.getNombre() + " entrando a edicion");
         System.out.println("" + ev.getDesc());
     }

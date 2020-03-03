@@ -30,7 +30,7 @@ public class EventDao implements Dao<Evento> {
     public EventDao() {
     }
 
-    ;
+    
     
     public EventDao(String filtro) {
         /*
@@ -115,8 +115,8 @@ public class EventDao implements Dao<Evento> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void update(Evento t, String[] params) {
+ 
+    public void update(Evento t) {
         String formmatedTags = t.getLosTags().replaceAll("\\s+", "");
         System.out.println("Tags formateados : " + formmatedTags);
         System.out.println("" + t.getNombre() + " Entrada al dao");

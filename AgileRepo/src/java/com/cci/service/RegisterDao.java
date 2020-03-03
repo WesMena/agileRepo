@@ -49,7 +49,7 @@ public class RegisterDao implements Dao<Register>{
     }
 
     @Override
-    public void update(Register t, String[] params) {
+    public void update(Register t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

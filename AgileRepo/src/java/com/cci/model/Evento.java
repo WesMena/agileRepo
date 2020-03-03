@@ -180,7 +180,7 @@ public class Evento implements Serializable {
         //Escondiendo el boton
         Dao dao = new EventDao();
         System.out.println("" + losTags + " Tags");
-        ((EventDao) dao).update(new Evento(this.nombre, this.desc, this.id, this.losTags), new String[]{});
+        ((EventDao) dao).update(new Evento(this.nombre, this.desc, this.id, this.losTags));
         System.out.println("" + this.nombre + " entrando a edicion");
         System.out.println("" + this.nombre);
     }
@@ -190,7 +190,7 @@ public class Evento implements Serializable {
         //Escondiendo el boton
         Dao dao = new EventDao();
         System.out.println("" + losTags + " Tags");
-        ((EventDao) dao).update(new Evento(nombre, desc, id, tags), new String[]{});
+        ((EventDao) dao).update(new Evento(nombre, desc, id, tags));
         System.out.println("" + this.nombre + " entrando a edicion");
         System.out.println("" + this.nombre);
     }
