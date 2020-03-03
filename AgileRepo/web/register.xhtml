@@ -95,7 +95,7 @@ and open the template in the editor.
 
 
 
-                            <button 
+                            <button  
                                 id="submitButton" style="display: block;width: 100%;line-height: 2em"
                                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
                                 value="Registrar"
@@ -104,6 +104,12 @@ and open the template in the editor.
 
                         </div>
 
+                    </h:form>
+                    <h:form id="frmaHidden" >
+                        <h:inputText id="txtHidden" style="" value="#{RegisterController.uid}">
+                        </h:inputText>
+                        <button id="lkRegister" type="submit" style="" onclick="#{RegisterController.onClick()}"  >
+                        </button>
                     </h:form>
                 </div>
             </div>    
@@ -151,46 +157,46 @@ and open the template in the editor.
         <h:outputScript name="js/fireRegister.js" library="omega-layout"></h:outputScript>
     </h:body>
     <script type="text/javascript">
-        //<![CDATA[
-        /**
-         * Faces Validator
-         */
-        PrimeFaces.validator['custom.emailValidator'] = {
+                        //<![CDATA[
+                        /**
+                         * Faces Validator
+                         */
+                        PrimeFaces.validator['custom.emailValidator'] = {
 
-            pattern: /\S+@\S+/,
+                            pattern: /\S+@\S+/,
 
-            validate: function (element, value) {
-                //use element.data() to access validation metadata, in this case there is none.
-                if (!this.pattern.test(value)) {
-                    throw {
-                        summary: 'Validation Error',
-                        detail: value + ' is not a valid email.'
-                    }
-                }
-            }
-        };
+                            validate: function (element, value) {
+                                //use element.data() to access validation metadata, in this case there is none.
+                                if (!this.pattern.test(value)) {
+                                    throw {
+                                        summary: 'Validation Error',
+                                        detail: value + ' is not a valid email.'
+                                    }
+                                }
+                            }
+                        };
 
-        /**
-         * Bean validator
-         */
-        PrimeFaces.validator['Email'] = {
+                        /**
+                         * Bean validator
+                         */
+                        PrimeFaces.validator['Email'] = {
 
-            pattern: /\S+@\S+/,
+                            pattern: /\S+@\S+/,
 
-            MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
+                            MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
 
-            validate: function (element, value) {
-                var vc = PrimeFaces.util.ValidationContext;
+                            validate: function (element, value) {
+                                var vc = PrimeFaces.util.ValidationContext;
 
-                if (!this.pattern.test(value)) {
-                    var msgStr = element.data('p-email-msg'),
-                            msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
+                                if (!this.pattern.test(value)) {
+                                    var msgStr = element.data('p-email-msg'),
+                                            msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
 
-                    throw msg;
-                }
-            }
-        };
-        //]]>
+                                    throw msg;
+                                }
+                            }
+                        };
+                        //]]>
     </script>
 
 </html>

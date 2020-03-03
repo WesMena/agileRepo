@@ -5,42 +5,69 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
     xmlns:po="http://primefaces.org/omega">
-  <h:form id="menuform">
-    <div class="sidebar">
-        <div class="nano">
-            <div class="nano-content sidebar-scroll-content">
-                <div class="logo">
-                    <p:graphicImage name="images/logoCCI.png" library="omega-layout" width="50" />
-                    <p:graphicImage name="images/AgilRepo.png" library="omega-layout" width="150" />
-                </div>
+    <h:form id="menuform">
+        <div class="sidebar">
+            <div class="nano">
+                <div class="nano-content sidebar-scroll-content">
+                    <div class="logo">
+                        <p:graphicImage name="images/logoCCI.png" library="omega-layout" width="50" />
+                        <p:graphicImage name="images/AgilRepo.png" library="omega-layout" width="150" />
+                    </div>
 
-                <div class="profile">
-                    <p:graphicImage name="images/wes.png" library="omega-layout" />
-                    <a id="profile-button" href="#">
-                        <span class="username">Wes Mena</span>
-                        <i class="fa fa-fw fa-cog"></i>
-                    </a>
-                    <ul>
-                        <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Perfil</span></a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notificaciones</span><span class="menu-badge">2</span></a></li>
-                        <li><a href="login.xhtml"><i class="fa fa-fw fa-sign-out"></i><span>Cerrar Sesión</span></a></li>
-                        <a href="misc.xhtml"></a>
-                    </ul>
-                </div>
+                    <div class="profile">
+                        <p:graphicImage id="profileP" name="images/logoCCI.png" library="omega-layout" width="50" />
+                        <a id="profile-button" href="#">
+                            <span class="username" id="txtUsername">Wes Mena</span>
+                            <i class="fa fa-fw fa-cog"></i>
+                        </a>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Perfil</span></a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notificaciones</span><span class="menu-badge">2</span></a></li>
+                            <li><a id="lkSignOut"><i class="fa fa-fw fa-sign-out"></i><span>Cerrar Sesión</span></a></li>
+                            <a href="misc.xhtml"></a>
+                        </ul>
+                    </div>
 
-                <div class="menu">
-                    <po:menu>
-                        <p:menuitem id="om_dashboard" value="Eventos" icon="fa fa-calendar" outcome="/dashboard"/>
-                        <p:menuitem id="om_Type" value="Tipos" icon="fa fa-tag" outcome="/dashboard"/>
-                        <p:menuitem id="om_users" value="Manejo de Usuarios" icon="fa fa-gear" outcome="/dashboard"/>
-                       
-                       
-                       
-                       
-                    </po:menu>
+                    <div class="menu">
+                        <po:menu>
+                            <p:menuitem id="om_dashboard" value="Eventos" icon="fa fa-calendar" outcome="/dashboard"/>
+                            <p:menuitem id="om_Type" value="Tipos" icon="fa fa-tag" outcome="/dashboard"/>
+                            <p:menuitem id="om_users" value="Manejo de Usuarios" icon="fa fa-gear" outcome="/dashboard"/>
+
+
+
+
+                        </po:menu>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-  </h:form>
+    </h:form>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+    <h:outputScript name="js/fireInit.js" library="omega-layout"></h:outputScript>
+    <h:outputScript name="js/fireProfile.js" library="omega-layout"></h:outputScript>
+    <script type="text/javascript">
+        window.onload = ini;
+        var lkLogOut;
+        var userloggued;
+        var auth;
+        function ini() {
+            lkLogOut = document.getElementById('lkSignOut');
+            lkLogOut.addEventListener('click', logOut, false);
+        }
+
+        function logOut(event) {
+            firebase.auth().signOut().then(function () {
+                window.location.assign('faces/login.xhtml');
+            }).catch(function (error) {
+                console.error(error);
+            });
+        }
+
+    </script>
 </ui:composition>
