@@ -3,7 +3,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                template="/WEB-INF/template.xhtml"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="title">Eventos</ui:define>
 
@@ -44,112 +46,102 @@
         </style>
     </ui:define>
 
-    <ui:define name="content">
-
-        <div class="ui-g ui-fluid dashboard">
-            <div class="ui-g-12">
-
+    <ui:define name="content" id="content" >
+        <div class="ui-g ui-fluid dashboard" >
+            <div class="ui-g-12" >
+                <!-->
+                Esto vendría a ser como un For. Lo que está haciendo es tomar
+                la lista de eventos(que se obtiene de base de datos 
+                usando eventDao) de eventcontroller, recorrerla y armar 
+                tarjetas con cada uno de los objetos de tipo Evento que 
+                contiene.
                 
-                <h:form id="eventos">
+                </!-->
+                <h:panelGroup  id="padre">
+                    <c:forEach  id="repeat"  items="#{eventcontroller.lstEvt}" var="eventos" varStatus="true" >
+                        <h:form id="evt">
+                            <div class="card clearfix summary" >
+                                <span>#{usuarioController.uid}</span>
 
-                    <!-->
-                    Esto vendría a ser como un For. Lo que está haciendo es tomar
-                    la lista de eventos(que se obtiene de base de datos 
-                    usando eventDao) de eventcontroller, recorrerla y armar 
-                    tarjetas con cada uno de los objetos de tipo Evento que 
-                    contiene.
-                    
-                    </!-->
-                    <ui:repeat  value="#{eventcontroller.listaEventos()}" var="evento">
-                     
-                       
-                         
-                        <div class="card clearfix summary">
 
-                            <h:commandButton styleClass="boton" action="#{detallecontroller.redireccionar(evento.id,evento.nombre)}">
-                       
-                        </h:commandButton>
-                                
-                  
-                            
-                            <!-->
-                            Aquí está el título del evento y su duración
-                            </!-->
-                            <span class="count visitors">#{evento.duracion}</span>
-                            <div style="width:90%">
-                            <span class="title">#{evento.nombre}</span>        
+                                <h:commandButton styleClass="boton" rendered="#{!eventos.onEdit}" action="#{detallecontroller.redireccionar(eventos.id,eventos.nombre)}">
+
+                                </h:commandButton>
+
+                                <!-->
+                                Aquí está el título del evento y su duración
+                                </!-->
+                                <span  class="count visitors">#{eventos.duracion}</span>
+                                <div style="width:90%" contenteditable="#{eventos.onEdit}">    
+                                    <h:inputText style="border: none" class="title" value="#{eventos.nombre}"></h:inputText>
+                                </div>
+
+
+
+
+                                <!-->
+                            Este es el botón "..."
+                             </!-->
+
+                                <div >
+
+                                    <span class="options">
+
+                                        <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
+                                        <p:menu overlay="true" trigger="smallmenu" my="left top" at="left bottom">
+                                            <p:menuitem value="Editar" icon="ui-icon-pencil"  actionListener="#{eventos.setOnEdit(true)}"  update=":padre" >
+                                                <f:actionListener binding="#{eventos.setOnRowEdit(2)}"/>
+                                                <f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLACKCOLORCODE)}"/>
+                                            </p:menuitem>
+                                            <p:menuitem value="Cronograma" icon="ui-icon-clipboard fa fa-clipboard"/>
+                                            <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"/>
+                                        </p:menu>
+
+                                    </span>
+
+                                </div>
+
+                                <!-->
+                              Aquí está la descripción, simplemente accede al 
+                                String "desc" del objeto Evento actual de la lista
+                              </!-->    
+
+                                <div contenteditable="#{eventos.onEdit}">
+                                    <!--<span class="detail">#{eventos.desc}</span>-->
+                                    <h:inputTextarea rows="#{eventos.onRowEdit}" cols="1" readonly="#{!eventos.onEdit}" style="overflow:hidden;display: block;width: 60%;border: none;resize: none" class="detail" value="#{eventos.desc}"> </h:inputTextarea>
+                                </div>
+
+
+                                <!-->
+                               Aquí están los tags, los cuales vienen en un solo 
+                                String, separados por espacios y demarcados con 
+                                "#" 
+                               </!-->   
+
+                                <div class="tags" style="display: block;width: 80%;border: none" contenteditable="#{eventos.onEdit}">
+                                    <h:inputText id="tags" value="#{eventos.losTags}" readonly="#{!eventos.onEdit}"   style="display: block;border: none;color: #{eventcontroller.colorCode}">
+
+                                    </h:inputText>
+                                </div>
+                                <h:commandButton
+                                    rendered="#{eventos.onEdit}"
+                                    action="#{eventcontroller.edit(eventos)}"
+                                    type="submit"
+                                    value="Hecho"
+                                    style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:100px;"
+                                    class=" btnCopy btnCopy--omega" >
+                                    <f:actionListener binding="#{eventos.setOnRowEdit(1)}"></f:actionListener>
+                                    <f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLUECOLORCODE)}"></f:actionListener>
+                                    <f:actionListener binding="#{eventos.setOnEdit(false)}"></f:actionListener>
+                                </h:commandButton>
+                                <p:tooltip id="toolTipTrack" for="tags" value="Los Tags son válidos unicamente cuando estos están precedidos por un # y el nombre del Tag" trackMouse="true" />
                             </div>
-                            
-                          
-                            
-                            
-                               <!-->
-                           Este es el botón "..."
-                            </!-->
-                            
-                            <div >
-                           
-                                 <span class="options">
-                                
-                                 <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
-                                    <p:menu overlay="true" trigger="smallmenu" my="left top" at="left bottom">
-                                        <p:menuitem value="Editar" icon="ui-icon-pencil"/>
-                                        <p:menuitem value="Cronograma" icon="ui-icon-clipboard fa fa-clipboard"/>
-                                        <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"/>
-                                    </p:menu>
-                                
-                            </span>
-                                
-                            </div>
-                           
-                              <!-->
-                            Aquí está la descripción, simplemente accede al 
-                              String "desc" del objeto Evento actual de la lista
-                            </!-->    
-                               
-                            <div>
-                                <span class="detail">#{evento.desc}</span>        
-                            </div>
-                            
-                            
-                             <!-->
-                            Aquí están los tags, los cuales vienen en un solo 
-                             String, separados por espacios y demarcados con 
-                             "#" 
-                            </!-->   
-                            
-                            <div>
-                                <span class="tags">
-                                  #{evento.losTags} 
-                                </span>
-                             
-                            </div>
-                  
-
-
-
-
-                        </div>
-
-
-
-
-                    </ui:repeat>
-
-
-                </h:form>
-
+                        </h:form>
+                    </c:forEach>
+                </h:panelGroup>
 
             </div>
-
-
-
-
-
-
-
         </div>
-
     </ui:define>
 
 </ui:composition>
