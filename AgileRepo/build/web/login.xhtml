@@ -6,6 +6,20 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"></link>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous"></link>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,37 +30,116 @@
     </h:head>
 
     <h:body styleClass="login-body">
-    
+
         <div id="login-wrapper">
             <p:graphicImage name="images/login-logo.png" library="omega-layout" />
-            
+
             <div id="login-container">
                 <span class="title">Omega</span>
-                
+
                 <div class="ui-g ui-fluid">
-                    <div class="ui-g-12">
-                        <p:inputText placeholder="Username" />
-                    </div>
-                    <div class="ui-g-12">
-                        <p:password placeholder="Password" feedback="false"/>
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
-                        <span class="remember-me">Remember Me</span>
-                        <p:selectBooleanCheckbox />
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
-                        <p:link>Forgot Password</p:link>
-                    </div>
-                    <div class="ui-g-12">
-                        <p:button outcome="dashboard" value="Login" icon="fa fa-check" />
-                    </div>
+                    <h:form onsubmit="return false"  prependId="false"  id="frmaLogin">
+                        <div class="ui-g-12">
+                            <p:inputText id="txtEmail" required="true" requiredMessage="Usuario obligatorio" placeholder="Username" >
+                                <f:validateRequired></f:validateRequired>
+                                <p:clientValidator></p:clientValidator>
+                            </p:inputText>
+                            <p:message for="txtEmail"></p:message>
+                        </div>
+                        <div class="ui-g-12">
+                            <p:password id="txtPassword" requiredMessage="Contraseña obligatoria"  placeholder="Password" required="true" feedback="false">
+                                <f:validateRequired></f:validateRequired>
+                                <p:clientValidator></p:clientValidator>
+                            </p:password>
+                            <p:message for="txtPassword"></p:message>
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <span class="remember-me">Remember Me</span>
+                            <p:selectBooleanCheckbox />
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:link style="color: #03A8E4" href="faces/resetPass.xhtml">Forgot Password</p:link>
+                        </div>
+                        <button 
+                            id="submitButton" style="display: block;width: 100%;margin-top: 10px"
+                            class="loginBtn loginBtn--omega" 
+                            type="submit">Login
+                        </button>
+                        <button id="btnLogGoogle" type="button"  onclick="googleLogIn()" style="width: 100%;display: inline-block" class="loginBtn loginBtn--google">
+                            Login with Google
+                        </button>     
+                    </h:form>
+                    <div style="text-align: center">
+                        <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/register.xhtml" >¿Necesitas cuenta?</p:link>
+                    </div>  
                 </div>
             </div>
-            
+
             <div class="login-footer">PrimeFaces Omega</div>
         </div>
-        
+        <h:outputStylesheet name="css/myLogin.css" library="omega-layout"></h:outputStylesheet>
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+        <script type="text/javascript">
+            //<![CDATA[
+            /**
+             * Faces Validator
+             */
+
+
+            PrimeFaces.validator['custom.emailValidator'] = {
+
+                pattern: /\S+@\S+/,
+
+                validate: function (element, value) {
+                    //use element.data() to access validation metadata, in this case there is none.
+                    if (!this.pattern.test(value)) {
+                        throw {
+                            summary: 'Validation Error',
+                            detail: value + '  No es un correo válido.'
+                        }
+                    }
+                }
+            };
+            PrimeFaces.validator['Email'] = {
+
+                pattern: /\S+@\S+/,
+
+                MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
+
+                validate: function (element, value) {
+                    var vc = PrimeFaces.util.ValidationContext;
+
+                    if (!this.pattern.test(value)) {
+                        var msgStr = element.data('p-email-msg'),
+                                msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
+
+                        throw msg;
+                    }
+                }
+            };
+            //]]>
+        </script>
+        <h:outputScript name="omega-layout/js/fireInit.js"></h:outputScript>
+        <h:outputScript name="omega-layout/js/myFireBaseLogin.js"></h:outputScript>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 style="color: red" class="modal-title">Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>La información proporcionada es incorrecta.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </h:body>
 
 </html>
