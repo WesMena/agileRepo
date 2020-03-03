@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.cci.model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -16,30 +17,34 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.event.ActionEvent;
+
 /**
  *
  * @author wesli
- */
-@ManagedBean(name="detalle")
-@SessionScoped
+
 /**
  *
  * @author wesli
  */
 public class DetalleEvento {
- private   String titulo;
- private   String descripcion;
- private   int    duracion;
- private   int    borrado;
- private   int    indice;
- private   int    evento;
- private   int    id;
 
+    private String titulo;
+    private String descripcion;
+    private int duracion;
+    private int borrado;
+    private int indice;
+    private int evento;
+    private int id;
+    private String objetivo;
+    private String categoria;
+    private String colorCategoria;
+    private String pasos;
+    private String materiales;
 
     public DetalleEvento() {
     }
 
-    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id) {
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String obj,String cat,String catcolor,String pas,String mat) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -47,6 +52,11 @@ public class DetalleEvento {
         this.indice = indice;
         this.evento = evento;
         this.id = id;
+        this.objetivo = obj;
+        this.categoria = cat;
+        this.colorCategoria = catcolor;
+        this.pasos = pas;
+        this.materiales = mat;
     }
 
     public String getTitulo() {
@@ -104,5 +114,45 @@ public class DetalleEvento {
     public void setId(int id) {
         this.id = id;
     }
-    
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getColorCategoria() {
+        return colorCategoria;
+    }
+
+    public void setColorCategoria(String colorCategoria) {
+        this.colorCategoria = colorCategoria;
+    }
+
+    public String getPasos() {
+        return pasos;
+    }
+
+    public void setPasos(String pasos) {
+        this.pasos = pasos;
+    }
+
+    public String getMateriales() {
+        return materiales;
+    }
+
+    public void setMateriales(String materiales) {
+        this.materiales = materiales;
+    }
+
 }
