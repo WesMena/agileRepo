@@ -10,6 +10,7 @@ var googleProvider;
 var frmaLogin;
 
 function ini() {
+    var doClick = document.getElementById('lkRegister');
     //Asociando evento submit al form
     frmaLogin = document.getElementById('frmaLogin');
 
@@ -19,8 +20,11 @@ function ini() {
         if (user) {
             console.log(user);
             //Pasar al landing
-            debugger;
-            window.location.assign('faces/landing.xhtml');
+            //Seteando input escondido para enviar UID al bean
+            document.getElementById('txtHidden').value = user.uid;
+            //Haciendo submit a un form escondido para pasar UID al bean
+            doClick.click();
+            window.location.assign('faces/dashboard.xhtml');
         } else {
             //Nada
         }
@@ -32,6 +36,9 @@ function signInWithEmailAndPassword(event) {
     //Valores de los campos asociados al form
     var usuario = event.target.txtEmail.value;
     var contra = event.target.txtPassword.value;
+    //Boton escondido para pasar el UID a un bean
+
+
     if (usuario === '' || contra === '') {
         //Dialogo de bootstrap disparado con JQuery
         $("#myModal").modal();
@@ -40,7 +47,8 @@ function signInWithEmailAndPassword(event) {
         firebase.auth().signInWithEmailAndPassword(usuario, contra)
                 .then(function (result) {
                     //En caso de logueo correcto llevar al landing
-                    window.location.assign('faces/landing.xhtml');
+
+                    window.location.assign('faces/dashboard.xhtml');
                 })
                 .catch(function (error) {
                     //Dialogo de bootstrap disparado con JQuery
@@ -53,7 +61,7 @@ function googleLogIn(event) {
     //Llamado al SDK de firebase
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {
         //Todo bien
-        window.location.assign('faces/landing.xhtml');
+        window.location.assign('faces/dashboard.xhtml');
     }).catch(function (error) {
         console.log(error);
     });

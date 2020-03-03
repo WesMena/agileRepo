@@ -18,6 +18,7 @@ function fireReg(event) {
     let email = event.target.txtEmail.value;
     let pass1 = event.target.pass1.value;
     let pass2 = event.target.pass2.value;
+    var doClick = document.getElementById('lkRegister');
     if (email === '') {
         $('#myModal').modal();
     } else {
@@ -26,9 +27,12 @@ function fireReg(event) {
         } else {
             firebase.auth().createUserWithEmailAndPassword(email, pass1).then(function (result) {
                 //Limpiar valores
-                 event.target.txtEmail.value ='';
-                 event.target.pass1.value='';
-                 event.target.pass2.value='';
+                //Obtener UID
+                document.getElementById('frmaHidden:txtHidden').value = result.user.uid;
+                event.target.txtEmail.value = '';
+                event.target.pass1.value = '';
+                event.target.pass2.value = '';
+                doClick.click();
                 $('#myModalOk').modal();
                 console.log(result);
                 return true;
