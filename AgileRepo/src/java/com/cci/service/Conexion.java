@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class Conexion {
 String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DB_URL = "jdbc:mysql://localhost:3306/agilerepo?serverTimezone=UTC";
+    String DB_URL = "jdbc:mysql://localhost:3306/agilerepo?user=root";
     
      //Aquí van las credenciales, recordar cambiarlas según las de su pc.
     
     String USER = "root";
-    String PASS = "wvjjk611";
+    String PASS = "adminadmin";
     Connection conn = null;
     
 private static Conexion INSTANCE = null;

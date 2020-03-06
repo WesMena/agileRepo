@@ -3,7 +3,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templateEventos.xhtml">
+                template="/WEB-INF/templateEventos.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="title">#{detallecontroller.nombreEvento}</ui:define>
 
@@ -86,8 +87,9 @@
 
                     <p:column style="width:100%; height:100%;">
 
-                        <div class="card clearfix summary"  >
+                        <div class="#{detalle.esBloque()?'card2':'card'} clearfix summary">
                             <div style="width:90%">
+                            <div style="visibility: #{detalle.esBloque()?'hidden':'visible'}">                                
 
 
                                 <span class="options">
@@ -108,15 +110,17 @@
                                 </span>
 
                             </div>
+                            </div>
+                            
                             <span class="count visitors" style="background-color:##{detalle.colorCategoria}">#{detalle.duracion}</span>
                             <div style="width:90%">
-                                <span id="tit" class="title">#{detalle.titulo}</span>
+                                <span id="tit" class="#{detalle.esBloque()?'title2':'title'}">#{detalle.titulo}</span>
 
                             </div>
 
 
                             <div>
-                                <span class="detail">#{detalle.descripcion}</span>
+                                <span class="detail" style="display:#{detalle.esBloque()?'none':'block'}">#{detalle.descripcion}</span>
 
                             </div>
 
@@ -135,7 +139,7 @@
 
             </h:form>
             
-                    <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; margin-top: 50px; overflow: scroll;">
+                    <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; overflow: scroll;">
 
             <h:form id="sidebarinfo">
                 <h1>Título</h1>

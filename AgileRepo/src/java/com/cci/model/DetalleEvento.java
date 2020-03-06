@@ -40,6 +40,7 @@ public class DetalleEvento {
     private String colorCategoria;
     private String pasos;
     private String materiales;
+    private int bloequeo;
 
     public DetalleEvento() {
     }
@@ -57,6 +58,39 @@ public class DetalleEvento {
         this.colorCategoria = catcolor;
         this.pasos = pas;
         this.materiales = mat;
+    }
+
+    /**
+     * Este constructor se usa para construir bloqueos, ya que no necesitamos mas valores
+     * que el titulo y duracion saber si esta borrado y la llave foranea del evento
+     * @param titulo
+     * @param duracion
+     * @param borrado
+     * @param evento
+     * @param bloequeo 
+     */
+    public DetalleEvento(String titulo, int duracion, int borrado, int evento, int bloequeo) {
+        this.titulo = titulo;
+        this.duracion = duracion;
+        this.borrado = borrado;
+        this.evento = evento;
+        this.bloequeo = bloequeo;
+    }
+
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.borrado = borrado;
+        this.indice = indice;
+        this.evento = evento;
+        this.id = id;
+        this.objetivo = objetivo;
+        this.categoria = categoria;
+        this.colorCategoria = colorCategoria;
+        this.pasos = pasos;
+        this.materiales = materiales;
+        this.bloequeo = bloequeo;
     }
 
     public String getTitulo() {
@@ -153,6 +187,18 @@ public class DetalleEvento {
 
     public void setMateriales(String materiales) {
         this.materiales = materiales;
+    }
+
+    public int getBloequeo() {
+        return bloequeo;
+    }
+
+    public void setBloequeo(int bloequeo) {
+        this.bloequeo = bloequeo;
+    }
+    
+    public boolean esBloque(){
+        return bloequeo!=0;
     }
 
 }

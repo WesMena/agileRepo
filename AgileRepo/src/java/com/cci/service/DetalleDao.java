@@ -39,7 +39,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales FROM detalleevento WHERE evento=" + evento + " ORDER BY indiceEvento";
+            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales,bloqueo FROM detalleevento WHERE evento=" + evento + " ORDER BY indiceEvento";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -55,8 +55,9 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 String colorcat = rs.getString("ColorCategoria");
                 String pas = rs.getString("Pasos");
                 String mat = rs.getString("Materiales");
+                int bloqueo = rs.getInt("bloqueo");
 
-                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat));
+                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo));
             }
 
         } catch (Exception e) {
@@ -83,7 +84,26 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         }
 
     }
+    
+    /*
+    public void insertarDetalle(int evento, int bloqueo){
+        ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
 
+            sql = "UPDATE detalleevento SET titulo='"+titulo+"', descripcion='"+desc+"', Objetivo='"+obj+"', Categoria='"+cat+"', ColorCategoria='"+colorcat+"', Pasos='"+pas+"', Materiales='"+mat+"' WHERE (idDetalleEvento="+idDetalle+")";
+            stmt.executeUpdate(sql);
+            System.out.println("listo sql");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    } */   
     public Optional<DetalleEvento> get(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
