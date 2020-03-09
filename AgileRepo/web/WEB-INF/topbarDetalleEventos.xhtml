@@ -21,11 +21,15 @@
 
                 
                  
-            <a href="#">
-                <span class="topbar-item-text">Nuevo</span>
-                  <span class="topbar-icon fa fa-plus"></span>
-                
-            </a>  
+
+                <span class="topbar-item-text">Nuevo: </span>                
+                <span ttitleclass="topbar-icon fa fa-plus">                   
+                    <p:commandButton  value="Slot" action="#{detallecontroller.insertSlot()}"></p:commandButton>                    
+                </span>
+                <span titleclass="topbar-icon fa fa-plus">
+                    <p:commandButton value="Bloque" action="#{detallecontroller.insertBloque()}"></p:commandButton>
+                </span>
+
                 
             </h:form>
            
