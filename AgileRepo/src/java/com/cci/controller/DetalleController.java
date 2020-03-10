@@ -38,8 +38,9 @@ public class DetalleController implements Serializable {
 
     private List<DetalleEvento> detalles=new ArrayList<>();
 
- 
     private int id;
+    
+    
     private String titulo;
     private String descripcion;
     private String objetivo;
@@ -92,12 +93,13 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
 
     public void onLoad() {
         List<DetalleEvento> evts = listaDetalles();
-        this.detalles.clear();
+        this.detalles = evts;
+        /*
         for (DetalleEvento evt : evts) {
             this.detalles.add(evt);
             System.out.println("" + evt.toString());
         }
-
+        */
     }
 
     public DetalleController(int idEvento) {
@@ -124,6 +126,31 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
                             request.getContextPath()
                             + String.format("/faces/%s", "DetalleEvento.xhtml"));
             //Cambiar
+
+        } catch (Exception e) {
+
+        }
+
+    }
+    
+    ///Refresca la pagina de los Slots del Evento 
+      public void redireccionar() {
+
+
+        this.onLoad();
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "DetalleEvento.xhtml"));
+            
 
         } catch (Exception e) {
 
@@ -227,7 +254,8 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
         return params.get("matSlot");
 
     }
-
+    
+    ///Les asigna a cada una de las variables los valores tomados del Slot
     public String outcome() {
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -286,12 +314,12 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
     }
 
     public String getColorCategoria() {
-        System.out.println("GET "+this.colorCategoria);
+        
         return colorCategoria;
     }
 
     public void setColorCategoria(String colorCategoria) {
-        System.out.println("SET "+this.colorCategoria);
+        
         this.colorCategoria = colorCategoria;
     }
 
@@ -311,12 +339,13 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
         this.materiales = materiales;
     }
     
+    /// Se actualizan los valores en la base de datos del Slot y se refresca la pantalla con redireccionar()
     public void updateSlot(){
     
         DetalleDao upt = new DetalleDao();
         upt.updateDetalle(this.id,this.titulo,this.descripcion,this.objetivo,this.categoria,this.colorCategoria,this.pasos,this.materiales);
         
-    
+        redireccionar();
     }
     
 

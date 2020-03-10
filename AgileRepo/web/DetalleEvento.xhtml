@@ -75,10 +75,10 @@
 
                 <p:orderList id="ord" value="#{detallecontroller.detalles}" var="detalle"
                              itemLabel="#{detalle}" controlsLocation="none" converter="#{detalleconverter}" itemValue="#{detalle}"  responsive="true" 
-                            style="height:100%; width:100%; min-height:100%;">
-                    
+                             style="height:100%; width:100%; min-height:100%;">
+
                     <p:ajax event="reorder" listener="#{detallecontroller.onReorder()}"/>
-                  
+
                     <!-->
                     Esto es lo que controla las tarjetas. 
                     Para los estilos, revisar layout.css y myLogin.css 
@@ -93,7 +93,7 @@
                                 <span class="options">
 
 
-                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-cog" update="sidebarinfo" >
+                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-cog" update="Slot" >
                                         <f:param name="tituloSlot" value="#{detalle.titulo}" />
                                         <f:param name="idSlot" value="#{detalle.id}" />
                                         <f:param name="descSlot" value="#{detalle.descripcion}" />
@@ -134,52 +134,71 @@
 
 
             </h:form>
-            
-                    <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; margin-top: 50px; overflow: scroll;">
+            <!--Esto controla el sidebar que aparece de la derecha donde se puede editar la informacion
+            de los slots-->
+            <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; overflow: scroll;">
 
-            <h:form id="sidebarinfo">
-                <h1>Título</h1>
-                <p:inputTextarea id="prueba" rows="1" placeholder="TITULO DEL SLOT" readonly="false" value="#{detallecontroller.titulo}" style="width:90%; font-size: 20px;"/>
+                <h:form id="Slot">
+                    <h1>Título</h1>
+                    <p:inputTextarea id="titulo" rows="1" placeholder="TITULO DEL SLOT" readonly="false" value="#{detallecontroller.titulo}" style="width:90%; font-size: 20px;">
+                        <f:validateLength maximum="50" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputTextarea>
+                    <p:message for="titulo" display="text" />
+                    <p:separator />
 
-                <p:separator />
+                    <h1>Descripción</h1>
+                    <p:inputTextarea id="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:90%; font-size: 14px;">
+                        <f:validateLength maximum="280" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputTextarea>
+                    <p:message for="descripcion" display="text" />  
+                    <h1>Objetivo</h1>
+                    <p:inputTextarea id="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:90%; font-size: 14px;">
+                        <f:validateLength maximum="280" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputTextarea>
+                    <p:message for="objetivo" display="text" />  
+                    <p:separator />
 
-                <h1>Descripción</h1>
-                <p:inputTextarea rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:90%; font-size: 14px;"/>
-                <h1>Objetivo</h1>
-                <p:inputTextarea rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:90%; font-size: 14px;"/>
-                <p:separator />
+                    <h1>Categoría</h1>
 
-                <h1>Categoría</h1>
+                    <h:panelGrid columns="2" cellpadding="5" style="margin-left: 20px">
+                        <p:inputTextarea id="categoria" rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;">
+                            <f:validateLength maximum="50" />
+                            <p:clientValidator event="keyup"/>
+                        </p:inputTextarea>
+                        <p:message for="categoria" display="text" />  
+                        <p:colorPicker value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
+                    </h:panelGrid>
+                    <p:separator />
 
-                <h:panelGrid columns="2" cellpadding="5" style="margin-left: 20px">
-                    <p:inputTextarea rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;"/>
-                    <p:colorPicker value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
-                </h:panelGrid>
-                <p:separator />
+                    <h1>Pasos</h1>
+                    <p:inputTextarea id="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:90%; font-size: 14px;">
+                        <f:validateLength maximum="2000" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputTextarea>
+                    <p:message for="pasos" display="text" />  
+                    <h1>Materiales</h1>
+                    <p:inputTextarea id="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:90%; font-size: 14px;">
+                            <f:validateLength maximum="2000" />
+                        <p:clientValidator event="keyup"/>
+                    </p:inputTextarea>
+                    <p:message for="materiales" display="text" />  
+                    <p:separator />
 
-                <h1>Pasos</h1>
-                <p:inputTextarea rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:90%; font-size: 14px;"/>
-                <h1>Materiales</h1>
-                <p:inputTextarea rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:90%; font-size: 14px;"/>
-                <p:separator />
+                    <h:panelGrid  columns="2" cellpadding="5" style="margin-left: 20px">
+                        <p:commandButton id="btnSlot"  value="Guardar" actionListener="#{detallecontroller.updateSlot()}" update="eventos" validateClient="true" />
+                        <p:commandButton value="Cerrar" oncomplete="PF('side_info').hide()"/>
+                    </h:panelGrid>
 
-                <p:commandButton id="btnSlot" ajax="true" value="Guardar" oncomplete="#{detallecontroller.updateSlot()}" action="#{detallecontroller.updateSlot()}" update="eventos">
-                    <f:actionListener binding="#{detallecontroller.onLoad()}"/>
-                    
-                </p:commandButton>
-                <p:tooltip id="toolTipTrack" for="btnSlot" value="Doble Click Requerido" trackMouse="true" />  
-                
 
-            </h:form>
+                </h:form>
 
-        </p:sidebar> 
+            </p:sidebar> 
 
 
         </div>
-        <!--Esto controla el sidebar que aparece de la derecha donde se puede editar la informacion
-            de los slots-->
-    
-
 
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 
