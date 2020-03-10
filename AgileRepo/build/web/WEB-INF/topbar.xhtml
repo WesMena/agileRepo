@@ -9,49 +9,51 @@
         <a id="omega-menu-button" href="#">
             <span class="fa fa-bars"></span>
         </a>
-        
+
         <span class="topbar-title"><ui:insert name="title"></ui:insert></span>
-        
+
         <a id="options-menu-button" href="#">
             <span class="fa fa-ellipsis-h"></span>
         </a>
-        
+
         <div id="topbar-icons" class="animated">
             <h:form>
-           <span class="topbar-search">
-                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}"  />
-                
-           
-                     <!-->
-                     Este es el botón de búsqueda.Manda a actualizar el form 
-                     "eventos" que está en dashboard.xhtml y a ejecutar la 
-                     asignación del valor del inputText a la variable filtro 
-                     de la clase EventController(com.cci.controller)
-                 
-                     </!-->
+                <span class="topbar-search">
+                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}"  />
 
- 
-                     <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
+
+                    <!-->
+                    Este es el botón de búsqueda.Manda a actualizar el form 
+                    "eventos" que está en dashboard.xhtml y a ejecutar la 
+                    asignación del valor del inputText a la variable filtro 
+                    de la clase EventController(com.cci.controller)
+                
+                    </!-->
+
+
+                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
                         <f:ajax execute="filtro" render="padre"/>  
-                          <f:ajax execute="filtro" render="padre"/>  
+                        <f:ajax execute="filtro" render="padre"/>  
 
                     </p:commandButton>
-         
-              
-            </span> 
-                
-                 
-            <a href="#">
-                <span class="topbar-item-text">Nuevo</span>
-                  <span class="topbar-icon fa fa-plus"></span>
-                
-            </a>  
-                
+
+
+                </span> 
+
+
+                <a href="#">
+                    <span class="topbar-item-text">Nuevo</span>
+                    <span class="topbar-icon fa fa-plus" onclick="PF('dlg2Nuevo').show();" ></span>
+                    <p:dialog  header="Modal Dialog" widgetVar="dlg2Nuevo" closable="true" modal="true" height="100" responsive="true">
+                        <h:outputText value="This is a Modal Dialog." />
+                    </p:dialog>   
+                </a>  
+
             </h:form>
-           
-       
+
+
         </div>
-        
+
     </div>
-    
+
 </ui:composition>

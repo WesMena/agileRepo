@@ -21,7 +21,7 @@ auth.onAuthStateChanged(function (user) {
 
 
 function getProfile(user) {
-    document.getElementById("menuform:profileP").src = user.photoURL;
+    document.getElementById("profileP").style.backgroundImage = ` url(${user.photoURL})`;
     // document.getElementById('profileP').style.backgroundImage = `url(${user.photoURL})`;
     console.log('Fui llamado');
     console.log(` url(${user.photoURL})`);
