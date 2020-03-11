@@ -18,7 +18,7 @@ import java.util.Optional;
  * @author wesli
  */
 public class DetalleDao implements Dao<DetalleEvento> {
-
+    
     public static List<DetalleEvento> detalles = new ArrayList<>();
     
     private int indiceEvento = 0;
@@ -138,14 +138,15 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
      * @return 
      */
     private String generarSentencia(int evento, int bloqueo){
-        String sentencia = "";
+        String titulo;
+        indiceEvento = detalles.size()+1;
         if(bloqueo==1){
-            String titulo = "Bloque";
-            int borrado = 0;
-            sentencia="INSERT INTO detalleevento ( indiceEvento, evento, titulo, bloqueo ) VALUES ('"+indiceEvento+"', '"+evento+"','Bloque', '1')";
+            titulo = "Bloque";
         }else{
-            sentencia="INSERT INTO detalleevento ( indiceEvento , evento, duracion, titulo, descripcion, Objetivo, Categoria, ColorCategoria, Pasos, Materiales, bloqueo) VALUES ('"+indiceEvento+"', '"+evento+"', '1', 'Slot"+indiceEvento+"', 'desc', '', '', '', '', '', '0')";
+            titulo = "Slot"+indiceEvento;
         }
+        String sentencia="INSERT INTO detalleevento ( indiceEvento, evento, titulo, bloqueo ) VALUES ('"+indiceEvento+"', '"+evento+"','"+titulo+"', '"+bloqueo+"')";
+
         return sentencia;
     }
     
