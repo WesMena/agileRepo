@@ -161,29 +161,7 @@ public class DetalleController implements Serializable {
 
     
     
-public void redireccionar() {
 
-
-        this.onLoad();
-        try {
-
-            HttpServletRequest request = (HttpServletRequest) FacesContext
-                    .getCurrentInstance().getExternalContext().getRequest();
-
-            FacesContext context = FacesContext.getCurrentInstance();
-            FacesContext
-                    .getCurrentInstance()
-                    .getExternalContext()
-                    .redirect(
-                            request.getContextPath()
-                            + String.format("/faces/%s", "DetalleEvento.xhtml"));
-
-
-        } catch (Exception e) {
-
-        }
-
-    }    
     
     public List<DetalleEvento> getDetalles() {
         return detalles;
