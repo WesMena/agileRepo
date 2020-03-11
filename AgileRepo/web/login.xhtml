@@ -78,9 +78,9 @@
             <div class="login-footer">PrimeFaces Omega</div>
         </div>
         <form id="frmaHidden" >
-            <h:inputText id="txtHidden" style="" value="#{ usuarioController.uid }">
+            <h:inputText id="txtHidden" style="display: none" value="#{ usuarioController.uid }">
             </h:inputText>
-            <button id="lkRegister" type="submit"  onclick="#{usuarioController.saveUid()}"  >
+            <button id="lkRegister" type="submit"  style="display: none" onclick="#{usuarioController.saveUid()}"  >
             </button>
         </form>
         <h:outputStylesheet name="css/myLogin.css" library="omega-layout"></h:outputStylesheet>
