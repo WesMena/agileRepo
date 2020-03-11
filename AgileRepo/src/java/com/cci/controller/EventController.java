@@ -78,7 +78,6 @@ public class EventController implements Serializable {
         this.lstEvt = listaEventos();
     }
 
-    ;
     
     
     public String getDuracion() {

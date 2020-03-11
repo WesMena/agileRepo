@@ -18,8 +18,10 @@ import java.util.Optional;
  * @author wesli
  */
 public class DetalleDao implements Dao<DetalleEvento> {
-
+    
     public static List<DetalleEvento> detalles = new ArrayList<>();
+    
+    private int indiceEvento = 0;
     
     public DetalleDao(){}
     
@@ -39,7 +41,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales FROM detalleevento WHERE evento=" + evento + " ORDER BY indiceEvento";
+            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales,bloqueo FROM detalleevento WHERE evento=" + evento + " ORDER BY indiceEvento";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -55,9 +57,12 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 String colorcat = rs.getString("ColorCategoria");
                 String pas = rs.getString("Pasos");
                 String mat = rs.getString("Materiales");
+                int bloqueo = rs.getInt("bloqueo");
 
-                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat));
+                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo));
             }
+            // Asigna el valor del tamano de la lista para el nuevo indice al final de la lista
+            indiceEvento = detalles.size() + 1;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +88,68 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         }
 
     }
+    
+    
+    /**
+     * Inserta un Bloque en el detalle del evento 
+     * LLama al evento insertDetalle con la bandera de bloqueo evaluando a True
+     * @param evento id del evento donde se inserta el Bloque
+     */
+    public void insertarBloque(int evento){
+        int bloqueo = 1; // Evalua a True
+        insertDetalle(evento, bloqueo);
+    }
+    
+    
+    /**
+     * Inserta un Slot en el detalle del evento 
+     * Llama al evento insertDetalle con la bandera de bloqueo evaluando a Falso
+     * @param evento id del evento donde se inserta el Slot
+     */
+    public void insertarSlot(int evento){
+        int bloqueo = 0; // Evalua a False
+        insertDetalle(evento, bloqueo);
+    }
+
+    /**
+     * Inserta un Detalle al evento especificado, evalua en runtime si es bloqueo o slot normal
+     * @param evento id del evento donde se insertara un slot/bloque al detalle
+     * @param bloqueo se usa como una bandera para llamar la sentencia de insert correcta
+     */
+    public void insertDetalle(int evento, int bloqueo) {
+        Statement stmt=null;
+        try{
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            sql = generarSentencia(evento, bloqueo); // De forma dinamica determina que tipo de Slot se esta insertando
+            stmt.executeUpdate(sql);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }        
+    }
+            
+    /**
+     * Este metodo retorna la sentencia adecuada para insertar condicionalmente un bloque o slot en la tabla
+     * @param evento el id del evento
+     * @param bloqueo 0 = false 1= true
+     * @return 
+     */
+    private String generarSentencia(int evento, int bloqueo){
+        String titulo;
+        indiceEvento = detalles.size()+1;
+        if(bloqueo==1){
+            titulo = "Bloque";
+        }else{
+            titulo = "Slot"+indiceEvento;
+        }
+        String sentencia="INSERT INTO detalleevento ( indiceEvento, evento, titulo, bloqueo ) VALUES ('"+indiceEvento+"', '"+evento+"','"+titulo+"', '"+bloqueo+"')";
+
+        return sentencia;
+    }
+    
 
     public Optional<DetalleEvento> get(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -102,11 +169,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
     public void update(DetalleEvento t) {
       //Se usa un array de 1 posición
         //Posición 0:Nombre Categoría
-        
-        
         Statement stmt=null;
-     
-      
         try{
             Conexion conexion = Conexion.getInstance();
             conexion.conectar();
@@ -117,7 +180,6 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                     
                     "' WHERE idDetalleEvento="+t.getId();
             
-    
             stmt.executeUpdate(sql);
             
         }catch(Exception e){

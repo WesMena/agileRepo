@@ -67,29 +67,21 @@ public class DetalleController implements Serializable {
         
     }
     
+    
+    /* Este es el método que envía los Eventos que se obtienen de DetalleDao 
+     * a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir 
+     * cuales detalles de qué evento se van a cargar
+    */    
     public List<DetalleEvento> listaDetalles() {
-
-        /*
-Este es el método que envía los Eventos que se obtienen de DetalleDao 
-a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir 
-     cuales detalles de qué evento se van a cargar
-
-*/   
-       
-     
-
-       
-
         DetalleDao detalle = new DetalleDao(idEvento);
         return detalle.getAll();
-
     }
 
     public DetalleController() {
-
         this.idEvento = 5;
-
     }
+    
+    
 
     public void onLoad() {
         List<DetalleEvento> evts = listaDetalles();
@@ -167,6 +159,10 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
     }
 
 
+    
+    
+
+    
     public List<DetalleEvento> getDetalles() {
         return detalles;
     }
@@ -341,10 +337,22 @@ a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir
     
     /// Se actualizan los valores en la base de datos del Slot y se refresca la pantalla con redireccionar()
     public void updateSlot(){
-    
         DetalleDao upt = new DetalleDao();
-        upt.updateDetalle(this.id,this.titulo,this.descripcion,this.objetivo,this.categoria,this.colorCategoria,this.pasos,this.materiales);
-        
+        upt.updateDetalle(this.id,this.titulo,this.descripcion,this.objetivo,this.categoria,this.colorCategoria,this.pasos,this.materiales);            
+        redireccionar();
+    }
+    
+    
+    
+    public void insertSlot(){
+        DetalleDao upt = new DetalleDao();
+        upt.insertarSlot(idEvento);
+        redireccionar();
+    }
+    
+    public void insertBloque(){
+        DetalleDao upt = new DetalleDao();
+        upt.insertarBloque(idEvento);        
         redireccionar();
     }
     
