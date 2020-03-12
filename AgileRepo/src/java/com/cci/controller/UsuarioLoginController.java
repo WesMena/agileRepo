@@ -5,6 +5,9 @@
  */
 package com.cci.controller;
 
+import com.cci.model.Usuario;
+import com.cci.service.Dao;
+import com.cci.service.UsuarioDao;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -42,7 +45,9 @@ public class UsuarioLoginController {
 
     @ManagedProperty("#{param.googleResponse}")
     private String googleResponse;
+    
 
+    
     private String uid;
     public static String UID = "";
 
@@ -64,11 +69,15 @@ public class UsuarioLoginController {
     
 
     public void setResponse() {
+        Dao dao  = new UsuarioDao();
+        
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String googleResponse = params.get("googleResponse");
         System.out.println("Respuesta :"+googleResponse);
         UID = googleResponse;
-         PrimeFaces.current().executeScript("alert("+"'"+googleResponse+"')");
+        //Registrar a quienes se logueen y no lo esten
+        if(!((UsuarioDao)dao).exists(UID))
+            ((UsuarioDao)dao).save(new Usuario(UID,0));
     }
 
 }
