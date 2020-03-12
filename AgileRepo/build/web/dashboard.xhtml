@@ -60,6 +60,7 @@
                 <h:panelGroup  id="padre">
                     <c:forEach  id="repeat"  items="#{eventcontroller.lstEvt}" var="eventos" varStatus="true" >
                         <h:form id="evt">
+
                             <div class="card clearfix summary" >
                                 <span>#{usuarioController.uid}</span>
 
@@ -89,18 +90,19 @@
 
                                         <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
                                         <p:menu overlay="true" trigger="smallmenu" my="left  op" at="left bottom">
-                                            <p:menuitem value="Editar" icon="ui-icon-pencil"  actionListener="#{eventos.setOnEdit(true)}"  update=":padre" >
+                                            <p:menuitem value="Editar" icon="ui-icon-pencil"  action="#{eventos.setOnEdit(true)}"  update=":padre" >
                                                 <f:actionListener binding="#{eventos.setOnRowEdit(2)}"/>
                                                 <f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLACKCOLORCODE)}"/>
                                             </p:menuitem>
                                             <p:menuitem value="Cronograma" icon="ui-icon-clipboard fa fa-clipboard"/>
-                                            <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"/>
+                                            <p:menuitem value="Borrar" icon="ui-icon-close fa fa-close"  actionListener="#{eventcontroller.deleteListener}">
+                                                <!--Etiqueta para enviar valor a un bean mediante su evento click-->
+                                                <f:attribute name="delItem" value="#{eventos}" />
+                                            </p:menuitem>
                                         </p:menu>
-
                                     </span>
 
                                 </div>
-
                                 <!-->
                               Aquí está la descripción, simplemente accede al 
                                 String "desc" del objeto Evento actual de la lista
@@ -142,6 +144,16 @@
 
             </div>
         </div>
+        <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" ></h:outputStylesheet>
+        
+         <!--Dialogo de confirmacion antes de la eliminacion-->
+        <h:form style="text-align: center">
+            <p:confirmDialog message="Desea eliminar el evento?" header="Eliminación de evento" severity="alert" widgetVar="cd">
+                <p:commandButton style="display: block;width: 100%" action="#{eventcontroller.delete()}" value="Sí,seguro"  oncomplete="PF('cd').hide()">
+                </p:commandButton>
+                <p:commandButton  style="display: block;width: 100%" value="No aún" onclick="PF('cd').hide();" type="button" />
+            </p:confirmDialog>
+        </h:form>
     </ui:define>
 
 </ui:composition>

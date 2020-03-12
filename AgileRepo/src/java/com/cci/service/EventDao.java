@@ -167,7 +167,25 @@ public class EventDao implements Dao<Evento> {
 
     @Override
     public void delete(Evento t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Conexion conne = Conexion.getInstance();
+      try{
+          System.out.println("Evento eliminado : "+t.getId());
+          
+          //Eliminar los tags del evento para respetar la llave
+          stm = conne.conn.createStatement();
+          stm.execute(String.format("Delete from tagseventos where evento = %o", t.getId()));
+          
+          //Eliminar los slots de los eventos para respetar la llave
+          stm = conne.conn.createStatement();
+          stm.execute(String.format("Delete from detalleevento where evento =%o", t.getId()));
+          
+          //Eliminar evento despues de que todas sus llaves hayan sido eliminados
+          stm = conne.conn.createStatement();
+          stm.execute(String.format("Delete from eventos where idEvento = %o", t.getId()));
+          System.out.println("Eliminacion correcta");
+      }catch(SQLException e){
+          Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE,null,e);
+      }
     }
 
 }
