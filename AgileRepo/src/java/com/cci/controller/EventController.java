@@ -132,6 +132,10 @@ public class EventController implements Serializable {
         this.onEdit = onEdit;
         System.out.println("" + this.onEdit);
     }
+    
+    public void onLoad(){
+        this.lstEvt = listaEventos();
+    }
 
     public List<Evento> listaEventos() {
         /*

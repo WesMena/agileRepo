@@ -5,20 +5,47 @@
  */
 package com.cci.controller;
 
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
  * @author Nvidi
  */
 @ManagedBean(name = "usuarioController")
-@SessionScoped
+@RequestScoped
 public class UsuarioLoginController {
 
+    public UsuarioLoginController() {
+    }
+
+    public String getGoogleResponse() {
+        return googleResponse;
+    }
+
+    public void setGoogleResponse(String googleResponse) {
+        this.googleResponse = googleResponse;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public  void setUID(String UID) {
+        UsuarioLoginController.UID = UID;
+    }
+
+    @ManagedProperty("#{param.googleResponse}")
+    private String googleResponse;
+
     private String uid;
-    public static  String UID="";
-    
+    public static String UID = "";
+
     public String getUid() {
         System.out.println("UID: " + this.uid);
         return uid;
@@ -30,9 +57,18 @@ public class UsuarioLoginController {
         System.out.println("UID :" + this.uid);
     }
 
-    public void saveUid(){
+    public void saveUid() {
         UID = this.uid;
-        System.out.println("Saved UID: "+UID);
+        System.out.println("Saved UID: " + UID);
     }
     
+
+    public void setResponse() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String googleResponse = params.get("googleResponse");
+        System.out.println("Respuesta :"+googleResponse);
+        UID = googleResponse;
+         PrimeFaces.current().executeScript("alert("+"'"+googleResponse+"')");
+    }
+
 }

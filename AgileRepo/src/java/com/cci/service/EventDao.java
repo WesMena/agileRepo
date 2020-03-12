@@ -5,6 +5,7 @@
  */
 package com.cci.service;
 
+import com.cci.controller.UsuarioLoginController;
 import com.cci.model.Evento;
 import com.cci.model.Tag;
 import java.sql.ResultSet;
@@ -51,7 +52,9 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" + filtro + "%' OR t.tag LIKE '" + filtro + "%') GROUP BY e.idEvento";
+            sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
+                    + "AND propietario = '"+UsuarioLoginController.UID  +"'"
+                    + " GROUP BY e.idEvento";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -76,7 +79,7 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idTag,tag,evento FROM tagseventos";
+            sql = "SELECT idTag,tag,evento FROM tagseventos where evento in(select idEvento from eventos where propietario = '"+UsuarioLoginController.UID +"')";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
