@@ -3,22 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/controller/DetalleController.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/dashboard.xhtml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/WEB-INF/template.xhtml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/service/DetalleDao.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/service/EventDao.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/controller/EventController.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/resources/omega-layout/css/myDashboard.css</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/resources/omega-layout/css/layout.css</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/DetalleEvento.xhtml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/service/Conexion.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/controller/UsuarioLoginController.java</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/resources/omega-layout/js/myFireBaseLogin.js</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/login.xhtml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/web/resources/omega-layout/css/myLogin.css</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo2/AgileRepo/src/java/com/cci/controller/detalleConverter.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo4/AgileRepo/src/java/com/cci/controller/EventController.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo4/AgileRepo/web/dashboard.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo4/AgileRepo/web/login.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo4/AgileRepo/src/java/com/cci/service/Conexion.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/agileRepo4/AgileRepo/src/java/com/cci/service/EventDao.java</file>
         </group>
     </open-files>
 </project-private>

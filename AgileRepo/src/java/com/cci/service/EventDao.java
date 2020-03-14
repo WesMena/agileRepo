@@ -31,8 +31,6 @@ public class EventDao implements Dao<Evento> {
     public EventDao() {
     }
 
-    
-    
     public EventDao(String filtro) {
         /*
         Este constructor trae los eventos de la base de datos y crea una lista de los objetos
@@ -53,8 +51,8 @@ public class EventDao implements Dao<Evento> {
             String sql;
 
             sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
-                    + "AND propietario = '"+UsuarioLoginController.UID  +"'"
-                    + " GROUP BY e.idEvento";
+                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
+                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -79,7 +77,7 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idTag,tag,evento FROM tagseventos where evento in(select idEvento from eventos where propietario = '"+UsuarioLoginController.UID +"')";
+            sql = "SELECT idTag,tag,evento FROM tagseventos where evento in(select idEvento from eventos where propietario = '" + UsuarioLoginController.UID + "')";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -118,7 +116,6 @@ public class EventDao implements Dao<Evento> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
- 
     public void update(Evento t) {
         String formmatedTags = t.getLosTags().replaceAll("\\s+", "");
         System.out.println("Tags formateados : " + formmatedTags);
@@ -136,7 +133,7 @@ public class EventDao implements Dao<Evento> {
             stm.execute(String.format("Update eventos\n"
                     + "set nombre ='%1$s',\n"
                     + "descripcion = '%2$s'\n"
-                    + "where idEvento  = %3$o;", t.getNombre(), t.getDesc(), t.getId()));
+                    + "where idEvento  = %3$d;", t.getNombre(), t.getDesc(), t.getId()));
         } catch (SQLException e) {
             System.err.println("" + e.getMessage());
         }
@@ -145,10 +142,10 @@ public class EventDao implements Dao<Evento> {
     public void deleteTags(int i) {
         Conexion connec = Conexion.getInstance();
         try {
-            System.out.println(""+i+" Borrando del ID");
+            System.out.println("" + i + " Borrando del ID");
             stm = connec.conn.createStatement();
             stm.execute(String.format("delete from tagseventos \n"
-                    + "where evento = %o", i));
+                    + "where evento = %d", i));
         } catch (SQLException ex) {
             Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -160,7 +157,7 @@ public class EventDao implements Dao<Evento> {
             try {
                 stm = conne.conn.createStatement();
                 stm.execute(String.format("Insert into tagseventos(tag,evento)\n"
-                        + "values ('%s',%o)", tag, idEvento));
+                        + "values ('%s',%d)", tag, idEvento));
             } catch (SQLException ex) {
                 Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -168,27 +165,51 @@ public class EventDao implements Dao<Evento> {
         }
     }
 
+   
+    public void nuevoEvento() {
+        ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            //Ingresa un Evento nuevo en la base de datos
+            sql = "INSERT INTO `agilerepo`.`eventos` (`nombre`, `descripcion`, `horas`, `dias`,`propietario`) VALUES ('Nuevo Evento', 'Agregar Descripcion', 1, 1,'" + UsuarioLoginController.UID + "');";
+            stmt.executeUpdate(sql);
+            //Ingresa un tag default en la base de datos y toma el id del Evento ingresado en el query anterior
+            sql = "INSERT INTO `agilerepo`.`tagseventos` (`tag`, `evento`) VALUES ('tag', (SELECT MAX(idEvento) FROM `agilerepo`.`eventos`));";
+            stmt.executeUpdate(sql);
+            System.out.println("listo sql");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void delete(Evento t) {
-      Conexion conne = Conexion.getInstance();
-      try{
-          System.out.println("Evento eliminado : "+t.getId());
-          
-          //Eliminar los tags del evento para respetar la llave
-          stm = conne.conn.createStatement();
-          stm.execute(String.format("Delete from tagseventos where evento = %o", t.getId()));
-          
-          //Eliminar los slots de los eventos para respetar la llave
-          stm = conne.conn.createStatement();
-          stm.execute(String.format("Delete from detalleevento where evento =%o", t.getId()));
-          
-          //Eliminar evento despues de que todas sus llaves hayan sido eliminados
-          stm = conne.conn.createStatement();
-          stm.execute(String.format("Delete from eventos where idEvento = %o", t.getId()));
-          System.out.println("Eliminacion correcta");
-      }catch(SQLException e){
-          Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE,null,e);
-      }
+        Conexion conne = Conexion.getInstance();
+        try {
+            System.out.println("Evento eliminado : " + t.getId());
+
+            //Eliminar los tags del evento para respetar la llave
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Delete from tagseventos where evento = %d", t.getId()));
+
+            //Eliminar los slots de los eventos para respetar la llave
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Delete from detalleevento where evento =%d", t.getId()));
+
+            //Eliminar evento despues de que todas sus llaves hayan sido eliminados
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Delete from eventos where idEvento = %d", t.getId()));
+            System.out.println("Eliminacion correcta");
+        } catch (SQLException e) {
+            Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 }

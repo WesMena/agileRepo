@@ -244,5 +244,9 @@ public class EventController implements Serializable {
         //Refresh de la pagina
         refrescar();
     }
-
+    public void agregarEvento() {
+        EventDao evtd = new EventDao();
+        evtd.nuevoEvento();
+        refrescar();
+    }
 }
