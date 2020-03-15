@@ -342,7 +342,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
             String sql;
 
 
-           sql = "SELECT horaInicio,duracion FROM detalleevento WHERE evento=" + evento + " AND borrado=0 AND indiceEvento="+detalles.size(); 
+           sql = "SELECT horaInicio,duracion FROM detalleevento WHERE evento=" + evento + " AND borrado=0 AND indiceEvento="+getMaxIndex(evento); 
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -416,11 +416,48 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
      * @param bloqueo 0 = false 1= true
      * @return 
      */
+    
+    private int getMaxIndex(int evento){
+        int maxIndex=0;
+        
+           ResultSet rs = null;
+        Statement stmt = null;
+        String horaNueva="";
+        int horas=0;
+        int minutos=0;
+            int duracion=0;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+
+           sql = "SELECT MAX(indiceEvento) FROM detalleevento WHERE evento=" + evento + " AND borrado=0";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                maxIndex=rs.getInt("MAX(indiceEvento)");
+                
+            }
+           
+         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        
+        
+        return maxIndex;
+    }
+    
+    
     private String generarSentencia(int evento, int bloqueo){
         
      
         String titulo;
-        indiceEvento = detalles.size()+1;
+        indiceEvento = getMaxIndex(evento)+1;
         if(bloqueo==1){
             titulo = "Bloque";
         }else{
