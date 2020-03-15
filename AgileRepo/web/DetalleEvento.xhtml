@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templateEventos.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
@@ -112,20 +112,54 @@
                             </div>
                             </div>
                             
-                            <span class="count visitors" style="background-color:##{detalle.colorCategoria}">#{detalle.duracion}</span>
+                            
+                             <!--->
+                             Este es el html del botón que muestra la duración de 
+                             un slot. Llama a un par de parámetros necesarios para 
+                             la edición de la duración de un slot
+                            </!-->
+                           
+                            <p:commandButton id="btnDuracion" class="btnDuracion" value="#{detalle.duracion}" style="background-color:##{detalle.colorCategoria}; font-size:18px; font-weight:bold; display:#{detalle.esBloque()?'none':'block'}" action="#{detallecontroller.outcomeDuracion()}" update="duracionForm" oncomplete="PF('editDuracion').show();" >
+                                <f:param name="idSlot" value="#{detalle.id}" /> 
+                                <f:param name="duracionSlot" value="#{detalle.duracion}" /> 
+                            </p:commandButton>
+                          
+                            
                             <div style="width:90%">
                                 <span id="tit" class="#{detalle.esBloque()?'title2':'title'}">#{detalle.titulo}</span>
 
                             </div>
+                            
+                            
+                             <!--->
+                             Aquí está el html que muestra la hora inicial y, 
+                             si aplica, también el botón de editar esta.
+                             El botón llama a un par de parámetros necesarios para 
+                             la edición de las horas de inicio de un slot
+                             </!-->
+                            
+                              <div class="hora" style="display:#{detalle.esBloque()?'none':'inline-block'}">
+                                
+                               <span  id="hora"  >#{detalle.horaInicioStr}</span>
+                               <p:commandButton id="setHora" icon="pi pi-clock" value="EDITAR" class="horabtn"  style="display:#{detalle.esPrimeroDia()?'block':'none'}" action="#{detallecontroller.outcomeHora()}" update="horaForm" oncomplete="PF('editHora').show();">
+                                   <f:param name="horaSlot" value="#{detalle.horaInicioStr}" />
+                                     <f:param name="idSlot" value="#{detalle.id}" /> 
+                               </p:commandButton>    
+                       
+                            </div>
+                           
 
-
-                            <div>
-                                <span class="detail" style="display:#{detalle.esBloque()?'none':'block'}">#{detalle.descripcion}</span>
+                            <div >
+                                <span class="detail" style="display:#{detalle.esBloque()?'none':'inline'}">#{detalle.descripcion}</span>
 
                             </div>
 
 
-
+                            
+                           
+                            
+                            
+                            
 
                         </div>
 
@@ -202,6 +236,46 @@
             </p:sidebar> 
 
 
+             <!--->
+           Modal que aparece al pulsar el botón editar que se encuentra en los 
+             slots catalogados como primerosDeDia
+           </!-->
+            
+            <p:dialog header="EDITAR HORA" widgetVar="editHora" minHeight="100" style="background:white;">
+                   <h:form id="horaForm">
+                       <h:panelGrid columns="2">
+                         <h:outputText value="Hora:" /> 
+                         <p:inputText id="txtHora" required="true" value="#{detallecontroller.horaEdit}" ></p:inputText>  
+
+             
+                         <p><p:commandButton id="guardarHora"  value="Guardar" action="#{detallecontroller.editarHora()}"
+                                   update="eventos" oncomplete="PF('editHora').hide();"/></p>          
+                       </h:panelGrid>  
+                       
+                   </h:form>
+                
+            </p:dialog>
+            
+            
+            
+           <!--->
+           Modal que aparece al pulsar el botón que muestra la duración del slot
+           </!-->
+            <p:dialog header="EDITAR DURACIÓN" widgetVar="editDuracion" minHeight="100" style="background:white;">
+                   <h:form id="duracionForm">
+                       <h:panelGrid columns="2">
+                         <h:outputText value="Duración:" /> 
+                         <p:inputText id="txtDuracion" required="true" value="#{detallecontroller.duracionEdit}" ></p:inputText>  
+
+             
+                         <p><p:commandButton id="guardarDuracion"  value="Guardar" action="#{detallecontroller.editarDuracion()}"
+                                   update="eventos" oncomplete="PF('editDuracion').hide();"/></p>          
+                       </h:panelGrid>  
+                       
+                   </h:form>
+                
+            </p:dialog>
+            
         </div>
 
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />

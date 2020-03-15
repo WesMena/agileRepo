@@ -8,6 +8,8 @@ package com.cci.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -27,7 +29,9 @@ import javax.faces.event.ActionEvent;
  * @author wesli
  */
 public class DetalleEvento {
-
+    
+    
+    
     private String titulo;
     private String descripcion;
     private int duracion;
@@ -41,7 +45,15 @@ public class DetalleEvento {
     private String pasos;
     private String materiales;
     private int bloequeo;
-
+   private int primeroDelDia;
+    private Date horaInicio; 
+    private String horaInicioStr;
+    
+    /*Se aconseja utilizar horaInicioStr por encima de horaInicio, ya que la 
+    primera ya esta adaptada al formato hh:mm en 24h. Además, es independiente 
+    de la zona horaria, así que no presenta el inconveniente de que la hora se 
+    cargue atrasada por 6 horas o similar. 
+    */
     public DetalleEvento() {
     }
 
@@ -201,4 +213,91 @@ public class DetalleEvento {
         return bloequeo!=0;
     }
 
+    
+   public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.borrado = borrado;
+        this.indice = indice;
+        this.evento = evento;
+        this.id = id;
+        this.objetivo = objetivo;
+        this.categoria = categoria;
+        this.colorCategoria = colorCategoria;
+        this.pasos = pasos;
+        this.materiales = materiales;
+        this.bloequeo = bloequeo;
+        this.primeroDelDia = primeroDelDia;
+        this.horaInicio = horaInicio;
+    }
+
+    
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio, String horaInicioStr) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.borrado = borrado;
+        this.indice = indice;
+        this.evento = evento;
+        this.id = id;
+        this.objetivo = objetivo;
+        this.categoria = categoria;
+        this.colorCategoria = colorCategoria;
+        this.pasos = pasos;
+        this.materiales = materiales;
+        this.bloequeo = bloequeo;
+        this.primeroDelDia = primeroDelDia;
+        this.horaInicio = horaInicio;
+        this.horaInicioStr = horaInicioStr;
+       
+    }
+    
+   public int getPrimeroDelDia() {
+        return primeroDelDia;
+    }
+
+    public void setPrimeroDelDia(int primeroDelDia) {
+        this.primeroDelDia = primeroDelDia;
+    }
+
+    public Date getHoraInicio() {
+     if(this.horaInicio==null){
+         horaInicio=GregorianCalendar.getInstance().getTime();
+     }
+        return horaInicio;
+        
+    }
+
+    public void setHoraInicio(Date horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+  
+   
+    
+    public boolean esPrimeroDia(){
+        return this.primeroDelDia!=0;
+    }
+
+    public String getHoraInicioStr() {
+        return horaInicioStr;
+    }
+
+    public void setHoraInicioStr(String horaInicioStr) {
+        this.horaInicioStr = horaInicioStr;
+    } 
+
+    public DetalleEvento(int id, String horaInicioStr) {
+        this.id = id;
+        this.horaInicioStr = horaInicioStr;
+    }
+
+    public DetalleEvento(int duracion, int id) {
+        this.duracion = duracion;
+        this.id = id;
+    }
+    
+    
+    
 }
