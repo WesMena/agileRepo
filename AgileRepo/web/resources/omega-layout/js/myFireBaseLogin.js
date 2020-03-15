@@ -9,8 +9,7 @@ let btnLogGoogle;
 var googleProvider;
 var frmaLogin;
 
-function ini() {
-    var doClick = document.getElementById('lkRegister');
+async function ini() {
     //Asociando evento submit al form
     frmaLogin = document.getElementById('frmaLogin');
 
@@ -21,15 +20,19 @@ function ini() {
             console.log(user);
             //Pasar al landing
             //Seteando input escondido para enviar UID al bean
-            document.getElementById('txtHidden').value = user.uid;
-            //Haciendo submit a un form escondido para pasar UID al bean
-            doClick.click();
+           var resp =  googleLogin([{name: 'googleResponse', value: user.uid}]);
+
             window.location.assign('faces/dashboard.xhtml');
         } else {
             //Nada
         }
     });
 
+
+}
+
+function stateChanged(response,callback){
+    
 }
 
 function signInWithEmailAndPassword(event) {
@@ -48,7 +51,7 @@ function signInWithEmailAndPassword(event) {
                 .then(function (result) {
                     //En caso de logueo correcto llevar al landing
 
-                    window.location.assign('faces/dashboard.xhtml');
+                    //window.location.assign('faces/dashboard.xhtml');
                 })
                 .catch(function (error) {
                     //Dialogo de bootstrap disparado con JQuery
@@ -61,7 +64,7 @@ function googleLogIn(event) {
     //Llamado al SDK de firebase
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {
         //Todo bien
-        window.location.assign('faces/dashboard.xhtml');
+        //window.location.assign('faces/dashboard.xhtml');
     }).catch(function (error) {
         console.log(error);
     });

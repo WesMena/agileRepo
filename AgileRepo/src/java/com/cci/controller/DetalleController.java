@@ -63,7 +63,7 @@ public class DetalleController implements Serializable {
     
   
     public void init(){
- detalles=new ArrayList<>();
+        detalles=new ArrayList<>();
         DetalleDao detalle=new DetalleDao(idEvento);
         detalles=detalle.getAll();
         

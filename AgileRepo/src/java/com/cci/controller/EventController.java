@@ -11,6 +11,7 @@ import com.cci.service.EventDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -19,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.event.ActionEvent;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -29,6 +31,7 @@ import javax.faces.event.ActionEvent;
 
 public class EventController implements Serializable {
 
+    private Evento delObject = new Evento();
     private String BLACKCOLORCODE = "#000000";
     private String BLUECOLORCODE = "#0388e5";
     private List<Evento> lstEvt = new ArrayList<>();
@@ -78,8 +81,6 @@ public class EventController implements Serializable {
         this.lstEvt = listaEventos();
     }
 
-    
-    
     public String getDuracion() {
         return duracion;
     }
@@ -131,6 +132,10 @@ public class EventController implements Serializable {
         this.onEdit = onEdit;
         System.out.println("" + this.onEdit);
     }
+    
+    public void onLoad(){
+        this.lstEvt = listaEventos();
+    }
 
     public List<Evento> listaEventos() {
         /*
@@ -139,16 +144,17 @@ public class EventController implements Serializable {
             eventos existentes, pero si se le envía algo, buscará coincidencias a nivel 
             de nombre y tags
          */
-        
+
         EventDao eventos = new EventDao(filtro);
         return eventos.getAll();
     }
 
-    public void filtrarEventos(){
-            System.out.println("Entró");
-         EventDao eventos = new EventDao(filtro);
-         lstEvt =eventos.getAll();
+    public void filtrarEventos() {
+        System.out.println("Entró");
+        EventDao eventos = new EventDao(filtro);
+        lstEvt = eventos.getAll();
     }
+
     public String getFiltro() {
         return filtro;
     }
@@ -176,10 +182,12 @@ public class EventController implements Serializable {
         System.out.println("" + ev.getNombre() + " entrando a edicion");
         System.out.println("" + ev.getDesc());
     }
-        public void edit(int i) {
+
+    public void edit(int i) {
         //Escondiendo el boton
-            System.out.println(""+this.lstEvt.get(i).getNombre()+"  LastHope");
+        System.out.println("" + this.lstEvt.get(i).getNombre() + "  LastHope");
     }
+
     public String getBLUECOLORCODE() {
         return BLUECOLORCODE;
     }
@@ -188,4 +196,57 @@ public class EventController implements Serializable {
         this.BLUECOLORCODE = BLUECOLORCODE;
     }
 
+    public void refrescar() {
+        try {
+            this.lstEvt = listaEventos();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "dashboard.xhtml"));
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public String getidParam(FacesContext fc) {
+
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("idDel");
+
+    }
+
+    //Metodo que hace de actionListener del menuItem Borrar
+    public void deleteListener(ActionEvent event) {
+        Evento n = new Evento();
+        //Obtencion de un parametro enviado utilizando la etiqueta f:atribute
+        n = (Evento) event.getComponent().getAttributes().get("delItem");
+        this.delObject = n;
+
+        //Script utilizado para hacer visible el Dialogo
+        PrimeFaces.current().executeScript("PF('cd').show()");
+
+    }
+
+    public void delete() {
+        //Invocacion del DAO
+        Dao dao = new EventDao();
+        ((EventDao) dao).delete(this.delObject);
+        //Actualizar la lista de eventos despues de la eliminacion
+        this.lstEvt = listaEventos();
+        //Refresh de la pagina
+        refrescar();
+    }
+    public void agregarEvento() {
+        EventDao evtd = new EventDao();
+        evtd.nuevoEvento();
+        refrescar();
+    }
 }
