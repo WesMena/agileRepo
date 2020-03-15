@@ -43,10 +43,9 @@
 
                 <a href="#">
                     <span class="topbar-item-text">Nuevo</span>
-                    <span class="topbar-icon fa fa-plus" onclick="PF('dlg2Nuevo').show();" ></span>
-                    <p:dialog  header="Modal Dialog" widgetVar="dlg2Nuevo" closable="true" modal="true" height="100" responsive="true">
-                        <h:outputText value="This is a Modal Dialog." />
-                    </p:dialog>   
+
+                    <p:commandButton  action="#{eventcontroller.agregarEvento()}" class="topbar-icon" icon="fa fa-plus"/>
+
                 </a>  
 
             </h:form>
