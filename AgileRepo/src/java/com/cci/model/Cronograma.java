@@ -17,20 +17,16 @@ public class Cronograma {
     private String horaFinal;
     private String color;
     private int duracion;
-
+    private boolean bloque;
+    
     public Cronograma() {
     }
 
-    public Cronograma(int ord, String titulo, String horaInicio, String horaFinal, String color, int duracion) {
+    public Cronograma(int ord, String titulo,boolean bloque) {
         this.ord = ord;
         this.titulo = titulo;
-        this.horaInicio = horaInicio;
-        this.horaFinal = horaFinal;
-        this.color = color;
-        this.duracion = duracion;
+        this.bloque =bloque;
     }
-
-  
 
     public int getOrd() {
         return ord;
@@ -79,8 +75,19 @@ public class Cronograma {
     public void setHoraFinal(String horaFinal) {
         this.horaFinal = horaFinal;
     }
+
+    public boolean isBloque() {
+        return bloque;
+    }
+
+    public void setBloque(boolean bloque) {
+        this.bloque = bloque;
+    }
     
-    
+      public boolean esBloque(){
+        return this.bloque;
+    }
+
     
     
 }
