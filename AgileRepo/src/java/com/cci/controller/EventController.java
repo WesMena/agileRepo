@@ -5,8 +5,11 @@
  */
 package com.cci.controller;
 
+import com.cci.model.Cronograma;
+import com.cci.model.DetalleEvento;
 import com.cci.model.Evento;
 import com.cci.service.Dao;
+import com.cci.service.DetalleDao;
 import com.cci.service.EventDao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +38,17 @@ public class EventController implements Serializable {
     private String BLACKCOLORCODE = "#000000";
     private String BLUECOLORCODE = "#0388e5";
     private List<Evento> lstEvt = new ArrayList<>();
+    private List<Cronograma> lstCrono = new ArrayList<>();
 
+    public List<Cronograma> getLstCrono() {
+        return lstCrono;
+    }
+
+    public void setLstCrono(List<Cronograma> lstCrono) {
+        this.lstCrono = lstCrono;
+    }
+    
+    
     public String getBLACKCOLORCODE() {
         return BLACKCOLORCODE;
     }
@@ -249,4 +262,38 @@ public class EventController implements Serializable {
         evtd.nuevoEvento();
         refrescar();
     }
+    
+    
+    /* Construccion del Cronograma*/
+    
+        public void CronoListener(ActionEvent e){
+        DetalleDao dao = new DetalleDao();     
+            
+        Evento evt = new Evento(); 
+        /*-> Se limpia la lista del Cronograma*/
+        this.lstCrono.clear();
+        
+        List<DetalleEvento> detalles = new ArrayList<>();
+       /*-> Se obtiene el objeto de Evento*/  
+        evt = (Evento) e.getComponent().getAttributes().get("getEvt");
+        /*-> Se Obtiene la lista de todos los detalles*/
+        detalles = dao.todo();
+        
+         for(int i=0; i<= detalles.size()-1;i++){
+             /*-> Se filtra por ID de Evento y si el slot está activo */
+            if(detalles.get(i).getEvento() == evt.getId() && detalles.get(i).getBorrado()!= 1){
+                /*-> Se agrega a la lista*/
+              this.lstCrono.add(new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),detalles.get(i).getHoraInicioStr(),(dao.recalcularHora(detalles.get(i).getHoraInicioStr(), detalles.get(i).getDuracion())),detalles.get(i).getColorCategoria(),detalles.get(i).getDuracion()));       
+            }
+        }      
+        /*-> Se Refresca los componentes y se abre el modal*/
+        PrimeFaces.current().ajax().update("frmDlg:dlg1");
+        openModal();
+    }
+  
+    /* Abro el modal del Cornograma*/
+    public void openModal(){
+          PrimeFaces.current().executeScript("PF('dlg2').show()");
+    }
+    
 }

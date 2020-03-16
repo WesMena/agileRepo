@@ -19,6 +19,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,8 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "detallecontroller")
 @SessionScoped
 public class DetalleController implements Serializable {
-
+    private String horaEdit="";
+    private String duracionEdit="";
     private int idEvento;
     private String nombreEvento;
 
@@ -59,7 +61,7 @@ public class DetalleController implements Serializable {
     }
 
     
-   @PostConstruct
+  
     public void init(){
         detalles=new ArrayList<>();
         DetalleDao detalle=new DetalleDao(idEvento);
@@ -174,8 +176,14 @@ public class DetalleController implements Serializable {
    
     
   public void onReorder(){
+  //Actualiza el índice de los slots y dispara un update con ajax para que 
+  //Se puedan ver los cambios en las horas al reordenarse(aunque la lógica de eso
+ //viene propiamente de init(), que a su vez llama al constructor de DetalleDao)
+      
       
   updateIndex();
+  init();
+  PrimeFaces.current().ajax().update("eventos");
   }
       
     public List<DetalleEvento> getListaDetalles() {
@@ -249,6 +257,45 @@ public class DetalleController implements Serializable {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         return params.get("matSlot");
 
+    }
+    
+    public String getHoraParam(FacesContext fc){
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("horaSlot"); 
+    }
+    
+    public String getDuracionParam(FacesContext fc){
+       Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("duracionSlot");   
+    }
+    
+    
+    public String outcomeDuracion(){
+          //Carga los parámetros necesarios para editar la duración de un slot.
+        //Envía estos datos al modal editDuracion
+        
+        
+        FacesContext fc=FacesContext.getCurrentInstance();
+        
+        this.duracionEdit=getDuracionParam(fc);
+        
+      this.id = Integer.parseInt(getidParam(fc));
+        return "result";
+    }
+    
+    public String outcomeHora(){
+        
+        //Carga los parámetros necesarios para editar la hora inicial.
+        //Envía estos datos al modal editHora
+        
+        FacesContext fc=FacesContext.getCurrentInstance();
+        this.horaEdit=getHoraParam(fc);
+        
+             this.id = Integer.parseInt(getidParam(fc)); 
+        
+        
+    
+        return "result";
     }
     
     ///Les asigna a cada una de las variables los valores tomados del Slot
@@ -369,7 +416,7 @@ public class DetalleController implements Serializable {
 
      for(DetalleEvento det:detalles){
      det.setIndice(i);
-     detalle.update(det);
+     detalle.updateReorder(det);
          
          i++;
      }
@@ -379,5 +426,109 @@ public class DetalleController implements Serializable {
   
    
   }
+
+    public String getHoraEdit() {
+        return horaEdit;
+    }
+
+    public void setHoraEdit(String horaEdit) {
+        this.horaEdit = horaEdit;
+    }
   
+    public void leer(int idDetalle){
+        System.out.println("Entró");
+        System.out.println(idDetalle);
+        
+    }
+    
+    public void editarHora(){
+         //Método que permite editar la hora inicial de un slot, es llamado por el 
+        //modal editHora
+        
+        //Incluye algunas validaciones
+        
+        
+        boolean invalido=false;
+        
+        
+        String signo=horaEdit.substring(2,3);
+    
+        
+        if(!signo.equalsIgnoreCase(":")){
+            invalido=true;
+        }
+        
+       if(horaEdit.length()!=5){
+           invalido=true;
+       }
+       char prueba;
+       boolean esNum=false;
+       for(int i=0;i<horaEdit.length();i++){
+           prueba=horaEdit.charAt(i);
+           if(i!=2){
+               esNum=Character.isDigit(prueba);
+           }
+           
+           if(esNum==false){
+           invalido=true;    
+           }        
+           
+       }
+       
+       if(invalido==false){
+            DetalleDao det=new DetalleDao();
+        DetalleEvento detalle=new DetalleEvento(id,horaEdit);
+        det.updateHora(detalle);
+       }
+    
+        init();
+        
+    }
+
+    
+    public void editarDuracion(){
+        
+        
+        //Método que permite editar la duración de un slot, es llamado por el 
+        //modal editDuracion
+        
+         //Incluye algunas validaciones
+       DetalleDao det=new DetalleDao();
+       int duracion=0;
+       try{
+           duracion=Integer.parseInt(duracionEdit);
+       }catch(Exception e){
+           init();
+          PrimeFaces.current().ajax().update("eventos");
+        
+       }
+             
+       
+     try{
+       if(duracion>=1){
+        DetalleEvento detalle=new DetalleEvento(duracion,id);
+        det.updateDuracion(detalle);
+            
+       }
+        init();   
+         
+     }catch(Exception e){
+         init();
+          
+     }
+       PrimeFaces.current().ajax().update("eventos");
+      
+    }
+
+    public String getDuracionEdit() {
+        return duracionEdit;
+    }
+
+    public void setDuracionEdit(String duracionEdit) {
+        this.duracionEdit = duracionEdit;
+    }
+            
+   
+    
+    
 }

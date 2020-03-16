@@ -155,4 +155,67 @@ body , html{
 
 .ui-widget-content {
     background:none ;
+
 }
+
+#ui-datepicker-div{
+    background:#fff;
+}
+.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div>.ui-widget-header{
+    background:#0388e5;
+    color:#fff;
+    border:none;
+}
+
+.ui-datepicker .ui-datepicker-title{
+    color:#fff;
+}
+
+.ui-datepicker .ui-datepicker-header, .ui-datepicker .ui-timepicker-div>.ui-widget-header{
+    border:none;
+}
+
+/*Esto es para que este estilo solo lo aplique en vista movil*/
+@media (max-width: 640px){
+
+.wrapper .topbar #topbar-icons{
+background:#0388e5;
+margin-top:2.5%;
+
+}
+
+    
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+    background:#fff;
+}
+
+.wrapper .topbar #topbar-icons a:hover{
+    color:#fff;
+}
+
+.dashboard .summary .hora{
+   margin-top:2%;
+   font-size:18px;
+   color:#4e5159;
+  
+}
+
+.dashboard .summary .horabtn{
+    border:none;
+    text-align:left;
+    position:relative;
+   
+    margin:0;
+    
+    
+}
+.dashboard .summary .btnDuracion{
+    position:absolute;
+    border:none;
+    size:100px;
+    font-size:20px;
+}
+
+
