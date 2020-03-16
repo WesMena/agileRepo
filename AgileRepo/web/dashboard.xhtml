@@ -159,7 +159,7 @@
                                     <p:scrollPanel id="scrl" style="width:250px;height:200px">
                                     <c:forEach   id="P111"  items="#{eventcontroller.lstCrono}" var="P1" varStatus="true"  > 
 
-                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px">
+                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px; display:#{P1.esBloque()?'none':'inline-block'} ">
                                             <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord}) </span>
                                             <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
                                             <span style="font-size: x-large;width: 56px;height: 52px" >-</span>
@@ -167,7 +167,14 @@
                                             <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
                                             <span style="font-size: x-large;width: 52px;height: 52px" > D:#{P1.duracion}m</span>
                                         </div>
+                                        
+                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
+                                             <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord})  </span>
+                                             <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
+                                        </div>
+                                        
                                     </c:forEach>
+                                        
                                    </p:scrollPanel>
 
                                     <p:commandButton value="Print" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
