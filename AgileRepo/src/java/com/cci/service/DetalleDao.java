@@ -158,10 +158,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 horas=Integer.parseInt(horasStr);
                 minutos=Integer.parseInt(minutosStr);
                 
-            
-           
-         
-       
+          
         
         int sumaMin=duracion+minutos;
         float minutosModi=sumaMin/60;
@@ -598,4 +595,52 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    
+    /*  -> Funciones del Cronograma  <- */
+    
+    
+        /* -> Retorna la lista con los detalles necesarios para levantar el cronograma <- */
+    public List<DetalleEvento> todo(){
+        List<DetalleEvento> tdetalles = new ArrayList<>();
+         ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales,bloqueo,horaInicio,primeroDeDia FROM detalleevento";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+
+                int id = rs.getInt("idDetalleEvento");
+                int indice = rs.getInt("indiceEvento");
+                int evento = rs.getInt("evento");
+                int duracion = rs.getInt("duracion");
+                String titulo = rs.getString("titulo");
+                String desc = rs.getString("descripcion");
+                int borrado = rs.getInt("borrado");
+                String obj = rs.getString("Objetivo");
+                String cat = rs.getString("Categoria");
+                String colorcat = rs.getString("ColorCategoria");
+                String pas = rs.getString("Pasos");
+                String mat = rs.getString("Materiales");
+                int bloqueo = rs.getInt("bloqueo");
+                int primeroDeDia = rs.getByte("primeroDeDia");
+                Date horaInicio = rs.getTime("horaInicio");
+               
+                tdetalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo,primeroDeDia,horaInicio,horaAjustada(horaInicio)));
+            }        
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tdetalles;
+    }
+
+    
 }

@@ -262,6 +262,7 @@ public class DetalleEvento {
     }
 
     public Date getHoraInicio() {
+        
      if(this.horaInicio==null){
          horaInicio=GregorianCalendar.getInstance().getTime();
      }
