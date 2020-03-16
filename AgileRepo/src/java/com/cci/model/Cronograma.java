@@ -14,20 +14,23 @@ public class Cronograma {
     private int ord;
     private String titulo;
     private String horaInicio;
+    private String horaFinal;
     private String color;
     private int duracion;
 
     public Cronograma() {
     }
 
-    public Cronograma(int ord, String titulo, String horaInicio, String color, int duracion) {
+    public Cronograma(int ord, String titulo, String horaInicio, String horaFinal, String color, int duracion) {
         this.ord = ord;
         this.titulo = titulo;
         this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
         this.color = color;
         this.duracion = duracion;
     }
-   
+
+  
 
     public int getOrd() {
         return ord;
@@ -67,6 +70,14 @@ public class Cronograma {
 
     public void setDuracion(int duracion) {
         this.duracion = duracion;
+    }
+
+    public String getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(String horaFinal) {
+        this.horaFinal = horaFinal;
     }
     
     

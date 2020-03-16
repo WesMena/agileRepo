@@ -267,22 +267,26 @@ public class EventController implements Serializable {
     /* Construccion del Cronograma*/
     
         public void CronoListener(ActionEvent e){
-        DetalleDao dao = new DetalleDao();
-            
+        DetalleDao dao = new DetalleDao();     
             
         Evento evt = new Evento(); 
+        /*-> Se limpia la lista del Cronograma*/
         this.lstCrono.clear();
+        
         List<DetalleEvento> detalles = new ArrayList<>();
-         
+       /*-> Se obtiene el objeto de Evento*/  
         evt = (Evento) e.getComponent().getAttributes().get("getEvt");
+        /*-> Se Obtiene la lista de todos los detalles*/
         detalles = dao.todo();
+        
          for(int i=0; i<= detalles.size()-1;i++){
-            
+             /*-> Se filtra por ID de Evento y si el slot está activo */
             if(detalles.get(i).getEvento() == evt.getId() && detalles.get(i).getBorrado()!= 1){
-              this.lstCrono.add(new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),detalles.get(i).getHoraInicioStr(),detalles.get(i).getColorCategoria(),detalles.get(i).getDuracion()));       
+                /*-> Se agrega a la lista*/
+              this.lstCrono.add(new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),detalles.get(i).getHoraInicioStr(),(dao.recalcularHora(detalles.get(i).getHoraInicioStr(), detalles.get(i).getDuracion())),detalles.get(i).getColorCategoria(),detalles.get(i).getDuracion()));       
             }
         }      
-        
+        /*-> Se Refresca los componentes y se abre el modal*/
         PrimeFaces.current().ajax().update("frmDlg:dlg1");
         openModal();
     }

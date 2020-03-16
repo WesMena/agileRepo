@@ -149,9 +149,6 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         int minutos=0;
            
         
-
-               
-               
                 String horasStr=hora2.substring(0,2);
                 String minutosStr=hora2.substring(3,5);
                 
