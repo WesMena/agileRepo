@@ -49,6 +49,7 @@ public class DetalleEvento {
     private Date horaInicio; 
     private String horaInicioStr;
     
+    private String horaFinalStr;
     /*Se aconseja utilizar horaInicioStr por encima de horaInicio, ya que la 
     primera ya esta adaptada al formato hh:mm en 24h. Además, es independiente 
     de la zona horaria, así que no presenta el inconveniente de que la hora se 
@@ -299,6 +300,44 @@ public class DetalleEvento {
         this.id = id;
     }
     
+    public String tituloResumido(){
+        String tituloR="";
+        if(this.titulo.length()>20){
+            tituloR=this.titulo.substring(0,20)+"...";
+        }else{
+            tituloR=this.titulo;
+        }
+        
+        return tituloR;
+    }
+
+    public String getHoraFinalStr() {
+        return horaFinalStr;
+    }
+
+    public void setHoraFinalStr(String horaFinalStr) {
+        this.horaFinalStr = horaFinalStr;
+    }
+
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio, String horaInicioStr, String horaFinalStr) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.duracion = duracion;
+        this.borrado = borrado;
+        this.indice = indice;
+        this.evento = evento;
+        this.id = id;
+        this.objetivo = objetivo;
+        this.categoria = categoria;
+        this.colorCategoria = colorCategoria;
+        this.pasos = pasos;
+        this.materiales = materiales;
+        this.bloequeo = bloequeo;
+        this.primeroDelDia = primeroDelDia;
+        this.horaInicio = horaInicio;
+        this.horaInicioStr = horaInicioStr;
+        this.horaFinalStr = horaFinalStr;
+    }
     
     
 }

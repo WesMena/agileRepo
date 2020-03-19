@@ -2229,7 +2229,7 @@ h2 {
     
         margin-left:10%;
         margin-right:10%;
-        overflow:auto; 
+        overflow:hidden;
         border-radius:2.5%;
   }
   .dashboard .summary {
@@ -2246,7 +2246,7 @@ h2 {
       font-size:20px;
       display:block;
       
-       margin-top: 10px;
+      margin-top:-20px;
       margin-left:70px;
       
     
@@ -2255,14 +2255,28 @@ h2 {
       
     }
     
+       .dashboard .summary .title3 {
+      font-size:20px;
+      display:block;
+      
+      margin-top:-20px;
+      margin-left:0px;
+      
+    
+      overflow:hidden;
+     
+      
+    }
+    
+    
       .dashboard .summary .title2 {
       font-size:21px;
       display:block;
       text-transform:uppercase;
        margin-top: 7.5%;
-      margin-left:50%;
+      margin-left:30%;
       margin-right:12.5%;
-    
+    color:#fff;
       overflow:hidden;
      
       
@@ -2291,7 +2305,7 @@ h2 {
       
       display:inline-block;
       text-align:justify;
-      margin-top: 0px;
+      margin-top: 20px;
       margin-left:2.5%;
       
     }
