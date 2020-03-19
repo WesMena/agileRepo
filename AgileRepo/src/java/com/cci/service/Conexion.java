@@ -18,12 +18,16 @@ import java.util.List;
  */
 public class Conexion {
 String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    String DB_URL = "jdbc:mysql://173.230.153.195:3306/agilerepo?serverTimezone=UTC";
+  //Remoto  String DB_URL = "jdbc:mysql://173.230.153.195:3306/agilerepo?serverTimezone=UTC";
+    String DB_URL = "jdbc:mysql://localhost:3306/agilerepo?serverTimezone=UTC";
     
      //Aquí van las credenciales, recordar cambiarlas según las de su pc.
     
-    String USER = "root";
-    String PASS = "Rainbow+6+team";
+   //Remoto String USER = "root";
+   String USER = "root";
+   
+   //Remoto String PASS = "Rainbow+6+team";
+   String PASS = "123";
     Connection conn = null;
     
 private static Conexion INSTANCE = null;

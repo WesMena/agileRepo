@@ -13,7 +13,7 @@ function ini() {
     frma = document.getElementById('frmaReg');
     frma.addEventListener('submit', fireReg, false);
 }
-
+//Control del evento onSubmit del form de registro
 function fireReg(event) {
     let email = event.target.txtEmail.value;
     let pass1 = event.target.pass1.value;
@@ -25,6 +25,8 @@ function fireReg(event) {
         if (pass1 !== pass2) {
             $('#myModal').modal();
         } else {
+            //Deteniendo la recarga de la pagina
+            event.preventDefault();
             firebase.auth().createUserWithEmailAndPassword(email, pass1).then(function (result) {
                 //Limpiar valores
                 //Obtener UID
@@ -32,15 +34,22 @@ function fireReg(event) {
                 event.target.txtEmail.value = '';
                 event.target.pass1.value = '';
                 event.target.pass2.value = '';
-                doClick.click();
+                //doClick.click();
+                var resp = googleLogin([{name: 'googleResponse', value: result.user.uid}]);
+
                 $('#myModalOk').modal();
                 console.log(result);
-                return true;
+                //return true;
             }).catch(function (error) {
                 $('#myModal').modal();
-                console.log(error)
+                console.log(error);
             });
         }
     }
 
 }
+
+//Controlando cierre del modal y pasando al login
+$('#myModalOk').on('hidden.bs.modal', function () {
+    window.location.assign('faces/login.xhtml');
+});

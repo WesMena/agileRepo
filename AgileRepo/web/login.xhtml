@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    
+
     <h:head>
         <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
         <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
@@ -33,7 +33,7 @@
     <h:body styleClass="login-body">
 
         <div id="login-wrapper">
-            <p:graphicImage name="images/login-logo.png" library="omega-layout" />
+            <p:graphicImage name="images/CCIlogo.png" library="omega-layout" />
 
             <div id="login-container">
                 <span class="title">Omega</span>
@@ -54,25 +54,25 @@
                             </p:password>
                             <p:message for="txtPassword"></p:message>
                         </div>
-                        <div class="ui-g-12 ui-md-6">
-                            <span class="remember-me">Remember Me</span>
-                            <p:selectBooleanCheckbox />
-                        </div>
-                        <div class="ui-g-12 ui-md-6">
-                            <p:link style="color: #03A8E4" href="faces/resetPass.xhtml">Forgot Password</p:link>
-                        </div>
                         <button 
-                            id="submitButton" style="display: block;width: 100%;margin-top: 10px"
+                            id="submitButton" style="display: inline-block;width: 95%;margin-top: 10px"
                             class="loginBtn loginBtn--omega" 
                             type="submit">Login
                         </button>
-                        <button id="btnLogGoogle" type="button"  onclick="googleLogIn()" style="width: 100%;display: inline-block" class="loginBtn loginBtn--google">
+                        <button id="btnLogGoogle" type="button"  onclick="googleLogIn()" style="width: 95%;display: inline-block" class="loginBtn loginBtn--google">
                             Login with Google
-                        </button>     
+                        </button>   
+                        <div class="ui-g-12 ">
+                            <span  class="remember-me">Recuérdame</span>
+                            <p:selectBooleanCheckbox />
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:link style="color: #03A8E4" href="faces/resetPass.xhtml">Olvidé mi contraseña</p:link>
+                        </div>
+                        <div class="ui-g-12 ui-md-6">
+                            <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/register.xhtml" >¿Necesitas cuenta?</p:link>
+                        </div>  
                     </h:form>
-                    <div style="text-align: center">
-                        <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/register.xhtml" >¿Necesitas cuenta?</p:link>
-                    </div>  
                 </div>
             </div>
 
@@ -84,44 +84,44 @@
         <h:outputStylesheet name="css/myLogin.css" library="omega-layout"></h:outputStylesheet>
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
         <script type="text/javascript">
-                            //<![CDATA[
-                            /**
-                             * Faces Validator
-                             */
+            //<![CDATA[
+            /**
+             * Faces Validator
+             */
 
 
-                            PrimeFaces.validator['custom.emailValidator'] = {
+            PrimeFaces.validator['custom.emailValidator'] = {
 
-                                pattern: /\S+@\S+/,
+                pattern: /\S+@\S+/,
 
-                                validate: function (element, value) {
-                                    //use element.data() to access validation metadata, in this case there is none.
-                                    if (!this.pattern.test(value)) {
-                                        throw {
-                                            summary: 'Validation Error',
-                                            detail: value + '  No es un correo válido.'
-                                        }
-                                    }
-                                }
-                            };
-                            PrimeFaces.validator['Email'] = {
+                validate: function (element, value) {
+                    //use element.data() to access validation metadata, in this case there is none.
+                    if (!this.pattern.test(value)) {
+                        throw {
+                            summary: 'Validation Error',
+                            detail: value + '  No es un correo válido.'
+                        }
+                    }
+                }
+            };
+            PrimeFaces.validator['Email'] = {
 
-                                pattern: /\S+@\S+/,
+                pattern: /\S+@\S+/,
 
-                                MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
+                MESSAGE_ID: 'org.primefaces.examples.validate.email.message',
 
-                                validate: function (element, value) {
-                                    var vc = PrimeFaces.util.ValidationContext;
+                validate: function (element, value) {
+                    var vc = PrimeFaces.util.ValidationContext;
 
-                                    if (!this.pattern.test(value)) {
-                                        var msgStr = element.data('p-email-msg'),
-                                                msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
+                    if (!this.pattern.test(value)) {
+                        var msgStr = element.data('p-email-msg'),
+                                msg = msgStr ? {summary: msgStr, detail: msgStr} : vc.getMessage(this.MESSAGE_ID);
 
-                                        throw msg;
-                                    }
-                                }
-                            };
-                            //]]>
+                        throw msg;
+                    }
+                }
+            };
+            //]]>
         </script>
         <h:outputScript name="omega-layout/js/fireInit.js"></h:outputScript>
         <h:outputScript name="omega-layout/js/myFireBaseLogin.js"></h:outputScript>
