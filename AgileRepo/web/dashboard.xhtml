@@ -150,41 +150,53 @@
                     </c:forEach>
 
 
-                    <h:form id="frmDlg">
-                        <div>
-                            <p:dialog header="Cronograma" id="dlg1" draggable="false" style="text-align: center;  align-items: center; bottom: 50;right: 50;width:417px;" widgetVar="dlg2" modal="true" resizable="false" responsive="true" width="414px" >
+                    <h:form id="frmDlg" >
+                       
+                            <p:dialog header="Cronograma" id="dlg1" draggable="false" style="text-align: center;  align-items: center; bottom: 50;right: 50;width:420px;" widgetVar="dlg2" modal="true" resizable="false"  responsive="true" width="450px" blockScroll="true" >
 
-                                <div style="padding: 0px;">
 
-                                    <p:scrollPanel id="scrl" style="width:250px;height:200px">
-                                    <c:forEach   id="P111"  items="#{eventcontroller.lstCrono}" var="P1" varStatus="true"  > 
+                                <p:commandButton value="Imprimir" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
+                                    <p:printer target="scrl" />
+                                </p:commandButton>
 
-                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px; display:#{P1.esBloque()?'none':'inline-block'} ">
-                                            <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord}) </span>
-                                            <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
-                                            <span style="font-size: x-large;width: 56px;height: 52px" >-</span>
-                                            <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaFinal}</span>
-                                            <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
-                                            <span style="font-size: x-large;width: 52px;height: 52px" > D:#{P1.duracion}m</span>
-                                        </div>
-                                        
-                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
-                                             <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord})  </span>
-                                             <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
-                                        </div>
-                                        
-                                    </c:forEach>
-                                        
-                                   </p:scrollPanel>
+                                
+                                <span style="font-size: x-large;width: 56px;height: 52px" >#{eventcontroller.target.nombre}</span>
+                                      <br></br>
+                                       <br></br>
+                                
+                                <div style="padding: 0px; width: 100%">
 
-                                    <p:commandButton value="Print" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
-                                        <p:printer target="scrl" />
-                                    </p:commandButton>
+                                    <p:scrollPanel id="scrl" style="width:300%; height:160px;  display:block; margin-bottom: 20px">
+                                        <c:forEach id="P111"  items="#{eventcontroller.lstCrono}"  var="P1" varStatus="true"  > 
 
+                                            <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 100%">
+                                   
+                                                <span class="count visitors" style="margin-right: 13px; text-align:right;" >#{P1.duracion} minutos</span>
+                                                 <br></br>
+                                                 <br></br>
+                                                <span with="75px" style="display: inline-block;width: 80px; height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
+                                                <span style="font-size: x-large;width: 80px;height: 52px"> - </span>
+                                                <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaFinal}</span>
+                                                <br></br>
+                                                <br></br>
+                                                <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
+                                                
+                                            </div>
+
+                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
+                                          
+                                                <span style="font-size: x-large;width: 56px;height: 52px; background-color:##{P1.color} !important;">#{P1.titulo}</span>
+                                            </div>
+
+                                        </c:forEach>
+
+                                    </p:scrollPanel>
                                 </div>
 
+                                <br></br>
+
                             </p:dialog>   
-                        </div>
+                       
                     </h:form>
 
 
