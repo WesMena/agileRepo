@@ -19,7 +19,7 @@
         <div id="topbar-icons" class="animated">
             <h:form>
                 <span class="topbar-search">
-                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}"  />
+                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{globalEventController.filtro}"  />
 
 
                     <!-->
@@ -31,7 +31,7 @@
                     </!-->
 
 
-                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
+                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{globalEventController.filtrarEventos()}" >
                         <f:ajax execute="filtro" render="padre"/>  
                         <f:ajax execute="filtro" render="padre"/>  
 
@@ -44,7 +44,7 @@
                 <a href="#">
                     <span class="topbar-item-text">Nuevo</span>
 
-                    <p:commandButton  action="#{eventcontroller.agregarEvento()}" class="topbar-icon" icon="fa fa-plus"/>
+                    <p:commandButton  class="topbar-icon" icon="fa fa-plus"/>
 
                 </a>  
 

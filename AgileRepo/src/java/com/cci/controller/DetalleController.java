@@ -6,6 +6,7 @@
 package com.cci.controller;
 
 import com.cci.model.DetalleEvento;
+import com.cci.service.Dao;
 import com.cci.service.DetalleDao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,16 +34,16 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "detallecontroller")
 @SessionScoped
 public class DetalleController implements Serializable {
-    private String horaEdit="";
-    private String duracionEdit="";
+
+    private String horaEdit = "";
+    private String duracionEdit = "";
     private int idEvento;
     private String nombreEvento;
 
-    private List<DetalleEvento> detalles=new ArrayList<>();
+    private List<DetalleEvento> detalles = new ArrayList<>();
 
     private int id;
-    
-    
+
     private String titulo;
     private String descripcion;
     private String objetivo;
@@ -50,7 +51,6 @@ public class DetalleController implements Serializable {
     private String colorCategoria;
     private String pasos;
     private String materiales;
-
 
     public String getNombreEvento() {
         return nombreEvento;
@@ -60,20 +60,18 @@ public class DetalleController implements Serializable {
         this.nombreEvento = nombreEvento;
     }
 
-    
-  
-    public void init(){
-        detalles=new ArrayList<>();
-        DetalleDao detalle=new DetalleDao(idEvento);
-        detalles=detalle.getAll();
-        
+    public void init() {
+        detalles = new ArrayList<>();
+        DetalleDao detalle = new DetalleDao(idEvento);
+        detalles = detalle.getAll();
     }
-    
-    
+
+
+
     /* Este es el método que envía los Eventos que se obtienen de DetalleDao 
      * a DetalleEvento.xhtml. El parámetro idEvento es la que se encarga de definir 
      * cuales detalles de qué evento se van a cargar
-    */    
+     */
     public List<DetalleEvento> listaDetalles() {
         DetalleDao detalle = new DetalleDao(idEvento);
         return detalle.getAll();
@@ -82,8 +80,6 @@ public class DetalleController implements Serializable {
     public DetalleController() {
         this.idEvento = 5;
     }
-    
-    
 
     public void onLoad() {
         List<DetalleEvento> evts = listaDetalles();
@@ -93,20 +89,18 @@ public class DetalleController implements Serializable {
             this.detalles.add(evt);
             System.out.println("" + evt.toString());
         }
-        */
+         */
     }
 
     public DetalleController(int idEvento) {
         this.idEvento = idEvento;
     }
 
-
     public void redireccionar(int id, String nombre) {
         this.idEvento = id;
         this.nombreEvento = nombre;
         init();
         try {
-
 
             HttpServletRequest request = (HttpServletRequest) FacesContext
                     .getCurrentInstance().getExternalContext().getRequest();
@@ -126,12 +120,11 @@ public class DetalleController implements Serializable {
         }
 
     }
-    
+
     ///Refresca la pagina de los Slots del Evento 
-      public void redireccionar() {
+    public void redireccionar() {
 
-
-        this.onLoad();
+        //this.onLoad();
         try {
 
             HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -144,7 +137,6 @@ public class DetalleController implements Serializable {
                     .redirect(
                             request.getContextPath()
                             + String.format("/faces/%s", "DetalleEvento.xhtml"));
-            
 
         } catch (Exception e) {
 
@@ -160,11 +152,6 @@ public class DetalleController implements Serializable {
         this.idEvento = idEvento;
     }
 
-
-    
-    
-
-    
     public List<DetalleEvento> getDetalles() {
         return detalles;
     }
@@ -173,19 +160,16 @@ public class DetalleController implements Serializable {
         this.detalles = detalles;
     }
 
-   
-    
-  public void onReorder(){
-  //Actualiza el índice de los slots y dispara un update con ajax para que 
-  //Se puedan ver los cambios en las horas al reordenarse(aunque la lógica de eso
- //viene propiamente de init(), que a su vez llama al constructor de DetalleDao)
-      
-      
-  updateIndex();
-  init();
-  PrimeFaces.current().ajax().update("eventos");
-  }
-      
+    public void onReorder() {
+        //Actualiza el índice de los slots y dispara un update con ajax para que 
+        //Se puedan ver los cambios en las horas al reordenarse(aunque la lógica de eso
+        //viene propiamente de init(), que a su vez llama al constructor de DetalleDao)
+
+        updateIndex();
+        init();
+        PrimeFaces.current().ajax().update("eventos");
+    }
+
     public List<DetalleEvento> getListaDetalles() {
         return detalles;
     }
@@ -258,46 +242,41 @@ public class DetalleController implements Serializable {
         return params.get("matSlot");
 
     }
-    
-    public String getHoraParam(FacesContext fc){
+
+    public String getHoraParam(FacesContext fc) {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        return params.get("horaSlot"); 
+        return params.get("horaSlot");
     }
-    
-    public String getDuracionParam(FacesContext fc){
-       Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        return params.get("duracionSlot");   
+
+    public String getDuracionParam(FacesContext fc) {
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        return params.get("duracionSlot");
     }
-    
-    
-    public String outcomeDuracion(){
-          //Carga los parámetros necesarios para editar la duración de un slot.
+
+    public String outcomeDuracion() {
+        //Carga los parámetros necesarios para editar la duración de un slot.
         //Envía estos datos al modal editDuracion
-        
-        
-        FacesContext fc=FacesContext.getCurrentInstance();
-        
-        this.duracionEdit=getDuracionParam(fc);
-        
-      this.id = Integer.parseInt(getidParam(fc));
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        this.duracionEdit = getDuracionParam(fc);
+
+        this.id = Integer.parseInt(getidParam(fc));
         return "result";
     }
-    
-    public String outcomeHora(){
-        
+
+    public String outcomeHora() {
+
         //Carga los parámetros necesarios para editar la hora inicial.
         //Envía estos datos al modal editHora
-        
-        FacesContext fc=FacesContext.getCurrentInstance();
-        this.horaEdit=getHoraParam(fc);
-        
-             this.id = Integer.parseInt(getidParam(fc)); 
-        
-        
-    
+        FacesContext fc = FacesContext.getCurrentInstance();
+        this.horaEdit = getHoraParam(fc);
+
+        this.id = Integer.parseInt(getidParam(fc));
+
         return "result";
     }
-    
+
     ///Les asigna a cada una de las variables los valores tomados del Slot
     public String outcome() {
 
@@ -314,14 +293,14 @@ public class DetalleController implements Serializable {
     }
 
     public String getTitulo() {
-        
+
         return titulo;
-        
+
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
-        
+
     }
 
     public int getId() {
@@ -357,12 +336,12 @@ public class DetalleController implements Serializable {
     }
 
     public String getColorCategoria() {
-        
+
         return colorCategoria;
     }
 
     public void setColorCategoria(String colorCategoria) {
-        
+
         this.colorCategoria = colorCategoria;
     }
 
@@ -381,51 +360,58 @@ public class DetalleController implements Serializable {
     public void setMateriales(String materiales) {
         this.materiales = materiales;
     }
-    
+
     /// Se actualizan los valores en la base de datos del Slot y se refresca la pantalla con redireccionar()
-    public void updateSlot(){
-        DetalleDao upt = new DetalleDao();
-        upt.updateDetalle(this.id,this.titulo,this.descripcion,this.objetivo,this.categoria,this.colorCategoria,this.pasos,this.materiales);            
-        redireccionar();
+    public void updateSlot() {
+        //Revision de propiedad
+        if (this.propiedad(id)) {
+            DetalleDao upt = new DetalleDao();
+            upt.updateDetalle(this.id, this.titulo, this.descripcion, this.objetivo, this.categoria, this.colorCategoria, this.pasos, this.materiales);
+            redireccionar();
+        }else{
+            redireccionar();
+        }
     }
-    
-    
-    
-    public void insertSlot(){
-        DetalleDao upt = new DetalleDao();
-        upt.insertarSlot(idEvento);
-        redireccionar();
+
+    public void insertSlot() {
+        //Revion de propiedad
+        if (this.propiedad(idEvento)) {
+            DetalleDao upt = new DetalleDao();
+            upt.insertarSlot(idEvento);
+            redireccionar();
+        }else{
+            redireccionar();
+        }
     }
-    
-    public void insertBloque(){
-        DetalleDao upt = new DetalleDao();
-        upt.insertarBloque(idEvento);        
-        redireccionar();
+
+    public void insertBloque() {
+        //Revision de propiedad
+        if (this.propiedad(idEvento)) {
+            DetalleDao upt = new DetalleDao();
+            upt.insertarBloque(idEvento);
+            redireccionar();
+        }else{
+            redireccionar();
+        }
     }
-    
 
+    public void updateIndex() {
+        //Revision de propiedad
+        if (this.propiedad(idEvento)) {
+            System.out.print(detalles);
 
+            DetalleDao detalle = new DetalleDao(idEvento);
 
-  public void updateIndex(){
-       
-    System.out.print(detalles);
-    
-   DetalleDao detalle=new DetalleDao(idEvento);
-   
-    int i=1;
+            int i = 1;
 
-     for(DetalleEvento det:detalles){
-     det.setIndice(i);
-     detalle.updateReorder(det);
-         
-         i++;
-     }
-    
-     
-     
-  
-   
-  }
+            for (DetalleEvento det : detalles) {
+                det.setIndice(i);
+                detalle.updateReorder(det);
+
+                i++;
+            }
+        }
+    }
 
     public String getHoraEdit() {
         return horaEdit;
@@ -434,90 +420,94 @@ public class DetalleController implements Serializable {
     public void setHoraEdit(String horaEdit) {
         this.horaEdit = horaEdit;
     }
-  
-    public void leer(int idDetalle){
+
+    public void leer(int idDetalle) {
         System.out.println("Entró");
         System.out.println(idDetalle);
-        
-    }
-    
-    public void editarHora(){
-         //Método que permite editar la hora inicial de un slot, es llamado por el 
-        //modal editHora
-        
-        //Incluye algunas validaciones
-        
-        
-        boolean invalido=false;
-        
-        
-        String signo=horaEdit.substring(2,3);
-    
-        
-        if(!signo.equalsIgnoreCase(":")){
-            invalido=true;
-        }
-        
-       if(horaEdit.length()!=5){
-           invalido=true;
-       }
-       char prueba;
-       boolean esNum=false;
-       for(int i=0;i<horaEdit.length();i++){
-           prueba=horaEdit.charAt(i);
-           if(i!=2){
-               esNum=Character.isDigit(prueba);
-           }
-           
-           if(esNum==false){
-           invalido=true;    
-           }        
-           
-       }
-       
-       if(invalido==false){
-            DetalleDao det=new DetalleDao();
-        DetalleEvento detalle=new DetalleEvento(id,horaEdit);
-        det.updateHora(detalle);
-       }
-    
-        init();
-        
+
     }
 
-    
-    public void editarDuracion(){
-        
-        
+    public void editarHora() {
+        //Método que permite editar la hora inicial de un slot, es llamado por el 
+        //modal editHora
+
+        //Incluye algunas validaciones
+        //Revision de propiedad
+        if (this.propiedad(id)) {
+            boolean invalido = false;
+
+            String signo = horaEdit.substring(2, 3);
+
+            if (!signo.equalsIgnoreCase(":")) {
+                invalido = true;
+            }
+
+            if (horaEdit.length() != 5) {
+                invalido = true;
+            }
+            char prueba;
+            boolean esNum = false;
+            for (int i = 0; i < horaEdit.length(); i++) {
+                prueba = horaEdit.charAt(i);
+                if (i != 2) {
+                    esNum = Character.isDigit(prueba);
+                }
+
+                if (esNum == false) {
+                    invalido = true;
+                }
+
+            }
+
+            if (invalido == false) {
+                DetalleDao det = new DetalleDao();
+                DetalleEvento detalle = new DetalleEvento(id, horaEdit);
+                det.updateHora(detalle);
+            }
+
+            init();
+            
+        }else{
+            //No es propietario
+            init();
+            PrimeFaces.current().ajax().update("eventos");
+        }
+    }
+
+    public void editarDuracion() {
         //Método que permite editar la duración de un slot, es llamado por el 
         //modal editDuracion
-        
-         //Incluye algunas validaciones
-       DetalleDao det=new DetalleDao();
-       int duracion=0;
-       try{
-           duracion=Integer.parseInt(duracionEdit);
-       }catch(Exception e){
-           init();
-          PrimeFaces.current().ajax().update("eventos");
-        
-       }
-             
-       
-     try{
-       if(duracion>=1){
-        DetalleEvento detalle=new DetalleEvento(duracion,id);
-        det.updateDuracion(detalle);
-            
-       }
-        init();   
-         
-     }catch(Exception e){
-         init();
-          
-     }
-       PrimeFaces.current().ajax().update("eventos");
-      
+        //Incluye algunas validaciones
+        //Revision de propiedad
+        if (this.propiedad(id)) {
+            DetalleDao det = new DetalleDao();
+            int duracion = 0;
+            try {
+                duracion = Integer.parseInt(duracionEdit);
+            } catch (Exception e) {
+                init();
+                PrimeFaces.current().ajax().update("eventos");
+
+            }
+
+            try {
+                if (duracion >= 1) {
+                    DetalleEvento detalle = new DetalleEvento(duracion, id);
+                    det.updateDuracion(detalle);
+
+                }
+                init();
+
+            } catch (Exception e) {
+                init();
+
+            }
+            PrimeFaces.current().ajax().update("eventos");
+        } else {
+            //No es propietario
+            init();
+            PrimeFaces.current().ajax().update("eventos");
+        }
     }
 
     public String getDuracionEdit() {
@@ -527,8 +517,25 @@ public class DetalleController implements Serializable {
     public void setDuracionEdit(String duracionEdit) {
         this.duracionEdit = duracionEdit;
     }
-            
-   
-    
-    
+
+    //Metodo que determina quien esta ingresando a ver los slots
+    public boolean propiedad(int evaluarId) {
+        Dao dao = new DetalleDao();
+        String propietario = "";
+
+        //Chequeando propiedad mediante el ID de slot
+        String slotE = ((DetalleDao) dao).propiedadSlot(evaluarId);
+        if (!"".equals(slotE)) {
+            propietario = slotE;
+        }
+
+        //Chequeando propiedad mediante el ID de Evento
+        String eventE = ((DetalleDao) dao).propiedadEvento(evaluarId);
+        if (!"".equals(eventE)) {
+            propietario = eventE;
+        }
+
+        return propietario.equals(UsuarioLoginController.UID);
+    }
+
 }

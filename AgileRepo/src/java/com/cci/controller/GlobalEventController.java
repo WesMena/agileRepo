@@ -7,6 +7,7 @@ package com.cci.controller;
 
 import com.cci.model.Evento;
 import com.cci.service.Dao;
+import com.cci.service.EventDao;
 import com.cci.service.GlobalEventDao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class GlobalEventController implements Serializable {
     private List<Evento> lstEvt = new ArrayList<>();
     private String BLACKCOLORCODE = "#000000";
     private String BLUECOLORCODE = "#0388e5";
-    private String filtro="";
+    private String filtro = "";
 
     public String getFiltro() {
         return filtro;
@@ -72,7 +73,7 @@ public class GlobalEventController implements Serializable {
     public void onLoad() {
         //Cargar lstEvent con datos
         Dao dao = new GlobalEventDao();
-        this.lstEvt = ((GlobalEventDao)dao).getAll();
+        this.lstEvt = ((GlobalEventDao) dao).getAll();
     }
 
     //Metodo de refrescamiento
@@ -95,6 +96,16 @@ public class GlobalEventController implements Serializable {
 
         }
 
+    }
+
+    //Filtrado
+    public void filtrarEventos() {
+        Dao dao = new GlobalEventDao();
+        System.out.println("Entró");
+        if(!"".equals(filtro))
+            lstEvt = ((GlobalEventDao)dao).getFiltered(filtro);
+        else
+            lstEvt = ((GlobalEventDao)dao).getAll();
     }
 
 }
