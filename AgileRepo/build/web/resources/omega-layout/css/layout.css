@@ -2310,6 +2310,18 @@ h2 {
       
     }
     
+    .dashboard .summary .detail2{
+    margin-top: -6px;
+    color: #a4a4a4;
+      font-size:14px;
+      
+      display:inline-block;
+      text-align:justify;
+      
+      margin-left:2.5%;
+}
+    
+    
     .dashboard .summary .tags{
        bottom:5%;
        position:absolute;

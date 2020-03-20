@@ -126,7 +126,7 @@
                                 <span class="options">
 
 
-                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-cog" update="Slot" >
+                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-info" update="Slot" >
                                         <f:param name="tituloSlot" value="#{detalle.titulo}" />
                                         <f:param name="idSlot" value="#{detalle.id}" />
                                         <f:param name="descSlot" value="#{detalle.descripcion}" />
@@ -154,9 +154,9 @@
                             
                                    
                                    
-                               <span  id="hora"  >#{detalle.horaInicioStr}</span>
-                               <span  id="separaHora">-</span>
-                               <span  id="hora2"  >#{detalle.horaFinalStr}</span>
+                               <span  id="hora" style="font-size:15px;" >#{detalle.horaInicioStr}</span>
+                               <span  id="separaHora" style="font-size:15px;" >-</span>
+                               <span  id="hora2"  style="font-size:15px;" >#{detalle.horaFinalStr}</span>
                                  <p:commandButton id="setHora" icon="ui-icon-pencil" value="" class="horabtn"  style="display:#{detalle.esPrimeroDia()?'inline':'none'}; margin-left:5px; height:15px; background:#fff; color:#424954; font-size:20px;" action="#{detallecontroller.outcomeHora()}" update="horaForm" oncomplete="PF('editHora').show();">
                                    <f:param name="horaSlot" value="#{detalle.horaInicioStr}" />
                                    <f:param name="idSlot" value="#{detalle.id}" /> 
@@ -166,15 +166,22 @@
                              
                              
                              
-                            <p:commandButton id="btnDuracion" class="btnDuracion" value="#{detalle.duracion} min" style="background-color:##{detalle.colorCategoria}; font-size:18px; font-weight:bold; display:#{detalle.esBloque()?'none':'block'}" action="#{detallecontroller.outcomeDuracion()}" update="duracionForm" oncomplete="PF('editDuracion').show();" >
+                                <p:commandButton id="btnDuracion" class="btnDuracion" value="#{detalle.duracion} min" style="background-color:##{detalle.colorCategoria}; font-size:18px; font-weight:bold; display:#{detalle.esBloque()?'none':'block'}" action="#{detallecontroller.outcomeDuracion()}" update="duracionForm" oncomplete="PF('editDuracion').show();" >
+                                
                                 <f:param name="idSlot" value="#{detalle.id}" /> 
                                 <f:param name="duracionSlot" value="#{detalle.duracion}" /> 
-                            </p:commandButton>
+                            </p:commandButton>       
+                          
+                          
+                            
+                                 
+                                 
+                         
                           
                             
                             <div style="width:90%">
                                 
-                                <h:inputTextarea rows="1" cols="1" readonly="true" style="overflow:hidden;display: block;width: 80%;border: none;resize: none; font-family:Arial,Helvetica; margin-top: 0px; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; margin-left:#{detalle.esBloque()?'50px':'100px'} " class="#{detalle.esBloque()?'title2':'title'}" value="#{detalle.titulo}"> </h:inputTextarea>
+                                <h:inputTextarea rows="1" cols="1" readonly="true" style="overflow:hidden;display: block;width: 75%;border: none;resize: none; font-family:Arial,Helvetica; margin-top: 0px; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; margin-left:#{detalle.esBloque()?'50px':'100px'} " class="#{detalle.esBloque()?'title2':'title'}" value="#{detalle.titulo}"> </h:inputTextarea>
                                 <!-->
                                 <span id="tit" class="#{detalle.esBloque()?'title2':'title'}">#{detalle.tituloResumido()}</span>
                                </!--> 
@@ -192,7 +199,7 @@
                            
 
                             <div style="margin-top:2.5%;" >
-                                <h:inputTextarea rows="2" cols="1" readonly="true" style="overflow:hidden;display:#{detalle.esBloque()?'none':'inline'};width: 50%;border: none;resize: none; font-family:Arial,Helvetica; margin-top: 0px; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; " class="detail" value="#{detalle.descripcion}"> </h:inputTextarea>
+                                <h:inputTextarea rows="3" cols="1" readonly="true" style="overflow:hidden;display:#{detalle.esBloque()?'none':'inline'};width: 95%;border: none;resize: none; font-family:Arial,Helvetica; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; " class="detail2" value="#{detalle.descripcion}"> </h:inputTextarea>
                                 
                             </div>
 
