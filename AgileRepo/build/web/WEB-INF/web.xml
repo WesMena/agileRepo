@@ -42,16 +42,10 @@
         <param-value>true</param-value>
     </context-param>
     
-	<dependency>
-		<groupId>com.lowagie</groupId>
-		<artifactId>itext</artifactId>
-		<version>2.1.0</version>
-	</dependency>
- 
-	<dependency>
-	    <groupId>org.apache.poi</groupId>
-	    <artifactId>poi</artifactId>
-	    <version>3.2-FINAL</version>
-	</dependency>
+    <context-param>
+        <description>Aristo Theme from Primefaces (library added in the classpath)</description>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>aristo</param-value>
+    </context-param>
     
 </web-app>
