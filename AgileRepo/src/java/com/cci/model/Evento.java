@@ -60,29 +60,34 @@ public class Evento implements Serializable {
     }
     private String desc;
     private int id;
-    private int horas;
+    private double horas;
     private int dias;
     private String duracion;
+    private String horaInicio;
     private String losTags = "";
     public static List<Tag> tags = new ArrayList<>();
 
     public Evento() {
     }
 
-    public Evento(String nombre, String desc, int id, int horas, int dias) {
+    public Evento(String nombre, String desc, int id, double horas, int dias, String inicio) {
         this.nombre = nombre;
 
         this.id = id;
         this.horas = horas;
         this.dias = dias;
-
+        this.horaInicio = inicio;
+        System.out.println(horaInicio);
+        duracion = horas + "h";
         //Esto es lo que se usa para saber qué mostrar en el cuadro de duración 
         //de las tarjetas de evento 
-        if (this.dias > 1) {
+/*        if (this.dias > 1) {
             duracion = dias + "d";
         } else {
             duracion = horas + "h";
         }
+ */       
+        
 
         //Limita el tamaño de la descripción que se muestra en las tarjetas de evento
 //        if (desc.length() > 80) {
@@ -142,11 +147,11 @@ public class Evento implements Serializable {
         this.id = id;
     }
 
-    public int getHoras() {
+    public double getHoras() {
         return horas;
     }
 
-    public void setHoras(int horas) {
+    public void setHoras(double horas) {
         this.horas = horas;
     }
 
@@ -198,6 +203,16 @@ public class Evento implements Serializable {
         System.out.println("" + this.nombre + " entrando a edicion");
         System.out.println("" + this.nombre);
     }
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+    
+    
     
     String tituloCorto="dfdd";
     
@@ -225,5 +240,16 @@ public class Evento implements Serializable {
     public void setTituloCorto(String tituloCorto) {
         this.tituloCorto = tituloCorto;
     }
+
+    public Evento(String nombre, String desc, int id, double horas, int dias) {
+        this.nombre = nombre;
+        this.desc = desc;
+        this.id = id;
+        this.horas = horas;
+        this.dias = dias;
+    }
       
+    
+    
+    
 }

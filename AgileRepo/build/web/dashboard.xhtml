@@ -77,10 +77,18 @@
                                 <!-->
                                 Aquí está el título del evento y su duración
                                 </!-->
+                                <h:panelGrid columns="2">
                                 <span  class="count visitors">#{eventos.duracion}</span>
+                                <span  class="count visitors">#{eventos.horaInicio}</span>
+                                </h:panelGrid>
+                               
+                                
+                                <br></br>
+
+
                                 <div style="width:90%" contenteditable="#{eventos.onEdit}">   
-                                    <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'none':'block'}; width:80%; font-family:Arial,Helvetica; margin-top:-20px; background:none;" class="title" value="#{eventos.tituloCorto}"></h:inputText>
-                                    <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'block':'none'}; width:80%; font-family:Arial,Helvetica; margin-top:-20px; background:none;" class="title" value="#{eventos.nombre}"></h:inputText>
+                                    <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'none':'block'}; width:100%; font-family:Arial,Helvetica; margin-top:0px; background:none; margin-left:10px;" class="title" value="#{eventos.tituloCorto}"></h:inputText>
+                                    <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'block':'none'}; width:100%; font-family:Arial,Helvetica; margin-top:0px; background:none; margin-left:10px;" class="title" value="#{eventos.nombre}"></h:inputText>
                                     
                                 </div>
 
