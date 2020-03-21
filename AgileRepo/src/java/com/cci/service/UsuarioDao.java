@@ -39,7 +39,7 @@ public class UsuarioDao implements Dao<Usuario> {
        conne.conectar();
         try {
             stm = conne.conn.createStatement();
-            stm.execute(String.format("Insert into usuarios values('%s',%o);", t.getUid(),t.getRole()));
+            stm.execute(String.format("Insert into usuarios values('%s',%d,'%3$s');", t.getUid(),t.getRole(),t.getDisplayName()));
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -105,11 +105,14 @@ and open the template in the editor.
                         </div>
 
                     </h:form>
-                    <h:form id="frmaHidden" >
+                    <h:form onsubmit=" return false" id="frmaHidden" >
                         <h:inputText id="txtHidden" style="display: none" value="#{RegisterController.uid}">
                         </h:inputText>
                         <button id="lkRegister" type="submit" style="display:none" onclick="#{RegisterController.onClick()}"  >
                         </button>
+                    </h:form>
+                    <h:form>
+                        <p:remoteCommand name="googleLogin" actionListener="#{usuarioController.setResponse}"  />
                     </h:form>
                 </div>
             </div>    

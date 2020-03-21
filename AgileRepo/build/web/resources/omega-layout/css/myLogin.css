@@ -44,6 +44,7 @@ body , html{
 .loginBtn {
     box-sizing: border-box;
     position: relative;
+    /*width: 332px !important;*/
     /* width: 13em;  - apply for fixed size */
     margin: 0.1em;
     padding: 0 15px 0 46px;

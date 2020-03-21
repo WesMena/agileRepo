@@ -32,14 +32,13 @@
                     </div>
 
                     <div class="menu">
-                        <po:menu>
-                            <p:menuitem id="om_dashboard" value="Eventos" icon="fa fa-calendar" outcome="/dashboard"/>
-            
+                        <po:menu >
+                            <p:submenu label="Eventos" icon="fa fa-calendar" expanded="false" >
+                                <p:menuitem  id="om_dashboard" value="Mis eventos" icon="fa fa-user" outcome="/dashboard"/>    
+                                <p:menuitem id="om_OtherDashboard" value="Otros eventos" icon="fa fa-users" outcome="/eventosGlobal"/>    
+                            </p:submenu>
                             <p:menuitem id="om_users" value="Proximamente" icon="fa fa-tasks" outcome="/comingSoon"/>
-
-
-
-
+                            
                         </po:menu>
                     </div>
                 </div>
