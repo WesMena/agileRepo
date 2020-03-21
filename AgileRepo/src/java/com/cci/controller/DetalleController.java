@@ -559,11 +559,13 @@ public class DetalleController implements Serializable {
         
         if(!signo.equalsIgnoreCase(":")){
             invalido=true;
+            
+        }
         //Revision de propiedad
         if (this.propiedad(id)) {
-            boolean invalido = false;
+            invalido = false;
 
-            String signo = horaEdit.substring(2, 3);
+           
 
             if (!signo.equalsIgnoreCase(":")) {
                 invalido = true;
@@ -599,8 +601,8 @@ public class DetalleController implements Serializable {
             init();
             PrimeFaces.current().ajax().update("eventos");
         }
+    
     }
-
     public void editarDuracion() {
         //Método que permite editar la duración de un slot, es llamado por el 
         //modal editDuracion
@@ -673,7 +675,7 @@ public class DetalleController implements Serializable {
         this.horaDate = horaDate;
     }
       
-}
+
     //Metodo que determina quien esta ingresando a ver los slots
     public boolean propiedad(int evaluarId) {
         Dao dao = new DetalleDao();
