@@ -270,3 +270,53 @@ margin-top:2.5%;
 .ui-button-text-icon-left .ui-button-text {
     padding: .2em .2em .3em 1.1em;
 }
+
+.ui-tabs .ui-tabs-panel{
+    padding:0px;
+}
+
+.ui-tabs-panel .ui-widget-content .ui-corner-bottom{
+    padding:0px;
+}
+
+.ui-tabs .ui-tabs-nav>li.ui-state-default.ui-state-active{
+    background-color:#4e4e4e;
+}
+
+.botonesTabView:before{
+    background-color:#fff;
+}
+.botonesTabView{
+    background-color:#fff;
+}
+
+.botonesTabView:after{
+      background-color:#4e4e4e;
+      color:#fff;
+}
+
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
+    color:#fff;
+}
+
+.circuloLanding{
+     height: 75px;
+  width: 75px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.botonLoginLanding{
+        border: none;
+    outline: none;
+    height: 40px;
+    width: 100px;
+    background: blue;
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+    border-radius: 5%;
+    margin: 0;
+}
