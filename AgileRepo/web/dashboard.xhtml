@@ -151,52 +151,82 @@
 
 
                     <h:form id="frmDlg" >
+
+                        <p:dialog header="Cronograma" id="dlg1" draggable="false" style="text-align: center;  align-items: center; bottom: 50;right: 50;width:420px;" widgetVar="dlg2" modal="true" resizable="false"  responsive="true" width="450px" blockScroll="true" >
+
+
+                            <p:commandButton value="Imprimir"  ajax="false" type="button" icon="./../resources/omega-layout/images/PDF-Icon.png" style="display:block;margin-bottom: 20px">
+                                 <p:dataExporter type="pdf" target="tableId" fileName="lareputa" encoding="ISO-8859-1" />
+                            </p:commandButton>
+
                        
-                            <p:dialog header="Cronograma" id="dlg1" draggable="false" style="text-align: center;  align-items: center; bottom: 50;right: 50;width:420px;" widgetVar="dlg2" modal="true" resizable="false"  responsive="true" width="450px" blockScroll="true" >
+
+                            <span style="font-size: x-large;width: 56px;height: 52px" >#{eventcontroller.target.nombre}</span>
+                            <br></br>
+                            <br></br>
+
+                            <div style="padding: 0px; width: 100%">
+
+                                <p:scrollPanel id="scrl" style="width:300%; height:160px;  display:block; margin-bottom: 20px">
+                                    <c:forEach id="P111"  items="#{eventcontroller.lstCrono}"  var="P1" varStatus="true"  > 
+
+                                        <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 100%">
+
+                                            <span class="count visitors" style="margin-right: 13px; text-align:right;" >#{P1.duracion} minutos</span>
+                                            <br></br>
+                                            <br></br>
+                                            <span with="75px" style="display: inline-block;width: 80px; height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
+                                            <span style="font-size: x-large;width: 80px;height: 52px"> - </span>
+                                            <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaFinal}</span>
+                                            <br></br>
+                                            <br></br>
+                                            <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
+
+                                        </div>
+
+                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
+
+                                            <span style="font-size: x-large;width: 56px;height: 52px; background-color:##{P1.color} !important;">#{P1.titulo}</span>
+                                        </div>
+
+                                    </c:forEach>
+
+                                </p:scrollPanel>
+                            </div>
+
+                            <br></br>
 
 
-                                <p:commandButton value="Imprimir" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
-                                    <p:printer target="scrl" />
-                                </p:commandButton>
 
-                                
-                                <span style="font-size: x-large;width: 56px;height: 52px" >#{eventcontroller.target.nombre}</span>
-                                      <br></br>
-                                       <br></br>
-                                
-                                <div style="padding: 0px; width: 100%">
 
-                                    <p:scrollPanel id="scrl" style="width:300%; height:160px;  display:block; margin-bottom: 20px">
-                                        <c:forEach id="P111"  items="#{eventcontroller.lstCrono}"  var="P1" varStatus="true"  > 
+                            <p:dataTable  id="tableId" var="crono" value="#{eventcontroller.lstCrono}"  >
 
-                                            <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 100%">
-                                   
-                                                <span class="count visitors" style="margin-right: 13px; text-align:right;" >#{P1.duracion} minutos</span>
-                                                 <br></br>
-                                                 <br></br>
-                                                <span with="75px" style="display: inline-block;width: 80px; height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
-                                                <span style="font-size: x-large;width: 80px;height: 52px"> - </span>
-                                                <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaFinal}</span>
-                                                <br></br>
-                                                <br></br>
-                                                <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
-                                                
-                                            </div>
+                     
 
-                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
-                                          
-                                                <span style="font-size: x-large;width: 56px;height: 52px; background-color:##{P1.color} !important;">#{P1.titulo}</span>
-                                            </div>
+                                <p:column headerText="Orden">
+                                    <h:outputText value="#{crono.ord}" />
+                                </p:column>
 
-                                        </c:forEach>
+                                <p:column headerText="Titulo">
+                                    <h:outputText value="#{crono.titulo}" />
+                                </p:column>
 
-                                    </p:scrollPanel>
-                                </div>
+                                <p:column headerText="Hora de Inicio">
+                                    <h:outputText value="#{crono.horaInicio}" />
+                                </p:column>
 
-                                <br></br>
+                                <p:column headerText="Duracion (Minutos)">
+                                    <h:outputText value="#{crono.duracion}" />
+                                </p:column>
 
-                            </p:dialog>   
-                       
+                            </p:dataTable>
+
+
+
+
+
+                        </p:dialog>   
+
                     </h:form>
 
 
