@@ -18,7 +18,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces Omega</title>
+        <title>CCI Consultores| Expertos en proyectos tecnológicos</title>
         <script type="text/javascript">
             $(function () {
                 $('#menu-button').on('click', function (e) {
@@ -30,183 +30,293 @@
         <ui:insert name="head"/>
     </h:head>
 
-    <h:body styleClass="landing-body">
+    <h:body styleClass="landing-body" style="
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+">
 
         <div class="landing-wrapper">
             <div class="landing-header">
                 <div class="landing-header-content clearfix">
-                    <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
+                    <p:graphicImage name="images/cciLanding.png" library="omega-layout" width="130"/>
 
                     <a id="menu-button" href="#">
                         <span class="fa fa-bars"></span>
                     </a>
-                    <ul id="menu">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#introduction">Introduction</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#mobile">Mobile</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#video">Video</a></li>
+                    <ul id="menu" style="color:#7f7f7f;">
+                        <li><a href="#quienesSomos" style="font-size:16px;">¿Quienes somos?</a></li>
+                        <li><a href="#servicios" style="font-size:16px;">Nuestros Servicios</a></li>
+                        <li><a href="#soluciones" style="font-size:16px;">Soluciones</a></li>
+                        <li><a href="#contacto" style="font-size:16px;">Contacto</a></li>
+                      
+                       <li><h:link style="font-size:16px;" id="redirect" value = "Iniciar Sesion" outcome = "login.xhtml" />  </li>
                     </ul>
                 </div>
             </div>
 
             <div id="introduction">
                 <div class="introduction-content">
-                    <span class="title">PrimeFaces Omega</span>
-                    <span class="subtitle">Clean, Elegant and Functional</span>
-                    <p:graphicImage name="images/landing/section1_logo.png" library="omega-layout" />
-                    <p:commandButton  onclick="googleLogOut()" id="btnLogOutGoogle" type="button" value="Log Out"></p:commandButton>
+                    <span class="title">Convertimos sus ideas en proyectos de software rentables</span>
+                    <span class="subtitle">Pensamos, Planificamos, Ejecutamos, Verificamos y controlamos sus proyectos</span>
+                  
+                 
                 </div>
             </div>
 
-            <div id="features">
+           
+             <div id="quienesSomos" >
+                <div class="features-content" >
+                    <p class="feature-title" style="font-size:30px;margin-top: 2.5%; text-align:center; color:#4e4e4e;">¿Quienes somos?</p>
+                    <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify; color:#4e4e4e;">CCI CONSULTORES INFORMATICOS S.A, somos una empresa de capital costarricense y esta formada por un equipo de profesionales dedicados al servicio empresarial e informático enfocado a la micro, pequeña y mediana empresa.</p>
+                    <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify; color:#4e4e4e;">
+Nos enfocamos en brindarle a las empresas, un crecimiento a nivel informático y automatización en las tecnologías de la información que les permita crecer tecnológicamente y obtener mejores resultados en sus procesos.</p>
+                    <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify;color:#4e4e4e;">Nuestra amplia experiencia en proyectos de tecnología, nos ha permitido ofrecerle a nuestros clientes servicios de valor agregado al momento de formular sus proyectos. Nuestros consultores cuentan con amplia experiencia nacional e internacional en la formulación, administración y desarrollo de proyectos de TI (Tecnologías de la Información).</p>
+                    <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify; color:#4e4e4e;">En CCI CONSULTORES INFORMATICOS hacemos que los proyectos de Tecnologías de la Información de nuestros clientes sean exitosos, entregando valor a todas las partes involucradas, a través de metodologías reconocidas.</p>
+                    
+                   <p:tabView orientation="left" style="left:8%; width:90%;">
+        <p:tab title="Nuestra Visión">
+            <h:panelGrid columns="1"  cellpadding="0" style="padding:0px; margin-left:0px; width:70%; text-align:justify;"   >
+                <h:outputText style="font-size:16px; color:#4e4e4e; font-family:Open Sans, sans-serif; font-weight:600; " value="Visión"></h:outputText>
+                <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="Posicionarnos a corto plazo como una empresa confiable y líder
+                    en la formulación, evaluación, administración y desarrollo de proyectos
+                    de software, aportando ideas de valor." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Nuestra Misión" >
+            <h:panelGrid columns="1" cellpadding="0" style="margin-left:0px; width:70%; text-align:justify;">
+               
+                 <h:outputText style="font-size:16px; color:#4e4e4e; font-family:Open Sans, sans-serif; font-weight:600; " value="Misión"></h:outputText>
+                <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="Ser una empresa comprometida con las micro, pequeñas y medianas empresas para aumentar su productividad con una mejora continua en las tecnologías de la información y así convertirnos en un verdadero aliado estratégico para la organización." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Nuestros Valores">
+            <h:panelGrid columns="1" cellpadding="0" styleClass="botonesTabView" style="margin-left:0px; width:70%; text-align:justify; ">
+                
+                 <h:outputText style="font-size:16px; color:#4e4e4e; font-family:Open Sans, sans-serif; font-weight:600; margin-bottom:10px; " value="Valores"></h:outputText>
+                 
+                   <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Lealtad" />
+               <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Compromiso" />
+               <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Confianza" />
+               <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Respeto" />
+               <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Responsabilidad" />
+               <h:outputText style="margin-left:0px; color:#4e4e4e;"
+                    value="•Profesionalismo" />
+                
+            </h:panelGrid>
+        </p:tab>
+    </p:tabView>
+                </div>
+            </div>
+
+             <div id="pricing" style="background-image:url(/AgileRepo/faces/javax.faces.resource/images/landing/serviciosBG.jpg?ln=omega-layout); background-repeat:no-repeat; background-size:cover;">
+                <div class="pricing-content" id="servicios">
+                    <span class="pricing-title" style="color:#fff; font-weight:600;">Nuestros Servicios</span>
+                    <p style="color:#fff; font-weight:300;">Todos nuestros servicios estan enfocados en generar un valor agregado a su negocio.</p>
+                    <p style="color:#fff; font-weight:300;">Experiencia y calidad en todos nuestros proyectos.</p>
+                 
+                    
+                    
+                    <div class="ui-g ui-fluid dashboard" >
+            <div class="ui-g-12" >
+             
+                
+                <div class="pricing-basic pricing-box" style="text-align: justify;  margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services1.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;"/>
+                      <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%; position: relative;
+                                      top: 0px;font-weight: 600;" >Asesoría</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">A través de este servicio de consultoría apoyamos a las organizaciones a definir un Plan Estratégico de TI (Tecnologías de la Información):</p>
+                                <p style="margin-left: 2.5%;width:95%; ">•Evaluación de la Situación actual.</p>
+                                <p style="margin-left: 2.5%;width:95%; ">•Análisis de los objetivos del negocio y de tecnología.</p>
+                                <p style="margin-left: 2.5%;width:95%; ">•Recomendaciones Tecnológicas.</p>
+                                 <p style="margin-left: 2.5%;width:95%; ">•Generación del Plan Estratégico.</p>
+                                  <p style="margin-left: 2.5%;width:95%;" >•Identificación, mapeo y mejora de procesos, procedimientos y normas.</p>
+                            </div>
+                
+                    <div class="pricing-basic pricing-box" style="text-align: justify; margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services3.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;  "/>
+                    <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%;  position: relative;
+                                      top: 0px;font-weight: 600;" >Formulación de Proyectos</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">Apoyamos a nuestros clientes en la identificación, conceptualización y evaluación de proyectos de TI que ayuden a mejorar la productividad de sus operaciones diarias a través de las tecnologías de la información.</p>
+                                <p style="margin-left: 2.5%; width:95%; ">A través de este servicio, le brindamos a nuestros clientes de los diferentes estudios requeridos a nivel funcional, de negocio y tecnológico para una mejor toma de decisiones en la inversión requerida para la correcta aprobación e implementación del proyecto. Entre los principales estudios realizados por nuestros consultores se destacan los siguientes:</p>
+                                <p style="margin-left: 2.5%; width:95%; ">•Levantamiento de Requerimientos Funcionales.</p>
+                                <p style="margin-left: 2.5%; width:95%; ">•Selección de Soluciones Tecnológicas.</p>
+                                 <p style="margin-left: 2.5%; width:95%; ">•Estudio de Factibilidad Técnica.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Estudio de Factibilidad Operativa.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Estudio de Factibilidad Económica.</p>
+                            </div>
+                
+                
+                <div class="pricing-basic pricing-box" style="text-align: justify; margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services2.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;  "/>
+                    <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%;  position: relative;
+                                      top: 0px;font-weight: 600;" >Administración de Proyectos</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">Nos hacernos cargo en la conducción de proyectos de software, aportando todos los elementos requeridos para el éxito del proyecto y alineados al estándar más utilizado y aceptado a nivel mundial como lo es PMBok (Project Management Body of Knowledge) en el cual cubrimos todas las áreas establecidas y sus correspondientes procesos:</p>
+                                
+                                <p style="margin-left: 2.5%; width:95%; ">•Iniciación.</p>
+                                <p style="margin-left: 2.5%; width:95%; ">•Planificación.</p>
+                                 <p style="margin-left: 2.5%; width:95%; ">•Ejecución.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Seguimiento y Control.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Cierre.</p>
+                                   <p style="margin-left: 2.5%; width:95%; ">•Capacitación, Coaching y Mentoría.</p>
+                            </div>
+               
+              <div class="pricing-basic pricing-box" style="text-align: justify; margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services4.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;  "/>
+                    <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%;  position: relative;
+                                      top: 0px;font-weight: 600;" >Implementación de soluciones</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">Con base a las necesidades de nuestros clientes, seleccionamos e implementamos la mejor solución que se adapte a sus necesidades, dando preferencia a la utilización de software OpenSource.</p>
+          
+                            </div>
+                
+                <div class="pricing-basic pricing-box" style="text-align: justify; margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services5.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;  "/>
+                    <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%;  position: relative;
+                                      top: 0px;font-weight: 600;" >Desarrollo de software a la medida</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">Convertir sus requerimientos e ideas en un software confiable, seguro y fácil de usar, a través de metodologías para el logro de la máxima calidad en el servicio y en el producto final. Desarrollamos aplicaciones en ambiente web y en dispositivos móviles con sistemas Android y Apple (iOS).</p>
+                                <p style="margin-left: 2.5%; width:95%; ">Nuestro equipo de profesionales buscan en conjunto crear soluciones prácticas e innovadoras con el objetivo de resolver y atacar incluso los problemas más complejos.</p>
+                      
+                            </div>
+                
+                <div class="pricing-basic pricing-box" style="text-align: justify; margin-top:10px; color:#787878;">
+                    <p:graphicImage name="images/landing/services6.png" library="omega-layout" styleClass="feature-icon" style="margin-left: 5%;  "/>
+                    <br></br>
+                                <span class="pricing-name" style="margin-left: 2.5%; width:95%;  position: relative;
+                                      top: 0px;font-weight: 600;" >Capacitación</span>
+                                
+
+                                <p style="margin-left: 2.5%; width:95%; ">Ofrecemos esquemas de capacitación innovadores en campo de desarrollo de software, en donde sus colaboradores aprenderán a utilizar herramientas, plataformas, metodologías y  estándares de punta.</p>
+                                <p style="margin-left: 2.5%; width:95%; ">Dejamos de lado los cursos tradicionales y nos centramos en capacitaciones totalmente prácticas con un valor de retorno de la inversión a corto plazo.</p>
+                                <p style="margin-left: 2.5%; width:95%; ">Nuestro catálogo de cursos esta compuesto por:</p>
+                                <p style="margin-left: 2.5%; width:95%; ">•Introducción a la Programación JAVA.</p>
+                                 <p style="margin-left: 2.5%; width:95%; ">•Programación Web con Struts, Java Server Pages, JQuery.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Programación Web con EJB y Motor de Persistencia Hibernate.</p>
+                                  <p style="margin-left: 2.5%; width:95%; ">•Programación y Generación de Reportes con JAVA.</p>
+                                   <p style="margin-left: 2.5%; width:95%; ">•Programación de WebServices con SOAP, RestFul, JSON.</p>
+                                    <p style="margin-left: 2.5%; width:95%; ">•Programación de Aplicaciones RIA (Rich Internet Application).</p>
+                                     <p style="margin-left: 2.5%; width:95%; ">•Programación con el Framework Spring MVC.</p>
+                                      <p style="margin-left: 2.5%; width:95%; ">•Programación móvil con tecnologías Híbridas.</p>
+                            </div>
+                
+                
+                
+
+                          
+                   
+                         
+                 
+            </div>
+        </div>
+                    
+                    
+                  
+                </div>
+            </div>
+            
+            
+            
+            <div id="features" style="background-image:url(/AgileRepo/faces/javax.faces.resource/images/landing/solucionesBG.png?ln=omega-layout); background-repeat:no-repeat; background-size:cover;">
+                <div class="features-content" id="soluciones">
+                    <span class="feature-title" style="color:#fff; font-weight:600; ">Soluciones</span>
+                    <p style="color:#fff;font-weight:300; text-align:center;">Analizamos, seleccionamos e implementamos la mejor solución que se adapte a sus necesidades y presupuesto.
+Brindamos soluciones basadas en software libre (opensource) para:</p>
+
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-4">
+                            <span class="circuloLanding"><i class="pi pi-cloud" style="font-size:72px; color:red;"></i> </span>
+                            <span class="feature-text">
+                               
+                                <p style="color:#fff; font-size:20px; font-weight:600;">Sistema para la Gestión de Contenidos(CMS)</p>
+                            </span>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                           <span class="circuloLanding"><i class="pi pi-users" style="font-size:72px; margin-top:5px;color:red;"></i> </span>
+                            <span class="feature-text">
+                               
+                                <p style="color:#fff; font-size:20px; font-weight:600;">Sistema para la Gestión de Relación con los Clientes(CRM)</p>
+                            </span>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <span class="circuloLanding"><i class="pi pi-chart-bar" style="font-size:72px; color:red;"></i> </span>
+                            <span class="feature-text">
+                              
+                               <p style="color:#fff; font-size:20px; font-weight:600;">Sistema de Inteligencia de Negocios(BI)</p>
+                            </span>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                     <span class="circuloLanding"><i class="pi pi-file" style="font-size:72px; color:red;"></i> </span>
+                            <span class="feature-text">
+                              
+                               <p style="color:#fff; font-size:20px; font-weight:600;">Sistema para la Gestión de Documentos(DM)</p>
+                            </span>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <span class="circuloLanding"><i class="fa fa-cogs" style="font-size:56px; color:red; margin-top:10px; margin-left:5px;"></i> </span>
+                            <span class="feature-text">
+                              
+                               <p style="color:#fff; font-size:20px; font-weight:600;">Sistema para la Gestión de Procesos de Negocios(BPM)</p>
+                            </span>
+                        </div>
+                        <div class="ui-g-12 ui-md-4">
+                            <span class="circuloLanding"><i class="fa fa-tasks" style="font-size:56px; color:red; margin-top:10px; margin-left:7.5px;"></i> </span>
+                            <span class="feature-text">
+                              
+                                <p style="color:#fff; font-size:20px; font-weight:600;">Sistema para la Gestión en el Desarrollo de Software</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div id="contacto" >
                 <div class="features-content">
-                    <span class="feature-title">Omega Features</span>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                        doloremque.</p>
-
-                    <div class="ui-g">
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_1.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Responsive</span>
-                                <p>Kogi Cosby sweater ethical squid irony disrupt, organic tote bag gluten-free.</p>
-                            </span>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_2.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Clean</span>
-                                <p>Bushwick meh Blue Bottle pork belly mustache skateboard 3 wolf moon.</p>
-                            </span>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_3.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Grid</span>
-                                <p>Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever.</p>
-                            </span>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_4.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Modern</span>
-                                <p>Retro occupy organic, stumptown shabby chic pour-over roof party DIY.</p>
-                            </span>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_5.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Documented</span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam enim numquam.</p>
-                            </span>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <p:graphicImage name="images/landing/section2_6.png" library="omega-layout" styleClass="feature-icon"/>
-                            <span class="feature-text">
-                                <span>Support</span>
-                                <p>Retro occupy organic, stumptown shabby chic pour-over roof party DIY.</p>
-                            </span>
-                        </div>
-                    </div>
+                    <p class="feature-title" style="font-size:30px;margin-top: 2.5%; text-align:center; color:#4e4e4e; font-weight:600;">¿Tiene una consulta o necesita una atención personalizada?</p>
+                    <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify; color:#4e4e4e; font-size:16px">No dude en contactarnos que estamos para solucionar. Envíenos un correo electrónico a bernal.fernandez@cciconsultorescr.com y le responderemos lo más pronto posible. Su contacto es muy importante para nosotros.</p>
+          <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; margin-top: 2.5%;text-align:justify; color:#4e4e4e; font-size:16px">800 mts. Este del Servicentro El Guarco</p>
+           <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; text-align:justify; color:#4e4e4e; font-size:16px">Tejar del Guarco</p>
+           <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; text-align:justify; color:#4e4e4e; font-size:16px">Cartago, Costa Rica</p>
+           <p style="width: 80%;left: 20%;margin-left: 10%;margin-right: 25%; text-align:justify; color:#4e4e4e; font-size:16px">Teléfono: +506 8834 9851</p>
+           <a  href="mailto:info@cciconsultorescr.com?Subject=Consulta" style="width: 75%;left: 20%;margin-left: 10%;margin-right: 25%; text-decoration:none; margin-bottom:20px;text-align:justify;  color:red; font-size:16px">info@cciconsultorescr.com</a>
+             <br></br>
+           <a href="https://www.facebook.com/CCIConsultoresCR/" style="width: 75%;left: 20%;margin-left: 10%;margin-right: 2.5%; text-decoration:none; margin-bottom:0px;text-align:justify;  color:red; font-size:16px">  <i class="fa fa-facebook-official" style="font-size:48px; color:#4267B2; margin-top:10px; margin-left:7.5px;"></i></a>
+               <a href="https://www.linkedin.com/in/bernalfernandezcci" style="width: 75%;margin-right: 25%; text-decoration:none; margin-bottom:0px;text-align:justify;  color:red; font-size:16px">  <i class="fa fa-linkedin-square" style="font-size:48px; color:#4267B2; margin-top:10px; "></i></a>
+           <br></br>
+            <br></br>
+             <br></br>
+              <br></br>
                 </div>
             </div>
+          
+            
+  <ui:include src="WEB-INF/footer.xhtml" />
 
-            <div id="mobile">
-                <div class="mobile-content">
-                    <span class="title">Try Our Mobile App!</span>
-                    <span class="subtitle">Available at App Store and Google Play.</span>
-                    <p:graphicImage name="images/landing/section3_mobile.png" library="omega-layout" />
-                    <p:commandButton type="button" value="Learn More"></p:commandButton>
-                </div>
-            </div>
-
-            <div id="pricing">
-                <div class="pricing-content">
-                    <span class="pricing-title">Pricing</span>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                        doloremque laudantium, totam rem aperiam.</p>
-
-                    <div class="ui-g">
-                        <div class="ui-g-12 ui-md-4">
-                            <div class="pricing-basic pricing-box">
-                                <span class="pricing-name">Basic</span>
-                                <div class="pricing-fee">1$</div>
-
-                                <p>50GB Disk Space</p>
-                                <p>500GB Monthly Bandwith</p>
-                                <p>20 Email Accounts</p>
-                                <p>5 Subdomain</p>
-                            </div>
-                        </div>
-
-                        <div class="ui-g-12 ui-md-4">
-                            <div class="pricing-standard pricing-box">
-                                <span class="pricing-name">Standard</span>
-                                <div class="pricing-fee">5$</div>
-
-                                <p>200GB Disk Space</p>
-                                <p>1TB Monthly Bandwith</p>
-                                <p>50 Email Accounts</p>
-                                <p>10 Subdomain</p>
-                            </div>
-                        </div>
-
-                        <div class="ui-g-12 ui-md-4">
-                            <div class="pricing-professional pricing-box">
-                                <span class="pricing-name">Professional</span>
-                                <div class="pricing-fee">10$</div>
-
-                                <p>2TB Disk Space</p>
-                                <p>10TB Monthly Bandwith</p>
-                                <p>Unlimited Email Accounts</p>
-                                <p>50 Subdomain</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="video">
-                <div class="video-content">
-                    <span class="video-title">Video</span>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium 
-                        doloremque.</p>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/B_lYGUtCd0g" frameborder="0" width="560"></iframe>
-                    </div>
-                </div>
-            </div>
-
-            <div class="landing-footer">
-                <div class="landing-footer-content">
-                    <div class="footer-top">
-                        <div class="ui-g">
-                            <div class="ui-g-6">
-                                <p:graphicImage name="images/logo.png" library="omega-layout" />
-                                <p>Omega Premium Layout</p>
-                            </div>
-                            <div class="ui-g-6">
-                                <ul>
-                                    <li><a href="#mobile">Mobile</a></li>
-                                    <li><a href="#pricing">Pricing</a></li>
-                                    <li><a href="#video">Video</a></li>
-                                </ul>
-                                <ul>
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#introduction">Introduction</a></li>
-                                    <li><a href="#features">Features</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="footer-bottom">
-                        All Rights Reserved
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
@@ -219,7 +329,8 @@
                 });
             }
         </script>
-
+        <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:body>
 
 </html>

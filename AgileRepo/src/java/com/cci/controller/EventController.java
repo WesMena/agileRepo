@@ -322,4 +322,6 @@ public class EventController implements Serializable {
           PrimeFaces.current().executeScript("PF('dlg2').show()");
     }
     
+  
+    
 }

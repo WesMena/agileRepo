@@ -20,7 +20,11 @@ async function ini() {
             console.log(user);
             //Pasar al landing
             //Seteando input escondido para enviar UID al bean
-           var resp =  googleLogin([{name: 'googleResponse', value: user.uid}]);
+            if (user.displayName) {
+                let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.displayName}]);
+            } else {
+                let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.email}]);
+            }
 
             window.location.assign('faces/dashboard.xhtml');
         } else {
@@ -31,8 +35,8 @@ async function ini() {
 
 }
 
-function stateChanged(response,callback){
-    
+function stateChanged(response, callback) {
+
 }
 
 function signInWithEmailAndPassword(event) {

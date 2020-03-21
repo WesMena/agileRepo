@@ -38,6 +38,7 @@ public class Evento implements Serializable {
 
     public void setOnEdit(boolean onEdit) {
         this.onEdit = onEdit;
+        tituloCorto();
         System.out.println("" + onEdit);
     }
 
@@ -95,13 +96,14 @@ public class Evento implements Serializable {
 //            this.desc = desc;
 //        }
         this.desc = desc;
-
+        tituloCorto();
     }
 
     public Evento(String nombre, String desc, int id) {
         this.nombre = nombre;
         this.desc = desc;
         this.id = id;
+          tituloCorto();
     }
 
     public Evento(String nombre, String desc, int id, String losTags) {
@@ -109,11 +111,13 @@ public class Evento implements Serializable {
         this.desc = desc;
         this.id = id;
         this.losTags = losTags;
+        tituloCorto();
     }
 
     public Evento(String nombre, String desc) {
         this.nombre = nombre;
         this.desc = desc;
+          tituloCorto();
     }
 
     public String getNombre() {
@@ -207,6 +211,45 @@ public class Evento implements Serializable {
     public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
+    
+    
+    
+    String tituloCorto="dfdd";
+    
+    public void tituloCorto(){
+        
+        
+        if(this.nombre.length()>20){
+            this.tituloCorto=this.nombre.substring(0,20)+"...";
+        }else{
+            this.tituloCorto=this.nombre;
+        }
+        
+        
+    }
+    
+      public boolean retornarEdit(){
+        
+        return this.onEdit;
+    }
+
+    public String getTituloCorto() {
+        return tituloCorto;
+    }
+
+    public void setTituloCorto(String tituloCorto) {
+        this.tituloCorto = tituloCorto;
+    }
+
+    public Evento(String nombre, String desc, int id, double horas, int dias) {
+        this.nombre = nombre;
+        this.desc = desc;
+        this.id = id;
+        this.horas = horas;
+        this.dias = dias;
+    }
+      
+    
     
     
 }
