@@ -70,9 +70,11 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 int primero = rs.getInt("primeroDeDia");
 
                 //llama a un método que retorna un string con la hora en formato hh:mm en 24h 
-                String hora2 = horaAjustada(hora);
-
-                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat, bloqueo, primero, hora, hora2));
+                String hora2=horaAjustada(hora);
+                String horaFinal=recalcularHora(hora2,duracion);
+                
+                
+               detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo,primero,hora,hora2,horaFinal));
             }
             // Asigna el valor del tamano de la lista para el nuevo indice al final de la lista
             indiceEvento = detalles.size() + 1;

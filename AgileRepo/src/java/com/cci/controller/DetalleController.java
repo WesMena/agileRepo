@@ -9,12 +9,18 @@ import com.cci.model.DetalleEvento;
 import com.cci.service.Dao;
 import com.cci.service.DetalleDao;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -25,6 +31,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.event.ActionEvent;
+import org.apache.commons.lang3.time.DateUtils;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -34,13 +41,13 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "detallecontroller")
 @SessionScoped
 public class DetalleController implements Serializable {
-
-    private String horaEdit = "";
-    private String duracionEdit = "";
+    private String horaEdit="";
+    private String duracionEdit="";
+    private Date horaDate;
     private int idEvento;
     private String nombreEvento;
-
-    private List<DetalleEvento> detalles = new ArrayList<>();
+    private String tituloCorto;
+    private List<DetalleEvento> detalles=new ArrayList<>();
 
     private int id;
 
@@ -60,10 +67,58 @@ public class DetalleController implements Serializable {
         this.nombreEvento = nombreEvento;
     }
 
-    public void init() {
-        detalles = new ArrayList<>();
-        DetalleDao detalle = new DetalleDao(idEvento);
-        detalles = detalle.getAll();
+    
+  
+    public void init(){
+        detalles=new ArrayList<>();
+        DetalleDao detalle=new DetalleDao(idEvento);
+        detalles=detalle.getAll();
+        
+        for(DetalleEvento det:detalles){
+        String hora2=det.getHoraInicioStr();
+        int duracion=det.getDuracion();
+         
+        String horaNueva="";
+        int horas=0;
+        int minutos=0;
+           
+        
+                String horasStr=hora2.substring(0,2);
+                String minutosStr=hora2.substring(3,5);
+                
+                horas=Integer.parseInt(horasStr);
+                minutos=Integer.parseInt(minutosStr);
+                
+          
+        
+        int sumaMin=duracion+minutos;
+        float minutosModi=sumaMin/60;
+        
+        if(minutosModi>=1){
+            horas=horas+(int)minutosModi;
+            sumaMin=sumaMin-((int)minutosModi*60);
+        }
+        //Para que empiece un nuevo ciclo una vez pase las 23 horas 
+        horas=horas%24;
+        
+        if(horas<10){
+            horaNueva="0"+horas+":";
+        }else{
+            horaNueva=horas+":";
+        }
+        
+        
+        if(sumaMin<10){
+        horaNueva=horaNueva+"0"+sumaMin;    
+        }else{
+            horaNueva=horaNueva+sumaMin;
+        }
+        
+        
+        det.setHoraFinalStr(horaNueva);
+        
+        }
+        
     }
 
 
@@ -100,6 +155,7 @@ public class DetalleController implements Serializable {
         this.idEvento = id;
         this.nombreEvento = nombre;
         init();
+            tituloCorto();
         try {
 
             HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -124,7 +180,8 @@ public class DetalleController implements Serializable {
     ///Refresca la pagina de los Slots del Evento 
     public void redireccionar() {
 
-        //this.onLoad();
+        this.onLoad();
+        tituloCorto();
         try {
 
             HttpServletRequest request = (HttpServletRequest) FacesContext
@@ -160,16 +217,20 @@ public class DetalleController implements Serializable {
         this.detalles = detalles;
     }
 
-    public void onReorder() {
-        //Actualiza el índice de los slots y dispara un update con ajax para que 
-        //Se puedan ver los cambios en las horas al reordenarse(aunque la lógica de eso
-        //viene propiamente de init(), que a su vez llama al constructor de DetalleDao)
-
-        updateIndex();
-        init();
-        PrimeFaces.current().ajax().update("eventos");
-    }
-
+   
+    
+  public void onReorder(){
+  //Actualiza el índice de los slots y dispara un update con ajax para que 
+  //Se puedan ver los cambios en las horas al reordenarse(aunque la lógica de eso
+ //viene propiamente de init(), que a su vez llama al constructor de DetalleDao)
+      
+      
+  updateIndex();
+  init();
+  
+  PrimeFaces.current().ajax().update("eventos");
+  }
+      
     public List<DetalleEvento> getListaDetalles() {
         return detalles;
     }
@@ -252,9 +313,12 @@ public class DetalleController implements Serializable {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         return params.get("duracionSlot");
     }
-
-    public String outcomeDuracion() {
-        //Carga los parámetros necesarios para editar la duración de un slot.
+ 
+    
+   
+    
+    public String outcomeDuracion(){
+          //Carga los parámetros necesarios para editar la duración de un slot.
         //Envía estos datos al modal editDuracion
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -269,11 +333,18 @@ public class DetalleController implements Serializable {
 
         //Carga los parámetros necesarios para editar la hora inicial.
         //Envía estos datos al modal editHora
-        FacesContext fc = FacesContext.getCurrentInstance();
-        this.horaEdit = getHoraParam(fc);
-
-        this.id = Integer.parseInt(getidParam(fc));
-
+        
+        FacesContext fc=FacesContext.getCurrentInstance();
+        this.horaEdit=getHoraParam(fc);
+        
+             this.id = Integer.parseInt(getidParam(fc)); 
+        try {
+            this.horaDate=new SimpleDateFormat("HH:mm").parse(horaEdit);
+        } catch (ParseException ex) {
+            Logger.getLogger(DetalleController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
         return "result";
     }
 
@@ -426,17 +497,75 @@ public class DetalleController implements Serializable {
         System.out.println(idDetalle);
 
     }
-
-    public void editarHora() {
-        //Método que permite editar la hora inicial de un slot, es llamado por el 
+    
+    
+     public String horaAjustada(Date hora){
+        /*
+        Le da el formato hh:mm 24h a la fecha y la retorna como un string.
+        
+        
+          */         
+                //hora=DateUtils.addHours(hora,6);
+             
+               SimpleDateFormat formato=new SimpleDateFormat("hh:mm aa");
+                
+                 String hora2=formato.format(hora);
+               
+                 
+                 
+                 
+                 
+                 
+                 
+                 String horaAux=hora2.substring(0,2);
+                 String AMPM=hora2.substring(6,8);
+                 
+                
+                 if(horaAux.equals("12") && AMPM.equals("AM")){
+                     hora2=hora2.replaceFirst(horaAux,"00");
+                 }else{
+                     
+                     int horaNum=Integer.parseInt(horaAux);
+                     
+                    if(horaNum<12 && AMPM.equals("PM")){
+                        horaNum+=12;
+                        hora2=hora2.replaceFirst(horaAux,String.valueOf(horaNum));
+                    }
+                        
+                 }
+                 
+                 hora2=hora2.substring(0,5);
+                 
+                 return hora2;
+    }
+    
+    public void editarHora(){
+         //Método que permite editar la hora inicial de un slot, es llamado por el 
         //modal editHora
 
         //Incluye algunas validaciones
+    
+        this.horaEdit=horaAjustada(horaDate);
+        
+        
+     
+        boolean invalido=false;
+     
+        
+        
+        
+        String signo=horaEdit.substring(2,3);
+    
+        
+        if(!signo.equalsIgnoreCase(":")){
+            invalido=true;
+            
+        }
         //Revision de propiedad
         if (this.propiedad(id)) {
-            boolean invalido = false;
+            invalido = false;
 
-            String signo = horaEdit.substring(2, 3);
+           
 
             if (!signo.equalsIgnoreCase(":")) {
                 invalido = true;
@@ -472,8 +601,8 @@ public class DetalleController implements Serializable {
             init();
             PrimeFaces.current().ajax().update("eventos");
         }
+    
     }
-
     public void editarDuracion() {
         //Método que permite editar la duración de un slot, es llamado por el 
         //modal editDuracion
@@ -517,6 +646,35 @@ public class DetalleController implements Serializable {
     public void setDuracionEdit(String duracionEdit) {
         this.duracionEdit = duracionEdit;
     }
+
+    public String getTituloCorto() {
+        return tituloCorto;
+    }
+
+    public void setTituloCorto(String tituloCorto) {
+        this.tituloCorto = tituloCorto;
+    }
+            
+   
+    
+      public void tituloCorto(){
+        
+        
+        if(this.nombreEvento.length()>20){
+            this.tituloCorto=this.nombreEvento.substring(0,20)+"...";
+        }else{
+            this.tituloCorto=this.nombreEvento;
+        }
+      }
+
+    public Date getHoraDate() {
+        return horaDate;
+    }
+
+    public void setHoraDate(Date horaDate) {
+        this.horaDate = horaDate;
+    }
+      
 
     //Metodo que determina quien esta ingresando a ver los slots
     public boolean propiedad(int evaluarId) {
