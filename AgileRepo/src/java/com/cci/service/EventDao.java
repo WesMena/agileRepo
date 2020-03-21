@@ -11,11 +11,14 @@ import com.cci.model.Tag;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
@@ -50,18 +53,45 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
-                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
-                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
+//            sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" 
+//                    + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
+//                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
+//                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
+            sql = "WITH "
+                    + "EventoInfo AS (SELECT e.idEvento,"
+                    + "e.nombre,"
+                    + "e.descripcion,"
+                    + "e.dias "
+                    + "FROM eventos e,tagseventos t "
+                    + "WHERE e.idEvento=t.evento AND (e.nombre LIKE '"+filtro+"%' OR t.tag LIKE '"+filtro+"%') AND propietario = '"+UsuarioLoginController.UID+"'"
+                    + "GROUP BY e.idEvento ORDER BY e.idEvento Desc),"
+                    + " "
+                    + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas"
+                    + " FROM detalleevento WHERE bloqueo = 0 GROUP BY evento),"
+                    + " "
+                    + "EventoInicio AS (SELECT evento, horaInicio FROM detalleevento WHERE indiceEvento = 1)"
+                    + " "
+                    + "SELECT EventoInfo.idEvento,"
+                    + " EventoInfo.nombre,"
+                    + " EventoInfo.descripcion,"
+                    + " EventoInfo.dias,"
+                    + " IF(EventoTiempo.horas IS NULL,0,EventoTiempo.horas) AS horas,"
+                    + " IF(EventoInicio.horaInicio IS NULL,'00:00:00',EventoInicio.horaInicio) AS horaInicio FROM EventoInfo LEFT JOIN EventoTiempo ON"
+                    + " EventoInfo.idEvento = EventoTiempo.evento LEFT JOIN EventoInicio ON"
+                    + " EventoTiempo.evento = EventoInicio.evento;";
+
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 int id = rs.getInt("idEvento");
                 String nombre = rs.getString("nombre");
                 String desc = rs.getString("descripcion");
-                int horas = rs.getInt("horas");
+                double horas = rs.getDouble("horas");
                 int dias = rs.getInt("dias");
-                eventos.add(new Evento(nombre, desc, id, horas, dias));
+                Date hora = rs.getTime("horaInicio");
+                String hora2 = horaAjustada(hora);
+
+                eventos.add(new Evento(nombre, desc, id, horas, dias, hora2));
 
             }
 
@@ -165,7 +195,6 @@ public class EventDao implements Dao<Evento> {
         }
     }
 
-   
     public void nuevoEvento() {
         ResultSet rs = null;
         Statement stmt = null;
@@ -210,6 +239,39 @@ public class EventDao implements Dao<Evento> {
         } catch (SQLException e) {
             Logger.getLogger(EventDao.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    public String horaAjustada(Date hora) {
+        /*
+        Le da el formato hh:mm 24h a la fecha y la retorna como un string.
+        
+        
+         */
+        hora = DateUtils.addHours(hora, 6);
+
+        SimpleDateFormat formato = new SimpleDateFormat("hh:mm aa");
+
+        String hora2 = formato.format(hora);
+
+        String horaAux = hora2.substring(0, 2);
+        String AMPM = hora2.substring(6, 8);
+
+        if (horaAux.equals("12") && AMPM.equals("AM")) {
+            hora2 = hora2.replaceFirst(horaAux, "00");
+        } else {
+
+            int horaNum = Integer.parseInt(horaAux);
+
+            if (horaNum < 12 && AMPM.equals("PM")) {
+                horaNum += 12;
+                hora2 = hora2.replaceFirst(horaAux, String.valueOf(horaNum));
+            }
+
+        }
+
+        hora2 = hora2.substring(0, 5);
+
+        return hora2;
     }
 
 }

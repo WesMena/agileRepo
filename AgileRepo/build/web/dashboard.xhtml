@@ -77,7 +77,10 @@
                                 <!-->
                                 Aquí está el título del evento y su duración
                                 </!-->
+                                <h:panelGrid columns="2">
                                 <span  class="count visitors">#{eventos.duracion}</span>
+                                <span  class="count visitors">#{eventos.horaInicio}</span>
+                                </h:panelGrid>
                                 <div style="width:90%" contenteditable="#{eventos.onEdit}">    
                                     <h:inputText style="border: none" class="title" value="#{eventos.nombre}"></h:inputText>
                                 </div>

@@ -89,83 +89,73 @@
 
                         <div class="#{detalle.esBloque()?'card2':'card'} clearfix summary">
                             <div style="width:90%">
-                            <div style="visibility: #{detalle.esBloque()?'hidden':'visible'}">                                
+                                <div style="visibility: #{detalle.esBloque()?'hidden':'visible'}">                                
 
 
-                                <span class="options">
+                                    <span class="options">
 
 
-                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-cog" update="Slot" >
-                                        <f:param name="tituloSlot" value="#{detalle.titulo}" />
-                                        <f:param name="idSlot" value="#{detalle.id}" />
-                                        <f:param name="descSlot" value="#{detalle.descripcion}" />
-                                        <f:param name="objSlot" value="#{detalle.objetivo}" />
-                                        <f:param name="catSlot" value="#{detalle.categoria}" />
-                                        <f:param name="colcatSlot" value="#{detalle.colorCategoria}" />
-                                        <f:param name="pasSlot" value="#{detalle.pasos}" />
-                                        <f:param name="matSlot" value="#{detalle.materiales}" />
-                                        <f:ajax onevent="PF('side_info').show()"/>
-                                    </p:commandButton>
+                                        <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-chevron-circle-left" update="Slot" >
+                                            <f:param name="tituloSlot" value="#{detalle.titulo}" />
+                                            <f:param name="idSlot" value="#{detalle.id}" />
+                                            <f:param name="descSlot" value="#{detalle.descripcion}" />
+                                            <f:param name="objSlot" value="#{detalle.objetivo}" />
+                                            <f:param name="catSlot" value="#{detalle.categoria}" />
+                                            <f:param name="colcatSlot" value="#{detalle.colorCategoria}" />
+                                            <f:param name="pasSlot" value="#{detalle.pasos}" />
+                                            <f:param name="matSlot" value="#{detalle.materiales}" />
+                                            <f:ajax onevent="PF('side_info').show()"/>
+                                        </p:commandButton>
 
-                                </span>
+                                    </span>
 
+                                </div>
                             </div>
-                            </div>
-                            
-                            
-                             <!--->
-                             Este es el html del botón que muestra la duración de 
-                             un slot. Llama a un par de parámetros necesarios para 
-                             la edición de la duración de un slot
-                            </!-->
-                           
+
+
+                            <!--->
+                            Este es el html del botón que muestra la duración de 
+                            un slot. Llama a un par de parámetros necesarios para 
+                            la edición de la duración de un slot
+                           </!-->
+
                             <p:commandButton id="btnDuracion" class="btnDuracion" value="#{detalle.duracion}" style="background-color:##{detalle.colorCategoria}; font-size:18px; font-weight:bold; display:#{detalle.esBloque()?'none':'block'}" action="#{detallecontroller.outcomeDuracion()}" update="duracionForm" oncomplete="PF('editDuracion').show();" >
                                 <f:param name="idSlot" value="#{detalle.id}" /> 
                                 <f:param name="duracionSlot" value="#{detalle.duracion}" /> 
                             </p:commandButton>
-                          
-                            
+                            <p:tooltip for="btnDuracion" value="#{detalle.categoria}"/>
+
                             <div style="width:90%">
                                 <span id="tit" class="#{detalle.esBloque()?'title2':'title'}">#{detalle.titulo}</span>
 
                             </div>
-                            
-                            
-                             <!--->
-                             Aquí está el html que muestra la hora inicial y, 
-                             si aplica, también el botón de editar esta.
-                             El botón llama a un par de parámetros necesarios para 
-                             la edición de las horas de inicio de un slot
-                             </!-->
-                            
-                              <div class="hora" style="display:#{detalle.esBloque()?'none':'inline-block'}">
-                                
-                               <span  id="hora"  >#{detalle.horaInicioStr}</span>
-                               <p:commandButton id="setHora" icon="pi pi-clock" value="EDITAR" class="horabtn"  style="display:#{detalle.esPrimeroDia()?'block':'none'}" action="#{detallecontroller.outcomeHora()}" update="horaForm" oncomplete="PF('editHora').show();">
-                                   <f:param name="horaSlot" value="#{detalle.horaInicioStr}" />
-                                   <f:param name="idSlot" value="#{detalle.id}" /> 
-                               </p:commandButton>    
-                       
+
+
+                            <!--->
+                            Aquí está el html que muestra la hora inicial y, 
+                            si aplica, también el botón de editar esta.
+                            El botón llama a un par de parámetros necesarios para 
+                            la edición de las horas de inicio de un slot
+                            </!-->
+
+                            <div class="hora" style="display:#{detalle.esBloque()?'none':'inline-block'}">
+
+                                <span  id="hora"  >#{detalle.horaInicioStr}</span>
+                                <p:commandButton id="setHora" icon="pi pi-clock" value="EDITAR" class="horabtn"  style="display:#{detalle.esPrimeroDia()?'block':'none'}" action="#{detallecontroller.outcomeHora()}" update="horaForm" oncomplete="PF('editHora').show();">
+                                    <f:param name="horaSlot" value="#{detalle.horaInicioStr}" />
+                                    <f:param name="idSlot" value="#{detalle.id}" /> 
+                                </p:commandButton>    
+
                             </div>
-                           
+
 
                             <div >
                                 <span class="detail" style="display:#{detalle.esBloque()?'none':'inline'}">#{detalle.descripcion}</span>
                             </div>
 
-
-                            
-                           
-                            
-                            
-                            
-
                         </div>
 
-
                     </p:column>  
-
-
 
                 </p:orderList>       
 
@@ -174,107 +164,111 @@
             <!--Esto controla el sidebar que aparece de la derecha donde se puede editar la informacion
             de los slots-->
             <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; overflow: scroll;">
+                <div style="margin:0 auto; width: 80%">
+                    <h:form id="Slot">
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Título</h1>
+                        </div>
+                        <p:inputTextarea counter="titulo" rows="1" placeholder="TITULO DEL SLOT" readonly="false" value="#{detallecontroller.titulo}" style="width:99.25%; font-size: 20px; " maxlength="100" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="titulo" />
+                        <p:separator />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Descripción</h1>
+                        </div>
+                        <p:inputTextarea counter="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:99.25%; font-size: 14px;" maxlength="300" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="descripcion" />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Objetivo</h1>
+                        </div>
+                        <p:inputTextarea counter="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="objetivo" />
+                        <p:separator />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Categoría</h1>
+                        </div>
+                        <h:panelGrid columns="2" cellpadding="2">
+                            <p:inputTextarea id="categoria" rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;" validatorMessage="El máximo de caracteres es de 50">
+                                <f:validateLength maximum="50" />
+                                <p:clientValidator event="keyup"/>
+                            </p:inputTextarea>
+                            <p:colorPicker style="color:white" value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
+                        </h:panelGrid>
+                        <p:separator />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Pasos</h1>
+                        </div>
+                        <p:inputTextarea counter="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="pasos" />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Materiales</h1>
+                        </div>
+                        <p:inputTextarea counter="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="materiales" />
+                        <p:separator />
+                        
+                        <h:panelGrid  columns="2" cellpadding="2" style="margin:0 auto">
+                            <p:commandButton id="btnSlot"  value="Guardar" actionListener="#{detallecontroller.updateSlot()}" update="eventos" validateClient="true" />
+                            <p:commandButton value="Cerrar">
+                                <p:confirm header="Confirmación" message="Guardar los cambios?" icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                        </h:panelGrid>
+                        <!--Modal que aparece con el boton cerrar confirmando si desea
+                        Cerrar Sidebar sin guardar cambios o salir y guardar cambios-->
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background-color:white">
+                            <p:commandButton value="Guardar" styleClass="ui-confirmdialog-yes" icon="pi pi-check" actionListener="#{detallecontroller.updateSlot()}" update="eventos" validateClient="true"/>
+                            <p:commandButton value="No Guardar" styleClass="ui-confirmdialog-no" icon="pi pi-times" onsuccess="PF('side_info').hide()"/>
+                        </p:confirmDialog>   
 
-                <h:form id="Slot">
-                    <h1>Título</h1>
-                    <p:inputTextarea id="titulo" rows="1" placeholder="TITULO DEL SLOT" readonly="false" value="#{detallecontroller.titulo}" style="width:90%; font-size: 20px;">
-                        <f:validateLength maximum="50" />
-                        <p:clientValidator event="keyup"/>
-                    </p:inputTextarea>
-                    <p:message for="titulo" display="text" />
-                    <p:separator />
-
-                    <h1>Descripción</h1>
-                    <p:inputTextarea id="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:90%; font-size: 14px;">
-                        <f:validateLength maximum="280" />
-                        <p:clientValidator event="keyup"/>
-                    </p:inputTextarea>
-                    <p:message for="descripcion" display="text" />  
-                    <h1>Objetivo</h1>
-                    <p:inputTextarea id="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:90%; font-size: 14px;">
-                        <f:validateLength maximum="280" />
-                        <p:clientValidator event="keyup"/>
-                    </p:inputTextarea>
-                    <p:message for="objetivo" display="text" />  
-                    <p:separator />
-
-                    <h1>Categoría</h1>
-
-                    <h:panelGrid columns="2" cellpadding="5" style="margin-left: 20px">
-                        <p:inputTextarea id="categoria" rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;">
-                            <f:validateLength maximum="50" />
-                            <p:clientValidator event="keyup"/>
-                        </p:inputTextarea>
-                        <p:message for="categoria" display="text" />  
-                        <p:colorPicker value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
-                    </h:panelGrid>
-                    <p:separator />
-
-                    <h1>Pasos</h1>
-                    <p:inputTextarea id="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:90%; font-size: 14px;">
-                        <f:validateLength maximum="2000" />
-                        <p:clientValidator event="keyup"/>
-                    </p:inputTextarea>
-                    <p:message for="pasos" display="text" />  
-                    <h1>Materiales</h1>
-                    <p:inputTextarea id="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:90%; font-size: 14px;">
-                            <f:validateLength maximum="2000" />
-                        <p:clientValidator event="keyup"/>
-                    </p:inputTextarea>
-                    <p:message for="materiales" display="text" />  
-                    <p:separator />
-
-                    <h:panelGrid  columns="2" cellpadding="5" style="margin-left: 20px">
-                        <p:commandButton id="btnSlot"  value="Guardar" actionListener="#{detallecontroller.updateSlot()}" update="eventos" validateClient="true" />
-                        <p:commandButton value="Cerrar" oncomplete="PF('side_info').hide()"/>
-                    </h:panelGrid>
-
-
-                </h:form>
-
+                    </h:form>
+                </div>
             </p:sidebar> 
 
 
-             <!--->
-           Modal que aparece al pulsar el botón editar que se encuentra en los 
-             slots catalogados como primerosDeDia
-           </!-->
-            
+            <!--->
+          Modal que aparece al pulsar el botón editar que se encuentra en los 
+            slots catalogados como primerosDeDia
+          </!-->
+
             <p:dialog header="EDITAR HORA" widgetVar="editHora" minHeight="100" style="background:white;">
-                   <h:form id="horaForm">
-                       <h:panelGrid columns="2">
-                         <h:outputText value="Hora:" /> 
-                         <p:inputText id="txtHora" required="true" value="#{detallecontroller.horaEdit}" ></p:inputText>  
+                <h:form id="horaForm">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Hora:" /> 
+                        <p:inputText id="txtHora" required="true" value="#{detallecontroller.horaEdit}" ></p:inputText>  
 
-             
-                         <p><p:commandButton id="guardarHora"  value="Guardar" action="#{detallecontroller.editarHora()}"
-                                   update="eventos" oncomplete="PF('editHora').hide();"/></p>          
-                       </h:panelGrid>  
-                       
-                   </h:form>
-                
+
+                        <p><p:commandButton id="guardarHora"  value="Guardar" action="#{detallecontroller.editarHora()}"
+                                            update="eventos" oncomplete="PF('editHora').hide();"/></p>          
+                    </h:panelGrid>  
+
+                </h:form>
+
             </p:dialog>
-            
-            
-            
-           <!--->
-           Modal que aparece al pulsar el botón que muestra la duración del slot
-           </!-->
+
+
+
+            <!--->
+            Modal que aparece al pulsar el botón que muestra la duración del slot
+            </!-->
             <p:dialog header="EDITAR DURACIÓN" widgetVar="editDuracion" minHeight="100" style="background:white;">
-                   <h:form id="duracionForm">
-                       <h:panelGrid columns="2">
-                         <h:outputText value="Duración:" /> 
-                         <p:inputText id="txtDuracion" required="true" value="#{detallecontroller.duracionEdit}" ></p:inputText>  
+                <h:form id="duracionForm">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Duración:" /> 
+                        <p:inputText id="txtDuracion" required="true" value="#{detallecontroller.duracionEdit}" ></p:inputText>  
 
-             
-                         <p><p:commandButton id="guardarDuracion"  value="Guardar" action="#{detallecontroller.editarDuracion()}"
-                                   update="eventos" oncomplete="PF('editDuracion').hide();"/></p>          
-                       </h:panelGrid>  
-                       
-                   </h:form>
-                
+
+                        <p><p:commandButton id="guardarDuracion"  value="Guardar" action="#{detallecontroller.editarDuracion()}"
+                                            update="eventos" oncomplete="PF('editDuracion').hide();"/></p>          
+                    </h:panelGrid>  
+
+                </h:form>
+
             </p:dialog>
-            
+
         </div>
 
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
