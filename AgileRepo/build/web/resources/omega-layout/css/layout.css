@@ -2518,6 +2518,7 @@ h2 {
           text-decoration: none;
           padding: 4px 10px;
           color: #fff;
+          font-size:16px;
           -moz-border-radius: 2px;
           -webkit-border-radius: 2px;
           border-radius: 2px; }
@@ -2696,18 +2697,42 @@ h2 {
       padding: 10px 0 30px 0;
       border-top: 1px solid #a4a4a4; }
 
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 @media (max-width: 64em) {
   .landing-wrapper #menu-button {
-    display: block; }
+    display: block;
+  position:fixed;
+  right:5%;
+  top:5%;
+  color:#3b3e47;
+
+  }
   .landing-wrapper .landing-header {
     height: 80px;
-    background-color:none;   }
+      }
     .landing-wrapper .landing-header .landing-header-content {
       width: 100%;
       padding: 30px 20px 0 20px; }
       .landing-wrapper .landing-header .landing-header-content ul {
         float: none;
-        position: fixed;
+        position:fixed;
         top: 80px;
         right: 0px;
         background-color: #3b3e47;
@@ -2715,13 +2740,13 @@ h2 {
         margin: 0; }
         .landing-wrapper .landing-header .landing-header-content ul.overlay-menu {
           display: block;
-          height: 100%;
+          height: 45%;
           width: 200px; }
         .landing-wrapper .landing-header .landing-header-content ul li {
           float: none; }
           .landing-wrapper .landing-header .landing-header-content ul li a {
             display: block;
-            font-size: 18px;
+            font-size: 20px;
             padding-left: 15px;
             border-bottom: 1px solid #4e5159; }
   .landing-wrapper #introduction {
