@@ -5,9 +5,11 @@
  */
 package com.cci.controller;
 
+import com.cci.model.Comentario;
 import com.cci.model.Cronograma;
 import com.cci.model.DetalleEvento;
 import com.cci.model.Evento;
+import com.cci.service.ComentarioDao;
 import com.cci.service.Dao;
 import com.cci.service.DetalleDao;
 import com.cci.service.EventDao;
@@ -40,6 +42,7 @@ public class EventController implements Serializable {
     private String BLUECOLORCODE = "#0388e5";
     private List<Evento> lstEvt = new ArrayList<>();
     private List<Cronograma> lstCrono = new ArrayList<>();
+    private List<Comentario> lstComent = new ArrayList<>();
     private Evento target =new Evento();
 
     public Evento getDelObject() {
@@ -50,6 +53,18 @@ public class EventController implements Serializable {
         this.delObject = delObject;
     }
 
+    public List<Comentario> getLstComent() {
+        return lstComent;
+    }
+
+    public void setLstComent(List<Comentario> lstComent) {
+        this.lstComent = lstComent;
+    }
+
+    
+    
+    
+    
     public Evento getTarget() {
         return target;
     }
@@ -281,6 +296,27 @@ public class EventController implements Serializable {
         EventDao evtd = new EventDao();
         evtd.nuevoEvento();
         refrescar();
+    }
+    
+    
+    /* Construccion de Caja de comentarios*/
+    
+    public void comentariosListener(ActionEvent e){
+        ComentarioDao dao = new ComentarioDao();
+        Comentario cmt = new Comentario();
+        Evento evt = new Evento();
+        List<Comentario> comentarios = new ArrayList<>();
+        
+        evt = (Evento) e.getComponent().getAttributes().get("getEvt");
+        this.lstComent.clear();
+        
+        comentarios = dao.getAll();
+        
+        for(int i=0; i<= comentarios.size()-1;i++){
+            if(comentarios.get(i).getEvento() == evt.getId()){
+             
+            }
+        }
     }
     
     

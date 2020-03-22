@@ -1,4 +1,4 @@
-0<.u0.0i..:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -6,6 +6,7 @@
                 template="/WEB-INF/template.xhtml"
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
+                    
 
     <ui:define name="title">Eventos</ui:define>
 
@@ -143,6 +144,18 @@
 
                                     </h:inputText>
                                 </div>
+                                
+                                
+                                <p:commandButton
+                                    value="comentarios"  class=" btnCopy btnCopy--omega"   icon="fa fa-comment "
+                                    rendered="#{not eventos.onEdit}"
+                                    style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:100px;  "
+                                    >
+
+                                </p:commandButton>
+                                
+                                
+                                
                                 <h:commandButton
                                     rendered="#{eventos.onEdit}"
                                     action="#{eventcontroller.edit(eventos)}"
@@ -156,7 +169,12 @@
                                 </h:commandButton>
                                 <p:tooltip id="toolTipTrack" for="tags" value="Los Tags son válidos unicamente cuando estos están precedidos por un # y el nombre del Tag" trackMouse="true" />
                             </div>
+                            
+                            
+                           
                         </h:form>
+                        
+                        
                     </c:forEach>
 
 
@@ -184,7 +202,7 @@
                                 <p:scrollPanel id="scrl" style="width:100%; height:300px;  display:block; margin-bottom: 20px"  >
                                     <c:forEach id="P111"  items="#{eventcontroller.lstCrono}"  var="P1" varStatus="true"  > 
 
-                                        <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 100%" with="100%">
+                                        <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 94%" with="94%">
 
                                             <span class="count visitors" style="margin-right: 13px; text-align:right;">#{P1.duracion} minutos</span>
                                             <br></br>
@@ -198,7 +216,7 @@
 
                                         </div>
 
-                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%"  with="100%" >
+                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 94%"  with="94%" >
 
                                             <span style="display:inline-block; font-size: x-large;width: 80px;height: 100%; background-color:##{P1.color} !important;">#{P1.titulo}</span>
                                         </div>
