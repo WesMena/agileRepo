@@ -21,6 +21,14 @@ auth.onAuthStateChanged(function (user) {
 
 
 function getProfile(user) {
+    if (user.photoURL) {
+        //Logueado con PP
+        document.getElementById("profileP").style.backgroundImage = ` url(${user.photoURL})`;
+    } else {
+        //Logueado sin PP
+
+        //document.getElementById("profileP").style.backgroundImage = `url(#{resource['images:smiley.jpg']})`;
+    }
     document.getElementById("profileP").style.backgroundImage = ` url(${user.photoURL})`;
     // document.getElementById('profileP').style.backgroundImage = `url(${user.photoURL})`;
     console.log('Fui llamado');

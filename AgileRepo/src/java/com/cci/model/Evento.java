@@ -31,6 +31,15 @@ public class Evento implements Serializable {
 
     private boolean onEdit = false;
     private String nombre;
+    private String propietario;
+
+    public String getProietario() {
+        return propietario;
+    }
+
+    public void setProietario(String proietario) {
+        this.propietario = proietario;
+    }
 
     public boolean isOnEdit() {
         return onEdit;
@@ -86,8 +95,7 @@ public class Evento implements Serializable {
         } else {
             duracion = horas + "h";
         }
- */       
-        
+         */
 
         //Limita el tamaño de la descripción que se muestra en las tarjetas de evento
 //        if (desc.length() > 80) {
@@ -99,11 +107,25 @@ public class Evento implements Serializable {
         tituloCorto();
     }
 
+    public Evento(String nombre, String desc, int id, double horas, int dias, String inicio,String propietario) {
+        this.nombre = nombre;
+
+        this.id = id;
+        this.horas = horas;
+        this.dias = dias;
+        this.horaInicio = inicio;
+        this.propietario = propietario;
+        System.out.println(horaInicio);
+        duracion = horas + "h";
+        this.desc = desc;
+        tituloCorto();
+    }
+
     public Evento(String nombre, String desc, int id) {
         this.nombre = nombre;
         this.desc = desc;
         this.id = id;
-          tituloCorto();
+        tituloCorto();
     }
 
     public Evento(String nombre, String desc, int id, String losTags) {
@@ -117,12 +139,12 @@ public class Evento implements Serializable {
     public Evento(String nombre, String desc) {
         this.nombre = nombre;
         this.desc = desc;
-          tituloCorto();
+        tituloCorto();
     }
 
     public String getNombre() {
         System.out.println("" + this.nombre + " getter");
-        System.out.println("Saved UID: "+UsuarioLoginController.UID);
+        System.out.println("Saved UID: " + UsuarioLoginController.UID);
         return nombre;
     }
 
@@ -211,25 +233,21 @@ public class Evento implements Serializable {
     public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
-    
-    
-    
-    String tituloCorto="dfdd";
-    
-    public void tituloCorto(){
-        
-        
-        if(this.nombre.length()>20){
-            this.tituloCorto=this.nombre.substring(0,20)+"...";
-        }else{
-            this.tituloCorto=this.nombre;
+
+    String tituloCorto = "dfdd";
+
+    public void tituloCorto() {
+
+        if (this.nombre.length() > 20) {
+            this.tituloCorto = this.nombre.substring(0, 20) + "...";
+        } else {
+            this.tituloCorto = this.nombre;
         }
-        
-        
+
     }
-    
-      public boolean retornarEdit(){
-        
+
+    public boolean retornarEdit() {
+
         return this.onEdit;
     }
 
@@ -248,8 +266,5 @@ public class Evento implements Serializable {
         this.horas = horas;
         this.dias = dias;
     }
-      
-    
-    
-    
+
 }

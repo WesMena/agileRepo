@@ -25,6 +25,10 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.event.ActionEvent;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.extensions.component.exporter.Exporter;
+
+
 
 /**
  *
@@ -67,8 +71,7 @@ public class EventController implements Serializable {
     public void setLstCrono(List<Cronograma> lstCrono) {
         this.lstCrono = lstCrono;
     }
-    
-    
+
     public String getBLACKCOLORCODE() {
         return BLACKCOLORCODE;
     }
@@ -165,8 +168,8 @@ public class EventController implements Serializable {
         this.onEdit = onEdit;
         System.out.println("" + this.onEdit);
     }
-    
-    public void onLoad(){
+
+    public void onLoad() {
         this.lstEvt = listaEventos();
     }
 
@@ -277,24 +280,23 @@ public class EventController implements Serializable {
         //Refresh de la pagina
         refrescar();
     }
+
     public void agregarEvento() {
         EventDao evtd = new EventDao();
         evtd.nuevoEvento();
         refrescar();
     }
-    
-    
+
     /* Construccion del Cronograma*/
-    
-        public void CronoListener(ActionEvent e){
-        DetalleDao dao = new DetalleDao();     
-        Cronograma crono=new Cronograma();    
-        Evento evt = new Evento(); 
+    public void CronoListener(ActionEvent e) {
+        DetalleDao dao = new DetalleDao();
+        Cronograma crono = new Cronograma();
+        Evento evt = new Evento();
         /*-> Se limpia la lista del Cronograma*/
         this.lstCrono.clear();
-        
+
         List<DetalleEvento> detalles = new ArrayList<>();
-       /*-> Se obtiene el objeto de Evento*/  
+        /*-> Se obtiene el objeto de Evento*/
         evt = (Evento) e.getComponent().getAttributes().get("getEvt");
         
         this.target = evt;
@@ -315,37 +317,35 @@ public class EventController implements Serializable {
              
             if(detalles.get(i).getEvento() == evt.getId() && detalles.get(i).getBorrado()!= 1){
                 /*-> Se agrega a la lista*/
-                
-                crono=new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),false); 
+
+                crono = new Cronograma(detalles.get(i).getIndice(), detalles.get(i).getTitulo(), false);
                 crono.setHoraInicio(detalles.get(i).getHoraInicioStr());
                 crono.setHoraFinal((dao.recalcularHora(detalles.get(i).getHoraInicioStr(), detalles.get(i).getDuracion())));
                 crono.setColor(detalles.get(i).getColorCategoria());
                 crono.setDuracion(detalles.get(i).getDuracion());
 
-              this.lstCrono.add(crono);
-                 System.out.println("Se metio slot " +crono.getOrd() +"Titulo: "+crono.getTitulo()+" en ciclo " +i);
+                this.lstCrono.add(crono);
+                System.out.println("Se metio slot " + crono.getOrd() + "Titulo: " + crono.getTitulo() + " en ciclo " + i);
                 /*
               this.lstCrono.add(new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),detalles.get(i).getHoraInicioStr(),(dao.recalcularHora(detalles.get(i).getHoraInicioStr(), detalles.get(i).getDuracion())),detalles.get(i).getColorCategoria(),detalles.get(i).getDuracion())); 
-                */
+                 */
             }
-                
-             System.out.println(" -> Lista en Ciclo: "+i +" <-");
-             for(int y=0; y<= this.lstCrono.size()-1;y++){
-             System.out.println(this.lstCrono.get(y).getOrd()+") "+this.lstCrono.get(y).getTitulo());    
-             }
-             
+
+            System.out.println(" -> Lista en Ciclo: " + i + " <-");
+            for (int y = 0; y <= this.lstCrono.size() - 1; y++) {
+                System.out.println(this.lstCrono.get(y).getOrd() + ") " + this.lstCrono.get(y).getTitulo());
+            }
+
         }
-               
+
         /*-> Se Refresca los componentes y se abre el modal*/
         PrimeFaces.current().ajax().update("frmDlg:dlg1");
         openModal();
     }
-  
+
     /* Abro el modal del Cornograma*/
-    public void openModal(){
-          PrimeFaces.current().executeScript("PF('dlg2').show()");
+    public void openModal() {
+        PrimeFaces.current().executeScript("PF('dlg2').show()");
     }
-    
-  
-    
+
 }
