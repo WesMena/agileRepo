@@ -62,9 +62,8 @@ and open the template in the editor.
 
                         <div style="width: 100%" >
                             <span class="title">Registro</span>
-
+                                <br></br>
                             <p:spacer></p:spacer>
-
 
 
 
@@ -101,9 +100,15 @@ and open the template in the editor.
                                 value="Registrar"
                                 type="submit">Registrar
                             </button>
-
+                            
+                             
+                      
+                            
                         </div>
-
+                            
+                            <br></br>
+                          <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/login.xhtml" > Volver a inicio </p:link>
+                         <br></br>
                     </h:form>
                     <h:form onsubmit=" return false" id="frmaHidden" >
                         <h:inputText id="txtHidden" style="display: none" value="#{RegisterController.uid}">

@@ -561,7 +561,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales,bloqueo,horaInicio,primeroDeDia FROM detalleevento";
+            sql = "SELECT idDetalleEvento,indiceEvento,evento,duracion,titulo,descripcion,borrado,Objetivo,Categoria,ColorCategoria,Pasos,Materiales,bloqueo,horaInicio,primeroDeDia FROM detalleevento ORDER BY indiceEvento";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {

@@ -41,14 +41,14 @@
                 <div class="ui-g ui-fluid">
                     <h:form onsubmit="return false"  prependId="false"  id="frmaLogin">
                         <div class="ui-g-12">
-                            <p:inputText id="txtEmail" required="true" requiredMessage="Usuario obligatorio" placeholder="Username" >
+                            <p:inputText id="txtEmail" required="true" requiredMessage="Usuario obligatorio" placeholder="Usuario" >
                                 <f:validateRequired></f:validateRequired>
                                 <p:clientValidator></p:clientValidator>
                             </p:inputText>
                             <p:message for="txtEmail"></p:message>
                         </div>
                         <div class="ui-g-12">
-                            <p:password id="txtPassword" requiredMessage="Contraseña obligatoria"  placeholder="Password" required="true" feedback="false">
+                            <p:password id="txtPassword" requiredMessage="Contraseña obligatoria"  placeholder="Contraseña" required="true" feedback="false">
                                 <f:validateRequired></f:validateRequired>
                                 <p:clientValidator></p:clientValidator>
                             </p:password>
@@ -57,10 +57,10 @@
                         <button 
                             id="submitButton" style="display: inline-block;width: 95%;margin-top: 10px"
                             class="loginBtn loginBtn--omega" 
-                            type="submit">Login
+                            type="submit">Iniciar sesión
                         </button>
                         <button id="btnLogGoogle" type="button"  onclick="googleLogIn()" style="width: 95%;display: inline-block" class="loginBtn loginBtn--google">
-                            Login with Google
+                            Iniciar sesión con Google
                         </button>   
                         <div class="ui-g-12 ">
                             <span  class="remember-me">Recuérdame</span>
