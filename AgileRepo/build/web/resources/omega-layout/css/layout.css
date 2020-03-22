@@ -2229,7 +2229,7 @@ h2 {
     
         margin-left:10%;
         margin-right:10%;
-        overflow:auto; 
+        overflow:hidden;
         border-radius:2.5%;
   }
   .dashboard .summary {
@@ -2246,7 +2246,7 @@ h2 {
       font-size:20px;
       display:block;
       
-       margin-top: 10px;
+      margin-top:-20px;
       margin-left:70px;
       
     
@@ -2255,14 +2255,28 @@ h2 {
       
     }
     
+       .dashboard .summary .title3 {
+      font-size:20px;
+      display:block;
+      
+      margin-top:-20px;
+      margin-left:0px;
+      
+    
+      overflow:hidden;
+     
+      
+    }
+    
+    
       .dashboard .summary .title2 {
       font-size:21px;
       display:block;
       text-transform:uppercase;
        margin-top: 7.5%;
-      margin-left:50%;
+      margin-left:30%;
       margin-right:12.5%;
-    
+    color:#fff;
       overflow:hidden;
      
       
@@ -2291,10 +2305,22 @@ h2 {
       
       display:inline-block;
       text-align:justify;
-      margin-top: 0px;
+      margin-top: 20px;
       margin-left:2.5%;
       
     }
+    
+    .dashboard .summary .detail2{
+    margin-top: -6px;
+    color: #a4a4a4;
+      font-size:14px;
+      
+      display:inline-block;
+      text-align:justify;
+      
+      margin-left:2.5%;
+}
+    
     
     .dashboard .summary .tags{
        bottom:5%;
@@ -2468,8 +2494,8 @@ h2 {
     color: #77c7ff; }
 .landing-wrapper .landing-header {
   height: 80px;
-  background-color: #0388e5;
-  position: fixed;
+  background:none;
+  position:absolute;
   left: 0;
   width: 100%;
   z-index: 101; }
@@ -2491,13 +2517,14 @@ h2 {
         .landing-wrapper .landing-header .landing-header-content ul li a {
           text-decoration: none;
           padding: 4px 10px;
-          color: #ffffff;
+          color: #fff;
+          font-size:16px;
           -moz-border-radius: 2px;
           -webkit-border-radius: 2px;
           border-radius: 2px; }
           .landing-wrapper .landing-header .landing-header-content ul li a:hover {
-            background-color: #ffffff;
-            color: #007be5; }
+            background-color: #9599b3;
+            color: #fff; }
 .landing-wrapper #introduction {
   padding-top: 80px;
   height: 623px;
@@ -2509,16 +2536,16 @@ h2 {
   .landing-wrapper #introduction .introduction-content {
     width: 960px;
     margin: 0 auto;
-    color: #ffffff;
+    color: #fff; 
     position: relative; }
     .landing-wrapper #introduction .introduction-content .title {
-      font-size: 64px;
+      font-size: 52px;
       position: absolute;
-      top: 200px; }
+      top: 110px; }
     .landing-wrapper #introduction .introduction-content .subtitle {
       font-size: 24px;
       position: absolute;
-      top: 275px; }
+      top: 235px; }
     .landing-wrapper #introduction .introduction-content img {
       position: absolute;
       right: 0px;
@@ -2593,7 +2620,7 @@ h2 {
     .landing-wrapper #pricing .pricing-content .ui-g {
       margin-top: 50px; }
     .landing-wrapper #pricing .pricing-content p {
-      color: #a4a4a4; }
+      color: #787878; }
     .landing-wrapper #pricing .pricing-content > p {
       font-size: 20px; }
     .landing-wrapper #pricing .pricing-content .pricing-title {
@@ -2605,7 +2632,7 @@ h2 {
       -webkit-border-radius: 3px;
       border-radius: 3px;
       padding: 10px 0;
-      background-color: #e1e6e9;
+      background-color: #FFFFFF;
       -moz-transition: background-color 0.3s;
       -o-transition: background-color 0.3s;
       -webkit-transition: background-color 0.3s;
@@ -2621,14 +2648,7 @@ h2 {
         margin: 30px auto;
         font-size: 22px;
         line-height: 100px; }
-      .landing-wrapper #pricing .pricing-content .pricing-box:hover {
-        background-color: #006de5;
-        color: #ffffff; }
-        .landing-wrapper #pricing .pricing-content .pricing-box:hover p {
-          color: #ffffff; }
-        .landing-wrapper #pricing .pricing-content .pricing-box:hover .pricing-fee {
-          background-color: #eaeeef;
-          color: #589cf0; }
+    
 .landing-wrapper #video {
   background-color: #dde2e5;
   padding: 100px 0; }
@@ -2677,18 +2697,42 @@ h2 {
       padding: 10px 0 30px 0;
       border-top: 1px solid #a4a4a4; }
 
+    
+    
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 @media (max-width: 64em) {
   .landing-wrapper #menu-button {
-    display: block; }
+    display: block;
+  position:fixed;
+  right:5%;
+  top:5%;
+  color:#3b3e47;
+
+  }
   .landing-wrapper .landing-header {
     height: 80px;
-    background-color: #0388e5; }
+      }
     .landing-wrapper .landing-header .landing-header-content {
       width: 100%;
       padding: 30px 20px 0 20px; }
       .landing-wrapper .landing-header .landing-header-content ul {
         float: none;
-        position: fixed;
+        position:fixed;
         top: 80px;
         right: 0px;
         background-color: #3b3e47;
@@ -2696,13 +2740,13 @@ h2 {
         margin: 0; }
         .landing-wrapper .landing-header .landing-header-content ul.overlay-menu {
           display: block;
-          height: 100%;
+          height: 45%;
           width: 200px; }
         .landing-wrapper .landing-header .landing-header-content ul li {
           float: none; }
           .landing-wrapper .landing-header .landing-header-content ul li a {
             display: block;
-            font-size: 18px;
+            font-size: 20px;
             padding-left: 15px;
             border-bottom: 1px solid #4e5159; }
   .landing-wrapper #introduction {

@@ -27,6 +27,21 @@ public class UsuarioLoginController {
     public UsuarioLoginController() {
     }
 
+    @ManagedProperty("#{param.googleResponse}")
+    private String googleResponse;
+
+    @ManagedProperty("#{param.googleDisplayName}")
+    private String googleDisplayName;
+
+    private String uid;
+    
+    public static String UID = "";
+
+    public String getUid() {
+        System.out.println("UID: " + this.uid);
+        return uid;
+    }
+
     public String getGoogleResponse() {
         return googleResponse;
     }
@@ -39,21 +54,16 @@ public class UsuarioLoginController {
         return UID;
     }
 
-    public  void setUID(String UID) {
+    public void setUID(String UID) {
         UsuarioLoginController.UID = UID;
     }
 
-    @ManagedProperty("#{param.googleResponse}")
-    private String googleResponse;
-    
+    public String getGoogleDisplayName() {
+        return googleDisplayName;
+    }
 
-    
-    private String uid;
-    public static String UID = "";
-
-    public String getUid() {
-        System.out.println("UID: " + this.uid);
-        return uid;
+    public void setGoogleDisplayName(String googleDisplayName) {
+        this.googleDisplayName = googleDisplayName;
     }
 
     public void setUid(String uid) {
@@ -66,18 +76,20 @@ public class UsuarioLoginController {
         UID = this.uid;
         System.out.println("Saved UID: " + UID);
     }
-    
 
     public void setResponse() {
-        Dao dao  = new UsuarioDao();
-        
+        Dao dao = new UsuarioDao();
+
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String googleResponse = params.get("googleResponse");
-        System.out.println("Respuesta :"+googleResponse);
+        String disName =  params.get("googleDisplayName");
+        System.out.println("Respuesta :" + googleResponse);
+        System.out.println("Respuesta name:" + disName);
         UID = googleResponse;
         //Registrar a quienes se logueen y no lo esten
-        if(!((UsuarioDao)dao).exists(UID))
-            ((UsuarioDao)dao).save(new Usuario(UID,0));
+        if (!((UsuarioDao) dao).exists(UID)) {
+            ((UsuarioDao) dao).save(new Usuario(UID, 0,disName));
+        }
     }
 
 }

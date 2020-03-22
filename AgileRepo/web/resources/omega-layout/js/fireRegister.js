@@ -35,8 +35,11 @@ function fireReg(event) {
                 event.target.pass1.value = '';
                 event.target.pass2.value = '';
                 //doClick.click();
-                var resp = googleLogin([{name: 'googleResponse', value: result.user.uid}]);
-
+                if (result.user.displayName) {
+                    let resp = googleLogin([{name: 'googleResponse', value: result.user.uid}, {name: 'googleDisplayName', value: result.user.displayName}]);
+                } else {
+                    let resp = googleLogin([{name: 'googleResponse', value: result.user.uid}, {name: 'googleDisplayName', value: result.user.email}]);
+                }
                 $('#myModalOk').modal();
                 console.log(result);
                 //return true;
