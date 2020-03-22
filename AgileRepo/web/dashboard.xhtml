@@ -143,6 +143,13 @@
 
                                     </h:inputText>
                                 </div>
+                                <p:commandButton
+                                    icon="fa fa-comment"
+                                    value="Comentar"
+                                    rendered="#{not eventos.onEdit}"
+                                    style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:100px;"
+                                    >
+                                </p:commandButton>
                                 <h:commandButton
                                     rendered="#{eventos.onEdit}"
                                     action="#{eventcontroller.edit(eventos)}"
@@ -168,7 +175,7 @@
                                     <p:scrollPanel id="scrl" style="width:250px;height:200px">
                                         <c:forEach   id="P111"  items="#{eventcontroller.lstCrono}" var="P1" varStatus="true"  > 
 
-                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px; display:#{P1.esBloque()?'none':'inline-block'} ">
+                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;width: 90% ;display:#{P1.esBloque()?'none':'inline-block'} ">
                                                 <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord}) </span>
                                                 <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
                                                 <span style="font-size: x-large;width: 56px;height: 52px" >-</span>
@@ -177,7 +184,7 @@
                                                 <span style="font-size: x-large;width: 52px;height: 52px" > D:#{P1.duracion}m</span>
                                             </div>
 
-                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%;"  >
+                                            <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 90%;"  >
                                                 <span style="font-size: x-large;width: 52px;height: 52px" >#{P1.ord})  </span>
                                                 <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
                                             </div>
