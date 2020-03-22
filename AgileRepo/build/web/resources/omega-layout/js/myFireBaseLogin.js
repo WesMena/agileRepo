@@ -65,13 +65,26 @@ function signInWithEmailAndPassword(event) {
 }
 
 function googleLogIn(event) {
-    //Llamado al SDK de firebase
-    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {
-        //Todo bien
-        //window.location.assign('faces/dashboard.xhtml');
-    }).catch(function (error) {
-        console.log(error);
-    });
+    //Revisando viewport para hacer saltar un popup o una redireccion
+
+    if (window.matchMedia("(max-width:767px)").matches) {
+        //Dispositivo movil
+        //llamado a SDK de firebase
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(function(result){
+            //Todo bien,el listener se encarga de la direccion ini()
+        }).catch(function(error){
+            console.log(error);
+        });
+    } else {
+        //Tablet o escritorio
+        //Llamado al SDK de firebase
+        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {
+            //Todo bien,el listener se encarga de la direccion ini()
+            //window.location.assign('faces/dashboard.xhtml');
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 }
 
 
