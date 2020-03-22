@@ -40,7 +40,26 @@ public class EventController implements Serializable {
     private String BLUECOLORCODE = "#0388e5";
     private List<Evento> lstEvt = new ArrayList<>();
     private List<Cronograma> lstCrono = new ArrayList<>();
+    private Evento target =new Evento();
 
+    public Evento getDelObject() {
+        return delObject;
+    }
+
+    public void setDelObject(Evento delObject) {
+        this.delObject = delObject;
+    }
+
+    public Evento getTarget() {
+        return target;
+    }
+
+    public void setTarget(Evento target) {
+        this.target = target;
+    }
+    
+    
+    
     public List<Cronograma> getLstCrono() {
         return lstCrono;
     }
@@ -277,6 +296,9 @@ public class EventController implements Serializable {
         List<DetalleEvento> detalles = new ArrayList<>();
        /*-> Se obtiene el objeto de Evento*/  
         evt = (Evento) e.getComponent().getAttributes().get("getEvt");
+        
+        this.target = evt;
+        
         /*-> Se Obtiene la lista de todos los detalles*/
         detalles = dao.todo();
         
@@ -286,6 +308,8 @@ public class EventController implements Serializable {
                  
                  crono = new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),true);
                  this.lstCrono.add(crono);
+                 crono.setColor(detalles.get(i).getColorCategoria());
+                 
                  System.out.println("Se metio bloque " +crono.getOrd() +" en ciclo " +i);
              }else
              
