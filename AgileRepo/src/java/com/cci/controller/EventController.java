@@ -314,7 +314,8 @@ public class EventController implements Serializable {
         
         for(int i=0; i<= comentarios.size()-1;i++){
             if(comentarios.get(i).getEvento() == evt.getId()){
-             
+              cmt = new Comentario(comentarios.get(i).getId(),comentarios.get(i).getuId(),comentarios.get(i).getEvento(),comentarios.get(i).getUser(),comentarios.get(i).getComentario());
+              this.lstComent.add(cmt);
             }
         }
     }
