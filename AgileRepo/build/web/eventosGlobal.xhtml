@@ -8,11 +8,11 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+    <ui:define name="title">Otros eventos </ui:define>
     <ui:define name="head">
         <f:metadata>
             <f:viewAction action="#{globalEventController.onLoad()}" />
         </f:metadata>
-
         <script type="text/javascript">
             //<![CDATA[
             function skinChart() {
@@ -87,7 +87,8 @@
                                 <div style="width:90%" contenteditable="#{eventos.onEdit}">   
                                     <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'none':'block'}; width:100%; font-family:Arial,Helvetica; margin-top:0px; background:none; margin-left:10px;" class="title" value="#{eventos.tituloCorto}"></h:inputText>
                                     <h:inputText style="border: none; overflow:hidden; display:#{eventos.retornarEdit()? 'block':'none'}; width:100%; font-family:Arial,Helvetica; margin-top:0px; background:none; margin-left:10px;" class="title" value="#{eventos.nombre}"></h:inputText>
-
+                                    <!--Propietario-->
+                                    <span  style="font-size: 90%;direction: ltr;display:block;margin-top: 0px;margin-left: 10px;color: #0388e5">#{eventos.proietario}</span>
                                 </div>
 
 
@@ -97,22 +98,22 @@
                             Este es el botón "..."
                              </!-->
 
-                                <div >
+                                <div  >
+                                    <div>
+                                        <span class="options" style="display: inline-block">
 
-                                    <span class="options">
-
-                                        <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
-                                        <p:menu overlay="true" trigger="smallmenu" my="left  op" at="left bottom">
-                                            <p:menuitem value="Editar" icon="ui-icon-pencil"  action="#{eventos.setOnEdit(false)}"  update=":padre" >
-                                                <f:actionListener binding="#{eventos.setOnRowEdit(2)}"/>
-                                                <!--<f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLACKCOLORCODE)}"/>-->
-                                            </p:menuitem>
-                                            <p:menuitem value="Cronograma" actionListener="#{eventcontroller.CronoListener}"  icon="ui-icon-clipboard fa fa-clipboard">
-                                                <f:attribute name="getEvt" value="#{eventos}"/>
-                                            </p:menuitem>
-                                        </p:menu>
-                                    </span>
-
+                                            <p:graphicImage id="smallmenu" name="images/opcionesIcon.png" library="omega-layout" width="20px" style="margin-right:0"/>
+                                            <p:menu overlay="true" trigger="smallmenu" my="left  op" at="left bottom">
+                                                <p:menuitem value="Ver más" icon="ui-icon-pencil"  action="#{eventos.setOnEdit(false)}"  update=":padre" >
+                                                    <f:actionListener binding="#{eventos.setOnRowEdit(2)}"/>
+                                                    <!--<f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLACKCOLORCODE)}"/>-->
+                                                </p:menuitem>
+                                                <p:menuitem value="Cronograma" actionListener="#{eventcontroller.CronoListener}"  icon="ui-icon-clipboard fa fa-clipboard">
+                                                    <f:attribute name="getEvt" value="#{eventos}"/>
+                                                </p:menuitem>
+                                            </p:menu>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-->
                               Aquí está la descripción, simplemente accede al 
@@ -131,13 +132,21 @@
                                 "#" 
                                </!-->   
 
-                                <div class="tags" style="display: block;width: 80%;border: none" contenteditable="#{eventos.onEdit}">
+                                <div class="tags">
                                     <h:inputText id="tags" value="#{eventos.losTags}" readonly="#{!eventos.onEdit}"   style="display: block;border: none;color: #{eventcontroller.colorCode}">
-
                                     </h:inputText>
                                 </div>
-                                <!--Propietario-->
-                                <span style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:100px; color: #0388e5">#{eventos.proietario}</span>
+                                <!--Comentar-->
+                                <p:commandButton
+                                    update=":padre"
+                                    actionListener="#{globalEventController.comentariosListener}"
+                                    icon="fa fa-comment"
+                                    value="Comentar"
+                                    rendered="#{not eventos.onEdit}"
+                                    style="text-align: center;margin-bottom: 8px;margin-right: 10px;position: absolute;bottom: 0;right: 0;width:100px;"
+                                    >
+                                    <f:attribute name="getEvt" value="#{eventos}"/>
+                                </p:commandButton>
                                 <p:tooltip id="toolTipTrack" for="tags" value="Los Tags son válidos unicamente cuando estos están precedidos por un # y el nombre del Tag" trackMouse="true" />
                             </div>
                         </h:form>
@@ -170,7 +179,6 @@
                                         </c:forEach>
 
                                     </p:scrollPanel>
-
                                     <p:commandButton value="Print" type="button" icon="pi pi-print" style="display:block;margin-bottom: 20px">
                                         <p:printer target="scrl" />
                                     </p:commandButton>
@@ -180,14 +188,52 @@
                             </p:dialog>   
                         </div>
                     </h:form>
+                    <!--Dialogo de ocmentarios-->
+                    <h:form id="frmdlg2">
+                        <p:dialog showEffect="fade" closable="true" modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="false" width="500" height="400" resizable="false" widgetVar="dlgComent" id="dlgC">
+                            <center>
+                                <p:scrollPanel  style="height: 200px !important" >
+                                    <p:panel  style="width: 100% !important;text-align:center;border: none" id="comments">
+                                        <c:forEach items="#{globalEventController.lstComent}" var="com">
+                                            <h:form>
+                                                <div style="width: 100%; text-align: left;border: 0.1em solid #03A8E4;background: #ffffff" >
+                                                    <div style="margin-left: 8px;margin-right: 10px;text-align: right;display: inline-block">
+                                                        <span>#{com.autor_displayName}</span>
+                                                    </div>
+                                                    <div style="text-align: right;display: inline-block">
+                                                        <span style="font-size: smaller;display: inline-block;margin-right: 8px;position: relative;top: 0;right: 0;color: #20d077;font-weight:bold ">#{com.fecha}</span>
+                                                    </div>
+                                                    <p:inputTextarea  class="detail" style="width: 99%;display: block; border: none;color: #0388e5" value="#{com.contenido}"></p:inputTextarea>
+                                                </div>
+                                                <br></br>
+                                            </h:form>
+                                        </c:forEach>
+                                    </p:panel>
+                                </p:scrollPanel>                                
+                                <p:inputTextarea value="#{globalEventController.nuevoComentario}" placeholder="Comentario..." counter="display" maxlength="500" counterTemplate="{0} Carácteres restantes." style="display: block;width: 100%;border: 0.1em solid #cccccc" class="detail" >
 
-
-
+                                </p:inputTextarea>  
+                                <br></br>
+                                <h:outputText id="display"></h:outputText>
+                                <div>
+                                    <p:commandButton value="Comentar"
+                                                     update=":padre"
+                                                     style="width:  48%;margin-right:  2%"
+                                                      ></p:commandButton>
+                                    <p:commandButton value="Cerrar"
+                                                     update=":padre"
+                                                     style="width: 48%;margin:0;background-color: red"
+                                                     action="#{eventos.setOnComment(false)}"></p:commandButton>
+                                </div>
+                            </center>
+                        </p:dialog>
+                    </h:form>
                 </h:panelGroup>
 
             </div>
         </div>
         <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" ></h:outputStylesheet>
+        <h:outputStylesheet name="css/myDashComment.css" library="omega-layout" ></h:outputStylesheet>
     </ui:define>
 
 </ui:composition>

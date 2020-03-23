@@ -33,6 +33,16 @@ public class UsuarioLoginController {
     @ManagedProperty("#{param.googleDisplayName}")
     private String googleDisplayName;
 
+    private static String displayName = "";
+
+    public static String getDisplayName() {
+        return displayName;
+    }
+
+    public static void setDisplayName(String displayName) {
+        UsuarioLoginController.displayName = displayName;
+    }
+    
     private String uid;
     
     public static String UID = "";

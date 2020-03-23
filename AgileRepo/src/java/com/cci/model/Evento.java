@@ -30,15 +30,30 @@ import org.primefaces.PrimeFaces;
 public class Evento implements Serializable {
 
     private boolean onEdit = false;
+    private boolean onComment = false;
     private String nombre;
     private String propietario;
-
+    private List<Comentario> comentarios = new ArrayList<>();
+    
+    
+    public void addComment(Comentario c){
+        this.comentarios.add(c);
+    }
+    
     public String getProietario() {
         return propietario;
     }
 
     public void setProietario(String proietario) {
         this.propietario = proietario;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     public boolean isOnEdit() {
@@ -107,7 +122,7 @@ public class Evento implements Serializable {
         tituloCorto();
     }
 
-    public Evento(String nombre, String desc, int id, double horas, int dias, String inicio,String propietario) {
+    public Evento(String nombre, String desc, int id, double horas, int dias, String inicio, String propietario) {
         this.nombre = nombre;
 
         this.id = id;
@@ -265,6 +280,14 @@ public class Evento implements Serializable {
         this.id = id;
         this.horas = horas;
         this.dias = dias;
+    }
+
+    public boolean isOnComment() {
+        return onComment;
+    }
+
+    public void setOnComment(boolean onComment) {
+        this.onComment = onComment;
     }
 
 }

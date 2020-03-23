@@ -5,9 +5,11 @@
  */
 package com.cci.controller;
 
+import com.cci.model.Comentario;
 import com.cci.model.Cronograma;
 import com.cci.model.DetalleEvento;
 import com.cci.model.Evento;
+import com.cci.service.ComentarioDao;
 import com.cci.service.Dao;
 import com.cci.service.DetalleDao;
 import com.cci.service.EventDao;
@@ -28,8 +30,6 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.extensions.component.exporter.Exporter;
 
-
-
 /**
  *
  * @author wesli
@@ -44,11 +44,13 @@ public class EventController implements Serializable {
     private String BLUECOLORCODE = "#0388e5";
     private List<Evento> lstEvt = new ArrayList<>();
     private List<Cronograma> lstCrono = new ArrayList<>();
-    private Evento target =new Evento();
+    private Evento target = new Evento();
 
     public Evento getDelObject() {
         return delObject;
     }
+
+
 
     public void setDelObject(Evento delObject) {
         this.delObject = delObject;
@@ -61,9 +63,7 @@ public class EventController implements Serializable {
     public void setTarget(Evento target) {
         this.target = target;
     }
-    
-    
-    
+
     public List<Cronograma> getLstCrono() {
         return lstCrono;
     }
@@ -298,24 +298,22 @@ public class EventController implements Serializable {
         List<DetalleEvento> detalles = new ArrayList<>();
         /*-> Se obtiene el objeto de Evento*/
         evt = (Evento) e.getComponent().getAttributes().get("getEvt");
-        
+
         this.target = evt;
-        
+
         /*-> Se Obtiene la lista de todos los detalles*/
         detalles = dao.todo();
-        
-         for(int i=0; i<= detalles.size()-1;i++){
-             /*-> Se filtra por ID de Evento y si el slot está activo */
-             if(detalles.get(i).getEvento() == evt.getId() && detalles.get(i).esBloque() == true &&  detalles.get(i).getBorrado()!= 1){
-                 
-                 crono = new Cronograma(detalles.get(i).getIndice(),detalles.get(i).getTitulo(),true);
-                 this.lstCrono.add(crono);
-                 crono.setColor(detalles.get(i).getColorCategoria());
-                 
-                 System.out.println("Se metio bloque " +crono.getOrd() +" en ciclo " +i);
-             }else
-             
-            if(detalles.get(i).getEvento() == evt.getId() && detalles.get(i).getBorrado()!= 1){
+
+        for (int i = 0; i <= detalles.size() - 1; i++) {
+            /*-> Se filtra por ID de Evento y si el slot está activo */
+            if (detalles.get(i).getEvento() == evt.getId() && detalles.get(i).esBloque() == true && detalles.get(i).getBorrado() != 1) {
+
+                crono = new Cronograma(detalles.get(i).getIndice(), detalles.get(i).getTitulo(), true);
+                this.lstCrono.add(crono);
+                crono.setColor(detalles.get(i).getColorCategoria());
+
+                System.out.println("Se metio bloque " + crono.getOrd() + " en ciclo " + i);
+            } else if (detalles.get(i).getEvento() == evt.getId() && detalles.get(i).getBorrado() != 1) {
                 /*-> Se agrega a la lista*/
 
                 crono = new Cronograma(detalles.get(i).getIndice(), detalles.get(i).getTitulo(), false);
