@@ -43,7 +43,7 @@ public class ComentarioDao implements Dao<Comentario>{
 
     @Override
     public List<Comentario> getAll() {
-         ResultSet rs = null;
+        ResultSet rs = null;
         Statement stmt = null;
         
         try {
@@ -53,7 +53,7 @@ public class ComentarioDao implements Dao<Comentario>{
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idComentario,uId,evento,displayName,comentario FROM comentarios";
+            sql = "SELECT idComentario,uId,evento,displayName,comentario,fecha FROM comentarios";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -63,9 +63,9 @@ public class ComentarioDao implements Dao<Comentario>{
                 int evento = rs.getInt("evento");
                 String displayName = rs.getString("displayName");
                 String comentario = rs.getString("comentario");
+                Date fecha =rs.getDate("fecha");
               
-
-                comentarios.add(new Comentario(id, uId, evento, displayName, comentario));
+                comentarios.add(new Comentario(id, uId, evento, displayName, comentario,fecha));
             }
 
         } catch (Exception e) {
@@ -77,7 +77,22 @@ public class ComentarioDao implements Dao<Comentario>{
 
     @Override
     public void save(Comentario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            //Ingresa un Evento nuevo en la base de datos
+            sql = "INSERT INTO `agilerepo`.`comentarios` (`uId`,`evento`, `displayName`, `comentario`, `fecha`) VALUES (`"+t.getuId()+"`,`"+t.getEvento()+"`,`"+t.getUser()+"`,`"+t.getComentario()+"`,`"+t.getFecha()+"`);";
+            stmt.executeUpdate(sql);
+          
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -14,7 +14,9 @@ import com.cci.service.Dao;
 import com.cci.service.DetalleDao;
 import com.cci.service.EventDao;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -314,10 +316,15 @@ public class EventController implements Serializable {
         
         for(int i=0; i<= comentarios.size()-1;i++){
             if(comentarios.get(i).getEvento() == evt.getId()){
-              cmt = new Comentario(comentarios.get(i).getId(),comentarios.get(i).getuId(),comentarios.get(i).getEvento(),comentarios.get(i).getUser(),comentarios.get(i).getComentario());
+              cmt = new Comentario(comentarios.get(i).getId(),comentarios.get(i).getuId(),comentarios.get(i).getEvento(),comentarios.get(i).getUser(),comentarios.get(i).getComentario(),comentarios.get(i).getFecha());
+                System.out.println("->  Get all  de Comentarios!");
+                System.out.println(comentarios.get(i).getComentario());
               this.lstComent.add(cmt);
             }
         }
+             
+        PrimeFaces.current().ajax().update("frmdlg2:dlgComent");
+        this.openComents();
     }
     
     
@@ -380,9 +387,23 @@ public class EventController implements Serializable {
   
     /* Abro el modal del Cornograma*/
     public void openModal(){
+          
           PrimeFaces.current().executeScript("PF('dlg2').show()");
     }
     
+    public void openComents(){
+        PrimeFaces.current().executeScript("PF('dlgComent2').show()");
+    }
   
+    
+    
+    public String dateFormat(Date fecha) {  
+    Date date = fecha;  
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+    String strDate= formatter.format(date);  
+    
+    return strDate;
+}  
+    
     
 }

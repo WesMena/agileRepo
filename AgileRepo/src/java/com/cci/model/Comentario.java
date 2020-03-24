@@ -5,6 +5,10 @@
  */
 package com.cci.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author Daniel
@@ -16,16 +20,20 @@ public class Comentario {
     private int evento;
     private String user;
     private String comentario;
+    private Date fecha;
+    
+    private List<Respuesta> respuestas = new ArrayList<>();
 
     public Comentario() {
     }
 
-    public Comentario(int id, String uId, int evento, String user, String comentario) {
+    public Comentario(int id, String uId, int evento, String user, String comentario, Date fecha) {
         this.id = id;
         this.uId = uId;
         this.evento = evento;
         this.user = user;
         this.comentario = comentario;
+        this.fecha = fecha;
     }
 
     public int getId() {
@@ -67,7 +75,24 @@ public class Comentario {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public List<Respuesta> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas) {
+        this.respuestas = respuestas;
+    }
     
+   
     
     
 }
