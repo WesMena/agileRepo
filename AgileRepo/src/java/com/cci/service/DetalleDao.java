@@ -73,8 +73,10 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 String hora2=horaAjustada(hora);
                 String horaFinal=recalcularHora(hora2,duracion);
                 
-                
-               detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo,primero,hora,hora2,horaFinal));
+                // Solo agrega a la lista si no estan borrados
+                if(borrado==0){
+                    detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo,primero,hora,hora2,horaFinal));
+                }                
             }
             // Asigna el valor del tamano de la lista para el nuevo indice al final de la lista
             indiceEvento = detalles.size() + 1;
@@ -188,6 +190,27 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         }
 
     }
+    
+    
+        public void updateDetalle(int idDetalle, String titulo) {
+        ResultSet rs = null;
+        Statement stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE detalleevento SET titulo='" + titulo + "' WHERE (idDetalleEvento=" + idDetalle + ")";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    
 
     public String horaAjustada(Date hora) {
         /*
@@ -243,7 +266,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
         int bloqueo = 0; // Evalua a False
         insertDetalle(evento, bloqueo);
     }
-
+    
     /**
      * Inserta un Detalle al evento especificado, evalua en runtime si es
      * bloqueo o slot normal
@@ -612,7 +635,7 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
 
         return returned;
     }
-
+    
     public String propiedadSlot(int idSlot) {
         String returned = "";
         Statement stm;
@@ -632,5 +655,26 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
 
         return returned;
     }
+    
+    public void borrarDetalle(int idSlot){
+        Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
 
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE agilerepo.detalleevento SET borrado=" + true
+                    + " WHERE idDetalleEvento=" + idSlot;
+
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }        
+    }
+    
 }
