@@ -26,23 +26,20 @@ function getProfile(user) {
         document.getElementById("profileP").style.backgroundImage = ` url(${user.photoURL})`;
     } else {
         //Logueado sin PP
-
-        //document.getElementById("profileP").style.backgroundImage = `url(#{resource['images:smiley.jpg']})`;
+        document.getElementById("profileP").style.backgroundImage = "url('https://image.flaticon.com/icons/svg/660/660611.svg')";
     }
-    document.getElementById("profileP").style.backgroundImage = ` url(${user.photoURL})`;
-    // document.getElementById('profileP').style.backgroundImage = `url(${user.photoURL})`;
-    console.log('Fui llamado');
-    console.log(` url(${user.photoURL})`);
     var span = document.getElementById('txtUsername');
-    //= firebase.auth().currentUser.displayName;
-    //document.getElementById('userPhoneNumber').value = user.phoneNumber;
-    //document.getElementById('userEmail').value = user.email;
-    console.log('Fui llamado');
+
 
     while (span.firstChild) {
         span.removeChild(span.firstChild);
     }
-    span.appendChild(document.createTextNode(user.displayName));
+    if (user.displayName) {
+        span.appendChild(document.createTextNode(user.displayName));
+    } else {
+        span.appendChild(document.createTextNode(user.email));
+    }
+
 
 
 }

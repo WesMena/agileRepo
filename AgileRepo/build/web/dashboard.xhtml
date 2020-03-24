@@ -143,12 +143,21 @@
 
                                     </h:inputText>
                                 </div>
+                                <p:commandButton
+                                    actionListener="#{globalEventController.comentariosListener}"
+                                    icon="fa fa-comments"
+                                    value="Comentarios"
+                                    rendered="#{not eventos.onEdit}"
+                                    style="text-align: center;margin-bottom: 8px;margin-right: 10px;position: absolute;bottom: 0;right: 0;width:115px;"
+                                    >
+                                    <f:attribute name="getEvt" value="#{eventos}"/>
+                                </p:commandButton>
                                 <h:commandButton
                                     rendered="#{eventos.onEdit}"
                                     action="#{eventcontroller.edit(eventos)}"
                                     type="submit"
                                     value="Hecho"
-                                    style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:100px;"
+                                    style="text-align: center;margin: 8px;position: absolute;bottom: 0;right: 0;width:115px;"
                                     class=" btnCopy btnCopy--omega" >
                                     <f:actionListener binding="#{eventos.setOnRowEdit(1)}"></f:actionListener>
                                     <f:actionListener binding="#{eventcontroller.setColorCode(eventcontroller.BLUECOLORCODE)}"></f:actionListener>
@@ -159,18 +168,18 @@
                         </h:form>
                     </c:forEach>
 
-
+                    <!--Cronograma-->
                     <h:form id="frmDlg" >
 
                         <p:dialog header="Cronograma" id="dlg1" draggable="false" style="text-align: center;  align-items: center; bottom:50;right:50;width:420px;" widgetVar="dlg2" modal="true" resizable="false"  responsive="true" width="510px" height="480px" blockScroll="true" >
 
 
                             <h:commandLink  >
-                              <p:graphicImage name="images/PDF-Icon2.png" library="omega-layout" style=" height:70px; width: 70px " width="80px" height="80px"  />
+                                <p:graphicImage name="images/PDF-Icon2.png" library="omega-layout" style=" height:70px; width: 70px " width="80px" height="80px"  />
                                 <p:dataExporter type="pdf" target="tableId" fileName="Cronograma-#{eventcontroller.target.nombre}" encoding="ISO-8859-1" />
                             </h:commandLink>
-                                
-                            
+
+
                             <br></br>
                             <br></br>
 
@@ -240,7 +249,39 @@
                         </p:dialog>   
 
                     </h:form>
+                    <!--Dialogo de ocmentarios-->
+                    <h:form id="frmdlg2">
+                        <p:dialog showEffect="fade"  modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="true" width="360" height="375" resizable="false" widgetVar="dlgComent" id="dlgC">
+                            <center>
+                                <p:scrollPanel  style="height: 300px !important;width: 100% !important" >
+                                    <p:panel  style="width: 100% !important;text-align:center;border: none" id="comments">
+                                        <c:forEach items="#{globalEventController.lstComent}" var="com">
+                                            <h:form>
 
+                                                <div style="width: 100%; text-align: left;border: 0.1em solid #03A8E4;background: #ffffff" >
+                                                    <div style="margin-left: 8px;margin-right: 10px;text-align: right;display: inline-block">
+                                                        <span>#{com.autor_displayName}</span>
+                                                    </div>
+                                                    <div style="text-align: center;display: inline-block">
+                                                        <span style="font-size: smaller;display: inline-block;margin-right: 8px;position: relative;top: 0;right: 0;color: #20d077;font-weight:bold ">#{com.fecha}</span>
+                                                    </div>
+                                                    <p:inputTextarea  readonly="true"   class="detail" style="width: 99%;display: block; border: none !important;color:#0388e5 " value="#{com.contenido}"></p:inputTextarea>
+                                                </div>
+                                                <br></br>
+
+                                            </h:form>
+                                        </c:forEach>
+                                    </p:panel>
+                                </p:scrollPanel>                                
+                                <div>
+                                    <p:commandButton value="Cerrar"
+                                                     update=":padre"
+                                                     style="width: 100%;margin:1px;background-color: red">           
+                                    </p:commandButton>
+                                </div>
+                            </center>
+                        </p:dialog>
+                    </h:form>
 
 
                 </h:panelGroup>

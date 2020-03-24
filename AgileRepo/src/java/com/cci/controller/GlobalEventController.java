@@ -5,7 +5,9 @@
  */
 package com.cci.controller;
 
+import com.cci.model.Comentario;
 import com.cci.model.Evento;
+import com.cci.service.ComentarioDao;
 import com.cci.service.Dao;
 import com.cci.service.EventDao;
 import com.cci.service.GlobalEventDao;
@@ -15,7 +17,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -25,10 +29,21 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class GlobalEventController implements Serializable {
 
+    private String nuevoComentario;
+    private List<Comentario> lstComent = new ArrayList<>();
     private List<Evento> lstEvt = new ArrayList<>();
     private String BLACKCOLORCODE = "#000000";
     private String BLUECOLORCODE = "#0388e5";
     private String filtro = "";
+    private Evento target = new Evento();
+
+    public List<Comentario> getLstComent() {
+        return lstComent;
+    }
+
+    public void setLstComent(List<Comentario> lstComent) {
+        this.lstComent = lstComent;
+    }
 
     public String getFiltro() {
         return filtro;
@@ -60,6 +75,14 @@ public class GlobalEventController implements Serializable {
 
     public void setBLUECOLORCODE(String BLUECOLORCODE) {
         this.BLUECOLORCODE = BLUECOLORCODE;
+    }
+
+    public String getNuevoComentario() {
+        return nuevoComentario;
+    }
+
+    public void setNuevoComentario(String nuevoComentario) {
+        this.nuevoComentario = nuevoComentario;
     }
 
     public GlobalEventController() {
@@ -102,10 +125,88 @@ public class GlobalEventController implements Serializable {
     public void filtrarEventos() {
         Dao dao = new GlobalEventDao();
         System.out.println("Entró");
-        if(!"".equals(filtro))
-            lstEvt = ((GlobalEventDao)dao).getFiltered(filtro);
-        else
-            lstEvt = ((GlobalEventDao)dao).getAll();
+        if (!"".equals(filtro)) {
+            lstEvt = ((GlobalEventDao) dao).getFiltered(filtro);
+        } else {
+            lstEvt = ((GlobalEventDao) dao).getAll();
+        }
+    }
+
+    public void comentariosListener(ActionEvent e) {
+        ComentarioDao dao = new ComentarioDao();
+        Comentario cmt = new Comentario();
+        Evento evt = new Evento();
+        List<Comentario> comentarios = new ArrayList<>();
+
+        evt = (Evento) e.getComponent().getAttributes().get("getEvt");
+        this.lstComent.clear();
+        this.setTarget(evt);
+        comentarios.clear();
+        comentarios = dao.getAll();
+        System.out.println("HOLA");
+        System.out.println("" + evt.getId());
+        System.out.println("" + comentarios.size());
+        for (int i = 0; i < comentarios.size(); i++) {
+            if (comentarios.get(i).getEvento() == evt.getId()) {
+                cmt = new Comentario(comentarios.get(i).getId(), comentarios.get(i).getAutor(), comentarios.get(i).getEvento(), comentarios.get(i).getAutor_displayName(), comentarios.get(i).getContenido(), comentarios.get(i).getFecha());
+                this.lstComent.add(cmt);
+                System.out.println("Objeto : " + cmt);
+            }
+        }
+
+        PrimeFaces.current().ajax().update("frmdlg2:dlgC");
+        PrimeFaces.current().executeScript("PF('dlgComent').show()");
+        //rimeFaces.current().executeScript("$('#myModalCom').modal('show')");
+
+    }
+
+    public void comentariosListenerComplete() {
+        ComentarioDao dao = new ComentarioDao();
+        Comentario cmt = new Comentario();
+        Evento evt = new Evento();
+        List<Comentario> comentarios = new ArrayList<>();
+
+        evt = this.target;
+        this.lstComent.clear();
+        comentarios.clear();
+        comentarios = dao.getAll();
+        System.out.println("HOLA");
+        System.out.println("" + evt.getId());
+        System.out.println("" + comentarios.size());
+        for (int i = 0; i < comentarios.size(); i++) {
+            if (comentarios.get(i).getEvento() == evt.getId()) {
+                cmt = new Comentario(comentarios.get(i).getId(), comentarios.get(i).getAutor(), comentarios.get(i).getEvento(), comentarios.get(i).getAutor_displayName(), comentarios.get(i).getContenido(), comentarios.get(i).getFecha());
+                this.lstComent.add(cmt);
+                System.out.println("Objeto : " + cmt);
+            }
+        }
+        this.nuevoComentario ="";
+        PrimeFaces.current().ajax().update("frmdlg2:dlgC");
+        PrimeFaces.current().executeScript("PF('dlgComent').show()");
+        //rimeFaces.current().executeScript("$('#myModalCom').modal('show')");
+
+    }
+
+    public void onComment(ActionEvent e) {
+        System.out.println("Comentario : " + this.nuevoComentario);
+    }
+
+    public void insertarComentario() {
+
+        ComentarioDao dao = new ComentarioDao();
+
+        Comentario cmt = new Comentario(UsuarioLoginController.UID, UsuarioLoginController.displayName, this.getNuevoComentario(), this.getTarget().getId());
+
+        dao.save(cmt);
+        
+    }
+
+    public Evento getTarget() {
+        return target;
+    }
+
+    public void setTarget(Evento target) {
+        this.target = target;
     }
 
 }

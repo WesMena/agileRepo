@@ -33,6 +33,16 @@ public class UsuarioLoginController {
     @ManagedProperty("#{param.googleDisplayName}")
     private String googleDisplayName;
 
+    public static String displayName = "";
+
+    public static String getDisplayName() {
+        return displayName;
+    }
+
+    public static void setDisplayName(String displayName) {
+        UsuarioLoginController.displayName = displayName;
+    }
+    
     private String uid;
     
     public static String UID = "";
@@ -86,6 +96,7 @@ public class UsuarioLoginController {
         System.out.println("Respuesta :" + googleResponse);
         System.out.println("Respuesta name:" + disName);
         UID = googleResponse;
+        displayName = disName;
         //Registrar a quienes se logueen y no lo esten
         if (!((UsuarioDao) dao).exists(UID)) {
             ((UsuarioDao) dao).save(new Usuario(UID, 0,disName));

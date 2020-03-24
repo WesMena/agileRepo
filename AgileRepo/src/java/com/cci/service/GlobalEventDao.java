@@ -6,12 +6,14 @@
 package com.cci.service;
 
 import com.cci.controller.UsuarioLoginController;
+import com.cci.model.Comentario;
 import com.cci.model.Evento;
 import com.cci.model.Tag;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,6 +72,7 @@ public class GlobalEventDao implements Dao<Evento> {
 
             rset = stm.executeQuery(sql);
             while (rset.next()) {
+                //  Evento added =  new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getDouble("horas"), rset.getInt("dias"), horaAjustada(rset.getTime("horaInicio")), rset.getString("displayName"));
                 returned.add(new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getDouble("horas"), rset.getInt("dias"), horaAjustada(rset.getTime("horaInicio")), rset.getString("displayName")));
             }
 
@@ -81,6 +84,19 @@ public class GlobalEventDao implements Dao<Evento> {
                     if (e.getId() == rset.getInt("evento")) {
                         e.setLosTags(e.getLosTags() + " #" + rset.getString("tag"));
                         e.agregarTag(new Tag(rset.getString("tag"), rset.getInt("idTag")));
+                    }
+                }
+            }
+
+            //Traida de comentarios
+            List<Comentario> prueba = new ArrayList<>();
+            prueba.add(new Comentario("XXXX", "Jose", "Me parece que su evento es una proqueria,saludos:?)", Comentario.dateFormat( Date.from(Instant.now())), 21));
+            prueba.add(new Comentario("XXXX", "Jose", "Me parece que su evento es una proqueria,saludos:?)Me parece que su evento es una proqueria,saludos:?)Me parece que su evento es una proqueria,saludos:?)Me parece que su evento es una proqueria,saludos:? x2)", Comentario.dateFormat( Date.from(Instant.now())),21));
+            for (Comentario c : prueba) {
+                for (Evento e : returned) {
+                    //El comentario pertenece al evento
+                    if (e.getId() == c.getEvento()) {
+                        e.addComment(c);
                     }
                 }
             }
@@ -106,7 +122,7 @@ public class GlobalEventDao implements Dao<Evento> {
                     + "FROM eventos e,tagseventos t,usuarios u "
                     + "WHERE u.uid = e.propietario "
                     + "AND e.idEvento=t.evento AND propietario not in ('" + UsuarioLoginController.UID + "') "
-                    + "AND (e.nombre LIKE '"+filtro+"%' OR t.tag LIKE '"+filtro+"%') "
+                    + "AND (e.nombre LIKE '" + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
                     + "GROUP BY e.idEvento ORDER BY e.idEvento Desc), "
                     + " "
                     + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas"
@@ -126,7 +142,7 @@ public class GlobalEventDao implements Dao<Evento> {
             stm = conne.conn.createStatement();
             rset = stm.executeQuery(sql);
             while (rset.next()) {
-                returned.add(new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getInt("horas"), rset.getInt("dias"),horaAjustada(rset.getTime("horaInicio")),rset.getString("displayName")));
+                returned.add(new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getInt("horas"), rset.getInt("dias"), horaAjustada(rset.getTime("horaInicio")), rset.getString("displayName")));
             }
 
             stm = conne.conn.createStatement();
