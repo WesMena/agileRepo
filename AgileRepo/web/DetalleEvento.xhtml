@@ -136,7 +136,7 @@
                                         <f:ajax onevent="PF('side_info').show()"/>
                                     </p:commandButton>
 
-                                    <p:commandButton  action="#{detallecontroller.borrarSlot()}" icon="pi pi-trash" update="Slot" >
+                                    <p:commandButton  action="#{detallecontroller.borrarSlot()}" icon="pi pi-trash" update="Slot" onclick="#{detallecontroller.onReorder()}">
                                         <f:param name="idSlot" value="#{detalle.id}" />
                                     </p:commandButton>
 
