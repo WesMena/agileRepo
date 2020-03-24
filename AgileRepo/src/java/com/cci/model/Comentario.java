@@ -48,6 +48,13 @@ public class Comentario {
        this.contenido = comentario;
        this.fecha = fecha;
     }
+    
+    public Comentario( String autor, String autor_displayName, String contenido, int evento) {
+        this.autor = autor;
+        this.autor_displayName = autor_displayName;
+        this.contenido = contenido;
+        this.evento = evento;
+    }
 
     public Comentario() {
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

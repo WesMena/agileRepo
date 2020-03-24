@@ -29,13 +29,13 @@ import org.primefaces.PrimeFaces;
 @SessionScoped
 public class GlobalEventController implements Serializable {
 
-    
     private String nuevoComentario;
     private List<Comentario> lstComent = new ArrayList<>();
     private List<Evento> lstEvt = new ArrayList<>();
     private String BLACKCOLORCODE = "#000000";
     private String BLUECOLORCODE = "#0388e5";
     private String filtro = "";
+    private Evento target = new Evento();
 
     public List<Comentario> getLstComent() {
         return lstComent;
@@ -84,8 +84,6 @@ public class GlobalEventController implements Serializable {
     public void setNuevoComentario(String nuevoComentario) {
         this.nuevoComentario = nuevoComentario;
     }
-    
-    
 
     public GlobalEventController() {
         onLoad();
@@ -139,14 +137,15 @@ public class GlobalEventController implements Serializable {
         Comentario cmt = new Comentario();
         Evento evt = new Evento();
         List<Comentario> comentarios = new ArrayList<>();
-        
+
         evt = (Evento) e.getComponent().getAttributes().get("getEvt");
         this.lstComent.clear();
+        this.setTarget(evt);
         comentarios.clear();
         comentarios = dao.getAll();
         System.out.println("HOLA");
-        System.out.println(""+evt.getId());
-        System.out.println(""+comentarios.size());
+        System.out.println("" + evt.getId());
+        System.out.println("" + comentarios.size());
         for (int i = 0; i < comentarios.size(); i++) {
             if (comentarios.get(i).getEvento() == evt.getId()) {
                 cmt = new Comentario(comentarios.get(i).getId(), comentarios.get(i).getAutor(), comentarios.get(i).getEvento(), comentarios.get(i).getAutor_displayName(), comentarios.get(i).getContenido(), comentarios.get(i).getFecha());
@@ -157,11 +156,57 @@ public class GlobalEventController implements Serializable {
 
         PrimeFaces.current().ajax().update("frmdlg2:dlgC");
         PrimeFaces.current().executeScript("PF('dlgComent').show()");
+        //rimeFaces.current().executeScript("$('#myModalCom').modal('show')");
 
     }
-    
-    public void onComment(ActionEvent e){ 
-        System.out.println("Comentario : "+this.nuevoComentario);
+
+    public void comentariosListenerComplete() {
+        ComentarioDao dao = new ComentarioDao();
+        Comentario cmt = new Comentario();
+        Evento evt = new Evento();
+        List<Comentario> comentarios = new ArrayList<>();
+
+        evt = this.target;
+        this.lstComent.clear();
+        comentarios.clear();
+        comentarios = dao.getAll();
+        System.out.println("HOLA");
+        System.out.println("" + evt.getId());
+        System.out.println("" + comentarios.size());
+        for (int i = 0; i < comentarios.size(); i++) {
+            if (comentarios.get(i).getEvento() == evt.getId()) {
+                cmt = new Comentario(comentarios.get(i).getId(), comentarios.get(i).getAutor(), comentarios.get(i).getEvento(), comentarios.get(i).getAutor_displayName(), comentarios.get(i).getContenido(), comentarios.get(i).getFecha());
+                this.lstComent.add(cmt);
+                System.out.println("Objeto : " + cmt);
+            }
+        }
+        this.nuevoComentario ="";
+        PrimeFaces.current().ajax().update("frmdlg2:dlgC");
+        PrimeFaces.current().executeScript("PF('dlgComent').show()");
+        //rimeFaces.current().executeScript("$('#myModalCom').modal('show')");
+
+    }
+
+    public void onComment(ActionEvent e) {
+        System.out.println("Comentario : " + this.nuevoComentario);
+    }
+
+    public void insertarComentario() {
+
+        ComentarioDao dao = new ComentarioDao();
+
+        Comentario cmt = new Comentario(UsuarioLoginController.UID, UsuarioLoginController.displayName, this.getNuevoComentario(), this.getTarget().getId());
+
+        dao.save(cmt);
+        
+    }
+
+    public Evento getTarget() {
+        return target;
+    }
+
+    public void setTarget(Evento target) {
+        this.target = target;
     }
 
 }

@@ -190,22 +190,24 @@
                     </h:form>
                     <!--Dialogo de ocmentarios-->
                     <h:form id="frmdlg2">
-                        <p:dialog showEffect="fade" closable="true" modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="false" width="500" height="400" resizable="false" widgetVar="dlgComent" id="dlgC">
+                        <p:dialog showEffect="fade"  modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="true" width="360" height="400" resizable="false" widgetVar="dlgComent" id="dlgC">
                             <center>
-                                <p:scrollPanel  style="height: 200px !important" >
+                                <p:scrollPanel  style="height: 200px !important;width: 100% !important" >
                                     <p:panel  style="width: 100% !important;text-align:center;border: none" id="comments">
                                         <c:forEach items="#{globalEventController.lstComent}" var="com">
                                             <h:form>
+
                                                 <div style="width: 100%; text-align: left;border: 0.1em solid #03A8E4;background: #ffffff" >
                                                     <div style="margin-left: 8px;margin-right: 10px;text-align: right;display: inline-block">
                                                         <span>#{com.autor_displayName}</span>
                                                     </div>
-                                                    <div style="text-align: right;display: inline-block">
+                                                    <div style="text-align: center;display: inline-block">
                                                         <span style="font-size: smaller;display: inline-block;margin-right: 8px;position: relative;top: 0;right: 0;color: #20d077;font-weight:bold ">#{com.fecha}</span>
                                                     </div>
-                                                    <p:inputTextarea  class="detail" style="width: 99%;display: block; border: none;color: #0388e5" value="#{com.contenido}"></p:inputTextarea>
+                                                    <p:inputTextarea  readonly="true"   class="detail" style="width: 99%;display: block; border: none !important;color:#0388e5 " value="#{com.contenido}"></p:inputTextarea>
                                                 </div>
                                                 <br></br>
+
                                             </h:form>
                                         </c:forEach>
                                     </p:panel>
@@ -218,8 +220,11 @@
                                 <div>
                                     <p:commandButton value="Comentar"
                                                      update=":padre"
+                                                     actionListener="#{globalEventController.insertarComentario()}"
                                                      style="width:  48%;margin-right:  2%"
-                                                      ></p:commandButton>
+                                                     >
+                                        <f:actionListener binding="#{globalEventController.comentariosListenerComplete()}" ></f:actionListener>
+                                    </p:commandButton>
                                     <p:commandButton value="Cerrar"
                                                      update=":padre"
                                                      style="width: 48%;margin:0;background-color: red"

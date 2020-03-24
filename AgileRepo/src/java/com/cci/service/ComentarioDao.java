@@ -51,7 +51,7 @@ public class ComentarioDao implements Dao<Comentario> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT idComentario,uId,evento,displayName,comentario,fecha FROM comentarios";
+            sql = "SELECT idComentario,uId,evento,displayName,comentario,fecha FROM comentarios ORDER BY fecha desc";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -84,7 +84,7 @@ public class ComentarioDao implements Dao<Comentario> {
             String sql;
 
             //Ingresa un Evento nuevo en la base de datos
-            sql = "INSERT INTO `agilerepo`.`comentarios` (`uId`,`evento`, `displayName`, `comentario`, `fecha`) VALUES (`" + t.getAutor() + "`,`" + t.getEvento() + "`,`" + t.getAutor_displayName() + "`,`" + t.getContenido() + "`,`" + t.getFecha() + "`);";
+            sql = "INSERT INTO `agilerepo`.`comentarios` (`uId`,`evento`, `displayName`, `comentario`, `fecha`) VALUES ('" + t.getAutor() + "'," + t.getEvento() + ",'" + t.getAutor_displayName() + "','" + t.getContenido() + "',now());";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {
