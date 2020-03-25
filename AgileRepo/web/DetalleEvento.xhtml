@@ -119,27 +119,27 @@
 
                         <div class="#{detalle.esBloque()?'card2':'card'} clearfix summary" style="height:#{detalle.esBloque()?'20px':''}; overflow:hidden; ">
                             <div style="width:90%">
-                                <div style="visibility: #{detalle.esBloque()?'hidden':'visible'}">                                
-
 
                                     <span class="options">
 
-
-                                        <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-chevron-circle-left" update="Slot" >
-                                            <f:param name="tituloSlot" value="#{detalle.titulo}" />
-                                            <f:param name="idSlot" value="#{detalle.id}" />
-                                            <f:param name="descSlot" value="#{detalle.descripcion}" />
-                                            <f:param name="objSlot" value="#{detalle.objetivo}" />
-                                            <f:param name="catSlot" value="#{detalle.categoria}" />
-                                            <f:param name="colcatSlot" value="#{detalle.colorCategoria}" />
-                                            <f:param name="pasSlot" value="#{detalle.pasos}" />
-                                            <f:param name="matSlot" value="#{detalle.materiales}" />
-                                            <f:ajax onevent="PF('side_info').show()"/>
-                                        </p:commandButton>
-
+                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-pencil" update="Slot" >
+                                        <f:param name="tituloSlot" value="#{detalle.titulo}" />
+                                        <f:param name="idSlot" value="#{detalle.id}" />
+                                        <f:param name="descSlot" value="#{detalle.descripcion}" />
+                                        <f:param name="objSlot" value="#{detalle.objetivo}" />
+                                        <f:param name="catSlot" value="#{detalle.categoria}" />
+                                        <f:param name="colcatSlot" value="#{detalle.colorCategoria}" />
+                                        <f:param name="pasSlot" value="#{detalle.pasos}" />
+                                        <f:param name="matSlot" value="#{detalle.materiales}" />
+                                        <f:param name="esBloque" value="#{detalle.bloequeo}"/>
+                                        <f:ajax onevent="PF('side_info').show()"/>
+                                    </p:commandButton>
+                                        
+                                    <p:commandButton  action="#{detallecontroller.borrarSlot()}" icon="pi pi-trash" update="Slot" onclick="#{detallecontroller.onReorder()}">
+                                        <f:param name="idSlot" value="#{detalle.id}" />
+                                    </p:commandButton>
                                     </span>
 
-                                </div>
                             </div>
 
 
@@ -226,49 +226,52 @@
             <div style="margin:0 auto; width: 80%">
                 <h:form id="Slot">
                     <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Título</h1>
+                        <h1>Título #{detallecontroller.esBloque?'del Bloque':'del Slot'}</h1>
                     </div>
-                    <p:inputTextarea counter="titulo" rows="1" placeholder="TITULO DEL SLOT" readonly="false" value="#{detallecontroller.titulo}" style="width:99.25%; font-size: 20px; " maxlength="100" counterTemplate="{0} caracteres restantes."/>
+                    <p:inputTextarea counter="titulo" rows="1" placeholder="TITULO DEL #{detallecontroller.esBloque?'BLOQUE':'SLOT'}" readonly="false" value="#{detallecontroller.titulo}" style="width:99.25%; font-size: 20px; " maxlength="100" counterTemplate="{0} caracteres restantes."/>
                     <br/>
                     <h:outputText id="titulo" />
                     <p:separator />
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Descripción</h1>
+                    <div style="visibility: #{detallecontroller.esBloque?'hidden':'visible'}">
+                        
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Descripción</h1>
+                        </div>
+                        <p:inputTextarea counter="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:99.25%; font-size: 14px;" maxlength="300" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="descripcion" />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Objetivo</h1>
+                        </div>
+                        <p:inputTextarea counter="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="objetivo" />
+                        <p:separator />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Categoría</h1>
+                        </div>
+                        <h:panelGrid columns="2" cellpadding="2">
+                            <p:inputTextarea id="categoria" rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;" validatorMessage="El máximo de caracteres es de 50">
+                                <f:validateLength maximum="50" />
+                                <p:clientValidator event="keyup"/>
+                            </p:inputTextarea>
+                            <p:colorPicker style="color:white" value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
+                        </h:panelGrid>
+                        <p:separator />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Pasos</h1>
+                        </div>
+                        <p:inputTextarea counter="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="pasos" />
+                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                            <h1>Materiales</h1>
+                        </div>
+                        <p:inputTextarea counter="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
+                        <br/>
+                        <h:outputText id="materiales" />
+                        <p:separator />
                     </div>
-                    <p:inputTextarea counter="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:99.25%; font-size: 14px;" maxlength="300" counterTemplate="{0} caracteres restantes."/>
-                    <br/>
-                    <h:outputText id="descripcion" />
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Objetivo</h1>
-                    </div>
-                    <p:inputTextarea counter="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
-                    <br/>
-                    <h:outputText id="objetivo" />
-                    <p:separator />
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Categoría</h1>
-                    </div>
-                    <h:panelGrid columns="2" cellpadding="2">
-                        <p:inputTextarea id="categoria" rows="1" placeholder="CATEGORIA" readonly="false" value="#{detallecontroller.categoria}" style="width:150px; font-size: 14px;" validatorMessage="El máximo de caracteres es de 50">
-                            <f:validateLength maximum="50" />
-                            <p:clientValidator event="keyup"/>
-                        </p:inputTextarea>
-                        <p:colorPicker style="color:white" value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
-                    </h:panelGrid>
-                    <p:separator />
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Pasos</h1>
-                    </div>
-                    <p:inputTextarea counter="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
-                    <br/>
-                    <h:outputText id="pasos" />
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
-                        <h1>Materiales</h1>
-                    </div>
-                    <p:inputTextarea counter="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
-                    <br/>
-                    <h:outputText id="materiales" />
-                    <p:separator />
 
                     <h:panelGrid  columns="2" cellpadding="2" style="margin:0 auto">
                         <p:commandButton id="btnSlot"  value="Guardar" actionListener="#{detallecontroller.updateSlot()}" update="eventos" validateClient="true" />
