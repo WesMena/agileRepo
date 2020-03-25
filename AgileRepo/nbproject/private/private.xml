@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/register.xhtml</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/ComentarioDao.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/model/Comentario.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/EventDao.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/GlobalEventController.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/UsuarioLoginController.java</file>
-            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resetPass.xhtml</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/dashboard.xhtml</file>
         </group>
     </open-files>
 </project-private>

@@ -195,21 +195,21 @@
 
                                         <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px; display:#{P1.esBloque()?'none':'inline-block'};width: 100%" with="100%">
 
-                                            <span class="count visitors" style="margin-right: 13px; text-align:right;">#{P1.duracion} minutos</span>
+                                            <span class="count visitors"  style="margin-right: 13px; text-align:right;">#{P1.duracion} minutos</span>
                                             <br></br>
                                             <br></br>
-                                            <span with="75px" style="display: inline-block;width: 80px; height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;" >#{P1.horaInicio}</span>
-                                            <span style="font-size: x-large;width: 80px;height: 52px"> - </span>
+                                            <span with="60px" style="display: inline-block;width: 80px; height:100%;margin-right:1px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important;">#{P1.horaInicio}</span>
+                                            <span style="font-size: x-large;width: 80px;height: 52px">-</span>
                                             <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: ##{P1.color} !important; ">#{P1.horaFinal}</span>
                                             <br></br>
                                             <br></br>
-                                            <span style="font-size: x-large;width: 56px;height: 52px" >#{P1.titulo}</span>
+                                            <span style="font-size: x-large;width: 56px;height: 52px;text-align: left " >#{P1.titulo}</span>
 
                                         </div>
 
-                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%"  with="100%" >
+                                        <div style="border-radius:3% ;margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;background-color:#748ea6  !important; border-style: solid;padding: 10px;display:#{P1.esBloque()?'inline-block':'none'};width: 100%"  with="100%" >
 
-                                            <span style="display:inline-block; font-size: x-large;width: 80px;height: 100%; background-color:##{P1.color} !important;">#{P1.titulo}</span>
+                                            <span style="display:inline-block; font-size: x-large;width: 80px;height: 100%;">#{P1.titulo}</span>
                                         </div>
 
                                     </c:forEach>
