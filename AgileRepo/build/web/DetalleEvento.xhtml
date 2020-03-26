@@ -186,13 +186,11 @@
                                </!--> 
                             </div>
 
-                    
 
+               
                             <div contenteditable="#{detallecontroller.bloqueEditable}" style="width:90%;text-align: center; display: #{detalle.esBloque()?'block':'none'}; font-size: x-large; text-transform: uppercase">
                                 <p:commandButton style="display: inline; background: #748ea6; border:#748ea6; font-size: medium" actionListener="#{detallecontroller.toggleEditable()}" icon="#{!detallecontroller.bloqueEditable?'ui-icon-pencil':'pi pi-save'}" update="eventos" >
                                 </p:commandButton>
-                                
-                                
                                 <p:inputTextarea rows="1" cols="#{detallecontroller.colsBloque}" readonly="#{!detallecontroller.bloqueEditable}" style="display: inline; text-align: center; background: #748ea6; border:#859fb7; color:#FFFFFF; font-size: 20px;position: relative" value="#{detalle.titulo}">
                                 </p:inputTextarea>
                                 <!-->
