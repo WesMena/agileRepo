@@ -61,6 +61,7 @@ public class DetalleController implements Serializable {
     private String pasos;
     private String materiales;
     private boolean esBloque;
+    private boolean bloqueEditable = true;
 
     public String getNombreEvento() {
         return nombreEvento;
@@ -350,6 +351,8 @@ public class DetalleController implements Serializable {
 
         return "result";
     }
+    
+
 
     public String getTitulo() {
 
@@ -695,6 +698,49 @@ public class DetalleController implements Serializable {
     public String getBloqueParams(FacesContext fc){
             Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
             return params.get("esBloque");
+    }
+    
+    public String getBloqueEdit(FacesContext fc){
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            return params.get("bloqueEditable");
+    }
+    
+        // Le asigna el valor de editable a los bloques
+    public String editBloque(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        bloqueEditable = Boolean.parseBoolean(getBloqueEdit(fc));
+        redireccionar();
+        return "result";
+    }
+
+    public boolean isBloqueEditable() {
+        return bloqueEditable;
+    }
+
+    public void setBloqueEditable(boolean bloqueEditable) {
+        this.bloqueEditable = bloqueEditable;
+        redireccionar();
+    }
+    
+    public void toggleEditable(){
+        this.bloqueEditable = !(bloqueEditable);
+        System.out.println("editable = "+bloqueEditable);
+        redireccionar();
+    }
+    
+    public void saveBloque(){
+        bloqueEditable = false;
+        redireccionar();
+    }
+    
+    public int getColsBloque(){
+        if(titulo==null){
+            return 6;
+        }
+        if(bloqueEditable){
+            return 50;
+        }
+        return titulo.length();
     }
     
 }

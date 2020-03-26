@@ -23,15 +23,13 @@ import javax.faces.event.ActionEvent;
 /**
  *
  * @author wesli
-
-/**
+ *
+ * /**
  *
  * @author wesli
  */
 public class DetalleEvento {
-    
-    
-    
+
     private String titulo;
     private String descripcion;
     private int duracion;
@@ -45,20 +43,22 @@ public class DetalleEvento {
     private String pasos;
     private String materiales;
     private int bloequeo;
-   private int primeroDelDia;
-    private Date horaInicio; 
+    private int primeroDelDia;
+    private Date horaInicio;
     private String horaInicioStr;
-    
+    private boolean bloqueEditable = false;
+
     private String horaFinalStr;
+
     /*Se aconseja utilizar horaInicioStr por encima de horaInicio, ya que la 
     primera ya esta adaptada al formato hh:mm en 24h. Además, es independiente 
     de la zona horaria, así que no presenta el inconveniente de que la hora se 
     cargue atrasada por 6 horas o similar. 
-    */
+     */
     public DetalleEvento() {
     }
 
-    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String obj,String cat,String catcolor,String pas,String mat) {
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String obj, String cat, String catcolor, String pas, String mat) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -74,13 +74,15 @@ public class DetalleEvento {
     }
 
     /**
-     * Este constructor se usa para construir bloqueos, ya que no necesitamos mas valores
-     * que el titulo y duracion saber si esta borrado y la llave foranea del evento
+     * Este constructor se usa para construir bloqueos, ya que no necesitamos
+     * mas valores que el titulo y duracion saber si esta borrado y la llave
+     * foranea del evento
+     *
      * @param titulo
      * @param duracion
      * @param borrado
      * @param evento
-     * @param bloequeo 
+     * @param bloequeo
      */
     public DetalleEvento(String titulo, int duracion, int borrado, int evento, int bloequeo) {
         this.titulo = titulo;
@@ -209,13 +211,12 @@ public class DetalleEvento {
     public void setBloequeo(int bloequeo) {
         this.bloequeo = bloequeo;
     }
-    
-    public boolean esBloque(){
-        return bloequeo!=0;
+
+    public boolean esBloque() {
+        return bloequeo != 0;
     }
 
-    
-   public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio) {
+    public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -233,7 +234,6 @@ public class DetalleEvento {
         this.horaInicio = horaInicio;
     }
 
-    
     public DetalleEvento(String titulo, String descripcion, int duracion, int borrado, int indice, int evento, int id, String objetivo, String categoria, String colorCategoria, String pasos, String materiales, int bloequeo, int primeroDelDia, Date horaInicio, String horaInicioStr) {
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -251,10 +251,10 @@ public class DetalleEvento {
         this.primeroDelDia = primeroDelDia;
         this.horaInicio = horaInicio;
         this.horaInicioStr = horaInicioStr;
-       
+
     }
-    
-   public int getPrimeroDelDia() {
+
+    public int getPrimeroDelDia() {
         return primeroDelDia;
     }
 
@@ -263,23 +263,20 @@ public class DetalleEvento {
     }
 
     public Date getHoraInicio() {
-        
-     if(this.horaInicio==null){
-         horaInicio=GregorianCalendar.getInstance().getTime();
-     }
+
+        if (this.horaInicio == null) {
+            horaInicio = GregorianCalendar.getInstance().getTime();
+        }
         return horaInicio;
-        
+
     }
 
     public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-  
-   
-    
-    public boolean esPrimeroDia(){
-        return this.primeroDelDia!=0;
+    public boolean esPrimeroDia() {
+        return this.primeroDelDia != 0;
     }
 
     public String getHoraInicioStr() {
@@ -288,7 +285,7 @@ public class DetalleEvento {
 
     public void setHoraInicioStr(String horaInicioStr) {
         this.horaInicioStr = horaInicioStr;
-    } 
+    }
 
     public DetalleEvento(int id, String horaInicioStr) {
         this.id = id;
@@ -299,15 +296,15 @@ public class DetalleEvento {
         this.duracion = duracion;
         this.id = id;
     }
-    
-    public String tituloResumido(){
-        String tituloR="";
-        if(this.titulo.length()>20){
-            tituloR=this.titulo.substring(0,20)+"...";
-        }else{
-            tituloR=this.titulo;
+
+    public String tituloResumido() {
+        String tituloR = "";
+        if (this.titulo.length() > 20) {
+            tituloR = this.titulo.substring(0, 20) + "...";
+        } else {
+            tituloR = this.titulo;
         }
-        
+
         return tituloR;
     }
 
@@ -338,6 +335,27 @@ public class DetalleEvento {
         this.horaInicioStr = horaInicioStr;
         this.horaFinalStr = horaFinalStr;
     }
-    
-    
+
+    public boolean isBloqueEditable() {
+        return bloqueEditable;
+    }
+
+    public void setBloqueEditable(boolean bloqueEditable) {
+        this.bloqueEditable = bloqueEditable;
+    }
+
+    public void toggleEditable() {
+        bloqueEditable = !(bloqueEditable);
+         
+    }
+
+    public int getColsBloque() {
+        if (titulo == null) {
+            return 6;
+        }
+        if (bloqueEditable) {
+            return 50;
+        }
+        return titulo.length();
+    }
 }
