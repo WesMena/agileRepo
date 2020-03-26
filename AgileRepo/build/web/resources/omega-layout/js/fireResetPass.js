@@ -24,6 +24,7 @@ function resetPassword(event) {
         auth.sendPasswordResetEmail(em).then(function () {
             //Modal de correo enviado
             alert("Correo enviado");
+             window.location.assign('faces/login.xhtml');
         }).catch(function (error) {
             $("#myModal").modal();
         });

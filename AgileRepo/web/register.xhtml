@@ -43,22 +43,14 @@ and open the template in the editor.
 
         <div clas="container"  style="text-align: center;margin: 0 auto;width: 50%">
 
-            <div class="row" style="text-align: center;">
+            <div class="tamanoRegistro" style="text-align: center;">
 
-                <div class="col-sm-12" style="text-align: center">
+                <div class="col-sm-12" style="text-align: center; margin-bottom: 5%;">
 
-                    <p:graphicImage name="images/CCIlogo.png" library="omega-layout"/>
+                    <p:graphicImage name="images/CCIlogo.png" library="omega-layout" class="logoRegistro"/>
 
 
-                    <h:form onsubmit="return false" prependId="false"  id="frmaReg" style="   margin-top: 20px;
-                            box-sizing: border-box;
-                            height: 40%;
-                            width: 100%;
-                            background-color: #ffffff;
-                            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-                            padding: 2em;
-                            text-align: center;
-                            color: #4f575b; ">
+                    <h:form onsubmit="return false" prependId="false"  id="frmaReg" class="formRegistro">
 
                         <div style="width: 100%" >
                             <span class="title">Registro</span>
@@ -151,16 +143,19 @@ and open the template in the editor.
                         <h4 style="color: #007be5" class="modal-title">Registro exitoso</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Felicidades!! Ya eres parte de nuestra comunidad.</p>
+
+                        <p>¡Felicidades! Ya eres parte de nuestra comunidad.</p>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
 
             </div>
         </div>
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+          <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
         <h:outputScript name="js/fireInit.js" library="omega-layout"></h:outputScript>
         <h:outputScript name="js/fireRegister.js" library="omega-layout"></h:outputScript>
     </h:body>
