@@ -61,7 +61,7 @@ public class DetalleController implements Serializable {
     private String pasos;
     private String materiales;
     private boolean esBloque;
-    private boolean bloqueEditable = true;
+    private boolean bloqueEditable = false;
 
     public String getNombreEvento() {
         return nombreEvento;
