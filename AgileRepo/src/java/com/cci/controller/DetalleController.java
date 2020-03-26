@@ -60,6 +60,7 @@ public class DetalleController implements Serializable {
     private String colorCategoria;
     private String pasos;
     private String materiales;
+    private boolean esBloque;
 
     public String getNombreEvento() {
         return nombreEvento;
@@ -345,6 +346,8 @@ public class DetalleController implements Serializable {
         this.colorCategoria = getcolcatParam(fc);
         this.pasos = getpasParam(fc);
         this.materiales = getmatParam(fc);
+        this.esBloque = (Integer.parseInt(getBloqueParams(fc))==1);
+
         return "result";
     }
 
@@ -673,4 +676,25 @@ public class DetalleController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal!", "System Error"));
     }
 
+    public boolean isEsBloque() {
+        return esBloque;
+    }
+
+    public void setEsBloque(boolean esBloque) {
+        this.esBloque = esBloque;
+    }
+    
+    public void borrarSlot(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        this.id = Integer.parseInt(getidParam(fc));
+        DetalleDao daoBorrar = new DetalleDao();
+        daoBorrar.borrarDetalle(id);
+        redireccionar();
+    }
+    
+    public String getBloqueParams(FacesContext fc){
+            Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+            return params.get("esBloque");
+    }
+    
 }

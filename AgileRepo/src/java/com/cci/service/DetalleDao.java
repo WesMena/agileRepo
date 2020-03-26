@@ -632,5 +632,26 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
 
         return returned;
     }
+    
+public void borrarDetalle(int idSlot){
+        Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE agilerepo.detalleevento SET borrado=" + true
+                    + " WHERE idDetalleEvento=" + idSlot;
+
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }        
+    }
 
 }
