@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templateEvtPublic.xhtml">
+            <ui:define name="title">Publica tus eventos</ui:define>
+            <ui:define name="head">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <script type="text/javascript">
+                    //window.onload = ini;
+                    //function ini() {
+                    //    let btnNext = document.getElementById('j_idt32:j_idt33_next');
+                    //    let secondSpan = btnNext.children[1];
+                    //    secondSpan.innerHTML ='Siguiente';
+                    // }
+                </script>
+                <center>    
+                    <h:form style="width: 90%;height: 100%;padding: 30px">
+                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                            <p:tab id="infoBasica" title="Información Básica"  >
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <p:panel style="text-align: left">
+                                        <p:panel style="display:block;border: none">
+                                            <p:commandButton  style="width: 48px;height: 48px" iconPos="center" icon="fa fa-align-left"></p:commandButton>
+                                            <h:outputText  value="Información Básica" style="font-size: xx-large;font-weight: bold"></h:outputText>  
+                                        </p:panel>
+                                        <p:panel style="width: 100%;display: inline-block;border: none" >
+                                            <h:inputTextarea 
+
+                                                rows="10"             
+                                                cols="1"
+                                                readonly="true" 
+                                                style="display: block;width: 100%;border: none;resize: none; font-family:Arial,Helvetica;background: none;font-size: medium;text-align: left"
+                                                class="detail" 
+                                                value="Elige un nombre para tu evento y cuéntales a los asistentes por que creés que lo van a pasar genial.Añade detalles que destaquen por qué tu evento es único.
+                                                "> 
+                                            </h:inputTextarea>
+                                            <!--Colocar el nombre del evento-->
+                                            <div style="width: 100%;border: solid #cccccc thin">
+                                                <label style="margin:4px">Nombre del evento</label>
+                                                <center>
+                                                    <p:inputTextarea
+                                                        requiredMessage="El nombre del evento es obligatorio."
+                                                        style="width: 100%;border: none !important;margin: 0px;padding: 0px"
+                                                        required="true"
+                                                        maxlength="75"
+                                                        counter="eventoNombreC"
+                                                        counterTemplate="{0}/75">
+
+                                                    </p:inputTextarea>
+                                                </center>
+                                            </div>
+                                            <!--Counter del nombre del evento-->
+                                            <div style="width: 100%;text-align: left" id="counterContainerEvt">
+                                                <h:outputText style="float: right" id="eventoNombreC" ></h:outputText>
+                                            </div>
+                                            <br></br>
+                                            <br></br>
+
+                                            <!--Seleccionar un tipo para el evento-->
+
+                                            <div style="width: 100%;">
+                                                <p:selectOneMenu  required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
+                                                    <f:selectItem itemLabel="Seminario o Charla" itemValue="" />
+                                                    <f:selectItem itemLabel="Seminario" itemValue="1" />
+                                                    <f:selectItem itemLabel="Charla" itemValue="2" />
+                                                </p:selectOneMenu>
+                                                <p:selectOneMenu  placeholder="Otro" required="true" id="selectOther"  editable="true"  style="margin: 0px;padding: 0px;width:100%;">
+                                                    <f:selectItem itemLabel="Otro" itemValue="" />
+                                                </p:selectOneMenu>
+                                            </div>
+                                            <br></br>
+                                            <br></br>
+                                            <!--UI de tags-->
+                                            <div style="width: 100%;border: solid #cccccc thin">
+                                                <center>
+                                                    <p:inputTextarea
+                                                        style="width: 100%;height: 100%;margin: 0px;padding: 0px !important;border: none !important"
+                                                        maxlength="25"
+                                                        required="true"
+                                                        requiredMessage="No pueden añadirse vacíos."
+                                                        counter="eventoTagC"
+                                                        counterTemplate="{0}/25">
+
+                                                    </p:inputTextarea>
+                                                </center>
+                                            </div>
+                                            <!--Counter para nombre de tag-->
+                                            <div style="width: 100%;text-align: left" id="counterContainerTag">
+                                                <h:outputText style="float: right" id="eventoTagC" ></h:outputText>
+                                            </div>
+                                        </p:panel>
+
+                                    </p:panel>
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
+                    </h:form>
+                </center>
+                <style>
+                    .ui-widget-content {
+                        background: #ffffff !important;
+                    }
+                    .ui-selectonemenu .ui-selectonemenu-label {
+                        font-size: 18px !important;
+                    }
+                    .ui-selectonemenu-panel .ui-selectonemenu-item {
+                        font-weight: normal;
+                        font-size: 18px !important;
+                        cursor : pointer;
+                    }
+                    .ui-inputfield {
+                        margin: 0;
+                        outline: medium none;
+                        padding: 0px !important;
+                        font-weight: normal;
+                    }
+                </style>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
