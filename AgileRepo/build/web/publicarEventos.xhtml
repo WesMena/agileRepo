@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -24,13 +25,16 @@
                     // }
                 </script>
                 <center>    
-                    <h:form style="width: 90%;height: 100%;padding: 30px">
-                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                    <h:form id="publicarEvento" style="width: 90%;height: 100%;padding: 30px;border-radius: 6px;">
+                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;border-radius: 10px;" >
+
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel style="text-align: left">
                                         <p:panel style="display:block;border: none">
-                                            <p:commandButton  style="width: 48px;height: 48px" iconPos="center" icon="fa fa-align-left"></p:commandButton>
+                                            <p:commandButton  partialSubmit="true"
+                                                              process="@this" validateClient="true"  
+                                                              style="width: 48px;height: 48px" iconPos="center" icon="fa fa-align-left"></p:commandButton>
                                             <h:outputText  value="Información Básica" style="font-size: xx-large;font-weight: bold"></h:outputText>  
                                         </p:panel>
                                         <p:panel style="width: 100%;display: inline-block;border: none" >
@@ -39,29 +43,34 @@
                                                 rows="10"             
                                                 cols="1"
                                                 readonly="true" 
-                                                style="display: block;width: 100%;border: none;resize: none; font-family:Arial,Helvetica;background: none;font-size: medium;text-align: left"
+                                                style="color: #999999;display: block;width: 100%;border: none;resize: none; font-family:Arial,Helvetica;background: none;font-size: medium;text-align: left"
                                                 class="detail" 
                                                 value="Elige un nombre para tu evento y cuéntales a los asistentes por que creés que lo van a pasar genial.Añade detalles que destaquen por qué tu evento es único.
                                                 "> 
                                             </h:inputTextarea>
                                             <!--Colocar el nombre del evento-->
-                                            <div style="width: 100%;border: solid #cccccc thin">
-                                                <label style="margin:4px">Nombre del evento</label>
+                                            <div style="width: 100%;border: solid #cccccc thin;border-radius: 6px;">
+                                                <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Nombre del evento</label>
                                                 <center>
                                                     <p:inputTextarea
+                                                        id="inputNameEvt"
                                                         requiredMessage="El nombre del evento es obligatorio."
-                                                        style="width: 100%;border: none !important;margin: 0px;padding: 0px"
+                                                        style="color: #000;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;width: 100%;border: none !important;margin: 0px;padding: 0px"
                                                         required="true"
                                                         maxlength="75"
                                                         counter="eventoNombreC"
                                                         counterTemplate="{0}/75">
 
                                                     </p:inputTextarea>
+                                                    <!--Mensaje de error-->
+                                                    <p:message  id="messagesNombreEvt" for="inputNameEvt" showDetail="false">
+                                                        <p:autoUpdate />
+                                                    </p:message>
                                                 </center>
                                             </div>
                                             <!--Counter del nombre del evento-->
                                             <div style="width: 100%;text-align: left" id="counterContainerEvt">
-                                                <h:outputText style="float: right" id="eventoNombreC" ></h:outputText>
+                                                <h:outputText style="font-weight: bold;float: right" id="eventoNombreC" ></h:outputText>
                                             </div>
                                             <br></br>
                                             <br></br>
@@ -74,35 +83,110 @@
                                                     <f:selectItem itemLabel="Seminario" itemValue="1" />
                                                     <f:selectItem itemLabel="Charla" itemValue="2" />
                                                 </p:selectOneMenu>
-                                                <p:selectOneMenu  placeholder="Otro" required="true" id="selectOther"  editable="true"  style="margin: 0px;padding: 0px;width:100%;">
-                                                    <f:selectItem itemLabel="Otro" itemValue="" />
-                                                </p:selectOneMenu>
                                             </div>
                                             <br></br>
                                             <br></br>
                                             <!--UI de tags-->
-                                            <div style="width: 100%;border: solid #cccccc thin">
-                                                <center>
+                                            <div style="width: 100%;border: solid #cccccc thin;padding:0px;border-radius: 6px;">
+                                                <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Tags</label>
+                                                <center>   
                                                     <p:inputTextarea
-                                                        style="width: 100%;height: 100%;margin: 0px;padding: 0px !important;border: none !important"
+                                                        id="inputTag"
+                                                        style="display: inline-block;width: 100%;height: 100%;margin: 0px;padding: 0px !important;border: none !important"
                                                         maxlength="25"
                                                         required="true"
                                                         requiredMessage="No pueden añadirse vacíos."
                                                         counter="eventoTagC"
+                                                        value="#{eventWizardController.newTag}"
                                                         counterTemplate="{0}/25">
 
                                                     </p:inputTextarea>
+                                                    <!--Mensaje de error-->
+                                                    <p:message  id="messagesTag" for="inputTag" showDetail="false">
+                                                        <p:autoUpdate />
+                                                    </p:message>
                                                 </center>
                                             </div>
-                                            <!--Counter para nombre de tag-->
+                                            <!--Counter para nombre y numero de tags-->
                                             <div style="width: 100%;text-align: left" id="counterContainerTag">
-                                                <h:outputText style="float: right" id="eventoTagC" ></h:outputText>
+                                                <h:outputText style="font-weight: bold;float: right" id="eventoTagC" ></h:outputText>
+                                                <h:outputText style="font-weight: bold;float: left" id="eventoTagCc" value="#{eventWizardController.tags.size()}/10" ></h:outputText>
+                                            </div>
+                                            <br></br>
+                                            <br></br>
+                                            <!--Boton de añadir y tooltip-->
+                                            <div style="display: inline-block;width: 100%;padding-bottom: 8px">
+
+                                                <p:commandButton 
+                                                    validateClient="true"
+                                                    icon="fas fa-plus"
+                                                    iconPos="left"
+                                                    process="@this inputTag"
+                                                    partialSubmit="true"
+                                                    actionListener="#{eventWizardController.addTag}"
+                                                    style="display: inline-block;width: 90%;height: 48px;margin-top: 0px;margin-bottom: 0px;margin-right: 8px"
+                                                    value="Añadir">
+                                                </p:commandButton>
+                                                <p:commandButton
+                                                    validateClient="true"
+                                                    partialSubmit="true"
+                                                    process="@this"
+                                                    id="btnTool"
+                                                    class="btnTool"
+                                                    iconPos="center"
+                                                    icon="fas fa-comment-dots"
+                                                    style="margin-top: 2px;float: right;width: 48px;height: 48px;border-radius: 50%">
+                                                </p:commandButton>
+                                                <p:tooltip showEffect="clip" position="left" for="btnTool" value="">
+                                                    <p:inputTextarea
+                                                        rows="4"
+                                                        cols="1"
+                                                        title="Consejo Pro"
+                                                        value="Mejora las posibilidades de
+                                                        que descubran tu evento
+                                                        añadiendo etiquetas
+                                                        relevantes para el tema."
+                                                        readonly="true"
+                                                        style="border: none;background: none;width: 200px;color: #ffffff;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;">
+
+                                                    </p:inputTextarea>
+                                                </p:tooltip>
+
+                                            </div>
+
+                                            <!--Div para agregar los tags asi de barbaros-->
+                                            <div style="width: 100%;margin-top: 8px">
+                                                <c:forEach
+                                                    id="tagList"
+                                                    var="tag"
+                                                    rendered="#{not empty eventWizardController.tags}"
+                                                    items="#{eventWizardController.tags}">
+                                                    <div style="margin-right: 16px;height: 16px;padding: 8px;display: inline-block;background: #2b7eab;overflow: hidden;border-radius:15px ">
+                                                        <center>
+                                                            <span
+                                                                style="padding: 8px;color: #ffffff;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;">#{tag.tag}</span>
+                                                            <p:commandButton
+
+                                                                actionListener="#{eventWizardController.deleteTag}"
+                                                                partialSubmit="true"
+                                                                process="@this"
+                                                                validateClient="true"
+                                                                iconPos="center"
+                                                                icon="fas  fa-cut"
+                                                                style="padding: 4px;width: 4px;height: 4px;float: right;background: none">
+                                                                <f:attribute name="delTag" value="#{tag}"/>
+                                                            </p:commandButton>
+                                                        </center>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
                                         </p:panel>
 
                                     </p:panel>
                                 </p:panel>
                             </p:tab>
+
+
                         </p:wizard>
                     </h:form>
                 </center>
