@@ -12,7 +12,9 @@
         <ui:composition template="./WEB-INF/templateEvtPublic.xhtml">
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
-
+                <f:metadata>
+                    <f:viewAction action="#{eventWizardImageController.onLoad()}" />
+                </f:metadata>
             </ui:define>
 
             <ui:define name="content">
@@ -30,7 +32,7 @@
 
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-                                    <p:panel style="text-align: left">
+                                    <p:panel id="pnlHelp" style="text-align: left">
                                         <p:panel style="display:block;border: none">
                                             <p:commandButton  partialSubmit="true"
                                                               process="@this" validateClient="true"  
@@ -53,9 +55,11 @@
                                                 <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Nombre del evento</label>
                                                 <center>
                                                     <p:inputTextarea
+                                                        placeholder="Joseph Joestar Fans..."
                                                         id="inputNameEvt"
+                                                        class="inputNameEvt"
                                                         requiredMessage="El nombre del evento es obligatorio."
-                                                        style="color: #000;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;width: 100%;border: none !important;margin: 0px;padding: 0px"
+                                                        style="color: #000;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;width: 100%;border: none !important;margin: 0px;padding: 8px !important"
                                                         required="true"
                                                         maxlength="75"
                                                         counter="eventoNombreC"
@@ -91,8 +95,10 @@
                                                 <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Tags</label>
                                                 <center>   
                                                     <p:inputTextarea
+                                                        placeholder="JJ-6"
                                                         id="inputTag"
-                                                        style="display: inline-block;width: 100%;height: 100%;margin: 0px;padding: 0px !important;border: none !important"
+                                                        class="inputTag"
+                                                        style="display: inline-block;width: 100%;height: 100%;margin: 0px;padding-left:  8px !important;border: none !important"
                                                         maxlength="25"
                                                         required="true"
                                                         requiredMessage="No pueden añadirse vacíos."
@@ -124,7 +130,7 @@
                                                     process="@this inputTag"
                                                     partialSubmit="true"
                                                     actionListener="#{eventWizardController.addTag}"
-                                                    style="display: inline-block;width: 90%;height: 48px;margin-top: 0px;margin-bottom: 0px;margin-right: 8px"
+                                                    style="display: inline-block;width: 90%;height: 32px;margin-top: 0px;margin-bottom: 0px;margin-right: 8px"
                                                     value="Añadir">
                                                 </p:commandButton>
                                                 <p:commandButton
@@ -135,7 +141,7 @@
                                                     class="btnTool"
                                                     iconPos="center"
                                                     icon="fas fa-comment-dots"
-                                                    style="margin-top: 2px;float: right;width: 48px;height: 48px;border-radius: 50%">
+                                                    style="margin-top: 2px;float: right;width: 32px;height: 32px;border-radius: 50%">
                                                 </p:commandButton>
                                                 <p:tooltip showEffect="clip" position="left" for="btnTool" value="">
                                                     <p:inputTextarea
@@ -180,6 +186,35 @@
                                                     </div>
                                                 </c:forEach>
                                             </div>
+                                            <p:panel toggleableHeader="true" collapsed="true" style="width: 100%" header="Información del Organizador" toggleable="true">
+                                                <!--Div para la UI del organizador-->
+                                                <div style="width: 100%;border: solid #cccccc thin;border-radius: 6px;">
+                                                    <!--Nombre deo organizador logueado-->
+                                                    <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Organizador</label>
+                                                    <div class="ui-g ui-fluid">
+                                                        <div class="ui-g-12 ui-md-11">
+                                                            <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{constantes.logguedUsserDisplayName}" ></p:outputLabel>
+                                                            <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Descripción</label>
+                                                            <p:inputTextarea 
+                                                                placeholder="El candidato exitoso también se encargará de descubrir nuevas oportunidades dentro de la comunidad para establecer un vínculo más fuerte con nuestra audiencia objetivo y aumentar la cuota de mercado local..."
+                                                                class="inputDesc" style="padding: 8px !important;display: block">
+
+                                                            </p:inputTextarea>
+                                                        </div>
+                                                        <div class="ui-g-12 ui-md-1">
+                                                            <p:graphicImage cache="false" id="ppOrg" class="ppOrganizador"   stream="true" value="#{eventWizardImageController.profileImage}" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 96%;"></p:graphicImage>
+                                                        </div>
+
+                                                        <div class="ui-g-12 ui-md-12">
+
+                                                            <p:fileUpload   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
+                                                            <p:commandButton actionListener="#{eventWizardImageController.deletFile}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </p:panel>
                                         </p:panel>
 
                                     </p:panel>
@@ -191,6 +226,63 @@
                     </h:form>
                 </center>
                 <style>
+                    .ui-fileupload-content .ui-progressbar {
+                        width: 99%;
+                        height: 20px;
+                        margin: 0;
+                        top: 5px;
+                    }
+                    /*Si esto llega a causarles problemas con sus iconos,me avisan y lo quito*/
+                    .ui-button-icon-only .ui-icon, .ui-button-text-icon-left .ui-icon, .ui-button-text-icon-right .ui-icon {
+                        position: absolute;
+                        top: 51%;
+                        height: 25px;
+                        margin-top: -8px;
+                    }
+                    @media only screen and (max-width: 768px) {
+                        /* For mobile phones: */
+                        .ppOrganizador {
+                            width: 96% ;
+                            float: inside;
+                            margin-left: 5px ;
+                            margin-top:  8px;
+                        }
+                        .inputTag  {
+                            width: 95% !important;
+                        }
+                        .inputNameEvt{
+                             width: 90% !important;
+                             height: auto !important;
+                        }
+                        .inputDesc{
+                            height: 66px !important;
+                            width: 100% !important;
+                            width: 96% !important;
+                            margin: 4px !important;
+                        }
+                    }
+                    @media only screen and (min-width: 1200px) {
+                        .inputTag  {
+                            width: 99% !important;
+                        }
+                        .inputNameEvt{
+                            width: 98% !important;
+                        }
+
+                        .ppOrganizador{
+                            width: 200px ;
+                            float: right ;
+                            margin-right: 7px;
+                        }  
+
+                        .inputDesc{
+                            margin-left: 8px !important;
+                            height: 80% ! important;
+                            width: 91% !important;
+                        }
+                    }
+
+
                     .ui-widget-content {
                         background: #ffffff !important;
                     }
@@ -207,6 +299,11 @@
                         outline: medium none;
                         padding: 0px !important;
                         font-weight: normal;
+                    }
+                    .ui-g-1, .ui-g-2, .ui-g-3, .ui-g-4, .ui-g-5, .ui-g-6, .ui-g-7, .ui-g-8, .ui-g-9, .ui-g-10, .ui-g-11, .ui-g-12 {
+                        float: left;
+                        box-sizing: border-box;
+                        padding: 0px !important;
                     }
                 </style>
             </ui:define>

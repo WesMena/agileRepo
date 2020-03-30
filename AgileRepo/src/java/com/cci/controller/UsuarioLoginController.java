@@ -35,7 +35,7 @@ public class UsuarioLoginController {
 
     public static String displayName = "";
 
-    public static String getDisplayName() {
+    public  String getDisplayName() {
         return displayName;
     }
 
@@ -97,6 +97,8 @@ public class UsuarioLoginController {
         System.out.println("Respuesta name:" + disName);
         UID = googleResponse;
         displayName = disName;
+        Constantes.logguedUsserDisplayName = displayName;
+           
         //Registrar a quienes se logueen y no lo esten
         if (!((UsuarioDao) dao).exists(UID)) {
             ((UsuarioDao) dao).save(new Usuario(UID, 0,disName));

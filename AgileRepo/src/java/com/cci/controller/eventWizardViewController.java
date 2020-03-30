@@ -9,20 +9,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
  * @author Nvidi
  */
 @ManagedBean(name = "eventWizardController")
-@ViewScoped
+@SessionScoped 
 public class eventWizardViewController implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Constructores">
     public eventWizardViewController() {
+
     }
     ;    
     //</editor-fold>
@@ -31,9 +35,6 @@ public class eventWizardViewController implements Serializable {
     private List<Tag> tags = new ArrayList<>();
     private String newTag;
 
-    public List<Tag> getTags() {
-        return tags;
-    }
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
@@ -49,7 +50,10 @@ public class eventWizardViewController implements Serializable {
         this.newTag = newTag;
 
     }
-
+    public List<Tag> getTags() {
+        return tags;
+    }
+    
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void addTag(ActionEvent e) {
