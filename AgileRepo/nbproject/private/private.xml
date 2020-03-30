@@ -19,6 +19,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/sidebar.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/charts.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/dashboard.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/Constantes.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/templateEvtPublic.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/eventosGlobal.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/PasswordView.java</file>
@@ -54,6 +55,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/PasswordValidator.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/GlobalEventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/myDashboard.css</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventWizardImagesController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/Comentario.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/modalFix.css</file>
