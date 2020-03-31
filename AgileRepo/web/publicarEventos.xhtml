@@ -24,16 +24,100 @@
                     // }
                 </script>
                 <center>    
-                    <h:form style="width: 90%;height: 100%;padding: 30px">
-                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                    <h:form id="publicarEvento"  style="width: 90%;height: 100%;padding: 30px">
+                        <p:wizard flowListener="#{wizardcontroller.onFlowProcess}" widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                            
+                             <p:tab id="descripcion" title="Resumen/Descripción">
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div style="width:90%; margin-left:20px;">
+                                    <i class="pi pi-align-left" style="font-size:48px; color:#0388e5;"></i>
+                                     <h:outputText  value="Resumen del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
+                                    </div>
+                                    <p:inputTextarea rows="5" cols="30" valueChangeListener="#{wizardcontroller.cambioResumen}" value="#{wizardcontroller.resumen}"  counter="resumen" maxlength="140" counterTemplate="{0} caracteres restantes " autoResize="false" style="width:95%; margin-left:20px;" />    
+                                        <br/>
+                                            <h:outputText id="resumen" style="margin-left:20px;"/>
+                                      <br/>
+                                       <br/>
+                                            <i class="pi pi-pencil" style="font-size:48px; color:#0388e5; margin-left:20px;"></i>
+                                     <h:outputText  value="Descripción del evento" style="font-size:28px; font-weight: bold; margin-left:20px;"></h:outputText>      
+                                     
+                                     
+                                     
+                                     
+                                     <p:textEditor widgetVar="editor2" value="#{wizardcontroller.descripcion}" height="300" style="margin-bottom:10px; width:95%; margin-left:20px;" valueChangeListener="#{wizardcontroller.cambioDesc}" placeholder="Escribe una descripción que llame la atención del público potencial de tu evento">
+                                       
+        <f:facet name="toolbar">
+            
+              <!-->
+              Esta es la lista de los controles del textEditor que generan 
+              html legible por un h:outputText
+                
+                </!-->
+            
+            
+            
+             <span class="ql-formats">
+                  <button class="ql-header ql-active" value="1"></button>
+                  <button class="ql-header ql-active" value="2"></button>
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+                 <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <select class="ql-color ql-picker ql-color-picker"></select>
+                <select class="ql-align"></select>
+            </span>
+           
+        </f:facet>
+    </p:textEditor>
+                                  
+                                     
+                                </p:panel>   
+                            </p:tab>
+                            
+                            
+                            <p:tab id="imagenPrincipal" title="Imagen Principal">
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div style="width:90%; margin-left:20px;">
+                                    <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
+                                     <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
+                                    </div>
+                                    
+                                    
+                                     
+                                        <h:form id="portadaVista"  enctype="multipart/form-data" >
+                                            
+                                             <p:panel  style="height:300px; width:90%; margin-left:20px;">
+                                         
+                                         <div style="width:100%; height:100%;">
+                                             <p:graphicImage cache="false"  url="#{portadacontroller.portada}"  width="310" height="140" style=" position:relative;  z-index:5;  width:100%; height:275px;" />                  
+                                         </div>
+                            
+                                     </p:panel>
+                                            <p:fileUpload id="imagenPortada"  fileUploadListener="#{portadacontroller.subirFoto}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar" update="portadaVista" >
+        
+   </p:fileUpload>
+ 
+        </h:form>
+                                  
+                                     
+                                </p:panel>   
+                            </p:tab>
+                          
+                                
+                            
+                            
+                            
+                            
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel style="text-align: left">
-                                        <p:panel style="display:block;border: none">
+                                        <p:panel style="display:block;border: none;">
                                             <p:commandButton  style="width: 48px;height: 48px" iconPos="center" icon="fa fa-align-left"></p:commandButton>
                                             <h:outputText  value="Información Básica" style="font-size: xx-large;font-weight: bold"></h:outputText>  
                                         </p:panel>
-                                        <p:panel style="width: 100%;display: inline-block;border: none" >
+                                        <p:panel style="width: 100%;display: inline-block;border: none;" >
                                             <h:inputTextarea 
 
                                                 rows="10"             
@@ -103,6 +187,9 @@
                                     </p:panel>
                                 </p:panel>
                             </p:tab>
+                            
+                            
+                            
                         </p:wizard>
                     </h:form>
                 </center>
@@ -125,6 +212,7 @@
                         font-weight: normal;
                     }
                 </style>
+                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
             </ui:define>
 
         </ui:composition>
