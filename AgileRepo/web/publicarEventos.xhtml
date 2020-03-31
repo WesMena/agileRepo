@@ -35,8 +35,9 @@
                                     <p:panel id="pnlHelp" style="text-align: left">
                                         <p:panel style="display:block;border: none">
                                             <p:commandButton  partialSubmit="true"
+                                                              class="textButtonIcon"
                                                               process="@this" validateClient="true"  
-                                                              style="width: 48px;height: 48px" iconPos="center" icon="fa fa-align-left"></p:commandButton>
+                                                              iconPos="center" icon="fa fa-align-left"></p:commandButton>
                                             <h:outputText  value="Información Básica" style="font-size: xx-large;font-weight: bold"></h:outputText>  
                                         </p:panel>
                                         <p:panel style="width: 100%;display: inline-block;border: none" >
@@ -226,6 +227,7 @@
                     </h:form>
                 </center>
                 <style>
+
                     .ui-fileupload-content .ui-progressbar {
                         width: 99%;
                         height: 20px;
@@ -239,8 +241,14 @@
                         height: 25px;
                         margin-top: -8px;
                     }
-                    @media only screen and (max-width: 768px) {
-                        /* For mobile phones: */
+
+
+                    @media only screen and (max-width: 768px){
+                        /*Dispositivos moviles grandes*/
+                        .textButtonIcon{
+                            height: 48px;
+                            width: 48px;
+                        }
                         .ppOrganizador {
                             width: 96% ;
                             float: inside;
@@ -251,8 +259,8 @@
                             width: 95% !important;
                         }
                         .inputNameEvt{
-                             width: 90% !important;
-                             height: auto !important;
+                            width: 90% !important;
+                            height: auto !important;
                         }
                         .inputDesc{
                             height: 66px !important;
@@ -261,7 +269,14 @@
                             margin: 4px !important;
                         }
                     }
+
+
                     @media only screen and (min-width: 1200px) {
+                        /*Escritorio y Tablets*/
+                        .textButtonIcon{
+                            height: 48px;
+                            width: 48px;
+                        }
                         .inputTag  {
                             width: 99% !important;
                         }

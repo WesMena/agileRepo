@@ -2186,7 +2186,7 @@ h2 {
         margin-left:1.5%;
         margin-right:10%;
         overflow:auto; 
-        border-radius:2.5%;
+        border-radius:8px;
          color:#FFFFFF;
   }
   .card2 h1 {
