@@ -5,16 +5,25 @@
  */
 package com.cci.model;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  *
  * @author Daniel
  */
+@ManagedBean(name="horarioCompleto")
+@SessionScoped 
 public class horarioCompleto {
     
     private String horarioStr;
 
     public horarioCompleto(String horarioStr) {
         this.horarioStr = horarioStr;
+    }
+
+    public horarioCompleto() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getHorarioStr() {

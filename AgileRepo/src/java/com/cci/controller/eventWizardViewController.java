@@ -32,7 +32,7 @@ public class eventWizardViewController implements Serializable {
     private String nombre;
     private String ubi;
     private String link;
-    private horarioCompleto horario;
+    private horarioCompleto horario = new horarioCompleto();
     private Date ini;
     private Date fin;
     private boolean fisico;
@@ -52,6 +52,8 @@ public class eventWizardViewController implements Serializable {
         this.nombre = nombre;
     }
 
+    
+    
     public String getUbi() {
         return ubi;
     }
@@ -156,8 +158,8 @@ public class eventWizardViewController implements Serializable {
         }
     }
 
-    public void fillContainer() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    public void fillContainer(ActionEvent e) {
+        System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());
     }
 
 }
