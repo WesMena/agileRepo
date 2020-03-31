@@ -4,13 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/web/publicarEventos.xhtml</file>
-            <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/src/java/com/cci/model/DetalleEvento.java</file>
-            <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/web/dashboard.xhtml</file>
-            <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/src/java/com/cci/controller/EventController.java</file>
             <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
             <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/src/java/com/cci/model/Entrada.java</file>
-            <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/web/DetalleEvento.xhtml</file>
-            <file>file:/D:/CodigoUniversidad/agileRepo/AgileRepo/src/java/com/cci/controller/DetalleController.java</file>
         </group>
     </open-files>
 </project-private>

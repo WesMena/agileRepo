@@ -102,9 +102,10 @@
                                 </p:panel>
                             </p:tab>
                             <p:tab id="entradas" title="Entradas">
-                                <p:panel style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                <p:panel id="panelMainEntradas" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div class="ui-g">
-                                        <div class="ui-g-12 ui-md-6 ui-1g-6" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
+                                        <!-- Dependiendo del valor de editarDivRend actualiza la vista del tab -->
+                                        <div class="#{(eventWizardController.editarDivRend)?'ui-g-12 ui-md-6 ui-1g-6':'ui-g-12 ui-md-12 ui-1g-6'}" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
@@ -113,8 +114,10 @@
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{eventWizardController.lstEntrada}" var="entradas" varStatus="loop" >
                                                         <div class="card clearfix summary" style='background:#f5f5f5' >
+                                                            <!-- Con loop.index se obtiene el valor del index en la lista -->
                                                             <c:set var="index" value="${loop.index}" />
-                                                            <p:commandButton icon="fa fa-pencil" action="#{eventWizardController.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" update="panelEditEntrada" style="float:right">
+                                                            <!-- Cuando se da click en el boton de edicion, se actualiza la vista con panelEditEntrada panelMainEntradas  -->
+                                                            <p:commandButton icon="fa fa-pencil" action="#{eventWizardController.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" update="panelEditEntrada panelMainEntradas" style="float:right">
                                                             </p:commandButton>
                                                             <div style='display: inline;'>
                                                                 <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
@@ -123,6 +126,7 @@
                                                                 <h:outputText value="Cantidad restante: #{entradas.cantidad}"/>
                                                             </div>
                                                             <div style='display: inline; padding: 10px'>
+                                                                <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
                                                                 <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
                                                             </div>
                                                             <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
@@ -136,12 +140,14 @@
                                         </div>
 
                                         <div class="ui-g-12 ui-md-6 ui-1g-6" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
-                                            <p:panel id="panelEditEntrada" style="border: none">
+                                            <p:panel id="panelEditEntrada" style="display:#{(eventWizardController.editarDivRend)?'block':'none'};border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Editar Entrada</h1>
                                                 <p:panel style="width:100%; text-align: left; border: none; margin-left: 0 !important;padding-left: 0 !important">
                                                     <p:selectOneButton value="#{eventWizardController.tipoEntrada}">
                                                         <f:selectItem itemLabel="Gratis" itemValue="0" />
                                                         <f:selectItem itemLabel="Pago" itemValue="1" />
+                                                        <!-- Muestra el campo de Precio dependiendo de la opcion seleccionada -->
+                                                        <p:ajax update="panelPrecio"/> 
                                                     </p:selectOneButton>
                                                     <br/>
                                                     <br/>
@@ -150,9 +156,9 @@
                                                     <p:inputTextarea
                                                         value='#{eventWizardController.nombreEntrada}'
                                                         style="width: 100%;"
-                                                        maxlength="100"
+                                                        maxlength="50"
                                                         counter="entradaTagC"
-                                                        counterTemplate="{0}/100"
+                                                        counterTemplate="{0}/50"
                                                         readonly="false">
 
                                                     </p:inputTextarea>
@@ -168,18 +174,19 @@
                                                         <p:inputText id="txt1" value="#{eventWizardController.cantidadEntrada}" />
                                                         <p:slider for="txt1" maxValue="1000" />
                                                     </h:panelGrid>                                            
+
+                                                    <br/>
+                                                    <p:panel id="panelPrecio" style="display:#{eventWizardController.tipoEntrada == 0?'none':'block'}; border:none !important;">
+                                                        <h:outputText value="Precio " style='font-weight:bold'/>
+                                                        <br/>
+                                                        <p:inputNumber id="input2" symbol=" CRC" symbolPosition="s" value="#{eventWizardController.precioEntrada}"
+                                                                       decimalSeparator="." thousandSeparator="," style="width: 100%;" readonly="false">  
+                                                        </p:inputNumber>
+                                                    </p:panel>
+                                                    <br/>
                                                     
-                                                    <br/>
-
-                                                    <h:outputText value="Precio " style='font-weight:bold'/>
-                                                    <br/>
-                                                    <p:inputNumber id="input2" symbol=" CRC" symbolPosition="s" value="#{eventWizardController.precioEntrada}"
-                                                                   decimalSeparator="." thousandSeparator="," style="width: 100%;" readonly="false">  
-                                                    </p:inputNumber>
-
-                                                    <br/>
-                                                    <br/>
-
+                                                    <!-- En los espacios para fechas y horas, muestra un tooltip con el formato deseado, ademas el input ya tiene incluido una 
+                                                    mascara para que sea de esa manera-->
                                                     <center>
                                                         <p:panel style="display:inline-block; border:none !important;">
                                                             <h:outputText value="Fecha Inicio " style='font-weight:bold' />
@@ -214,13 +221,19 @@
                                                             <p:inputMask id="time2" value="#{eventWizardController.horaFinEntrada}" mask="99:99"/>
                                                             <p:tooltip id="toolTipFade3" for="time2" value="hh:mm Formato 24h" position="top"/>
                                                         </p:panel>
-                                                    
-                                                    <br/>
-                                                    <br/>
 
-                                                    <p:commandButton value="Actualizar" action="#{eventWizardController.actualizarEntrada()}" update="panellista"></p:commandButton>
-                                                    <p:commandButton value="Borrar" action="#{eventWizardController.borrarEntrada()}" update="panellista"></p:commandButton>
-                                                    </center>
+                                                        <br/>
+                                                        <br/>
+                                                        
+                                                        <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
+                                                        <p:commandButton value="Actualizar" action="#{eventWizardController.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
+                                                        <p:commandButton value="Borrar" action="#{eventWizardController.borrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <br/>
+                                                        <br/>
+                                                        <!-- Cierra la Seccion Editar sin aplicar cambios -->
+                                                        <p:commandButton value="Cerrar" action="#{eventWizardController.cerrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        </center>
                                                 </p:panel>
                                             </p:panel>
                                         </div>

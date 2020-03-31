@@ -19,6 +19,7 @@ public class Entrada {
     String horaInicio;
     Integer tipo;
     Integer cantidad;
+    
 
     public Entrada(String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
         this.nombre = nombre;

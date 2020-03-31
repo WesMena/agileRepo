@@ -16,6 +16,14 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class eventWizardViewController {
 
+    //<editor-fold defaultstate="collapsed" desc="comment">
+    
+    //La variable indexEntrada, es la ubicacion en el ArrayList lstEntrada del objeto Entrada
+    //La variable editarDivRend, es la que determina si la seccion de Editar Entrada se muestra o no 
+    
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Variables">
     private List<Entrada> lstEntrada = new ArrayList<>();
     String nombreEntrada;
     double precioEntrada;
@@ -26,8 +34,21 @@ public class eventWizardViewController {
     Integer tipoEntrada;
     Integer cantidadEntrada;
     Integer indexEntrada;
+    Boolean editarDivRend = false;
+//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="comment">
     
+    //Metodo nuevaEntrada, ingresa un Objeto Entrada en el ArrayList lstEntrada con informacion default
+    //Metodo seleccionarEntrada, guarda los valores de la entrada seleccionada en las variables y cambia el valor de editarDivRend a true para que muestre la seccion de Editar
+    //setTipoEntrada, se asegura que si el valor es 0, cambia el valor de PrecioEntrada a 0.00
+    //Metodo actualizarEntrada, cambia los valores del Objeto Entrada seleccionado por los nuevos valores ingresados y cambia el valor de editarDivRend a false para que deje de mostrar la seccion de Editar
+    //Metodo borrarEntrada, borra el Objeto Entrada del ArrayList lstEntrada y cambia el valor de editarDivRend a false para que deje de mostrar la seccion de Editar
+    //Metodo cerrarEntrada, Cierra la seccion editar entrada sin aplicar cambios
+    
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Metodos">
     public String onFlowProcess(FlowEvent event) {
 
         return event.getNewStep();
@@ -67,6 +88,7 @@ public class eventWizardViewController {
         this.horaFinEntrada = horaFinEntrada;
         this.indexEntrada = indexE;
 
+        this.editarDivRend = true;
     }
 
     public double getPrecioEntrada() {
@@ -74,6 +96,7 @@ public class eventWizardViewController {
     }
 
     public void setPrecioEntrada(double precioEntrada) {
+
         this.precioEntrada = precioEntrada;
     }
 
@@ -115,6 +138,10 @@ public class eventWizardViewController {
 
     public void setTipoEntrada(Integer tipoEntrada) {
         this.tipoEntrada = tipoEntrada;
+        if (this.tipoEntrada == 0) {
+            this.precioEntrada = 0.00;
+        }
+
     }
 
     public Integer getCantidadEntrada() {
@@ -125,6 +152,13 @@ public class eventWizardViewController {
         this.cantidadEntrada = cantidadEntrada;
     }
 
+    public Boolean getEditarDivRend() {
+        return editarDivRend;
+    }
+
+    public void setEditarDivRend(Boolean editarDivRend) {
+        this.editarDivRend = editarDivRend;
+    }
 
     public void actualizarEntrada() {
         lstEntrada.get(this.indexEntrada).setNombre(this.nombreEntrada);
@@ -135,12 +169,21 @@ public class eventWizardViewController {
         lstEntrada.get(this.indexEntrada).setHoraInicio(this.horaInicioEntrada);
         lstEntrada.get(this.indexEntrada).setFechaFin(this.fechaFinEntrada);
         lstEntrada.get(this.indexEntrada).setHoraFin(this.horaFinEntrada);
-    }
-    
-    public void borrarEntrada(){
-        
-        lstEntrada.remove(this.indexEntrada);
-        
+
+        this.editarDivRend = false;
+
     }
 
+    public void borrarEntrada() {
+
+        lstEntrada.remove(lstEntrada.get(this.indexEntrada));
+        this.editarDivRend = false;
+
+    }
+    
+    public void cerrarEntrada(){
+        this.editarDivRend = false;
+    }
+    
+//</editor-fold>
 }
