@@ -73,6 +73,8 @@ public class eventWizardViewController implements Serializable {
         this.nombre = nombre;
     }
 
+    
+    
     public String getUbi() {
         return ubi;
     }
@@ -177,7 +179,9 @@ StringBuffer stringBuffer = new StringBuffer();
         }
     }
 
-    public String format(Date fecha) {
+
+    
+     public String format(Date fecha) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         return String.valueOf(simpleDateFormat.format(fecha, stringBuffer, new FieldPosition(0)));
