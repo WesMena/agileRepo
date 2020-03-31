@@ -25,6 +25,7 @@ import java.util.Date;
 import java.text.ParseException;
 import static java.time.Instant.now;
 import java.util.HashSet;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -49,9 +50,22 @@ public class eventWizardViewController implements Serializable {
     public List<zonaPais> lstPais = new ArrayList<>();
     public List<horarioCompleto> lstcmpt = new ArrayList<>();
     public List<UbiHoraContainer> lstContainer = new ArrayList<>();
+     public List<UbiHoraContainer> lstOrdenada = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-    public String getNombre() {
+
+    public List<UbiHoraContainer> getLstOrdenada() {
+        return lstOrdenada;
+    }
+
+    public void setLstOrdenada(List<UbiHoraContainer> lstOrdenada) {
+        this.lstOrdenada = lstOrdenada;
+    }
+   
+     
+     
+     
+     public String getNombre() {
         return nombre;
     }
 
@@ -169,12 +183,45 @@ StringBuffer stringBuffer = new StringBuffer();
         return String.valueOf(simpleDateFormat.format(fecha, stringBuffer, new FieldPosition(0)));
         
     }
-
+    
+    
+    public void orderList(List<UbiHoraContainer> containers){
+        this.lstOrdenada.clear();
+        
+        for(int i=0;i<= this.lstContainer.size()-1;i++){
+            UbiHoraContainer cnt = new UbiHoraContainer();
+            cnt = lstContainer.get(i);
+            cnt.setOrd(i+1);
+            this.lstOrdenada.add(cnt);
+        }
+        
+        
+    }
+    
+    
+    private void updateUI(){
+        orderList(this.lstContainer);
+        
+        for(int i=0;i<=this.lstOrdenada.size()-1;i++){
+            System.out.println("Ord Dia: " +this.lstOrdenada.get(i).getOrd());
+             System.out.println(this.lstOrdenada.get(i).getDia());
+        }
+        
+        PrimeFaces.current().ajax().update("publicarEventos:srlPnl1");
+    }
+    
+    
     public void fillContainer(ActionEvent e) {
         /*  System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());*/
+        System.out.println("->");
+        System.out.println(this.nombre);
+        System.out.println(this.ubi);
+        System.out.println(this.link);
+        System.out.println(this.horario.getHorarioStr());
+        System.out.println(format(this.ini));
+        System.out.println(format(this.fin));
         
-     
-        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),"s","f");
+        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),format(this.ini),format(this.fin));
         
         if(this.fisico == true){
             container.setUbifisica(this.ubi);
@@ -186,6 +233,13 @@ StringBuffer stringBuffer = new StringBuffer();
         
         this.lstContainer.add(container);
         System.out.println(" -> Dia: " +container.getDia()+" agregado!");
+        
+        updateUI();
     }
-
+        
+    
+     public void reset() {
+        PrimeFaces.current().resetInputs("ubiHorasFrm:todoW");
+    }
+    
 }

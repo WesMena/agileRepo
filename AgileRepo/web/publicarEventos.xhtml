@@ -138,7 +138,13 @@
                 <center>    
                     <h:form style="width: 90%;height: 100%;padding: 30px">
                         <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                           
                             <p:tab id="ubi-hora" title=" Ubicación y Horario"  >
+                              
+                              <h:form id="ubiHorasFrm"  >
+                                
+                               <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
+                                 
                                 <p:panel id="Nombre" header="Sección de Nombre"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff" >
                                     <h3>Ingresa un nombre para identificar la configuración del día:</h3>
                                     <br></br>
@@ -237,10 +243,9 @@
                                     <br></br>
                                     <br></br>
                                     <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" /> 
-                                    <p:commandButton process="@this comboZonas" partialSubmit="true"  
-                                                     style="margin-left:400px; height: 25px; width:80px; "
-                                                     styleClass="ui-priority-primary" 
-                                                     actionListener="#{wizardController.fillContainer}" />
+            
+                                    <p:commandButton value="Guardar Día"  style="margin-left:400px; height: 25px; width:110px;" actionListener="#{wizardController.fillContainer}" /> 
+                                    
 
 
                                 </p:panel>
@@ -253,7 +258,27 @@
 
                                     <p:panel id="dias" widgetVar="pnlDias"  style="display:block;border:  #03A8E4"  header="Lista de días" toggleable="true" collapsed="true">
 
-                                        <h3>Dias</h3>
+                                        <p:scrollPanel id="scrl" widgetVar="srlPnl1" style="width:100%; height:300px;  display:block; margin-bottom: 20px"  >
+                                            
+                                            <c:forEach id="P111"  items="#{wizardController.lstOrdenada}"  var="P1" varStatus="true"  > 
+
+                                                <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px;width: 100%" with="100%">
+
+                                                    <span class="count visitors"  style="margin-left: 315px; text-align:right;">Día #{P1.ord}</span>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <span with="60px" style="display: inline-block;width: 80px; height:100%;margin-right:1px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;">#{P1.hinicial}</span>
+                                                    <span style="font-size: x-large;width: 80px;height: 52px">-</span>
+                                                    <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large; ">#{P1.hfinal}</span>
+                                                    <br></br>
+                                                    <br></br>
+                                                    <span  style="font-size: x-large;width: 56px;height: 52px; margin-right:390px;text-align: left;align-content: center; direction: ltr " >#{P1.dia}</span>
+
+                                                </div>
+
+                                            </c:forEach>
+
+                                        </p:scrollPanel>
 
 
                                     </p:panel>
@@ -274,8 +299,8 @@
                                     </h:outputText>
                                 </p:dialog>
 
-                                `
-
+                                `</p:panel>
+                               </h:form>
 
                             </p:tab>
 
