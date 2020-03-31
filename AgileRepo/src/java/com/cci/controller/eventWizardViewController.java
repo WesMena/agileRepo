@@ -198,8 +198,6 @@ StringBuffer stringBuffer = new StringBuffer();
             cnt.setOrd(i+1);
             this.lstOrdenada.add(cnt);
         }
-        
-        
     }
     
     
@@ -211,7 +209,7 @@ StringBuffer stringBuffer = new StringBuffer();
              System.out.println(this.lstOrdenada.get(i).getDia());
         }
         
-        PrimeFaces.current().ajax().update("publicarEventos:srlPnl1");
+        PrimeFaces.current().ajax().update("publicarEventos:pnlDias");
     }
     
     
