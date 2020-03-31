@@ -243,5 +243,10 @@ StringBuffer stringBuffer = new StringBuffer();
      public void reset() {
         PrimeFaces.current().resetInputs("ubiHorasFrm:todoW");
     }
+     
+     
+    public void print(){
+        System.out.println("Botton");
+    }
     
 }

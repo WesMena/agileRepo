@@ -139,9 +139,7 @@
                     <h:form style="width: 90%;height: 100%;padding: 30px">
                         <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
                            
-                            <p:tab id="ubi-hora" title=" Ubicación y Horario"  >
-                              
-                              <h:form id="ubiHorasFrm"  >
+                            <p:tab id="ubi-hora" title=" Ubicación y Horario"  >                             
                                 
                                <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
                                  
@@ -245,8 +243,7 @@
                                     <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" /> 
                                     
                                      <p:commandButton value="Guardar Día"  style="margin-left:400px; height: 25px; width:110px;" actionListener="#{wizardController.fillContainer}" /> 
-                                    
-                                   
+                                     <p:commandButton value="test" actionListener="#{wizardController.fillContainer(e)}" />                                  
 
                                 </p:panel>
                                 <br></br>
@@ -280,7 +277,7 @@
 
                                         </p:scrollPanel>
 
-
+                                        <p:commandButton value="Print" actionListener="#{wizardController.print()}"></p:commandButton>
                                     </p:panel>
 
                                     <br></br>
@@ -299,8 +296,8 @@
                                     </h:outputText>
                                 </p:dialog>
 
-                                `</p:panel>
-                               </h:form>
+                                </p:panel>
+                              
 
                             </p:tab>
 
