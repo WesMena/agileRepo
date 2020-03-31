@@ -201,9 +201,9 @@
                                             <p:outputLabel value="Zona Horaria:" />
                                             <br></br>
                                             <br></br>
-                                            <h:selectOneMenu id="comboZonas" value="#{wizardController.horario}"   style=" width: 320px"  required="true" label="Text 3">
+                                            <h:selectOneMenu id="comboZonas" value="#{wizardController.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
 
-                                                <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona}" />
+                                                <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
 
                                             </h:selectOneMenu>
 
@@ -236,7 +236,11 @@
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" />   <p:commandButton  style="margin-left:400px; height: 25px; width:80px; " styleClass="ui-priority-primary" actionListener="#{wizardController.fillContainer()}" />
+                                    <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" /> 
+                                    <p:commandButton process="@this comboZonas" partialSubmit="true"  
+                                                     style="margin-left:400px; height: 25px; width:80px; "
+                                                     styleClass="ui-priority-primary" 
+                                                     actionListener="#{wizardController.fillContainer}" />
 
 
                                 </p:panel>
