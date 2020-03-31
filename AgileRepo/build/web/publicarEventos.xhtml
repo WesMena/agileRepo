@@ -192,10 +192,11 @@
                                             <p:outputLabel value="Zona Horaria:" />
                                             <br></br>
                                             <br></br>
-                                            <h:selectOneMenu id="txt3"  style=" width: 320px"  required="true" label="Text 3" onclick="#{wizardController.llenarCombo()}">
-                                                <c:forEach id="P111"  items="#{wizardController.lstcmpt}"  var="P1" varStatus="true"  > 
-                                                    <f:selectItem  itemLabel="#{P1.toString()}" />
-                                                </c:forEach>
+                                            <h:selectOneMenu id="txt3"  style=" width: 320px"  required="true" label="Text 3" value="#{wizardController.llenarCombo()}">
+
+
+                                                <f:selectItems value="#{wizardController.lstcmpt}" var="zona" itemLabel="#{zona.horarioStr}" itemValue="#{zona}" />
+
                                             </h:selectOneMenu>
 
                                         </div>
@@ -230,7 +231,7 @@
                                     </h:outputText>
                                 </p:dialog>
 
-
+                                    
                                 `
                             </p:tab>
 
