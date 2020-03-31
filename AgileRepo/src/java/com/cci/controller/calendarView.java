@@ -30,7 +30,7 @@ import org.primefaces.event.SelectEvent;
 
 public class calendarView implements Serializable  {
     
-     private Date date1;
+    private Date date1;
     private Date date2;
     private Date date3;
     private Date date4;

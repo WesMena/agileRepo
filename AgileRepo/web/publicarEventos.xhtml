@@ -13,6 +13,11 @@
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
 
+                <f:metadata>
+                    <f:viewAction action="#{wizardController.llenarCombo()}" />
+                </f:metadata>
+
+
             </ui:define>
 
             <ui:define name="content">
@@ -134,10 +139,14 @@
                     <h:form style="width: 90%;height: 100%;padding: 30px">
                         <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
                             <p:tab id="ubi-hora" title=" Ubicación y Horario"  >
-
-                                <br></br>
-                                <br></br>
-
+                                <p:panel id="Nombre" header="Sección de Nombre"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff" >
+                                    <h3>Ingresa un nombre para identificar la configuración del día:</h3>
+                                    <br></br>
+                                    <br></br>
+                                    <p:inputTextarea id="txtNombre" value="#{wizardController.nombre}" rows="6" style="with:700px;height:5px;" cols="33" />
+                                    <br></br>
+                                    <br></br>
+                                </p:panel>
                                 <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff" >
 
                                     <br></br>
@@ -156,7 +165,7 @@
                                         <br></br>
 
                                         <h3>Digite la direccion del evento:</h3>
-                                        <p:inputTextarea rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
+                                        <p:inputTextarea id="txtDir" value="#{wizardController.ubi}" rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
                                         <br/>
                                         <h:outputText id="display" />
 
@@ -168,7 +177,7 @@
                                     <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
 
                                         <h3>Digita el link al evento:</h3>
-                                        <p:inputTextarea rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+                                        <p:inputTextarea id="txtLink" value="#{wizardController.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
 
                                     </p:panel>
 
@@ -192,10 +201,9 @@
                                             <p:outputLabel value="Zona Horaria:" />
                                             <br></br>
                                             <br></br>
-                                            <h:selectOneMenu id="txt3"  style=" width: 320px"  required="true" label="Text 3" value="#{wizardController.llenarCombo()}">
+                                            <h:selectOneMenu id="comboZonas" value="#{wizardController.horario}"   style=" width: 320px"  required="true" label="Text 3">
 
-
-                                                <f:selectItems value="#{wizardController.lstcmpt}" var="zona" itemLabel="#{zona.horarioStr}" itemValue="#{zona}" />
+                                                <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona}" />
 
                                             </h:selectOneMenu>
 
@@ -204,12 +212,12 @@
                                             <br></br>
                                             <br></br>
                                             <p:outputLabel value="El evento inicia a:" />
-                                            <p:datePicker id="inicia" value="#{calendarview.date14}" timeOnly="true" pattern="HH:mm"/>
+                                            <p:datePicker id="inicia" value="#{wizardController.ini}" timeOnly="true" pattern="HH:mm"/>
                                             <br></br>
                                             <br></br>
                                             <br></br>
                                             <p:outputLabel value="El evento termina a:" />
-                                            <p:datePicker id="termina" value="#{calendarview.date14}" timeOnly="true" pattern="HH:mm"/>
+                                            <p:datePicker id="termina" value="#{wizardController.fin}" timeOnly="true" pattern="HH:mm"/>
                                             <br></br>
                                             <br></br>
                                             <br></br>
@@ -220,6 +228,15 @@
                                         <br></br>
                                     </div>
 
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <h:outputText value="El evento es fisico? " style="margin-right: 315px" />
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" />   <p:commandButton  style="margin-left:400px; height: 25px; width:80px; " styleClass="ui-priority-primary" actionListener="#{wizardController.fillContainer()}" />
 
 
                                 </p:panel>
@@ -231,8 +248,9 @@
                                     </h:outputText>
                                 </p:dialog>
 
-                                    
                                 `
+
+
                             </p:tab>
 
 
