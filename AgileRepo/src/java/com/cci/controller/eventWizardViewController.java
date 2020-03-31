@@ -18,6 +18,13 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.util.Date;
+import java.text.ParseException;
+import static java.time.Instant.now;
+import java.util.HashSet;
 
 /**
  *
@@ -52,8 +59,6 @@ public class eventWizardViewController implements Serializable {
         this.nombre = nombre;
     }
 
-    
-    
     public String getUbi() {
         return ubi;
     }
@@ -134,7 +139,7 @@ public class eventWizardViewController implements Serializable {
         this.lstcmpt = lstcmpt;
     }
 //</editor-fold>
-
+StringBuffer stringBuffer = new StringBuffer();
     public void llenarCombo() {
         lstcmpt.clear();
 
@@ -158,8 +163,29 @@ public class eventWizardViewController implements Serializable {
         }
     }
 
+    public String format(Date fecha) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        return String.valueOf(simpleDateFormat.format(fecha, stringBuffer, new FieldPosition(0)));
+        
+    }
+
     public void fillContainer(ActionEvent e) {
-        System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());
+        /*  System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());*/
+        
+     
+        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),"s","f");
+        
+        if(this.fisico == true){
+            container.setUbifisica(this.ubi);
+           
+        }else{
+            container.setLink(this.link);
+            
+        }
+        
+        this.lstContainer.add(container);
+        System.out.println(" -> Dia: " +container.getDia()+" agregado!");
     }
 
 }
