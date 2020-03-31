@@ -209,7 +209,7 @@ StringBuffer stringBuffer = new StringBuffer();
              System.out.println(this.lstOrdenada.get(i).getDia());
         }
         
-        PrimeFaces.current().ajax().update("publicarEventos:pnlDias");
+        PrimeFaces.current().ajax().update("publicarEventos:ubi-hora");
     }
     
     
