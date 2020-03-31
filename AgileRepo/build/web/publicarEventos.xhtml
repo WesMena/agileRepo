@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -27,6 +28,68 @@
 
                 <script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
 
+                <script type="text/javascript">
+                    PrimeFaces.locales['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: 'Anterior',
+                        nextText: 'Siguiente',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                        weekHeader: 'Semana',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Sólo hora',
+                        timeText: 'Tiempo',
+                        hourText: 'Hora',
+                        minuteText: 'Minuto',
+                        secondText: 'Segundo',
+                        currentText: 'Fecha actual',
+                        ampm: false,
+                        month: 'Mes',
+                        week: 'Semana',
+                        day: 'Día',
+                        allDayText: 'Todo el día'
+                    };
+                    PrimeFaces.locales ['de'] = {
+                        closeText: 'Schließen',
+                        prevText: 'Zurück',
+                        nextText: 'Weiter',
+                        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+                        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+                        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+                        weekHeader: 'Woche',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Nur Zeit',
+                        timeText: 'Zeit',
+                        hourText: 'Stunde',
+                        minuteText: 'Minute',
+                        secondText: 'Sekunde',
+                        currentText: 'Aktuelles Datum',
+                        ampm: false,
+                        month: 'Monat',
+                        week: 'Woche',
+                        day: 'Tag',
+                        allDayText: 'Ganzer Tag'
+                    };
+                </script>
+
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function dateTemplateFunc(date) {
+                        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+                    }
+                    //]]>
+                </script>
 
 
                 <script type="text/javascript">
@@ -80,8 +143,6 @@
                                     <br></br>
                                     <br></br>
 
-
-
                                     <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
 
                                         <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
@@ -101,12 +162,8 @@
 
                                     </p:panel>
 
-
-
                                     <br></br>
                                     <br></br>
-
-
 
                                     <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
 
@@ -124,11 +181,54 @@
 
                                 <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
 
-                                    
+                                    <br></br>
+                                    <br></br>
+
+
+                                    <div class="ui-g ui-fluid">
+                                        <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
+                                            <br></br>
+                                            <br></br>
+                                            <p:outputLabel value="Zona Horaria:" />
+                                            <br></br>
+                                            <br></br>
+                                            <h:selectOneMenu id="txt3"  style=" width: 320px"  required="true" label="Text 3" onclick="#{wizardController.llenarCombo()}">
+                                                <c:forEach id="P111"  items="#{wizardController.lstcmpt}"  var="P1" varStatus="true"  > 
+                                                    <f:selectItem  itemLabel="#{P1.toString()}" />
+                                                </c:forEach>
+                                            </h:selectOneMenu>
+
+                                        </div>
+                                        <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
+                                            <br></br>
+                                            <br></br>
+                                            <p:outputLabel value="El evento inicia a:" />
+                                            <p:datePicker id="inicia" value="#{calendarview.date14}" timeOnly="true" pattern="HH:mm"/>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <p:outputLabel value="El evento termina a:" />
+                                            <p:datePicker id="termina" value="#{calendarview.date14}" timeOnly="true" pattern="HH:mm"/>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                            <br></br>
+                                        </div>
+
+                                        <br></br>
+                                        <br></br>
+                                    </div>
 
 
 
                                 </p:panel>
+
+                                <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
+                                    <h:outputText value="Time Only:" />
+                                    <h:outputText value="#{calendarview.date14}">
+                                        <f:convertDateTime pattern="HH:mm" />
+                                    </h:outputText>
+                                </p:dialog>
 
 
                                 `
