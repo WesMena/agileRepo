@@ -10,6 +10,7 @@ import com.cci.model.Usuario;
 import com.cci.model.ZonaHoraria;
 import com.cci.model.horarioCompleto;
 import com.cci.model.zonaPais;
+import com.cci.service.DetalleDao;
 import com.cci.service.WizardDao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -182,9 +183,12 @@ StringBuffer stringBuffer = new StringBuffer();
 
     
      public String format(Date fecha) {
-
+         String hora="";
+         
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        return String.valueOf(simpleDateFormat.format(fecha, stringBuffer, new FieldPosition(0)));
+        
+        hora =String.valueOf(simpleDateFormat.format(fecha));
+        return hora;
         
     }
     
@@ -214,6 +218,8 @@ StringBuffer stringBuffer = new StringBuffer();
     
     
     public void fillContainer(ActionEvent e) {
+        DetalleDao dao =new DetalleDao();
+        
         /*  System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());*/
         System.out.println("->");
         System.out.println(this.nombre);
@@ -223,7 +229,7 @@ StringBuffer stringBuffer = new StringBuffer();
         System.out.println(format(this.ini));
         System.out.println(format(this.fin));
         
-        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),format(this.ini),format(this.fin));
+        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),format(ini),format(this.fin));
         
         if(this.fisico == true){
             container.setUbifisica(this.ubi);
