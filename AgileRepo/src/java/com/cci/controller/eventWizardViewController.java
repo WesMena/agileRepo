@@ -72,7 +72,7 @@ public class eventWizardViewController implements Serializable {
         t = (Tag)e.getComponent().getAttributes().get("delTag");
         System.out.println("Tag del : "+t.id);
         //Eliminando de la lista
-        this.tags.remove(t.id);
+        this.tags.remove(t);
         //updateTagIndex();
         updateUI();
     }

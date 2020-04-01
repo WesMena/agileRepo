@@ -208,8 +208,8 @@
 
                                                         <div class="ui-g-12 ui-md-12">
 
-                                                            <p:fileUpload   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
-                                                            <p:commandButton actionListener="#{eventWizardImageController.deletFile}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
+                                                            <p:fileUpload    fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
+                                                            <p:commandButton icon="fa fa-delete" actionListener="#{eventWizardImageController.deletFile}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
                                                         </div>
 
 
