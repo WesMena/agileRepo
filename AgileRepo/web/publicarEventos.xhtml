@@ -26,7 +26,7 @@
                 </script>
                 <center>    
                     <h:form style="width: 90%;height: 100%;padding: 30px">
-                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" flowListener="#{eventWizardController.onFlowProcess}" >
+                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" flowListener="#{eventWizardController.onFlowProcess}" showNavBar="false">
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel style="text-align: left">
@@ -154,12 +154,15 @@
                                                     <h:outputText value="Nombre" style='font-weight:bold'/>
 
                                                     <p:inputTextarea
+                                                        id="nombreE"
                                                         value='#{eventWizardController.nombreEntrada}'
                                                         style="width: 100%;"
                                                         maxlength="50"
                                                         counter="entradaTagC"
                                                         counterTemplate="{0}/50"
-                                                        readonly="false">
+                                                        readonly="false"
+                                                        required="#{eventWizardController.validarEntradas}"
+                                                        validatorMessage="El nombre de entrada es obligatorio">
 
                                                     </p:inputTextarea>
 
@@ -171,60 +174,60 @@
                                                     <br/>
                                                     <h:outputText value="Cantidad" style='font-weight:bold'/>
                                                     <h:panelGrid>
-                                                        <p:inputText id="txt1" value="#{eventWizardController.cantidadEntrada}" />
-                                                        <p:slider for="txt1" maxValue="1000" />
+                                                        <p:inputText id="txt1" value="#{eventWizardController.cantidadEntrada}"/>
+                                                        <p:slider for="txt1" minValue="1" maxValue="1000" />
                                                     </h:panelGrid>                                            
 
                                                     <br/>
                                                     <p:panel id="panelPrecio" style="display:#{eventWizardController.tipoEntrada == 0?'none':'block'}; border:none !important;">
                                                         <h:outputText value="Precio " style='font-weight:bold'/>
                                                         <br/>
-                                                        <p:inputNumber id="input2" symbol=" CRC" symbolPosition="s" value="#{eventWizardController.precioEntrada}"
-                                                                       decimalSeparator="." thousandSeparator="," style="width: 100%;" readonly="false">  
+                                                        <p:inputNumber id="input2" symbol=" USD" symbolPosition="s" value="#{eventWizardController.precioEntrada}"
+                                                                       decimalSeparator="." thousandSeparator="," style="width: 100%;" readonly="false" required="#{eventWizardController.validarEntradas}">  
                                                         </p:inputNumber>
                                                     </p:panel>
                                                     <br/>
-                                                    
+
                                                     <!-- En los espacios para fechas y horas, muestra un tooltip con el formato deseado, ademas el input ya tiene incluido una 
                                                     mascara para que sea de esa manera-->
-                                                    <center>
-                                                        <p:panel style="display:inline-block; border:none !important;">
-                                                            <h:outputText value="Fecha Inicio " style='font-weight:bold' />
-                                                            <br/>
-                                                            <p:inputMask id="date1" value="#{eventWizardController.fechaInicioEntrada}" mask="99/99/9999"/>
-                                                            <p:tooltip id="toolTipFade" for="date1" value="mm/dd/yyyy" position="top"/>
-                                                        </p:panel>
 
-                                                        <p:panel style="display:inline-block; border:none !important;">
-                                                            <h:outputText value="Hora Inicio " style='font-weight:bold' />
-                                                            <br/>
-                                                            <p:inputMask id="time1" value="#{eventWizardController.horaInicioEntrada}" mask="99:99"/>
+                                                    <p:panel style="display:inline-block; border:none !important;">
+                                                        <h:outputText value="Fecha Inicio " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="date1" value="#{eventWizardController.fechaInicioEntrada}" mask="99/99/9999" required="#{eventWizardController.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade" for="date1" value="mm/dd/yyyy" position="top"/>
+                                                    </p:panel>
 
-                                                            <p:tooltip id="toolTipFade1" for="time1" value="hh:mm Formato 24h" position="top"/>
-                                                        </p:panel>
-                                                    </center>
+                                                    <p:panel style="display:inline-block; border:none !important;">
+                                                        <h:outputText value="Hora Inicio " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="time1" value="#{eventWizardController.horaInicioEntrada}" mask="99:99" required="#{eventWizardController.validarEntradas}"/>
+
+                                                        <p:tooltip id="toolTipFade1" for="time1" value="hh:mm Formato 24h" position="top"/>
+                                                    </p:panel>
+
 
 
                                                     <br/>
 
+
+                                                    <p:panel style="display:inline-block;border:none !important; padding: 0;">
+                                                        <h:outputText value="Fecha Fin " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="date2" value="#{eventWizardController.fechaFinEntrada}" mask="99/99/9999" required="#{eventWizardController.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade2" for="date2" value="mm/dd/yyyy" position="top"/>
+                                                    </p:panel>
+
+                                                    <p:panel style="display:inline-block;border:none !important">
+                                                        <h:outputText value="Hora Fin " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="time2" value="#{eventWizardController.horaFinEntrada}" mask="99:99" required="#{eventWizardController.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade3" for="time2" value="hh:mm Formato 24h" position="top"/>
+                                                    </p:panel>
+
+                                                    <br/>
+                                                    <br/>
                                                     <center>
-                                                        <p:panel style="display:inline-block;border:none !important; padding: 0;">
-                                                            <h:outputText value="Fecha Fin " style='font-weight:bold' />
-                                                            <br/>
-                                                            <p:inputMask id="date2" value="#{eventWizardController.fechaFinEntrada}" mask="99/99/9999"/>
-                                                            <p:tooltip id="toolTipFade2" for="date2" value="mm/dd/yyyy" position="top"/>
-                                                        </p:panel>
-
-                                                        <p:panel style="display:inline-block;border:none !important">
-                                                            <h:outputText value="Hora Fin " style='font-weight:bold' />
-                                                            <br/>
-                                                            <p:inputMask id="time2" value="#{eventWizardController.horaFinEntrada}" mask="99:99"/>
-                                                            <p:tooltip id="toolTipFade3" for="time2" value="hh:mm Formato 24h" position="top"/>
-                                                        </p:panel>
-
-                                                        <br/>
-                                                        <br/>
-                                                        
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
                                                         <p:commandButton value="Actualizar" action="#{eventWizardController.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
@@ -233,7 +236,7 @@
                                                         <br/>
                                                         <!-- Cierra la Seccion Editar sin aplicar cambios -->
                                                         <p:commandButton value="Cerrar" action="#{eventWizardController.cerrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
-                                                        </center>
+                                                    </center>
                                                 </p:panel>
                                             </p:panel>
                                         </div>
@@ -243,6 +246,8 @@
                                 </p:panel>
                             </p:tab>
                         </p:wizard>
+                        <p:commandButton value="Regresar" onclick="PF('wPublicacion').back();"></p:commandButton>
+                        <p:commandButton value="Siguiente" onclick="PF('wPublicacion').next();"></p:commandButton>                        
                     </h:form>
                 </center>
                 <style>

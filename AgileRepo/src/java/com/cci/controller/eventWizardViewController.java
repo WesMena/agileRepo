@@ -35,6 +35,7 @@ public class eventWizardViewController {
     Integer cantidadEntrada;
     Integer indexEntrada;
     Boolean editarDivRend = false;
+    Boolean validarEntradas = false;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="comment">
@@ -78,6 +79,7 @@ public class eventWizardViewController {
     }
 
     public void seleccionarEntrada(String nombreEntrada, Integer tipoEntrada, Integer Cantidad, double Precio, String fechaInicioEntrada, String horaInicioEntrada, String fechaFinEntrada, String horaFinEntrada, Integer indexE) {
+        this.validarEntradas = true;
         this.nombreEntrada = nombreEntrada;
         this.tipoEntrada = tipoEntrada;
         this.cantidadEntrada = Cantidad;
@@ -160,6 +162,15 @@ public class eventWizardViewController {
         this.editarDivRend = editarDivRend;
     }
 
+    public Boolean getValidarEntradas() {
+        return validarEntradas;
+    }
+
+    public void setValidarEntradas(Boolean validarEntradas) {
+        this.validarEntradas = validarEntradas;
+    }
+
+       
     public void actualizarEntrada() {
         lstEntrada.get(this.indexEntrada).setNombre(this.nombreEntrada);
         lstEntrada.get(this.indexEntrada).setTipo(this.tipoEntrada);
@@ -171,18 +182,21 @@ public class eventWizardViewController {
         lstEntrada.get(this.indexEntrada).setHoraFin(this.horaFinEntrada);
 
         this.editarDivRend = false;
-
+        this.validarEntradas = false;
     }
 
     public void borrarEntrada() {
-
+        this.validarEntradas = false;
         lstEntrada.remove(lstEntrada.get(this.indexEntrada));
         this.editarDivRend = false;
+        
 
     }
     
     public void cerrarEntrada(){
+        this.validarEntradas = false;
         this.editarDivRend = false;
+        
     }
     
 //</editor-fold>
