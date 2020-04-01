@@ -136,166 +136,144 @@
                 <center>    
                     <h:form style="width: 90%;height: 100%;padding: 30px">
                         <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
-                           
+
                             <p:tab id="ubi-hora" title=" Ubicación y Horario"  >                             
-                                
-                               <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
-                                 
-                                <p:panel id="Nombre" header="Sección de Nombre"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff" >
-                                    <h3>Ingresa un nombre para identificar la configuración del día:</h3>
-                                    <br></br>
-                                    <br></br>
-                                    <p:inputTextarea id="txtNombre" value="#{wizardController.nombre}" rows="6" style="with:700px;height:5px;" cols="33" />
-                                    <br></br>
-                                    <br></br>
-                                </p:panel>
-                                <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff" >
 
-                                    <br></br>
-                                    <br></br>
+                                <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
 
-                                    <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
-
-                                        <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
-                                        <br></br>
-                                        <br></br>
-                                        <p:growl id="messages" showDetail="true" />
-                                        <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
-                                                model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+                                    <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important"  >
 
                                         <br></br>
                                         <br></br>
 
-                                        <h3>Digite la direccion del evento:</h3>
-                                        <p:inputTextarea id="txtDir" value="#{wizardController.ubi}" rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
-                                        <br/>
-                                        <h:outputText id="display" />
+                                        <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
+
+                                            <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
+                                            <br></br>
+                                            <br></br>
+                                            <p:growl id="messages" showDetail="true" />
+                                            <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
+                                                    model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+
+                                            <br></br>
+                                            <br></br>
+
+                                            <h3>Digite la direccion del evento:</h3>
+                                            <p:inputTextarea id="txtDir" value="#{wizardController.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
+                                            <br/>
+                                            <h:outputText id="display" />
+
+                                        </p:panel>
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
+
+                                            <h3>Digita el link al evento:</h3>
+                                            <p:inputTextarea id="txtLink" value="#{wizardController.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+
+                                        </p:panel>
+
+
+                                        <br></br>
+                                        <br></br>
+
 
                                     </p:panel>
 
-                                    <br></br>
-                                    <br></br>
+                                    <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
 
-                                    <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
-
-                                        <h3>Digita el link al evento:</h3>
-                                        <p:inputTextarea id="txtLink" value="#{wizardController.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
-
-                                    </p:panel>
+                                        <br></br>
+                                        <br></br>
 
 
-                                    <br></br>
-                                    <br></br>
+                                        <div class="ui-g ui-fluid">
+                                            <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Zona Horaria:" />
+                                                <br></br>
+                                                <br></br>
+                                                <h:selectOneMenu id="comboZonas" value="#{wizardController.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
+
+                                                    <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
+
+                                                </h:selectOneMenu>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" />
+                                                <br></br>
+                                                <br></br>
 
 
-                                </p:panel>
-
-                                <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-
-                                    <br></br>
-                                    <br></br>
+                                                <p:datePicker id="range" selectionMode="range" value="#{wizardController.range}" readonlyInput="true" />
 
 
-                                    <div class="ui-g ui-fluid">
-                                        <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
+
+                                            </div>
+                                            <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento inicia a:" />
+                                                 <br></br>
+                                                <p:datePicker id="inicia" value="#{wizardController.ini}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento termina a:" />
+                                                 <br></br>
+                                                <p:datePicker id="termina" value="#{wizardController.fin}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                            </div>
+
                                             <br></br>
                                             <br></br>
-                                            <p:outputLabel value="Zona Horaria:" />
-                                            <br></br>
-                                            <br></br>
-                                            <h:selectOneMenu id="comboZonas" value="#{wizardController.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
-
-                                                <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
-
-                                            </h:selectOneMenu>
-
                                         </div>
-                                        <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
-                                            <br></br>
-                                            <br></br>
-                                            <p:outputLabel value="El evento inicia a:" />
-                                            <p:datePicker id="inicia" value="#{wizardController.ini}" timeOnly="true" pattern="HH:mm"/>
-                                            <br></br>
-                                            <br></br>
-                                            <br></br>
-                                            <p:outputLabel value="El evento termina a:" />
-                                            <p:datePicker id="termina" value="#{wizardController.fin}" timeOnly="true" pattern="HH:mm"/>
-                                            <br></br>
-                                            <br></br>
-                                            <br></br>
-                                            <br></br>
-                                        </div>
 
                                         <br></br>
                                         <br></br>
-                                    </div>
+                                        <br></br>
+                                        <br></br>
+                                        <h:outputText value="El evento es fisico? " style="margin-right: 315px; font-size: 22px" />
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <p:inputSwitch value="#{wizardController.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
 
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <h:outputText value="El evento es fisico? " style="margin-right: 315px" />
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <p:inputSwitch value="#{wizardController.fisico}" style="height:30px; width:90px;margin-right: 315px" /> 
-                                    
-                                    <p:commandButton value="Guardar Día" update="Verificar"  style="margin-left:400px; height: 25px; width:110px;" actionListener="#{wizardController.fillContainer}" /> 
-                                                        
+                                        <p:commandButton value="Guardar Día"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardController.fillContainer}" /> 
 
-                                </p:panel>
-                                <br></br>
-                                <br></br>
 
-                                <p:panel id="Verificar" widgetVar="VerificarWDG" header="Confrimación de datos"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-                                    <br></br>
-                                    <br></br>
-
-                                    <p:panel id="diasConScrl" widgetVar="pnlDias"  style="display:block;border:  #03A8E4"  header="Lista de días" toggleable="true" collapsed="true">
-
-                                        <p:scrollPanel id="scrl" widgetVar="srlPnl1" style="width:100%; height:300px;  display:block; margin-bottom: 20px"  >
-                                            
-                                            <c:forEach id="P111"  items="#{wizardController.lstOrdenada}"  var="P1" varStatus="true"  > 
-
-                                                <div  style="border-radius:1%; margin-bottom: 0.2em;border: 0.1em;border-color: #0388e5;border-style: solid;padding: 15px;width: 100%" with="100%">
-
-                                                    <span class="count visitors"  style="margin-left: 315px; text-align:right;">Día #{P1.ord}</span>
-                                                    <br></br>
-                                                    <br></br>
-                                                    <span with="60px" style="display: inline-block;width: 80px; height:100%;margin-right:1px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large; background-color: #cccccc ">#{P1.hinicial}</span>
-                                                    <span style="font-size: x-large;width: 80px;height: 52px">-</span>
-                                                    <span style="display: inline-block;width: 80px;height: 100%;margin-right:  13px;border-radius: 10% ;color: #ffffff;align-content: center;text-align: center ;font-size: x-large;background-color: #cccccc ">#{P1.hfinal}</span>
-                                                    <br></br>
-                                                    <br></br>
-                                                    <span  style="font-size: x-large;width: 56px;height: 52px; margin-right:390px;text-align: left;align-content: center; direction: ltr " >#{P1.dia}</span>
-
-                                                </div>
-
-                                            </c:forEach>
-
-                                        </p:scrollPanel>
-
-                                      
                                     </p:panel>
+                                    <br></br>
+                                    <br></br>
 
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
+
+                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
+
+
+                                        <h:outputText value="Range Selection:" />
+                                        <ui:repeat var="date" value="#{wizardController.range}" varStatus="status" size="#{wizardController.range.size()}">
+                                            #{status.first ? '' : '-'}
+                                            <h:outputText value="#{date}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </ui:repeat>
+
+
+
+
+                                        <h:outputText value="Time Only:" />
+                                        <h:outputText value="#{calendarview.date14}">
+                                            <f:convertDateTime pattern="HH:mm" />
+                                        </h:outputText>
+                                    </p:dialog>
 
                                 </p:panel>
 
-
-
-                                <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
-                                    <h:outputText value="Time Only:" />
-                                    <h:outputText value="#{calendarview.date14}">
-                                        <f:convertDateTime pattern="HH:mm" />
-                                    </h:outputText>
-                                </p:dialog>
-
-                                </p:panel>
-                              
 
                             </p:tab>
 

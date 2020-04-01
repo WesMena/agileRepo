@@ -12,32 +12,44 @@ import java.util.Date;
  * @author Daniel
  */
 public class UbiHoraContainer {
-    private String dia;
-    private int ord;
     private String Ubifisica;
     private String link;
     private String zonaHoraria;
     private String hinicial;
     private String hfinal;
+    private String Fini;
+    private String Ffin;
 
     public UbiHoraContainer() {
     }
 
-    public UbiHoraContainer(String dia, String zonaHoraria, String hinicial, String hfinal) {
-        this.dia = dia;
+    public UbiHoraContainer( String zonaHoraria, String hinicial, String hfinal,String Fini,String Ffin) {
         this.zonaHoraria = zonaHoraria;
         this.hinicial = hinicial;
         this.hfinal = hfinal;
+        this.Fini = Fini;
+        this.Ffin=Ffin;
     }
 
-    public String getDia() {
-        return dia;
+    public String getFini() {
+        return Fini;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public void setFini(String Fini) {
+        this.Fini = Fini;
     }
 
+    public String getFfin() {
+        return Ffin;
+    }
+
+    public void setFfin(String Ffin) {
+        this.Ffin = Ffin;
+    }
+
+
+    
+    
     public String getUbifisica() {
         return Ubifisica;
     }
@@ -77,16 +89,5 @@ public class UbiHoraContainer {
     public void setHfinal(String hfinal) {
         this.hfinal = hfinal;
     }
-
-    public int getOrd() {
-        return ord;
-    }
-
-    public void setOrd(int ord) {
-        this.ord = ord;
-    }
-    
-    
-    
-    
+     
 }

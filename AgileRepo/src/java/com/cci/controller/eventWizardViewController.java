@@ -38,22 +38,53 @@ import org.primefaces.PrimeFaces;
 public class eventWizardViewController implements Serializable {
 
     /*Valores de Ubicacion y hora*/
-    private String nombre;
-    private String ubi;
-    private String link;
-    private horarioCompleto horario = new horarioCompleto();
-    private Date ini;
-    private Date fin;
+    private String nombre; /* <- Nombre de la configuracion */
+    private String ubi; /* <- Ubicacion Fisica de la configuracion */
+    private String link;/* <- Ubicacion del Link de la configuracion */
+    private horarioCompleto horario = new horarioCompleto();/* <- Objeto para armar la lista de Zonas horarias */
+    private Date ini;/* <- Hora Inicio */
+    private Date fin;/* <- Hora Final */
+    private String strIni;/* <- String de la fecha de Inicio */
+    private String strFin;/* <- String de la fecha de Final */
     private boolean fisico;
 
-    /**/
+    /*Lista de las diferentes zonas del mundo*/
     public List<ZonaHoraria> lstZona = new ArrayList<>();
+    /*Lista de los Paises por zona horaria*/
     public List<zonaPais> lstPais = new ArrayList<>();
+    /*Lista de las diferentes zonas horarias junto con sus paies*/
     public List<horarioCompleto> lstcmpt = new ArrayList<>();
+    /*Lista contenedora de los diferentes objetos creados con la informacion del evento*/
     public List<UbiHoraContainer> lstContainer = new ArrayList<>();
-     public List<UbiHoraContainer> lstOrdenada = new ArrayList<>();
+    /*Lista con el orden de la configuracion*/
+    public List<UbiHoraContainer> lstOrdenada = new ArrayList<>();
+    /*Rango de fechas del evento*/
+    private List<Date> range;
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
+    public String getStrIni() {
+        return strIni;
+    }
+
+    public void setStrIni(String strIni) {
+        this.strIni = strIni;
+    }
+
+    public String getStrFin() {
+        return strFin;
+    }
+
+    public void setStrFin(String strFin) {
+        this.strFin = strFin;
+    }
+
+    public List<Date> getRange() {
+        return range;
+    }
+
+    public void setRange(List<Date> range) {
+        this.range = range;
+    }
 
     public List<UbiHoraContainer> getLstOrdenada() {
         return lstOrdenada;
@@ -62,11 +93,8 @@ public class eventWizardViewController implements Serializable {
     public void setLstOrdenada(List<UbiHoraContainer> lstOrdenada) {
         this.lstOrdenada = lstOrdenada;
     }
-   
-     
-     
-     
-     public String getNombre() {
+
+    public String getNombre() {
         return nombre;
     }
 
@@ -74,8 +102,6 @@ public class eventWizardViewController implements Serializable {
         this.nombre = nombre;
     }
 
-    
-    
     public String getUbi() {
         return ubi;
     }
@@ -156,7 +182,12 @@ public class eventWizardViewController implements Serializable {
         this.lstcmpt = lstcmpt;
     }
 //</editor-fold>
-StringBuffer stringBuffer = new StringBuffer();
+
+    StringBuffer stringBuffer = new StringBuffer();
+
+    /*Esta funcion llena el combo box de las zonas horarias*/
+    /*La informacion de las zonas se trae de la BD*/
+    /*Se verifica que el ID de la zona sea la misma y se concatena con el Pais para generar el string*/
     public void llenarCombo() {
         lstcmpt.clear();
 
@@ -173,86 +204,90 @@ StringBuffer stringBuffer = new StringBuffer();
                 int valPais = lstPais.get(y).getId();
 
                 if (valZona == valPais) {
+                    
                     lstcmpt.add(new horarioCompleto(lstZona.get(i).getZona().toString() + "-" + lstPais.get(y).getPais().toString()));
                 }
 
             }
         }
     }
-
-
     
-     public String format(Date fecha) {
-         String hora="";
-         
+    /*Funcion para dar formato a la hora*/
+    public String format(Date fecha) {
+        String hora = "";
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        
-        hora =String.valueOf(simpleDateFormat.format(fecha));
+
+        hora = String.valueOf(simpleDateFormat.format(fecha));
         return hora;
-        
+
+    }
+    
+    /*Funcion para dar formato a la fecha*/
+    public String formatFecha(Date fecha) {
+        String fechaN = "";
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        fechaN = String.valueOf(simpleDateFormat.format(fecha));
+        return fechaN;
+
     }
     
     
-    public void orderList(List<UbiHoraContainer> containers){
-        this.lstOrdenada.clear();
-        
-        for(int i=0;i<= this.lstContainer.size()-1;i++){
-            UbiHoraContainer cnt = new UbiHoraContainer();
-            cnt = lstContainer.get(i);
-            cnt.setOrd(i+1);
-            this.lstOrdenada.add(cnt);
-        }
-    }
-    
-    
-    private void updateUI(){
-        orderList(this.lstContainer);
-        
-        for(int i=0;i<=this.lstOrdenada.size()-1;i++){
-            System.out.println("Ord Dia: " +this.lstOrdenada.get(i).getOrd());
-             System.out.println(this.lstOrdenada.get(i).getDia());
-        }
-        
+    /*Funcion para actualizar GUI*/
+    private void updateUI() {
+
         PrimeFaces.current().ajax().update("publicarEventos:ubi-hora");
     }
     
     
-    public void fillContainer(ActionEvent e) {
-        DetalleDao dao =new DetalleDao();
-        
-        /*  System.out.println("Horario seleccionado : "+this.horario.getHorarioStr());*/
-        System.out.println("->");
-        System.out.println(this.nombre);
-        System.out.println(this.ubi);
-        System.out.println(this.link);
-        System.out.println(this.horario.getHorarioStr());
-        System.out.println(format(this.ini));
-        System.out.println(format(this.fin));
-        
-        UbiHoraContainer container = new UbiHoraContainer(this.nombre,this.horario.getHorarioStr().toString(),format(ini),format(this.fin));
-        
-        if(this.fisico == true){
-            container.setUbifisica(this.ubi);
-           
-        }else{
-            container.setLink(this.link);
-            
+    /*Funcion para setear las fechas en que Inicia y finaliza el evento*/
+    private void setearFechas(List<Date> list) {
+
+        for (int i = 0; i <= list.size() - 1; i++) {
+
+            if (i == 0) {
+                this.strIni = this.formatFecha(list.get(i));
+            } else if (i == list.size() - 1) {
+                this.strFin = this.formatFecha(list.get(i));
+            }
+
         }
-        
-        this.lstContainer.add(container);
-        System.out.println(" -> Dia: " +container.getDia()+" agregado!");
-        
-        updateUI();
+
     }
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+    /*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
+    /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
+    public UbiHoraContainer fillContainer(ActionEvent e) {
+        DetalleDao dao = new DetalleDao();
+        setearFechas(this.range);
         
-    
-     public void reset() {
-        PrimeFaces.current().resetInputs("ubiHorasFrm:todoW");
+        UbiHoraContainer container = new UbiHoraContainer(this.horario.getHorarioStr().toString(), format(ini), format(this.fin),this.strIni,this.strFin);
+
+        if (this.fisico == true) {
+            container.setUbifisica(this.ubi);
+            System.out.println(" -> Container Creado!");
+            System.out.println("Ubicacion: "+container.getUbifisica());
+            System.out.println("Zona Horaria: "+container.getZonaHoraria());
+            
+        } else {
+            container.setLink(this.link);
+            System.out.println(" -> Container Creado!");
+            System.out.println("Link: "+container.getLink());
+            System.out.println("Zona Horaria: "+container.getZonaHoraria());
+        }
+
+        return container;
     }
-     
-     
-    public void print(){
-        System.out.println("Botton");
-    }
-    
+     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+    /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+         
+
 }
