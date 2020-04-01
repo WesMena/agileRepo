@@ -37,7 +37,7 @@ import org.primefaces.shaded.commons.io.IOUtils;
 @SessionScoped
 public class EventWizardImagesController implements Serializable {
 
-    private StreamedContent profileImage;
+    public static StreamedContent profileImage = null;
 
 
     public EventWizardImagesController() {
@@ -56,7 +56,7 @@ public class EventWizardImagesController implements Serializable {
         }
     }
 
-    public StreamedContent getProfileImage() {
+    public  StreamedContent getProfileImage() {
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
         return profileImage;
     }
@@ -102,7 +102,8 @@ public class EventWizardImagesController implements Serializable {
     }
 
     private void updateUI() {
-        PrimeFaces.current().ajax().update("publicarEvento:ppOrg");
+        PrimeFaces.current().ajax().update("ppOrg");
+        PrimeFaces.current().ajax().update("counterContainerTag");
         //PrimeFaces.current().ajax().update("publicarEvento:pnlHelp");
     }
     
