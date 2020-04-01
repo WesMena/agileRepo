@@ -26,7 +26,10 @@ import java.util.Date;
 import java.text.ParseException;
 import static java.time.Instant.now;
 import java.util.HashSet;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
+import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.message;
 
 /**
  *
@@ -290,4 +293,11 @@ public class eventWizardViewController implements Serializable {
     /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
          
 
+    public void saveMessage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Informacioón Guardada!") );
+       
+    }
+    
+    
 }
