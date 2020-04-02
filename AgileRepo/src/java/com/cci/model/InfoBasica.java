@@ -17,7 +17,7 @@ public class InfoBasica   {
     private String tipo;
     private String nombre;
     private String organizador;
-    private List<String> tags;
+    private List<String> tags  = new ArrayList<>();;
     private InputStream  foto;
     private String descripcion;
     
@@ -27,13 +27,16 @@ public class InfoBasica   {
     }
 
     public InfoBasica(String tipo,String nombre, String organizador, List<String> tags,InputStream foto,String descripcion) {
-        tags = new ArrayList<>();
+        
         this.nombre = nombre;
         this.organizador = organizador;
-        this.tags = tags;
+        //this.tags = tags;
         this.foto = foto;
         this.tipo = tipo;
         this.descripcion = descripcion;
+        tags.forEach((s) -> {
+            this.tags.add(s);
+        });
     }
 
     public InputStream getFoto() {

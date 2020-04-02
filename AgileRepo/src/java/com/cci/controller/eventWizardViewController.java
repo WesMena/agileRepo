@@ -133,7 +133,7 @@ public class eventWizardViewController implements Serializable {
         });
         
         if (idEvento != -1) {
-            
+            //Update :)
         } else {
             ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descripcion));
         }
