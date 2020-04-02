@@ -45,7 +45,7 @@ public class UsuarioLoginController {
     
     private String uid;
     
-    public static String UID = "";
+    public static String UID = "uefWtF1LYnXf4Ld2RGSQZ81yQkp2";
 
     public String getUid() {
         System.out.println("UID: " + this.uid);

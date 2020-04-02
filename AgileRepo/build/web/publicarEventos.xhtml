@@ -109,7 +109,7 @@
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Crear Entrada" action="#{eventWizardController.nuevaEntrada()}" update="panellista"></p:commandButton>
+                                                    <p:commandButton value="Crear Entrada" action="#{eventWizardController.nuevaEntrada()}" update="panellista panelGuardar"></p:commandButton>
                                                 </p:panel>
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{eventWizardController.lstEntrada}" var="entradas" varStatus="loop" >
@@ -136,6 +136,11 @@
 
                                                     </c:forEach>
                                                 </h:panelGroup>
+
+                                                <p:panel id="panelGuardar" style="width:100%; text-align: right; border: none">
+                                                    <p:commandButton value="Guardar" action="#{eventWizardController.guardarEntradas()}" disabled="#{eventWizardController.lstEntrada.size() > 0 ? 'false':'true'}"></p:commandButton>
+                                                </p:panel>
+
                                             </p:panel>
                                         </div>
 
@@ -194,8 +199,8 @@
                                                     <p:panel style="display:inline-block; border:none !important;">
                                                         <h:outputText value="Fecha Inicio " style='font-weight:bold' />
                                                         <br/>
-                                                        <p:inputMask id="date1" value="#{eventWizardController.fechaInicioEntrada}" mask="99/99/9999" required="#{eventWizardController.validarEntradas}"/>
-                                                        <p:tooltip id="toolTipFade" for="date1" value="mm/dd/yyyy" position="top"/>
+                                                        <p:inputMask id="date1" value="#{eventWizardController.fechaInicioEntrada}" mask="9999-99-99" required="#{eventWizardController.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade" for="date1" value="yyyy-mm-dd" position="top"/>
                                                     </p:panel>
 
                                                     <p:panel style="display:inline-block; border:none !important;">
@@ -214,8 +219,8 @@
                                                     <p:panel style="display:inline-block;border:none !important; padding: 0;">
                                                         <h:outputText value="Fecha Fin " style='font-weight:bold' />
                                                         <br/>
-                                                        <p:inputMask id="date2" value="#{eventWizardController.fechaFinEntrada}" mask="99/99/9999" required="#{eventWizardController.validarEntradas}"/>
-                                                        <p:tooltip id="toolTipFade2" for="date2" value="mm/dd/yyyy" position="top"/>
+                                                        <p:inputMask id="date2" value="#{eventWizardController.fechaFinEntrada}" mask="9999-99-99" required="#{eventWizardController.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade2" for="date2" value="yyyy-mm-dd" position="top"/>
                                                     </p:panel>
 
                                                     <p:panel style="display:inline-block;border:none !important">
@@ -236,6 +241,8 @@
                                                         <br/>
                                                         <!-- Cierra la Seccion Editar sin aplicar cambios -->
                                                         <p:commandButton value="Cerrar" action="#{eventWizardController.cerrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+
+
                                                     </center>
                                                 </p:panel>
                                             </p:panel>
@@ -244,6 +251,43 @@
                                     </div>
 
                                 </p:panel>
+
+                            </p:tab>
+                            <p:tab id="infoMultimedia" title="Multimedia" >
+                                <p:panel id="MainMedia" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-12 ui-1g-6" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
+                                            <p:panel id="panelMedia">
+                                                <p:graphicImage cache="true" id="ppOrg" class="ppOrganizador" 
+                                                                stream="true" value="#{mediaController.profileImage}"
+                                                                style="background-attachment: fixed ;border-radius: 6px;display: block;height: 96%;">
+                                                </p:graphicImage>
+                                            </p:panel>
+                                            <div class="ui-g-12 ui-md-1">
+
+                                            </div>
+
+                                            <div class="ui-g-12 ui-md-12">
+
+                                                <p:fileUpload update="imgLoader panelMedia"  id="imgLoader" fileLimit="1"
+                                                              chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"
+                                                              fileUploadListener="#{mediaController.handleFileUpload}" 
+                                                              cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado."
+                                                              fileLimitMessage="El archivo excede el tamaño permitido."
+                                                              allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar"
+                                                              style="display: block" label="Imagen"
+                                                              >
+                                                </p:fileUpload>
+                                                <p:commandButton icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}"
+                                                                 partialSubmit="true" process="@this"   value="Eliminar Fotografía.">
+                                                </p:commandButton>
+
+                                            </div>
+                                        </div>                                        
+                                    </div>
+
+                                </p:panel>
+
                             </p:tab>
                         </p:wizard>
                         <p:commandButton value="Regresar" onclick="PF('wPublicacion').back();"></p:commandButton>
