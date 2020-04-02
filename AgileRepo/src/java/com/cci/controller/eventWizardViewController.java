@@ -119,7 +119,7 @@ public void cambioResumen(ValueChangeEvent e){
     private Date Fini;
     private Date Ffin;
     private boolean fisico;
-    private int idEvnt;
+    
     
     /*Lista de las diferentes zonas del mundo*/
     public List<ZonaHoraria> lstZona = new ArrayList<>();
@@ -160,14 +160,7 @@ public void cambioResumen(ValueChangeEvent e){
     
     
     
-    public int getIdEvnt() {
-        return idEvnt;
-    }
 
-    public void setIdEvnt(int idEvnt) {
-        this.idEvnt = idEvnt;
-    }
-    
     
     public String getStrIni() {
         return strIni;
@@ -368,7 +361,7 @@ public void cambioResumen(ValueChangeEvent e){
     /*Genera un ID random para prueba*/
     public void ranID(){
         Random rand = new Random(); 
-        this.idEvnt = rand.nextInt(1000);
+        this.idEvento = rand.nextInt(1000);
     }
     
     
@@ -383,7 +376,7 @@ public void cambioResumen(ValueChangeEvent e){
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
          ranID();
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvnt,this.horario.getHorarioStr().toString(), this.ini,this.fin,this.fisico,this.Fini,this.Ffin);
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvento,this.horario.getHorarioStr().toString(), this.ini,this.fin,this.fisico,this.Fini,this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);
@@ -472,7 +465,10 @@ public void cambioResumen(ValueChangeEvent e){
     public void nuevaEntrada() {
 
         Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
+        
         lstEntrada.add(nuevaE);
+        System.out.println("creando...");
+        System.out.println(nuevaE.getNombre().toString());
     }
 
     public List<Entrada> getLstEntrada() {

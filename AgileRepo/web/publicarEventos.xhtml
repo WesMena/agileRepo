@@ -143,12 +143,7 @@
 
                 <center>    
                     <h:form id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
-                        <p:accordionPanel  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
-
-
-
-
-
+                        <p:accordionPanel  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" prependId="false" >
 
 
                             <p:tab id="imagenPrincipal" title="Imagen Principal">
@@ -157,11 +152,6 @@
                                         <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
                                         <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
                                     </div>
-
-
-
-
-
 
 
                                     <div style="width:100%; height:100%;">
@@ -174,16 +164,8 @@
                                     </div>
 
 
-
-
-
-
                                 </p:panel>   
                             </p:tab>
-
-
-
-
 
 
                             <p:tab id="descripcion" title="Resumen/Descripción">
@@ -424,7 +406,7 @@
                                         </p:panel>
                                         <p:panel style="width: 100%;display: inline-block;border: none;" >
                                             <h:inputTextarea 
-
+                                                id="input1txt"
                                                 rows="10"             
                                                 cols="1"
                                                 readonly="true" 
@@ -438,6 +420,7 @@
                                                 <label style="margin:4px">Nombre del evento</label>
                                                 <center>
                                                     <p:inputTextarea
+                                                        id="input2txt"
                                                         requiredMessage="El nombre del evento es obligatorio."
                                                         style="width: 100%;border: none !important;margin: 0px;padding: 0px"
                                                         required="true"
@@ -473,6 +456,7 @@
                                             <div style="width: 100%;border: solid #cccccc thin">
                                                 <center>
                                                     <p:inputTextarea
+                                                        id="input3txt"
                                                         style="width: 100%;height: 100%;margin: 0px;padding: 0px !important;border: none !important"
                                                         maxlength="25"
                                                         required="true"
@@ -490,6 +474,15 @@
                                         </p:panel>
 
                                     </p:panel>
+                                    
+                                    <p:commandButton id="submitDescripción2" value="Guardar" >
+                                        <f:ajax execute="input1txt"></f:ajax>
+                                        <f:ajax execute="input2txt"></f:ajax>
+                                        <f:ajax execute="selectSoC"></f:ajax>
+                                        <f:ajax execute="selectOther"></f:ajax>
+                                        <f:ajax execute="input3txt"></f:ajax>
+                                    </p:commandButton>  
+                                    
                                 </p:panel>
                             </p:tab>
 
@@ -498,6 +491,7 @@
                                 <p:panel id="panelMainEntradas" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div class="ui-g">
                                         <!-- Dependiendo del valor de editarDivRend actualiza la vista del tab -->
+                                        
                                         <div class="#{(wizardcontroller.editarDivRend)?'ui-g-12 ui-md-6 ui-1g-6':'ui-g-12 ui-md-12 ui-1g-6'}" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
