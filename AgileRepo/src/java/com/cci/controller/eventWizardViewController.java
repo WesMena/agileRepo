@@ -5,6 +5,7 @@
  */
 package com.cci.controller;
 
+import com.cci.model.UbiHoraConfig;
 import com.cci.model.UbiHoraContainer;
 import com.cci.model.Usuario;
 import com.cci.model.ZonaHoraria;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.text.ParseException;
 import static java.time.Instant.now;
 import java.util.HashSet;
+import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
@@ -49,8 +51,11 @@ public class eventWizardViewController implements Serializable {
     private Date fin;/* <- Hora Final */
     private String strIni;/* <- String de la fecha de Inicio */
     private String strFin;/* <- String de la fecha de Final */
+    private Date Fini;
+    private Date Ffin;
     private boolean fisico;
-
+    private int idEvnt;
+    
     /*Lista de las diferentes zonas del mundo*/
     public List<ZonaHoraria> lstZona = new ArrayList<>();
     /*Lista de los Paises por zona horaria*/
@@ -65,6 +70,40 @@ public class eventWizardViewController implements Serializable {
     private List<Date> range;
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
+
+    
+    
+    
+    
+    public Date getFini() {
+        return Fini;
+    }
+
+    public void setFini(Date Fini) {
+        this.Fini = Fini;
+    }
+
+    public Date getFfin() {
+        return Ffin;
+    }
+
+    public void setFfin(Date Ffin) {
+        this.Ffin = Ffin;
+    }
+
+    
+    
+    
+    
+    public int getIdEvnt() {
+        return idEvnt;
+    }
+
+    public void setIdEvnt(int idEvnt) {
+        this.idEvnt = idEvnt;
+    }
+    
+    
     public String getStrIni() {
         return strIni;
     }
@@ -251,39 +290,53 @@ public class eventWizardViewController implements Serializable {
         for (int i = 0; i <= list.size() - 1; i++) {
 
             if (i == 0) {
-                this.strIni = this.formatFecha(list.get(i));
+                this.Fini = list.get(i);
             } else if (i == list.size() - 1) {
-                this.strFin = this.formatFecha(list.get(i));
+                this.Ffin = list.get(i);
             }
 
         }
 
     }
+    
+    
+    /*Genera un ID random para prueba*/
+    public void ranID(){
+        Random rand = new Random(); 
+        this.idEvnt = rand.nextInt(1000);
+    }
+    
+    
+    
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     /*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
     /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
-    public UbiHoraContainer fillContainer(ActionEvent e) {
-        DetalleDao dao = new DetalleDao();
+    public UbiHoraConfig fillContainer(ActionEvent e) {
+        WizardDao dao = new WizardDao();
         setearFechas(this.range);
-        
-        UbiHoraContainer container = new UbiHoraContainer(this.horario.getHorarioStr().toString(), format(ini), format(this.fin),this.strIni,this.strFin);
+         ranID();
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvnt,this.horario.getHorarioStr().toString(), this.ini,this.fin,this.fisico,this.Fini,this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);
+            container.setLink("NONE");
             System.out.println(" -> Container Creado!");
             System.out.println("Ubicacion: "+container.getUbifisica());
             System.out.println("Zona Horaria: "+container.getZonaHoraria());
             
         } else {
             container.setLink(this.link);
+             container.setUbifisica("NONE");
             System.out.println(" -> Container Creado!");
             System.out.println("Link: "+container.getLink());
             System.out.println("Zona Horaria: "+container.getZonaHoraria());
         }
-
+        
+        dao.save(container);
+        
         return container;
     }
      /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
