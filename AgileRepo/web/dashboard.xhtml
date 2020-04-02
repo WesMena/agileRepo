@@ -223,7 +223,7 @@
                             <p:dataTable  id="tableId" var="crono" value="#{eventcontroller.lstCrono}" style= "display:none"  >
 
                                 <f:facet name="header" >
-                                   <h:outputText value="#{eventcontroller.target.nombre}" />
+                                    <h:outputText value="#{eventcontroller.target.nombre}" />
                                 </f:facet>
 
 
@@ -245,14 +245,11 @@
 
                             </p:dataTable>
 
-
-
-
-
                         </p:dialog>   
 
                     </h:form>
                     <!--Dialogo de ocmentarios-->
+                    
                     <h:form id="frmdlg2">
                         <p:dialog showEffect="fade"  modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="true" width="360" height="375" resizable="false" widgetVar="dlgComent" id="dlgC">
                             <center>
@@ -302,5 +299,4 @@
             </p:confirmDialog>
         </h:form>
     </ui:define>
-
 </ui:composition>
