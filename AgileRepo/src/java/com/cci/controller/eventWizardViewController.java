@@ -5,6 +5,9 @@
  */
 package com.cci.controller;
 
+import com.cci.model.InfoBasica;
+import com.cci.service.Dao;
+import com.cci.service.InfoBasicaDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -41,11 +45,21 @@ public class eventWizardViewController implements Serializable {
     private String nombreOrganizador;
     private String nombreEvento;
     private String tipoEvento;
-
+    private boolean skip = false;
+    public static int idEvento = -1;
     //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
 
     public String getTipoEvento() {
@@ -55,8 +69,6 @@ public class eventWizardViewController implements Serializable {
     public void setTipoEvento(String tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
-    
-    
 
     public String getDescripcion() {
         return descripcion;
@@ -105,6 +117,29 @@ public class eventWizardViewController implements Serializable {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
+    public void saveInfoBasica(ActionEvent event) {
+    
+        List<String> tagStr = new ArrayList<>();
+        System.out.println("Tipo : " + this.tipoEvento);
+        System.out.println("Nombre:" + this.nombreEvento);
+        System.out.println("Desc:" + this.descripcion);
+        System.out.println("Organizador:" + this.nombreOrganizador);
+        System.out.println("UID:" + Constantes.logguedUsserUID);
+        System.out.println("Bytes :" + EventWizardImagesController.profileImage.getContentLength());
+        Dao dao = new InfoBasicaDao();
+        
+        this.tags.forEach((t) -> {
+            tagStr.add(t.getTag());
+        });
+        
+        if (idEvento != -1) {
+            
+        } else {
+            ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descripcion));
+        }
+    
+    }
+
     public void addTag(ActionEvent e) {
         if (this.tags.size() == 10) {
             //Mensaje de error
@@ -144,6 +179,16 @@ public class eventWizardViewController implements Serializable {
 
     public void onLoad() {
         this.nombreOrganizador = UsuarioLoginController.displayName;
+    }
+
+    public String handleFlow(FlowEvent event) {
+        String currentStepId = event.getOldStep();
+        String stepToGo = event.getNewStep();
+        if (skip) {
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
     }
 
     //</editor-fold>

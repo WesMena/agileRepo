@@ -27,6 +27,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/faces-config.xml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/Conexion.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/js/fireInit.js</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/InfoBasicaDao.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/nanoscroller.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/DetalleEvento.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/DetalleEvento.java</file>
@@ -41,6 +42,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/register.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/js/nanoscroller.js</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/DetalleDao.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/InfoBasica.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/template.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/templateComingSoon.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/ComentarioController.java</file>

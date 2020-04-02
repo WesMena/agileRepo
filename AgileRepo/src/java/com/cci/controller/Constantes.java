@@ -19,6 +19,8 @@ import javax.faces.bean.SessionScoped;
 public class Constantes implements Serializable {
     public static String logguedUsserDisplayName;
 
+    public static  String logguedUsserUID;
+    
     public  String getLogguedUsserDisplayName() {
         return logguedUsserDisplayName;
     }
@@ -26,5 +28,15 @@ public class Constantes implements Serializable {
     public static void setLogguedUsserDisplayName(String logguedUsserDisplayName) {
         Constantes.logguedUsserDisplayName = logguedUsserDisplayName;
     }
+
+    public static String getLoggueUsserUID() {
+        return logguedUsserUID;
+    }
+
+    public static void setLoggueUsserUID(String loggueUsserUID) {
+        Constantes.logguedUsserUID = loggueUsserUID;
+    }
+    
+    
     
 }

@@ -13,8 +13,8 @@
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
                 <f:metadata>
-                    <f:viewAction action="#{eventWizardImageController.onLoad()}" />
                     <f:viewAction action="#{eventWizardController.onLoad()}" />
+                    <f:viewAction action="#{eventWizardImageController.onLoad()}" />
                 </f:metadata>
             </ui:define>
 
@@ -29,9 +29,12 @@
                 </script>
                 <center>    
                     <h:form prependId="false" id="publicarEvento" style="width: 90%;height: 100%;padding: 30px;border-radius: 6px;">
-                        <p:messages  id="messageErrorTag" />
-                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;border-radius: 10px;" >
+                        <p:messages closable="true"  id="messageErrorTag" >
+                            <p:autoUpdate />
+                        </p:messages>
+                        <p:accordionPanel  id="publicarEventoInner" prependId="false" widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;border-radius: 10px;" >
 
+                            <!-->Tab para la información básica</!-->
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel id="pnlHelp" style="text-align: left">
@@ -84,11 +87,15 @@
                                         <!--Seleccionar un tipo para el evento-->
 
                                         <div style="width: 100%;">
-                                            <p:selectOneMenu value="#{eventWizardController.tipoEvento}"   required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
+                                            <p:selectOneMenu   value="#{eventWizardController.tipoEvento}"  requiredMessage="Seleccione uno."  required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
                                                 <f:selectItem itemLabel="Seminario o Charla" itemValue="" />
-                                                <f:selectItem itemLabel="Seminario" itemValue="Seminario" />
+                                                <f:selectItem  itemLabel="Seminario" itemValue="Seminario" />
                                                 <f:selectItem itemLabel="Charla" itemValue="Charla" />
                                             </p:selectOneMenu>
+                                            <!--Mensaje de error-->
+                                            <p:message   id="messageDropdown" for="selectSoC" showDetail="false">
+                                                <p:autoUpdate />
+                                            </p:message>
                                         </div>
                                         <br></br>
                                         <br></br>
@@ -200,7 +207,7 @@
                                                 </div>
                                             </c:forEach>
                                         </p:panel>
-                                        <p:panel  id="pnlTest" toggleableHeader="true" collapsed="true" style="width: 100%" header="Información del Organizador" toggleable="true">
+                                        <p:panel   id="pnlTest"   style="width: 100%" header="Información del Organizador" >
                                             <!--Div para la UI del organizador-->
                                             <div style="width: 100%;border: solid #cccccc thin;border-radius: 6px;">
                                                 <!--Nombre deo organizador logueado-->
@@ -210,6 +217,7 @@
                                                         <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{eventWizardController.nombreOrganizador}" ></p:outputLabel>
                                                         <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Descripción</label>
                                                         <p:inputTextarea 
+                                                            id="inputDesc"
                                                             value="#{eventWizardController.descripcion}"
                                                             counter="eventoDescC"
                                                             counterTemplate="{0}/200"
@@ -218,12 +226,16 @@
                                                             class="inputDesc" style="padding: 8px !important;display: block">
 
                                                         </p:inputTextarea>
+                                                        <!--Mensaje de error-->
+                                                        <p:message  id="messagesDesc" for="inputDesc" showDetail="false">
+                                                            <p:autoUpdate />
+                                                        </p:message>
                                                         <!--Counter para nombre y numero de tags-->
                                                         <h:outputText   style="font-weight: bold;float: right" id="eventoDescC" ></h:outputText>
 
                                                     </div>
                                                     <div class="ui-g-12 ui-md-1">
-                                                        <p:graphicImage cache="false" id="ppOrg" class="ppOrganizador"   stream="true" value="#{eventWizardImageController.profileImage}" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 96%;"></p:graphicImage>
+                                                        <p:graphicImage  cache="false" id="ppOrg" class="ppOrganizador"   value="#{eventWizardImageController.profileImage}" stream="true" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 96%;"></p:graphicImage>
                                                     </div>
 
                                                     <div class="ui-g-12 ui-md-12">
@@ -241,12 +253,24 @@
 
                                     </p:panel>
                                 </p:panel>
+                                <p:commandButton  validateClient="true" actionListener="#{eventWizardController.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc,ppOrg"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
                             </p:tab>
 
 
-                        </p:wizard>
+                            <h:outputText value="Step 2"></h:outputText>
+
+
+                            <!-->Tab de prueba</!-->
+                            <p:tab>
+
+                            </p:tab>
+                        </p:accordionPanel>
                     </h:form>
-                </center>
+                </center>   
+
+
+
+                <!-->Estilos feos</!-->
                 <style>
 
 
@@ -264,7 +288,7 @@
                         margin-top: -8px;
                     }
 
-
+                    /*No es mucho.Pero es trabajo honesto*/
                     @media only screen and (max-width: 768px){
                         /*Dispositivos moviles grandes*/
                         .txtIntro{

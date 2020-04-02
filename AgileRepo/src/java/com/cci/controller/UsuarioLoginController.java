@@ -98,6 +98,7 @@ public class UsuarioLoginController {
         UID = googleResponse;
         displayName = disName;
         Constantes.logguedUsserDisplayName = displayName;
+        Constantes.logguedUsserUID = UID;
            
         //Registrar a quienes se logueen y no lo esten
         if (!((UsuarioDao) dao).exists(UID)) {
