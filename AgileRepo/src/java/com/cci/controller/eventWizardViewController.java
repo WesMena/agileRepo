@@ -47,8 +47,10 @@ import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.messa
 @ManagedBean(name = "wizardcontroller")
 @SessionScoped
 public class eventWizardViewController implements Serializable {
+    
   public String descripcion="";
   public String resumen=""; 
+  public Integer idEvento;
       public String onFlowProcess(FlowEvent event) {
            
             return event.getNewStep();
@@ -400,6 +402,22 @@ public void cambioResumen(ValueChangeEvent e){
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Informacioón Guardada!") );
        
+    }
+
+    public Integer getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(Integer idEvento) {
+        this.idEvento = idEvento;
+    }
+
+    public StringBuffer getStringBuffer() {
+        return stringBuffer;
+    }
+
+    public void setStringBuffer(StringBuffer stringBuffer) {
+        this.stringBuffer = stringBuffer;
     }
 
    

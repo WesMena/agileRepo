@@ -14,7 +14,7 @@
             <ui:define name="head">
 
                 <f:metadata>
-                    <f:viewAction action="#{wizardController.llenarCombo()}" />
+                    <f:viewAction action="#{wizardcontroller.llenarCombo()}" />
                 </f:metadata>
 
 
@@ -30,7 +30,15 @@
                     // }
                 </script>
 
-                <script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
+                
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk" ></script>
+
+                
+                
+         
 
                 <script type="text/javascript">
                     PrimeFaces.locales['es'] = {
@@ -285,7 +293,7 @@
                                             <br></br>
 
                                             <h3>Digite la direccion del evento:</h3>
-                                            <p:inputTextarea id="txtDir" value="#{wizardController.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
+                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
                                             <br/>
                                             <h:outputText id="display" />
 
@@ -297,7 +305,7 @@
                                         <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
 
                                             <h3>Digita el link al evento:</h3>
-                                            <p:inputTextarea id="txtLink" value="#{wizardController.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
 
                                         </p:panel>
 
@@ -321,9 +329,9 @@
                                                 <p:outputLabel value="Zona Horaria:" />
                                                 <br></br>
                                                 <br></br>
-                                                <h:selectOneMenu id="comboZonas" value="#{wizardController.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
+                                                <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
 
-                                                    <f:selectItems  value="#{wizardController.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
+                                                    <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
 
                                                 </h:selectOneMenu>
                                                 <br></br>
@@ -333,7 +341,7 @@
                                                 <br></br>
 
 
-                                                <p:datePicker id="range" selectionMode="range" value="#{wizardController.range}" readonlyInput="true" />
+                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" />
 
 
 
@@ -343,13 +351,13 @@
                                                 <br></br>
                                                 <p:outputLabel value="El evento inicia a:" />
                                                  <br></br>
-                                                <p:datePicker id="inicia" value="#{wizardController.ini}" timeOnly="true" pattern="HH:mm"/>
+                                                <p:datePicker id="inicia" value="#{wizardcontroller.ini}" timeOnly="true" pattern="HH:mm"/>
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
                                                 <p:outputLabel value="El evento termina a:" />
                                                  <br></br>
-                                                <p:datePicker id="termina" value="#{wizardController.fin}" timeOnly="true" pattern="HH:mm"/>
+                                                <p:datePicker id="termina" value="#{wizardcontroller.fin}" timeOnly="true" pattern="HH:mm"/>
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
@@ -368,9 +376,9 @@
                                         <br></br>
                                         <br></br>
                                         <br></br>
-                                        <p:inputSwitch value="#{wizardController.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
+                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
 
-                                        <p:commandButton value="Guardar Día"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardController.fillContainer}" /> 
+                                        <p:commandButton value="Guardar Día"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" /> 
                                         
 
                                     </p:panel>
@@ -382,7 +390,7 @@
 
 
                                         <h:outputText value="Range Selection:" />
-                                        <ui:repeat var="date" value="#{wizardController.range}" varStatus="status" size="#{wizardController.range.size()}">
+                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
                                             #{status.first ? '' : '-'}
                                             <h:outputText value="#{date}">
                                                 <f:convertDateTime pattern="MM/dd/yyyy" />
