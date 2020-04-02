@@ -26,7 +26,8 @@
                 </script>
                 <center>    
                     <h:form style="width: 90%;height: 100%;padding: 30px">
-                        <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" flowListener="#{eventWizardController.onFlowProcess}" showNavBar="false">
+                        <!-- <p:wizard widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" flowListener="" showNavBar="false"> --> 
+                        <p:accordionPanel prependId="false" style="width: 100%;height: 100%;margin-top: 10px !important;">
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel style="text-align: left">
@@ -109,7 +110,7 @@
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Crear Entrada" action="#{eventWizardController.nuevaEntrada()}" update="panellista panelGuardar"></p:commandButton>
+                                                    <p:commandButton value="Crear Entrada" action="#{eventWizardController.nuevaEntrada()}" disabled="#{eventWizardController.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
                                                 </p:panel>
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{eventWizardController.lstEntrada}" var="entradas" varStatus="loop" >
@@ -138,7 +139,7 @@
                                                 </h:panelGroup>
 
                                                 <p:panel id="panelGuardar" style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Guardar" action="#{eventWizardController.guardarEntradas()}" disabled="#{eventWizardController.lstEntrada.size() > 0 ? 'false':'true'}"></p:commandButton>
+                                                    <p:commandButton value="Guardar" action="#{eventWizardController.guardarEntradas()}" disabled="#{eventWizardController.BotonEntrada()}"></p:commandButton>
                                                 </p:panel>
 
                                             </p:panel>
@@ -234,7 +235,7 @@
                                                     <br/>
                                                     <center>
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
-                                                        <p:commandButton value="Actualizar" action="#{eventWizardController.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <p:commandButton value="Actualizar" action="#{eventWizardController.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas" process="@this nombreE,panelPrecio,date1,time1,date2,time2" partialSubmit="true"></p:commandButton>
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
                                                         <p:commandButton value="Borrar" action="#{eventWizardController.borrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
                                                         <br/>
@@ -289,9 +290,9 @@
                                 </p:panel>
 
                             </p:tab>
-                        </p:wizard>
-                        <p:commandButton value="Regresar" onclick="PF('wPublicacion').back();"></p:commandButton>
-                        <p:commandButton value="Siguiente" onclick="PF('wPublicacion').next();"></p:commandButton>                        
+                        </p:accordionPanel>
+                        <!-- </p:wizard> --> 
+                     
                     </h:form>
                 </center>
                 <style>

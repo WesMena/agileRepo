@@ -37,7 +37,7 @@ public class eventWizardViewController {
     Integer indexEntrada;
     Boolean editarDivRend = false;
     Boolean validarEntradas = false;
-    Integer idEvento = 1;
+    Integer idEvento;
 
 
 //</editor-fold>
@@ -211,7 +211,32 @@ public class eventWizardViewController {
         System.out.println("Ingreso de Entradas a la BD listo");
     }
 
-
-
+    public String BotonEntrada(){
+    
+        if(lstEntrada.size() > 0 && idEvento >= 1){
+        
+            return "false";
+            
+        } else {
+        
+            return "true";
+            
+        }
+    }
+    
+    public String BotonCrearEntrada(){
+     if(idEvento != null){
+        
+            return "false";
+            
+        } else {
+        
+            return "true";
+            
+        }
+    
+    }
+    
+    
 //</editor-fold>
 }
