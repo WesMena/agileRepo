@@ -23,7 +23,7 @@ String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
      //Aquí van las credenciales, recordar cambiarlas según las de su pc.
     
     String USER = "root";
-    String PASS = "123";
+    String PASS = "wvjjk611";
     Connection conn = null;
     
 private static Conexion INSTANCE = null;

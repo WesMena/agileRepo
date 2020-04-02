@@ -1,0 +1,223 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28/03/2020, 12:15:12 AM
+    Author     : wesli
+*/
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+
+.ui-sm-10{
+    
+}
+
+.landing-body{
+    font-family:"Raleway","latoregular","Trebuchet MS","Arial","Helvetica";
+}
+
+.landing-wrapper #introduction .introduction-content .title{
+    margin-top:25%;
+    margin-left:25%;
+}
+
+.landing-wrapper .landing-header .landing-header-content ul li a{
+    color:#707070;
+}
+menuTopBar{
+    color:#7f7f7f;
+}
+
+.botonLoginTopBar{
+    padding-top:15px; margin-left:5em;
+}
+
+.landing-wrapper .landing-header .landing-header-content ul li a{
+    font-size:20px;
+}
+
+.busquedaTopbar{
+   width:25em;
+   margin-top:-1em;
+   height:2em;
+   font-size:18px;
+   background:none;
+   outline:none;
+   border:none;
+}
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border:none;
+    outline:none;
+    color:#707070;
+    background:none;
+    font-size:24px;
+}
+
+.landing-wrapper .landing-header .landing-header-content{
+    padding-top:20px;
+} 
+
+.landing-wrapper #introduction{
+    background-image:url(/AgileRepo/faces/javax.faces.resource/images/EventosSummary/inicioEventosSummary3.jpg?ln=omega-layout);
+}
+
+
+.titulo{
+ font-size: 32px;
+    font-weight: bolder;
+    color: #f05537;
+    text-align: left;
+    margin-left: -70%;   
+}
+
+.margenTitulo{
+  margin-top:5%;  
+}
+
+
+@media (max-width: 64em){
+    .landing-wrapper #pricing .pricing-content{
+            margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+        
+    }
+    
+    
+   .titulo{
+ font-size: 24px;
+    font-weight: bolder;
+    color: #f05537;
+    text-align: left;
+    margin-left: 0%;   
+    margin-top:15%;
+} 
+    
+    .margenTitulo{
+  margin-top:25%;  
+}
+    
+    
+    
+    
+.landing-wrapper #introduction .introduction-content .title{
+    margin-top:30%;
+      margin-left:15%;
+}
+    
+    
+    
+    .busquedaTopbar{
+   width:25em;
+   margin-top:-1em;
+   height:2em;
+   font-size:14px;
+   color:#fff;
+}
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border:none;
+    outline:none;
+    color:#fff;
+    background:none;
+    font-size:16px;
+}
+    
+    
+
+    
+    
+    .landing-wrapper .landing-header .landing-header-content ul{
+        color:#fff;
+    }
+    .landing-wrapper .landing-header .landing-header-content ul li a{
+    color:#fff;
+}
+  .botonLoginTopBar{
+    padding-top:15px; margin-left:0px;
+}  
+.busquedaTopbar{
+        width: 10em;
+    margin-top: 2em;
+    margin-left: 0.5em;
+}   
+
+
+    
+    .landing-wrapper .landing-header .landing-header-content ul li a:hover{
+        color:#707070;
+        background:#fff;
+    }
+}
+menuTopBar{
+      color:#fff;  
+}
+
+
+
+
+@media (max-width: 640px){
+    .landing-wrapper #introduction .introduction-content .title{
+    margin-top:65%;
+      margin-left:0%;
+}
+    
+   .busquedaTopbar{
+   width:25em;
+   margin-top:-1em;
+   height:2em;
+   font-size:14px;
+   color:#fff;
+}
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border:none;
+    outline:none;
+    color:#fff;
+    background:none;
+    font-size:14px;
+}
+    
+    
+    
+    
+    
+     .landing-wrapper .landing-header .landing-header-content ul{
+        color:#fff;
+    }
+    .landing-wrapper .landing-header .landing-header-content ul li a{
+    color:#fff;
+}
+  .botonLoginTopBar{
+    padding-top:15px; margin-left:0px;
+}  
+.busquedaTopbar{
+        width: 10em;
+    margin-top: 2em;
+    margin-left: 0.5em;
+}   
+
+
+    
+    .landing-wrapper .landing-header .landing-header-content ul li a:hover{
+        color:#707070;
+        background:#fff;
+    }
+    
+    
+}
+
+.gridEventosSummary:hover{
+    box-shadow: 5px 5px 25px gray;
+    
+}
+
+.landing-wrapper #pricing .pricing-content .ui-g{
+    margin-top:0px;
+}
+
+
+
