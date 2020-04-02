@@ -42,6 +42,11 @@ public class portadaController implements Serializable {
  
  String ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout')";
  
+ 
+ //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
+ String fotobd;
+ String fotoSecundariabd;
+ 
  public void onLoad(){
      
      
@@ -108,7 +113,7 @@ ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/A
   
 //Esta es la ubicación que es leída por el graphicImage del tab "Imagen principal" del wizard de publicarEventos
     this.ubicacionFoto="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
-  
+  this.fotobd="images/EventosSummary/"+filename;
 
     
     }
@@ -198,7 +203,23 @@ ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/A
   
 //Esta es la ubicación que es leída por el graphicImage del tab "Imagen principal" del wizard de publicarEventos
     this.ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
-   
+   this.fotoSecundariabd="images/EventosSummary/"+filename;
+    }
+
+    public String getFotobd() {
+        return fotobd;
+    }
+
+    public void setFotobd(String fotobd) {
+        this.fotobd = fotobd;
+    }
+
+    public String getFotoSecundariabd() {
+        return fotoSecundariabd;
+    }
+
+    public void setFotoSecundariabd(String fotoSecundariabd) {
+        this.fotoSecundariabd = fotoSecundariabd;
     }
     
 }

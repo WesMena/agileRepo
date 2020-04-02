@@ -4,13 +4,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
         <ui:composition template="./WEB-INF/templateEvtPublic.xhtml">
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
+
+                <f:metadata>
+                    <f:viewAction action="#{wizardcontroller.llenarCombo()}" />
+                </f:metadata>
+
 
             </ui:define>
 
@@ -23,6 +29,118 @@
                     //    secondSpan.innerHTML ='Siguiente';
                     // }
                 </script>
+
+                
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk" ></script>
+
+                
+                
+         
+
+                <script type="text/javascript">
+                    PrimeFaces.locales['es'] = {
+                        closeText: 'Cerrar',
+                        prevText: 'Anterior',
+                        nextText: 'Siguiente',
+                        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                        weekHeader: 'Semana',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Sólo hora',
+                        timeText: 'Tiempo',
+                        hourText: 'Hora',
+                        minuteText: 'Minuto',
+                        secondText: 'Segundo',
+                        currentText: 'Fecha actual',
+                        ampm: false,
+                        month: 'Mes',
+                        week: 'Semana',
+                        day: 'Día',
+                        allDayText: 'Todo el día'
+                    };
+                    PrimeFaces.locales ['de'] = {
+                        closeText: 'Schließen',
+                        prevText: 'Zurück',
+                        nextText: 'Weiter',
+                        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+                        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+                        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+                        weekHeader: 'Woche',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Nur Zeit',
+                        timeText: 'Zeit',
+                        hourText: 'Stunde',
+                        minuteText: 'Minute',
+                        secondText: 'Sekunde',
+                        currentText: 'Aktuelles Datum',
+                        ampm: false,
+                        month: 'Monat',
+                        week: 'Woche',
+                        day: 'Tag',
+                        allDayText: 'Ganzer Tag'
+                    };
+                </script>
+
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function dateTemplateFunc(date) {
+                        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+                    }
+                    //]]>
+                </script>
+
+                <script type="text/javascript">
+                    var currentMarker = null;
+
+                    function handlePointClick(event) {
+                        if (currentMarker === null) {
+                            document.getElementById('lat').value = event.latLng.lat();
+                            document.getElementById('lng').value = event.latLng.lng();
+
+
+                            currentMarker = new google.maps.Marker({
+                                position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                            });
+
+                            PF('map').addOverlay(currentMarker);
+
+                            PF('dlg').show();
+                        }
+                    }
+
+                    function markerAddComplete() {
+                        var title = document.getElementById('title');
+                        currentMarker.setTitle(title.value);
+                        title.value = "";
+
+                        currentMarker = null;
+                        PF('dlg').hide();
+                    }
+
+                    function cancel() {
+                        PF('dlg').hide();
+                        currentMarker.setMap(null);
+                        currentMarker = null;
+
+                        return false;
+                    }
+                </script>
+
+
                 <center>    
                     <h:form id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
                         <p:accordionPanel  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
@@ -153,7 +271,145 @@
                             </p:tab>
                             
                        
-                          
+                            <p:tab id="ubi-hora" title=" Ubicación y Horario"  >                             
+
+                                <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
+
+                                    <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important"  >
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
+
+                                            <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
+                                            <br></br>
+                                            <br></br>
+                                            <p:growl id="messages" showDetail="true" />
+                                            <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
+                                                    model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+
+                                            <br></br>
+                                            <br></br>
+
+                                            <h3>Digite la direccion del evento:</h3>
+                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
+                                            <br/>
+                                            <h:outputText id="display" />
+
+                                        </p:panel>
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
+
+                                            <h3>Digita el link al evento:</h3>
+                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+
+                                        </p:panel>
+
+
+                                        <br></br>
+                                        <br></br>
+
+
+                                    </p:panel>
+
+                                    <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+
+                                        <br></br>
+                                        <br></br>
+
+
+                                        <div class="ui-g ui-fluid">
+                                            <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Zona Horaria:" />
+                                                <br></br>
+                                                <br></br>
+                                                <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
+
+                                                    <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
+
+                                                </h:selectOneMenu>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" />
+                                                <br></br>
+                                                <br></br>
+
+
+                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" />
+
+
+
+                                            </div>
+                                            <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento inicia a:" />
+                                                 <br></br>
+                                                <p:datePicker id="inicia" value="#{wizardcontroller.ini}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento termina a:" />
+                                                 <br></br>
+                                                <p:datePicker id="termina" value="#{wizardcontroller.fin}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                            </div>
+
+                                            <br></br>
+                                            <br></br>
+                                        </div>
+
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <h:outputText value="El evento es fisico? " style="margin-right: 315px; font-size: 22px" />
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
+
+                                        <p:commandButton value="Guardar Día"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" /> 
+                                        
+
+                                    </p:panel>
+                                    <br></br>
+                                    <br></br>
+
+
+                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
+
+
+                                        <h:outputText value="Range Selection:" />
+                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
+                                            #{status.first ? '' : '-'}
+                                            <h:outputText value="#{date}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </ui:repeat>
+
+
+
+
+                                        <h:outputText value="Time Only:" />
+                                        <h:outputText value="#{calendarview.date14}">
+                                            <f:convertDateTime pattern="HH:mm" />
+                                        </h:outputText>
+                                    </p:dialog>
+
+                                </p:panel>
+
+
+                            </p:tab>
                                 
                             
                             
@@ -239,6 +495,26 @@
                             
                             
                             
+
+                            <p:dialog widgetVar="dlg" showEffect="fade">
+                                <h:form prependId="false">
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel for="title" value="Title:" />
+                                        <p:inputText id="title" value="#{addMarkersView.title}" />
+
+                                        <f:facet name="footer">
+                                            <p:commandButton value="Add" action="#{addMarkersView.addMarker}" update=":messages" oncomplete="markerAddComplete()" />
+                                            <p:commandButton value="Cancel" onclick="return cancel()" />
+                                        </f:facet>
+                                    </h:panelGrid>
+
+                                    <h:inputHidden id="lat" value="#{addMarkersView.lat}" />
+                                    <h:inputHidden id="lng" value="#{addMarkersView.lng}" />
+                                </h:form>
+                            </p:dialog>
+
+
+
                         </p:accordionPanel>
                     </h:form>
                 </center>
@@ -260,6 +536,8 @@
                         padding: 0px !important;
                         font-weight: normal;
                     }
+                    
+                    
                 </style>
                  <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
             </ui:define>
@@ -267,4 +545,5 @@
         </ui:composition>
 
     </body>
+
 </html>
