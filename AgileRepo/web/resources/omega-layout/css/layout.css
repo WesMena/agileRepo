@@ -2529,6 +2529,7 @@ h2 {
 .landing-wrapper #introduction {
   padding-top: 80px;
   height: 623px;
+  
   background-image: url("#{resource['omega-layout:images/landing/section1_bg.jpg']}");
   background-position: top left;
   background-repeat: no-repeat;
