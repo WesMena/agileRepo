@@ -463,9 +463,6 @@
                                                     <f:selectItem itemLabel="Seminario" itemValue="1" />
                                                     <f:selectItem itemLabel="Charla" itemValue="2" />
                                                 </p:selectOneMenu>
-                                                <p:selectOneMenu  placeholder="Otro" required="true" id="selectOther"  editable="true"  style="margin: 0px;padding: 0px;width:100%;">
-                                                    <f:selectItem itemLabel="Otro" itemValue="" />
-                                                </p:selectOneMenu>
                                             </div>
                                             <br></br>
                                             <br></br>
@@ -515,7 +512,163 @@
 
 
 
+                       
+                            <p:tab id="entradas" title="Entradas">
+                                <p:panel id="panelMainEntradas" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div class="ui-g">
+                                        <!-- Dependiendo del valor de editarDivRend actualiza la vista del tab -->
+                                        <div class="#{(wizardcontroller.editarDivRend)?'ui-g-12 ui-md-6 ui-1g-6':'ui-g-12 ui-md-12 ui-1g-6'}" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
+                                            <p:panel style="border: none">
+                                                <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
+                                                <p:panel style="width:100%; text-align: right; border: none">
+                                                    <p:commandButton value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
+                                                </p:panel>
+                                                <h:panelGroup  id="panellista">
+                                                    <c:forEach  id="repeat"  items="#{wizardcontroller.lstEntrada}" var="entradas" varStatus="loop" >
+                                                        <div class="card clearfix summary" style='background:#f5f5f5' >
+                                                            <!-- Con loop.index se obtiene el valor del index en la lista -->
+                                                            <c:set var="index" value="${loop.index}" />
+                                                            <!-- Cuando se da click en el boton de edicion, se actualiza la vista con panelEditEntrada panelMainEntradas  -->
+                                                            <p:commandButton icon="fa fa-pencil" action="#{wizardcontroller.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" update="panelEditEntrada panelMainEntradas" style="float:right">
+                                                            </p:commandButton>
+                                                            <div style='display: inline;'>
+                                                                <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
+                                                            </div>
+                                                            <div style='display: inline; padding: 10px'>
+                                                                <h:outputText value="Cantidad restante: #{entradas.cantidad}"/>
+                                                            </div>
+                                                            <div style='display: inline; padding: 10px'>
+                                                                <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
+                                                                <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
+                                                            </div>
+                                                            <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
+
+
+                                                        </div>
+
+                                                    </c:forEach>
+                                                </h:panelGroup>
+
+                                                <p:panel id="panelGuardar" style="width:100%; text-align: right; border: none">
+                                                    <p:commandButton value="Guardar" action="#{wizardcontroller.guardarEntradas()}" disabled="#{wizardcontroller.BotonEntrada()}"></p:commandButton>
+                                                </p:panel>
+
+                                            </p:panel>
+                                        </div>
+
+                                        <div class="ui-g-12 ui-md-6 ui-1g-6" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
+                                            <p:panel id="panelEditEntrada" style="display:#{(wizardcontroller.editarDivRend)?'block':'none'};border: none">
+                                                <h1 style="font-size: xx-large;font-weight: bold">Editar Entrada</h1>
+                                                <p:panel style="width:100%; text-align: left; border: none; margin-left: 0 !important;padding-left: 0 !important">
+                                                    <p:selectOneButton value="#{wizardcontroller.tipoEntrada}">
+                                                        <f:selectItem itemLabel="Gratis" itemValue="0" />
+                                                        <f:selectItem itemLabel="Pago" itemValue="1" />
+                                                        <!-- Muestra el campo de Precio dependiendo de la opcion seleccionada -->
+                                                        <p:ajax update="panelPrecio"/> 
+                                                    </p:selectOneButton>
+                                                    <br/>
+                                                    <br/>
+                                                    <h:outputText value="Nombre" style='font-weight:bold'/>
+
+                                                    <p:inputTextarea
+                                                        id="nombreE"
+                                                        value='#{wizardcontroller.nombreEntrada}'
+                                                        style="width: 100%;"
+                                                        maxlength="50"
+                                                        counter="entradaTagC"
+                                                        counterTemplate="{0}/50"
+                                                        readonly="false"
+                                                        required="#{wizardcontroller.validarEntradas}"
+                                                        validatorMessage="El nombre de entrada es obligatorio">
+
+                                                    </p:inputTextarea>
+
+                                                    <!--Counter para nombre de tag-->
+                                                    <div style="width: 100%;text-align: left" id="counterContainerTag">
+                                                        <h:outputText style="float: right" id="entradaTagC" ></h:outputText>
+                                                    </div>
+                                                    <br/>
+                                                    <br/>
+                                                    <h:outputText value="Cantidad" style='font-weight:bold'/>
+                                                    <h:panelGrid>
+                                                        <p:inputText id="txt1" value="#{wizardcontroller.cantidadEntrada}"/>
+                                                        <p:slider for="txt1" minValue="1" maxValue="1000" />
+                                                    </h:panelGrid>                                            
+
+                                                    <br/>
+                                                    <p:panel id="panelPrecio" style="display:#{wizardcontroller.tipoEntrada == 0?'none':'block'}; border:none !important;">
+                                                        <h:outputText value="Precio " style='font-weight:bold'/>
+                                                        <br/>
+                                                        <p:inputNumber id="input2" symbol=" USD" symbolPosition="s" value="#{wizardcontroller.precioEntrada}"
+                                                                       decimalSeparator="." thousandSeparator="," style="width: 100%;" readonly="false" required="#{wizardcontroller.validarEntradas}">  
+                                                        </p:inputNumber>
+                                                    </p:panel>
+                                                    <br/>
+
+                                                    <!-- En los espacios para fechas y horas, muestra un tooltip con el formato deseado, ademas el input ya tiene incluido una 
+                                                    mascara para que sea de esa manera-->
+
+                                                    <p:panel style="display:inline-block; border:none !important;">
+                                                        <h:outputText value="Fecha Inicio " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="date1" value="#{wizardcontroller.fechaInicioEntrada}" mask="9999-99-99" required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade" for="date1" value="yyyy-mm-dd" position="top"/>
+                                                    </p:panel>
+
+                                                    <p:panel style="display:inline-block; border:none !important;">
+                                                        <h:outputText value="Hora Inicio " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="time1" value="#{wizardcontroller.horaInicioEntrada}" mask="99:99" required="#{wizardcontroller.validarEntradas}"/>
+
+                                                        <p:tooltip id="toolTipFade1" for="time1" value="hh:mm Formato 24h" position="top"/>
+                                                    </p:panel>
+
+
+
+                                                    <br/>
+
+
+                                                    <p:panel style="display:inline-block;border:none !important; padding: 0;">
+                                                        <h:outputText value="Fecha Fin " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="date2" value="#{wizardcontroller.fechaFinEntrada}" mask="9999-99-99" required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade2" for="date2" value="yyyy-mm-dd" position="top"/>
+                                                    </p:panel>
+
+                                                    <p:panel style="display:inline-block;border:none !important">
+                                                        <h:outputText value="Hora Fin " style='font-weight:bold' />
+                                                        <br/>
+                                                        <p:inputMask id="time2" value="#{wizardcontroller.horaFinEntrada}" mask="99:99" required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade3" for="time2" value="hh:mm Formato 24h" position="top"/>
+                                                    </p:panel>
+
+                                                    <br/>
+                                                    <br/>
+                                                    <center>
+                                                        <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
+                                                        <p:commandButton value="Actualizar" action="#{wizardcontroller.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas" process="@this nombreE,panelPrecio,date1,time1,date2,time2" partialSubmit="true"></p:commandButton>
+                                                        <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
+                                                        <p:commandButton value="Borrar" action="#{wizardcontroller.borrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <br/>
+                                                        <br/>
+                                                        <!-- Cierra la Seccion Editar sin aplicar cambios -->
+                                                        <p:commandButton value="Cerrar" action="#{wizardcontroller.cerrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+
+
+                                                    </center>
+                                                </p:panel>
+                                            </p:panel>
+                                        </div>
+
+                                    </div>
+
+                                </p:panel>
+
+                            </p:tab>
+                          
                         </p:accordionPanel>
+                        <!-- </p:wizard> --> 
+                     
                     </h:form>
                 </center>
                 <style>
@@ -536,8 +689,17 @@
                         padding: 0px !important;
                         font-weight: normal;
                     }
-                    
-                    
+
+                    .entradalistacol {
+                        width:60%;
+                        vertical-align: top;
+                    }
+
+                    .entradaeditarcol {
+                        width: 40%;
+                        vertical-align: top;
+                    }
+
                 </style>
                  <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
             </ui:define>

@@ -87,7 +87,7 @@
     </ui:define>
 
     <ui:define name="content">
-        
+
 
         <div class="dashboard" style="height:100%; width:100%; min-height:100%; ">
 
@@ -117,12 +117,12 @@
 
                     <p:column style="width:100%; height:100%;">
 
-                        <div class="#{detalle.esBloque()?'card2':'card'} clearfix summary" style="height:#{detalle.esBloque()?'20px':''}; overflow:hidden; ">
+                        <div class="#{detalle.esBloque()?'card2':'card'} clearfix summary" style="height:#{detalle.esBloque()?'40px':''}; overflow:hidden; ">
                             <div style="width:90%">
 
-                                    <span class="options">
+                                <span class="options">
 
-                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-chevron-circle-left" update="Slot" >
+                                    <p:commandButton  action="#{detallecontroller.outcome()}" icon="pi pi-chevron-circle-left" update="Slot" style="display:#{detalle.esBloque()?'none':'block'}" >
                                         <f:param name="tituloSlot" value="#{detalle.titulo}" />
                                         <f:param name="idSlot" value="#{detalle.id}" />
                                         <f:param name="descSlot" value="#{detalle.descripcion}" />
@@ -134,11 +134,18 @@
                                         <f:param name="esBloque" value="#{detalle.bloequeo}"/>
                                         <f:ajax onevent="PF('side_info').show()"/>
                                     </p:commandButton>
-                                        
+
                                     <p:commandButton  action="#{detallecontroller.borrarSlot()}" icon="pi pi-trash" update="Slot" onclick="#{detallecontroller.onReorder()}">
                                         <f:param name="idSlot" value="#{detalle.id}" />
+
                                     </p:commandButton>
-                                    </span>
+                                    <p:commandButton style="display:#{detalle.esBloque()?'block':'none'}" action="#{detallecontroller.outcometituloBloque()}" icon="fa fa-pencil">
+                                        <f:param name="idSlot" value="#{detalle.id}" />
+                                        <f:param name="tituloSlot" value="#{detalle.titulo}" />
+                                        <f:ajax onevent="PF('dlglTituloBloque').show()"/>
+                                    </p:commandButton>
+
+                                </span>
 
                             </div>
 
@@ -180,12 +187,19 @@
 
                             <div style="width:90%">
 
-                                <h:inputTextarea rows="1" cols="1" readonly="true" style="overflow:hidden;display: block;width: 75%;border: none;resize: none; font-family:Arial,Helvetica; margin-top: 0px; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; margin-left:#{detalle.esBloque()?'50px':'100px'} " class="#{detalle.esBloque()?'title2':'title'}" value="#{detalle.titulo}"> </h:inputTextarea>
-                                <!-->
-                                <span id="tit" class="#{detalle.esBloque()?'title2':'title'}">#{detalle.tituloResumido()}</span>
-                               </!--> 
+                                <h:inputTextarea rows="1" cols="1"
+                                                 readonly="true" style="overflow:hidden;display: block;
+                                                 width: 75%;border: none;resize: none; font-family:Arial,Helvetica;
+                                                 margin-top: 0px; background:none; outline:none;
+                                                 text-align:#{detalle.esBloque()?'center':''};
+                                                 margin-top:#{detalle.esBloque()?'15px':''};
+                                                 margin-left:#{detalle.esBloque()?'50px':'100px'} " 
+                                                 class="#{detalle.esBloque()?'title2':'title'}"
+                                                 value="#{detalle.titulo}">
+                                    
+                                </h:inputTextarea>
+                                
                             </div>
-
 
                             <!--->
                             Aquí está el html que muestra la hora inicial y, 
@@ -200,10 +214,8 @@
                             <div style="margin-top:2.5%;" >
                                 <h:inputTextarea rows="5" cols="1" readonly="true" style="overflow:hidden;display:#{detalle.esBloque()?'none':'inline'};width: 95%;border: none;resize: none; font-family:Arial,Helvetica; background:none; outline:none; text-align:#{detalle.esBloque()?'center':''}; " class="detail2" value="#{detalle.descripcion}"> </h:inputTextarea>
 
+
                             </div>
-
-
-
 
 
                         </div>
@@ -233,7 +245,7 @@
                     <h:outputText id="titulo" />
                     <p:separator />
                     <div style="visibility: #{detallecontroller.esBloque?'hidden':'visible'}">
-                        
+
                         <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Descripción</h1>
                         </div>
@@ -289,6 +301,26 @@
                 </h:form>
             </div>
         </p:sidebar> 
+
+        <p:dialog header="Nombre de Bloque" widgetVar="dlglTituloBloque" minHeight="40" style="background:white">
+            <h:form>
+            <p:inputTextarea rows="1" 
+                             readonly="false" 
+                             value="#{detallecontroller.titulo}" 
+                             style="width:99.25%; font-size: 20px; " 
+                             maxlength="100" 
+                             counter="titulocount"
+                             counterTemplate="{0}/100"/>
+            <div style="width: 100%;text-align: left" id="counterContainerTag">
+                <h:outputText style="float: right" id="titulocount" ></h:outputText>
+            </div>
+            <br/>
+            <center>
+            <p:commandButton action="#{detallecontroller.editarTituloBloq()}" icon="pi pi-save" onclick="#{detallecontroller.onReorder()}" onsuccess="PF('dlglTituloBloque').hide()">
+            </p:commandButton>
+            </center>    
+            </h:form>
+        </p:dialog>
 
 
         <!--->
