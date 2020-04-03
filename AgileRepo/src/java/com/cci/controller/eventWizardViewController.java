@@ -69,9 +69,6 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 
-
-
-
 @ManagedBean(name = "wizardcontroller")
 @SessionScoped
 public class eventWizardViewController implements Serializable {
