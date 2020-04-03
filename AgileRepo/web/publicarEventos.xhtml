@@ -439,7 +439,7 @@
                                             <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Nombre del evento</label>
                                             <center>
                                                 <p:inputTextarea
-                                                    value="#{eventWizardController.nombreEvento}"
+                                                    value="#{wizardcontroller.nombreEvento}"
                                                     placeholder="Joseph Joestar Fans..."
                                                     id="inputNameEvt"
                                                     class="inputNameEvt"
@@ -467,7 +467,7 @@
                                         <!--Seleccionar un tipo para el evento-->
 
                                         <div style="width: 100%;">
-                                            <p:selectOneMenu   value="#{eventWizardController.tipoEvento}"  requiredMessage="Seleccione uno."  required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
+                                            <p:selectOneMenu   value="#{wizardcontroller.tipoEvento}"  requiredMessage="Seleccione uno."  required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
                                                 <f:selectItem itemLabel="Seminario o Charla" itemValue="" />
                                                 <f:selectItem  itemLabel="Seminario" itemValue="Seminario" />
                                                 <f:selectItem itemLabel="Charla" itemValue="Charla" />
@@ -497,7 +497,7 @@
                                                             required="true"
                                                             requiredMessage="No pueden añadirse vacíos."
                                                             counter="eventoTagC"
-                                                            value="#{eventWizardController.newTag}"
+                                                            value="#{wizardcontroller.newTag}"
                                                             counterTemplate="{0}/25">
 
                                                         </p:inputTextarea>
@@ -515,7 +515,7 @@
                                                         iconPos="left"
                                                         process="@this inputTag,messageErrorTag"
                                                         partialSubmit="true"
-                                                        actionListener="#{eventWizardController.addTag}"
+                                                        actionListener="#{wizardcontroller.addTag}"
                                                         style="float: inside;display: block;width: 90%;height: 80% !important;margin-top:6px;margin-bottom: 4px;margin-right:4px;margin-left: 8px"
                                                         value="Añadir">
                                                     </p:commandButton>
@@ -539,7 +539,7 @@
                                         <!--Counter para nombre y numero de tags-->
                                         <p:panel   style="border: none;width: 100%;text-align: left" id="counterContainerTag">
                                             <h:outputText   style="font-weight: bold;float: right" id="eventoTagC" ></h:outputText>
-                                            <h:outputText style="font-weight: bold;float: left" id="eventoTagCc" value="#{eventWizardController.strTag}/10" ></h:outputText>
+                                            <h:outputText style="font-weight: bold;float: left" id="eventoTagCc" value="#{wizardcontroller.strTag}/10" ></h:outputText>
                                         </p:panel>
                                         <br></br>
                                         <br></br>
@@ -567,14 +567,14 @@
                                             <c:forEach
                                                 id="tagList"
                                                 var="tag"
-                                                rendered="#{not empty eventWizardController.tags}"
-                                                items="#{eventWizardController.tags}">
+                                                rendered="#{not empty wizardcontroller.tags}"
+                                                items="#{wizardcontroller.tags}">
                                                 <div style="margin-right: 16px;height: 16px;padding: 8px;display: inline-block;background: #2b7eab;overflow: hidden;border-radius:15px ">
                                                     <center>
                                                         <span
                                                             style="padding: 8px;color: #ffffff;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;">#{tag.tag}</span>
                                                         <p:commandButton
-                                                            actionListener="#{eventWizardController.deleteTag}"
+                                                            actionListener="#{wizardcontroller.deleteTag}"
                                                             partialSubmit="true"
                                                             process="@this"
                                                             validateClient="true"
@@ -594,11 +594,11 @@
                                                 <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Organizador</label>
                                                 <div class="ui-g ui-fluid">
                                                     <div class="ui-g-12 ui-md-11">
-                                                        <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{eventWizardController.nombreOrganizador}" ></p:outputLabel>
+                                                        <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{wizardcontroller.nombreOrganizador}" ></p:outputLabel>
                                                         <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Descripción</label>
                                                         <p:inputTextarea 
                                                             id="inputDesc"
-                                                            value="#{eventWizardController.descripcion}"
+                                                            value="#{wizardcontroller.descOrganizador}"
                                                             counter="eventoDescC"
                                                             counterTemplate="{0}/200"
                                                             maxlength="200"
@@ -633,7 +633,7 @@
 
                                     </p:panel>
                                 </p:panel>
-                                <p:commandButton  validateClient="true" actionListener="#{eventWizardController.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc,ppOrg"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
+                                <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc,ppOrg"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
                             </p:tab>                    
                             
       

@@ -743,7 +743,7 @@ public void cambioResumen(ValueChangeEvent e){
         List<String> tagStr = new ArrayList<>();
         System.out.println("Tipo : " + this.tipoEvento);
         System.out.println("Nombre:" + this.nombreEvento);
-        System.out.println("Desc:" + this.descripcion);
+        System.out.println("Desc:" + this.descOrganizador);
         System.out.println("Organizador:" + this.nombreOrganizador);
         System.out.println("UID:" + Constantes.logguedUsserUID);
         System.out.println("Bytes :" + EventWizardImagesController.profileImage.getContentLength());
@@ -755,9 +755,9 @@ public void cambioResumen(ValueChangeEvent e){
         
         if (idEvento != -1) {
             //Update :)
-            ((InfoBasicaDao)dao).update(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descripcion));
+            ((InfoBasicaDao)dao).update(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descOrganizador));
         } else {
-            ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descripcion));
+            ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descOrganizador));
         }
     
     }
