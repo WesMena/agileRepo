@@ -70,11 +70,10 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
                 int primero = rs.getInt("primeroDeDia");
 
                 //llama a un método que retorna un string con la hora en formato hh:mm en 24h 
-                String hora2=horaAjustada(hora);
-                String horaFinal=recalcularHora(hora2,duracion);
-                
-                
-               detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat,bloqueo,primero,hora,hora2,horaFinal));
+                String hora2 = horaAjustada(hora);
+                String horaFinal = recalcularHora(hora2, duracion);
+
+                detalles.add(new DetalleEvento(titulo, desc, duracion, borrado, indice, evento, id, obj, cat, colorcat, pas, mat, bloqueo, primero, hora, hora2, horaFinal));
             }
             // Asigna el valor del tamano de la lista para el nuevo indice al final de la lista
             indiceEvento = detalles.size() + 1;
@@ -632,8 +631,8 @@ de tipo DetalleEvento que coincidan con el id que viene por parámetro
 
         return returned;
     }
-    
-public void borrarDetalle(int idSlot){
+
+    public void borrarDetalle(int idSlot) {
         Statement stmt = null;
         Conexion conexion = Conexion.getInstance();
         try {
@@ -651,7 +650,29 @@ public void borrarDetalle(int idSlot){
             e.printStackTrace();
         } finally {
             conexion.desconectar();
-        }        
+        }
+    }
+
+    public void editarTituloBloque(int idSlot, String titulo) {
+        Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            
+            sql = "UPDATE `agilerepo`.`detalleevento` SET `titulo` = '" + titulo
+                    + "' WHERE `idDetalleEvento` = " + idSlot;
+            
+            System.out.println(idSlot + " " +titulo);
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }
     }
 
 }
