@@ -775,8 +775,8 @@ public void cambioResumen(ValueChangeEvent e){
             //Limpiando el tag
             newTag = "";
             System.out.println("Lista : " + this.tags.size());
-            PrimeFaces.current().ajax().update("tagListDiv");
-            PrimeFaces.current().ajax().update("counterContainerTag");
+            PrimeFaces.current().ajax().update("test1:tagListDiv");
+            PrimeFaces.current().ajax().update("test1:counterContainerTag");
 
         }
     }
@@ -790,8 +790,8 @@ public void cambioResumen(ValueChangeEvent e){
         this.tags.remove(t);
         this.strTag = String.valueOf(tags.size());
         //updateTagIndex();
-        PrimeFaces.current().ajax().update("tagListDiv");
-        PrimeFaces.current().ajax().update("counterContainerTag");
+        PrimeFaces.current().ajax().update("test1:tagListDiv");
+        PrimeFaces.current().ajax().update("test1:counterContainerTag");
         PrimeFaces.current().ajax().update("messageErrorTag");
     }
 

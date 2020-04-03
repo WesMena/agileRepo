@@ -116,8 +116,8 @@ public class EventWizardImagesController implements Serializable {
     }
 
     private void updateUI() {
-        PrimeFaces.current().ajax().update("ppOrg");
-        PrimeFaces.current().ajax().update("counterContainerTag");
+        PrimeFaces.current().ajax().update("test1:ppOrg");
+        PrimeFaces.current().ajax().update("test1:counterContainerTag");
         //PrimeFaces.current().ajax().update("publicarEvento:pnlHelp");
     }
 
