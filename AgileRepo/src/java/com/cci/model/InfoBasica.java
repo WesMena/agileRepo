@@ -46,6 +46,14 @@ public class InfoBasica   {
     public void setFoto(InputStream foto) {
         this.foto = foto;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     
     
 
