@@ -6,8 +6,11 @@
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/publicarEventos.xhtml</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/ComentarioDao.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/portadaController.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/detalleConverter.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/EventWizardImagesController.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/Conexion.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/EventSummaryController.java</file>
         </group>
     </open-files>
 </project-private>
