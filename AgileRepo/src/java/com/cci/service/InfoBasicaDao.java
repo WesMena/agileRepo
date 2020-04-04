@@ -6,8 +6,10 @@
 package com.cci.service;
 
 import com.cci.controller.Constantes;
+import com.cci.controller.EventWizardImagesController;
 import com.cci.controller.eventWizardViewController;
 import com.cci.model.InfoBasica;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -67,17 +69,19 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
 
             //Insert de la descripcion y la vara esa de l organizador qk
             conexion.conectar();
+            System.out.println("Uploaded file : " + EventWizardImagesController.uploadedFile.getInputstream().available());
 
-            stm = conexion.conn.createStatement();
-            stm.execute(String.format("insert into organizadoreseventos (organizador,evento,descri) values('%1$s','%2$d','%3$s');", Constantes.logguedUsserUID, idEvt, t.getDescripcion()));
-
-            prep = conexion.conn.prepareStatement("update usuarios\n"
-                    + "set profileImageP = ?");
-            prep.setBlob(1, t.getFoto());
-            //prep.execute();
+            prep = conexion.conn.prepareStatement("insert into organizadoreseventos (organizador,evento,descri,profileImage) values(?,?,?,?)");
+            prep.setString(1, Constantes.logguedUsserUID);
+            prep.setInt(2, eventWizardViewController.idEvento);
+            prep.setString(3, t.getDescripcion());
+            prep.setBlob(4, t.getFoto());
+            prep.execute();
 
         } catch (SQLException e) {
             System.out.println("" + e.getMessage() + e.getSQLState());
+        } catch (IOException ex) {
+            Logger.getLogger(InfoBasicaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -98,12 +102,15 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
 
             for (String tag : t.getTags()) {
                 stm = conne.conn.createStatement();
-                stm.execute(String.format("Insert into tagsevtpublico (tag,evento) values('%2$s','%1$d') ", eventWizardViewController.idEvento,tag));
+                stm.execute(String.format("Insert into tagsevtpublico (tag,evento) values('%2$s','%1$d') ", eventWizardViewController.idEvento, tag));
 
             }
-            //Update de la descripcion del organizador
-            stm = conne.conn.createStatement();
-            stm.execute(String.format("Update organizadoreseventos set descri = '%1$s' where evento = '%2$d' ", t.getDescripcion(),eventWizardViewController.idEvento));
+            //Update de la descripcion y la foto del organizador
+            prep = conne.conn.prepareStatement("update organizadoreseventos set descri = ? ,profileImage = ? where evento = ?");
+            prep.setString(1, t.getDescripcion());
+            prep.setBlob(2, t.getFoto());
+            prep.setInt(3, eventWizardViewController.idEvento);
+            prep.execute();
 
         } catch (SQLException ex) {
             Logger.getLogger(InfoBasicaDao.class.getName()).log(Level.SEVERE, null, ex);
