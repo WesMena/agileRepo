@@ -661,7 +661,7 @@
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
+                                                    <p:commandButton id="crearEntrada" value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
                                                 </p:panel>
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{wizardcontroller.lstEntrada}" var="entradas" varStatus="loop" >
@@ -719,7 +719,7 @@
                                                         counterTemplate="{0}/50"
                                                         readonly="false"
                                                         required="#{wizardcontroller.validarEntradas}"
-                                                        validatorMessage="El nombre de entrada es obligatorio">
+                                                        requiredMessage="El nombre de entrada es obligatorio">
 
                                                     </p:inputTextarea>
 

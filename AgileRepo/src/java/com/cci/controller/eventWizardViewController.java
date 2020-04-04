@@ -656,7 +656,7 @@ public class eventWizardViewController implements Serializable {
     }
 
     public String BotonCrearEntrada() {
-        if (idEvento != null) {
+        if (idEvento != -1) {
 
             return "false";
 
@@ -738,12 +738,14 @@ public class eventWizardViewController implements Serializable {
                 } catch (IOException ex) {
                     Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                PrimeFaces.current().ajax().update("test1:crearEntrada");
             } else {
                 try {
                     ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.uploadedFile.getInputstream(), this.descOrganizador));
                 } catch (IOException ex) {
                     Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                PrimeFaces.current().ajax().update("test1:crearEntrada");
             }
         }
     }
