@@ -3,11 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/WEB-INF/topbar.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/EventSummaryDao.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/publicarEventos.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/DetalleEvento.xhtml</file>
             <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
-            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/Conexion.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/css/myLogin.css</file>
             <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/controller/DetalleController.java</file>
-            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/WizardDao.java</file>
             <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/controller/portadaController.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/InfoBasicaDao.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/404.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/controller/EventSummaryController.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/model/EventSummary.java</file>
             <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/DetalleDao.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/Eventos.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/dashboard.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/EventoMoreDetails.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/landing.xhtml</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/controller/EventController.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/service/Conexion.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/src/java/com/cci/model/Entrada.java</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/css/layout.css</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/css/Eventos.css</file>
+            <file>file:/C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/WEB-INF/web.xml</file>
         </group>
+    </open-files>
+</project-private>

@@ -8,7 +8,13 @@
 
     
     <h:head>
-      
+       
+        
+  <f:metadata>
+            
+      <f:viewParam name="id" value="#{eventsummarycontroller.idEvento}"/>
+      <f:event listener="#{eventsummarycontroller.obtenerEvento()}" type="preRenderView"/>              
+        </f:metadata>
         
         
       
@@ -48,8 +54,8 @@
             ">
 
         <div class="landing-wrapper">
-            <p:button style="position:fixed; width:150px; height:65px; z-index:120; background:none; border:none;" value="" outcome="landing.xhtml">
-            <p:graphicImage name="images/cciLanding.png" library="omega-layout" width="115" style="display:inline; position:fixed; top:1.5em; left:2%; z-index:100;">
+            <p:button style="position:fixed; width:150px; height:65px; z-index:120; background:none; border:none;" value="" outcome="Eventos.xhtml">
+            <p:graphicImage name="images/backIcon.svg" library="omega-layout" width="115" style="display:inline;position:fixed;top: 1.5em;left: 0%;z-index:100;height: 5%;">
               
             </p:graphicImage>
                 
@@ -94,119 +100,78 @@
             </div>
 
          
-
-
-            <div id="pricing"  style="background-color:#F5F5F5;" >
-                <div class=" pricing-content margenTitulo " id="servicios">
-                      <span class="titulo">PRÓXIMOS EVENTOS</span>
-                   
-                    
-                    
-                      <div class="ui-g" >
-                          
-                          <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
-                              
-                              <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'none':'block'}">
-                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
-                            <div class="pricing-basic pricing-box gridEventosSummary" >
-                               
-                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
-                                <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                        
-                                
-                     
-                                 
-                            </div>
-                                         </a> 
-                        </div>
-                           
-                          </c:forEach>
-                     
-                        
- 
-                          
-                          
-                          
-                           
-                          
-                     
-                          
-                          
-                          
-                          
-                         
-                          
-                          
-                          
-                          
-                         
-                        
-
-                        
-                          
-                          
-                        
-                          
-                          
-                        
-                          
-                        
-                        
-                          
-                      
-                        
-                        
-                        
-                          
-                       
-                          
-                    </div>
-
-
-
-               
-
-
+            <div id="introduction" style="background-image:#{eventsummarycontroller.urlFondo} ;  -webkit-filter: blur(12px);">
+                <div class="introduction-content">
+                  
 
                 </div>
             </div>
+
+
 
              
              
       <div id="pricing"  style="background-color:#F5F5F5;" >
                 <div class=" pricing-content margenTitulo " id="servicios">
-                  
-                      <span class="titulo">EVENTOS PASADOS</span>
+                
+                   
                    
                     
                     
-                      <div class="ui-g" >
+                      <div class="ui-g" style="margin-top:-650px;" >
                     
                           
                           
-                           <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
-                              <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'blcok':'none'}">
-                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
-                            <div class="pricing-basic pricing-box gridEventosSummary" >
+                         
+                              <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="margin-right:-15px;  " >
+                            <div class="pricing-basic pricing-box " >
                                 
-                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
-                                <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+                                <p:graphicImage  class="fotoDetalle" name="#{eventsummarycontroller.eventoDetalle.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5; top:-10px; "/>
+                               
                         
                                 
                      
                                  
                             </div>
-                                  </a>
                         </div>
                               
-                          </c:forEach>
-                     
-                        
-        
                           
-                         
+                                              
+                              <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="z-index:5;">
+                            <div class="pricing-basic pricing-box tituloDetalle" style="margin-right: -15px;"  >
+                                
+                               
+                              
+                                <p style="font-weight:600;" >   <span class="pricing-name">#{eventsummarycontroller.eventoDetalle.nombreEvento}</span></p>
+                                <p style="font-weight:600; color:#f05537; font-size:16px;">#{eventsummarycontroller.eventoDetalle.fecha} , #{eventsummarycontroller.eventoDetalle.hora}</p>
+                          
+                           <p style="font-weight:600; color:#f05537; font-size:16px; display:none;">Tipo de evento: Charla</p>
+                          <p:commandButton value="Conseguir Entradas" style="display:none; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
+                     
+                                 
+                            </div>
+                        </div>
+                        
+   
+                           <div class="ui-g-12" style="z-index:5;">
+                            <div class="pricing-basic pricing-box " style="margin-top:-35px;" >
+                                
+                               
+                              
+                                <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
+                                
+                                
+                                                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
+                                                                
+                                                                <div style="margin-left:15px; margin-right:15px;">
+                                                                    <h:outputText escape="false" value="#{eventsummarycontroller.eventoDetalle.descripcion}"></h:outputText>     
+                                                                </div>
+                                                               
+                                
+                     
+                                 
+                            </div>
+                        </div>
                           
                           
                           
@@ -219,23 +184,7 @@
                          
                         
 
-                        
-                          
-                          
-                        
-                          
-                          
-                        
-                          
-                        
-                        
-                          
-                      
-                        
-                        
-                        
-                          
-                       
+
                           
                     </div>
 

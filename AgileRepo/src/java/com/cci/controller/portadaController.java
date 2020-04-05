@@ -42,7 +42,7 @@ public class portadaController implements Serializable {
  
  String ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout')";
  
- 
+
  //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
  String fotobd;
  String fotoSecundariabd;
