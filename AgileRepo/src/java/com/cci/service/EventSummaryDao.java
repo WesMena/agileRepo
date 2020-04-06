@@ -43,6 +43,7 @@ boolean repetido=false;
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
+                
                 repetido=false;
                 
                 
@@ -57,7 +58,7 @@ boolean repetido=false;
                 Date fecha = rs.getDate("fechaEvento");
                 Date hora=rs.getTime("horaInicio");
 
-                
+                System.out.println(nombre);
            
                 //Ajusta la hora que viene de bd para sea correcta
                 String hora2=horaAjustada(hora);

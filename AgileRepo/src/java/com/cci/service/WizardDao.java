@@ -168,4 +168,73 @@ public class WizardDao {
         return sqlDate;
     }
 
+    public void enviarDescripcionResumen(int id,String descripcion,String resumen){
+         Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE agilerepo.eventopublic SET Descripcion='" + descripcion+"',resumen='"+resumen+
+                    "' WHERE idEventoPublic=" +id;
+
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        } 
+        
+        
+        
+    }
+    
+    public void enviarImagenPrincipal(int id, String directorioImgPrincipal){
+       
+          Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE agilerepo.eventopublic SET portada='" +directorioImgPrincipal+
+                    "' WHERE idEventoPublic=" +id;
+
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        } 
+        
+        
+    }
+    
+    public void enviarImagenSecundaria(int id, String directorioImg2){
+           Statement stmt = null;
+        Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "UPDATE agilerepo.eventopublic SET imgSecundaria='" +directorioImg2+
+                    "' WHERE idEventoPublic=" +id;
+
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        } 
+        
+    }
 }

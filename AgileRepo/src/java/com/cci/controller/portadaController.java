@@ -5,6 +5,7 @@
  */
 package com.cci.controller;
 
+import com.cci.service.WizardDao;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -44,7 +45,7 @@ public class portadaController implements Serializable {
  
 
  //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
- String fotobd;
+ String fotobd="images/EventosSummary/imagen1.jpg?ln=omega-layout";
  String fotoSecundariabd;
  
  public void onLoad(){
@@ -106,7 +107,7 @@ public class portadaController implements Serializable {
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
+ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
      }catch(IOException e){
          e.printStackTrace();
      }
@@ -114,7 +115,8 @@ ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/
 //Esta es la ubicación que es leída por el graphicImage del tab "Imagen principal" del wizard de publicarEventos
     this.ubicacionFoto="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
   this.fotobd="images/EventosSummary/"+filename;
-
+ WizardDao wiz=new WizardDao();
+             wiz.enviarImagenPrincipal(eventWizardViewController.idEvento,fotobd);
     
     }
 
@@ -167,7 +169,8 @@ ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/
               
          try{
              saveFotoSecundaria();
-  
+      
+           
          }catch(IOException ex){
         Logger.getLogger(portadaController.class.getName()).log(Level.SEVERE, null, ex);   
          }
@@ -191,19 +194,26 @@ ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/
      
        //Crea el nombre de la nueva imagen y le coloca la extensión .png
    String filename = "img_"+annoStr+"_"+mesStr+"_"+diaStr+"_"+horaStr+"_"+minutoStr+"_"+segundoStr+".png";
+       this.ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
+   this.fotoSecundariabd="images/EventosSummary/"+filename;
+   
+   
+          WizardDao wiz=new WizardDao();
+             wiz.enviarImagenSecundaria(eventWizardViewController.idEvento,fotoSecundariabd);
+   
+   
      try{
     InputStream input = foto.getInputstream();
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
+ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
      }catch(IOException e){
          e.printStackTrace();
      }
-  
+    PrimeFaces.current().ajax().update("test1:secundariaVista");
 //Esta es la ubicación que es leída por el graphicImage del tab "Imagen principal" del wizard de publicarEventos
-    this.ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
-   this.fotoSecundariabd="images/EventosSummary/"+filename;
+
     }
 
     public String getFotobd() {

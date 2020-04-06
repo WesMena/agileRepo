@@ -860,4 +860,10 @@ public class eventWizardViewController implements Serializable {
         this.indexEntrada = indexEntrada;
     }
 
+      public void setDescripcionResumen(){
+        WizardDao wiz=new WizardDao();
+        wiz.enviarDescripcionResumen(idEvento, descripcion, resumen);
+    }
+    
+    
 }
