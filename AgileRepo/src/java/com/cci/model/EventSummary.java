@@ -17,9 +17,31 @@ public class EventSummary {
     String fecha="";
     String hora="";
     int id;
+    String resumen="";
+    String imgSecundaria="";
     public EventSummary() {
     }
 
+    public EventSummary(int id) {
+        this.id = id;
+    }
+
+   
+     public EventSummary(String nombre,String desc, String portada, int finalizado, String fecha, String hora, int id, String resumen,String secundaria){
+        this.nombreEvento=nombre;
+        this.Descripcion=desc;
+        this.portada=portada;
+        this.finalizado=finalizado;
+        this.fecha=fecha;
+        this.hora=hora;
+        this.id=id;
+        this.resumen=resumen;
+        this.imgSecundaria=secundaria;
+    }
+    
+    
+    
+    
     public EventSummary(String nombre,String desc, String portada, int finalizado, String fecha, String hora, int id){
         this.nombreEvento=nombre;
         this.Descripcion=desc;
@@ -92,6 +114,23 @@ public class EventSummary {
         
         return (finalizado==1);
     }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+
+    public String getImgSecundaria() {
+        return imgSecundaria;
+    }
+
+    public void setImgSecundaria(String imgSecundaria) {
+        this.imgSecundaria = imgSecundaria;
+    }
+    
     
     
 }

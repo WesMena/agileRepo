@@ -135,9 +135,80 @@ boolean repetido=false;
         return hora2;
     }
 
-    @Override
+    
+    
+    
+    
+    
+    
+    
+    
+    //Detalles del evento(los que se cargan en EventoMoreDetails.xhtml)
+    public EventSummary obtenerDetalles(int id){
+    EventSummary eventoDetalle=new EventSummary();
+          ResultSet rs = null;
+        Statement stmt = null;
+              Conexion conexion = Conexion.getInstance();
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, e.resumen,e.imgSecundaria, f.fechaEvento, f.horaInicio  FROM eventopublic e, fechaseventop f WHERE e.idEventoPublic=f.evento AND e.idEventoPublic="+id;
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                repetido=false;
+                
+                
+                
+                
+                id=rs.getInt("idEventoPublic");
+                String nombre=rs.getString("Nombre");
+                String desc=rs.getString("Descripcion");
+                int finalizado=rs.getInt("finalizado");
+                String portada=rs.getString("portada");
+              
+                Date fecha = rs.getDate("fechaEvento");
+                Date hora=rs.getTime("horaInicio");
+
+                String resumen=rs.getString("resumen");
+                String secundaria=rs.getString("imgSecundaria");
+                //Ajusta la hora que viene de bd para sea correcta
+                String hora2=horaAjustada(hora);
+                
+                
+                //Hay que agregarle un día a la que trae de bd para que esté bien
+                   Calendar c = Calendar.getInstance();
+                c.setTime(fecha);
+                c.add(Calendar.DAY_OF_MONTH,1);
+                
+                fecha=c.getTime();
+                
+               SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+               
+               String fecha2=formatoFecha.format(fecha);
+                
+               
+          
+               //Esto se asegura de que no salgan eventos repetidos en los que tienen varias fechas
+            eventoDetalle=new EventSummary(nombre,desc,portada,finalizado,fecha2,hora2,id,resumen,secundaria);
+               
+            }
+        
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }
+     return eventoDetalle;     
+    }
+    
+    
     public Optional<EventSummary> get(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
@@ -145,6 +216,10 @@ boolean repetido=false;
         return eventosSummary;
     }
 
+    
+  
+    
+    
     @Override
     public void save(EventSummary t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

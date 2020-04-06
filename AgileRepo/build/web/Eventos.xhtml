@@ -105,9 +105,11 @@
                       <div class="ui-g" >
                           
                           <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
+                              
                               <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'none':'block'}">
+                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
                             <div class="pricing-basic pricing-box gridEventosSummary" >
-                                
+                               
                                 <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
                                 <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
                                 <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
@@ -116,8 +118,9 @@
                      
                                  
                             </div>
+                                         </a> 
                         </div>
-                              
+                           
                           </c:forEach>
                      
                         
@@ -184,6 +187,7 @@
                           
                            <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
                               <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'blcok':'none'}">
+                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
                             <div class="pricing-basic pricing-box gridEventosSummary" >
                                 
                                 <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
@@ -194,6 +198,7 @@
                      
                                  
                             </div>
+                                  </a>
                         </div>
                               
                           </c:forEach>
