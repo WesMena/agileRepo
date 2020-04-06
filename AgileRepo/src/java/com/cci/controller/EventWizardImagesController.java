@@ -43,15 +43,17 @@ import org.primefaces.shaded.commons.io.IOUtils;
 public class EventWizardImagesController implements Serializable {
 
     public static StreamedContent profileImage = null;
+    public static UploadedFile uploadedFile;
 
     public EventWizardImagesController() {
-        
+
     }
 
     public void onLoad() {
 
         InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
         try {
+            uploadedFile = null;
             profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
             System.out.println("Stream : " + iniIm.available());
             updateUI();
@@ -62,8 +64,8 @@ public class EventWizardImagesController implements Serializable {
 
     public StreamedContent getProfileImage() {
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-        
-        return new DefaultStreamedContent(profileImage.getStream(),"image/jpeg");
+
+        return new DefaultStreamedContent(profileImage.getStream(), "image/jpeg");
     }
 
     public void setProfileImage(StreamedContent profileImage) {
@@ -72,8 +74,6 @@ public class EventWizardImagesController implements Serializable {
         this.profileImage = profileImage;
     }
 
-    private UploadedFile uploadedFile;
-
     public UploadedFile getUploadedFile() {
         return uploadedFile;
     }
@@ -81,7 +81,7 @@ public class EventWizardImagesController implements Serializable {
     public void setUploadedFile(UploadedFile uploadedFile) {
         this.uploadedFile = uploadedFile;
     }
-    
+
     //Evento disparado cuando un archivo termina de cargar
     public void handleFileUpload(FileUploadEvent event) {
         uploadedFile = event.getFile();
@@ -108,16 +108,16 @@ public class EventWizardImagesController implements Serializable {
         //Aca se p[odria subir la imagen a la BD
 
         try {
-           IOUtils.copy(input, output);
+            IOUtils.copy(input, output);
         } finally {
-           IOUtils.closeQuietly(input);
-           IOUtils.closeQuietly(output);
+            IOUtils.closeQuietly(input);
+            IOUtils.closeQuietly(output);
         }
     }
 
     private void updateUI() {
-        PrimeFaces.current().ajax().update("ppOrg");
-        PrimeFaces.current().ajax().update("counterContainerTag");
+        PrimeFaces.current().ajax().update("test1:ppOrg");
+        PrimeFaces.current().ajax().update("test1:counterContainerTag");
         //PrimeFaces.current().ajax().update("publicarEvento:pnlHelp");
     }
 

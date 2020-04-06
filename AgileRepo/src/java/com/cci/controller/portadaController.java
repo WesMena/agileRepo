@@ -106,7 +106,7 @@ public class portadaController implements Serializable {
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary", filename));
+ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
      }catch(IOException e){
          e.printStackTrace();
      }
@@ -196,7 +196,7 @@ ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/A
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary", filename));
+ImageIO.write(buffer,"png",new File("C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
      }catch(IOException e){
          e.printStackTrace();
      }

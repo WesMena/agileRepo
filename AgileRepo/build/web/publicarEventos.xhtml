@@ -32,15 +32,15 @@
                     // }
                 </script>
 
-                
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk;libraries=drawing" ></script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk" ></script>
+                <script src="https://maps.googleapis.com/maps/api/js? key=AIzaSyDyo1Ab1cAQY4WKk5YwXXtfh1r4ue37drk" ></script>
 
-                
-                
-         
+
+
+
 
                 <script type="text/javascript">
                     PrimeFaces.locales['es'] = {
@@ -146,275 +146,12 @@
                 <center>    
 
                     <h:form id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
-                        <p:accordionPanel  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
-                            
-                             
-                            
-                            
-                            
-                            
-                            
-                                 <p:tab id="imagenPrincipal" title="Imagen Principal">
-                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-                                    <div style="width:90%; margin-left:20px;">
-                                    <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
-                                     <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
-                                    </div>
-                                    
-                                    
-                                     
-                 
-                                            
-                                             
-                                         
-                                         <div style="width:100%; height:100%;">
-                                             <div  id="portadaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFoto}"/>
-                                              
-                                       
-                                             <p:fileUpload   auto="true" id="imagenPortada" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFoto}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
-        
-                                                 </p:fileUpload>
-                                               </div>
-                              
-                                        
- 
-      
-                                  
-                                     
-                                </p:panel>   
-                            </p:tab>
-                            
-                            
-                            
-                            
-                            
-                            
-                             <p:tab id="descripcion" title="Resumen/Descripción">
-                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-                                    <div style="width:90%; margin-left:20px;">
-                                    <i class="pi pi-align-left" style="font-size:48px; color:#0388e5;"></i>
-                                     <h:outputText  value="Resumen del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
-                                    </div>
-                                    <p:inputTextarea id="resumenId" rows="5" cols="30" valueChangeListener="#{wizardcontroller.cambioResumen}" value="#{wizardcontroller.resumen}"  counter="resumen" maxlength="140" counterTemplate="{0} caracteres restantes " autoResize="false" style="width:95%; margin-left:20px;" />    
-                                        <br/>
-                                            <h:outputText id="resumen" style="margin-left:20px;"/>
-                                      <br/>
-                                       <br/>
-                                            <i class="pi pi-pencil" style="font-size:48px; color:#0388e5; margin-left:20px;"></i>
-                                     <h:outputText  value="Descripción del evento" style="font-size:28px; font-weight: bold; margin-left:20px;"></h:outputText>      
-                                     
-                                     
-                                     
-                                     
-                                     <p:textEditor widgetVar="editor2" value="#{wizardcontroller.descripcion}" height="300" style="margin-bottom:10px; width:95%; margin-left:20px;" valueChangeListener="#{wizardcontroller.cambioDesc}" placeholder="Escribe una descripción que llame la atención del público potencial de tu evento">
-                                       
-        <f:facet name="toolbar">
-            
-              <!-->
-              Esta es la lista de los controles del textEditor que generan 
-              html legible por un h:outputText
-                
-                </!-->
-            
-            
-            
-             <span class="ql-formats">
-                  <button class="ql-header ql-active" value="1"></button>
-                  <button class="ql-header ql-active" value="2"></button>
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-strike"></button>
-                 <button class="ql-list" value="ordered"></button>
-                <button class="ql-list" value="bullet"></button>
-                <select class="ql-color ql-picker ql-color-picker"></select>
-                <select class="ql-align"></select>
-            </span>
-           
-        </f:facet>
-    </p:textEditor>
-                                  
-                                     <p:commandButton id="submitDescripción" value="Guardar" >
-                                         <f:ajax execute="editor2"></f:ajax>
-                                         <f:ajax execute="resumenId"></f:ajax>
-                                     </p:commandButton>      
-                                </p:panel>   
-                            </p:tab>
-                            
-                            
-                            
-                               <p:tab id="imagenSecundaria" title="Imagen Secundaria">
-                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-                                    <div style="width:90%; margin-left:20px;">
-                                    <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
-                                     <h:outputText  value="Seleccionar la imagen secundaria del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
-                                    </div>
-                                    
-                                    
-                                     
-                 
-                                            
-                                             
-                                         
-                                         <div style="width:100%; height:100%;">
-                                             <div  id="secundariaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFotoSecundaria}"/>
-                                              
-                                       
-                                             <p:fileUpload   auto="true" id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFotoSecundaria}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
-        
-                                                 </p:fileUpload>
-                                               </div>
-                              
-                                        
- 
-      
-                                  
-                                     
-                                </p:panel>   
-                            </p:tab>
-                            
-                       
-                            <p:tab id="ubi-hora" title=" Ubicación y Horario"  >                             
 
-                                <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
+                        <p:messages closable="true"  id="messageErrorTag" >
+                            <p:autoUpdate />
+                        </p:messages>
+                        <p:tabView id="test1"  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
 
-                                    <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important"  >
-
-                                        <br></br>
-                                        <br></br>
-
-                                        <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
-
-                                            <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
-                                            <br></br>
-                                            <br></br>
-                                            <p:growl id="messages" showDetail="true" />
-                                            <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
-                                                    model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
-
-                                            <br></br>
-                                            <br></br>
-
-                                            <h3>Digite la direccion del evento:</h3>
-                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
-                                            <br/>
-                                            <h:outputText id="display" />
-
-                                        </p:panel>
-
-                                        <br></br>
-                                        <br></br>
-
-                                        <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
-
-                                            <h3>Digita el link al evento:</h3>
-                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
-
-                                        </p:panel>
-
-
-                                        <br></br>
-                                        <br></br>
-
-
-                                    </p:panel>
-
-                                    <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
-
-                                        <br></br>
-                                        <br></br>
-
-
-                                        <div class="ui-g ui-fluid">
-                                            <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
-                                                <br></br>
-                                                <br></br>
-                                                <p:outputLabel value="Zona Horaria:" />
-                                                <br></br>
-                                                <br></br>
-                                                <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
-
-                                                    <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
-
-                                                </h:selectOneMenu>
-                                                <br></br>
-                                                <br></br>
-                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" />
-                                                <br></br>
-                                                <br></br>
-
-
-                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" />
-
-
-
-                                            </div>
-                                            <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
-                                                <br></br>
-                                                <br></br>
-                                                <p:outputLabel value="El evento inicia a:" />
-                                                 <br></br>
-                                                <p:datePicker id="inicia" value="#{wizardcontroller.ini}" timeOnly="true" pattern="HH:mm"/>
-                                                <br></br>
-                                                <br></br>
-                                                <br></br>
-                                                <p:outputLabel value="El evento termina a:" />
-                                                 <br></br>
-                                                <p:datePicker id="termina" value="#{wizardcontroller.fin}" timeOnly="true" pattern="HH:mm"/>
-                                                <br></br>
-                                                <br></br>
-                                                <br></br>
-                                                <br></br>
-                                            </div>
-
-                                            <br></br>
-                                            <br></br>
-                                        </div>
-
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                        <h:outputText value="El evento es fisico? " style="margin-right: 315px; font-size: 22px" />
-                                        <br></br>
-                                        <br></br>
-                                        <br></br>
-                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
-
-                                        <p:commandButton value="Guardar Día"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" /> 
-                                        
-
-                                    </p:panel>
-                                    <br></br>
-                                    <br></br>
-
-
-                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
-
-
-                                        <h:outputText value="Range Selection:" />
-                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
-                                            #{status.first ? '' : '-'}
-                                            <h:outputText value="#{date}">
-                                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                                            </h:outputText>
-                                        </ui:repeat>
-
-
-
-
-                                        <h:outputText value="Time Only:" />
-                                        <h:outputText value="#{calendarview.date14}">
-                                            <f:convertDateTime pattern="HH:mm" />
-                                        </h:outputText>
-                                    </p:dialog>
-
-                                </p:panel>
-
-
-                            </p:tab>
-                                
-                            
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <p:panel id="pnlHelp" style="text-align: left">
@@ -593,7 +330,7 @@
                                                 <!--Nombre deo organizador logueado-->
                                                 <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Organizador</label>
                                                 <div class="ui-g ui-fluid">
-                                                    <div class="ui-g-12 ui-md-11">
+                                                    <div class="ui-g-12 ui-md-9">
                                                         <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{wizardcontroller.nombreOrganizador}" ></p:outputLabel>
                                                         <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Descripción</label>
                                                         <p:inputTextarea 
@@ -610,12 +347,12 @@
                                                         <p:message  id="messagesDesc" for="inputDesc" showDetail="false">
                                                             <p:autoUpdate />
                                                         </p:message>
-                                                        <!--Counter para nombre y numero de tags-->
+                                                        <!--Counter para descripcion-->
                                                         <h:outputText   style="font-weight: bold;float: right" id="eventoDescC" ></h:outputText>
 
                                                     </div>
-                                                    <div class="ui-g-12 ui-md-1">
-                                                        <p:graphicImage  cache="false" id="ppOrg" class="ppOrganizador"   value="#{eventWizardImageController.profileImage}" stream="true" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 96%;"></p:graphicImage>
+                                                    <div class="ui-g-12 ui-md-3">
+                                                        <p:graphicImage  width="200" height="192" cache="false" id="ppOrg" class="ppOrganizador"   value="#{eventWizardImageController.profileImage}" stream="true" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 192px;"></p:graphicImage>
                                                     </div>
 
                                                     <div class="ui-g-12 ui-md-12">
@@ -634,11 +371,267 @@
                                     </p:panel>
                                 </p:panel>
                                 <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc,ppOrg"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
-                            </p:tab>                    
-                            
-      
-                            
-                            
+                            </p:tab>  
+
+
+
+                            <p:tab id="imagenPrincipal" title="Imagen Principal">
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div style="width:90%; margin-left:20px;">
+                                        <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
+                                        <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
+                                    </div>
+
+
+                                    <div style="width:100%; height:100%;">
+                                        <div  id="portadaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFoto}"/>
+
+
+                                        <p:fileUpload   auto="true" id="imagenPortada" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFoto}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
+
+                                        </p:fileUpload>
+                                    </div>
+
+
+
+
+
+
+                                </p:panel>   
+                            </p:tab>
+
+
+
+
+
+
+                            <p:tab id="descripcion" title="Resumen/Descripción">
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div style="width:90%; margin-left:20px;">
+                                        <i class="pi pi-align-left" style="font-size:48px; color:#0388e5;"></i>
+                                        <h:outputText  value="Resumen del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
+                                    </div>
+                                    <p:inputTextarea id="resumenId" rows="5" cols="30" valueChangeListener="#{wizardcontroller.cambioResumen}" value="#{wizardcontroller.resumen}"  counter="resumen" maxlength="140" counterTemplate="{0} caracteres restantes " autoResize="false" style="width:95%; margin-left:20px;" />    
+                                    <br/>
+                                    <h:outputText id="resumen" style="margin-left:20px;"/>
+                                    <br/>
+                                    <br/>
+                                    <i class="pi pi-pencil" style="font-size:48px; color:#0388e5; margin-left:20px;"></i>
+                                    <h:outputText  value="Descripción del evento" style="font-size:28px; font-weight: bold; margin-left:20px;"></h:outputText>      
+
+
+
+
+                                    <p:textEditor widgetVar="editor2" value="#{wizardcontroller.descripcion}" height="300" style="margin-bottom:10px; width:95%; margin-left:20px;" valueChangeListener="#{wizardcontroller.cambioDesc}" placeholder="Escribe una descripción que llame la atención del público potencial de tu evento">
+
+                                        <f:facet name="toolbar">
+
+                                            <!-->
+                                            Esta es la lista de los controles del textEditor que generan 
+                                            html legible por un h:outputText
+                                              
+                                              </!-->
+
+
+
+                                            <span class="ql-formats">
+                                                <button class="ql-header ql-active" value="1"></button>
+                                                <button class="ql-header ql-active" value="2"></button>
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <select class="ql-color ql-picker ql-color-picker"></select>
+                                                <select class="ql-align"></select>
+                                            </span>
+
+                                        </f:facet>
+                                    </p:textEditor>
+
+                                    <p:commandButton id="submitDescripción" value="Guardar" >
+                                        <f:ajax execute="editor2"></f:ajax>
+                                        <f:ajax execute="resumenId"></f:ajax>
+                                    </p:commandButton>      
+                                </p:panel>   
+                            </p:tab>
+
+
+
+                            <p:tab id="imagenSecundaria" title="Imagen Secundaria">
+                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <div style="width:90%; margin-left:20px;">
+                                        <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
+                                        <h:outputText  value="Seleccionar la imagen secundaria del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
+                                    </div>
+
+
+
+
+
+
+
+                                    <div style="width:100%; height:100%;">
+                                        <div  id="secundariaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFotoSecundaria}"/>
+
+
+                                        <p:fileUpload   auto="true" id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFotoSecundaria}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
+
+                                        </p:fileUpload>
+                                    </div>
+
+
+
+
+
+
+                                </p:panel>   
+                            </p:tab>
+
+
+                            <p:tab id="ubi-hora" title=" Ubicación y Horario"  >                             
+
+                                <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
+
+                                    <p:panel id="Ubicacion" header="Sección de Ubicaciones"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important"  >
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación Física" toggleable="true" collapsed="true" >
+
+                                            <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
+                                            <br></br>
+                                            <br></br>
+                                            <p:growl id="messages" showDetail="true" />
+                                            <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
+                                                    model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
+
+                                            <br></br>
+                                            <br></br>
+
+                                            <h3>Digite la direccion del evento:</h3>
+                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="5" cols="30" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style=" width: 600px; height: 80px;" />
+                                            <br/>
+                                            <h:outputText id="display" />
+
+                                        </p:panel>
+
+                                        <br></br>
+                                        <br></br>
+
+                                        <p:panel id="link" widgetVar="pnlLink"  style="display:block;border:  #03A8E4"  header="Link del Evento" toggleable="true" collapsed="true">
+
+                                            <h3>Digita el link al evento:</h3>
+                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"  />   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+
+                                        </p:panel>
+
+
+                                        <br></br>
+                                        <br></br>
+
+
+                                    </p:panel>
+
+                                    <p:panel id="Hora" header="Sección de Horario"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+
+                                        <br></br>
+                                        <br></br>
+
+
+                                        <div class="ui-g ui-fluid">
+                                            <div class="ui-g-12 ui-md-8" style="border:1px solid lightslategrey ; width: 50%"  >
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Zona Horaria:" />
+                                                <br></br>
+                                                <br></br>
+                                                <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width: 320px"  required="true" label="Text 3">
+
+                                                    <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
+
+                                                </h:selectOneMenu>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" />
+                                                <br></br>
+                                                <br></br>
+
+
+                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" />
+
+
+
+                                            </div>
+                                            <div class="ui-g-12 ui-md-3" style="border:1px solid lightslategrey; width: 50%">
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento inicia a:" />
+                                                <br></br>
+                                                <p:datePicker id="inicia" value="#{wizardcontroller.ini}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel value="El evento termina a:" />
+                                                <br></br>
+                                                <p:datePicker id="termina" value="#{wizardcontroller.fin}" timeOnly="true" pattern="HH:mm"/>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                                <br></br>
+                                            </div>
+
+                                            <br></br>
+                                            <br></br>
+                                        </div>
+
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <h:outputText value="El evento es fisico? " style="margin-right: 315px; font-size: 22px" />
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px" /> 
+
+                                        <p:commandButton value="Guardar Día"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" /> 
+
+
+                                    </p:panel>
+                                    <br></br>
+                                    <br></br>
+
+
+                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
+
+
+                                        <h:outputText value="Range Selection:" />
+                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
+                                            #{status.first ? '' : '-'}
+                                            <h:outputText value="#{date}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                            </h:outputText>
+                                        </ui:repeat>
+
+
+
+
+                                        <h:outputText value="Time Only:" />
+                                        <h:outputText value="#{calendarview.date14}">
+                                            <f:convertDateTime pattern="HH:mm" />
+                                        </h:outputText>
+                                    </p:dialog>
+
+                                </p:panel>
+
+
+                            </p:tab>
+
+
+
 
                             <p:dialog widgetVar="dlg" showEffect="fade">
                                 <h:form prependId="false">
@@ -659,7 +652,7 @@
 
 
 
-                       
+
                             <p:tab id="entradas" title="Entradas">
                                 <p:panel id="panelMainEntradas" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div class="ui-g">
@@ -668,7 +661,7 @@
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
+                                                    <p:commandButton id="crearEntrada" value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
                                                 </p:panel>
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{wizardcontroller.lstEntrada}" var="entradas" varStatus="loop" >
@@ -726,7 +719,7 @@
                                                         counterTemplate="{0}/50"
                                                         readonly="false"
                                                         required="#{wizardcontroller.validarEntradas}"
-                                                        validatorMessage="El nombre de entrada es obligatorio">
+                                                        requiredMessage="El nombre de entrada es obligatorio">
 
                                                     </p:inputTextarea>
 
@@ -812,10 +805,10 @@
                                 </p:panel>
 
                             </p:tab>
-                          
-                        </p:accordionPanel>
+
+                        </p:tabView>
                         <!-- </p:wizard> --> 
-                     
+
 
 
 
@@ -844,7 +837,7 @@
                     }
 
                     /*No es mucho.Pero es trabajo honesto*/
-                    @media only screen and (max-width: 768px){
+                    @media only screen and (max-width: 1353px){
                         /*Dispositivos moviles grandes*/
                         .txtIntro{
                             height: 150px;
@@ -858,6 +851,7 @@
                             width: 48px;
                         }
                         .ppOrganizador {
+                            height: 192px;
                             width: 96% ;
                             float: inside;
                             margin-left: 5px ;
@@ -875,11 +869,12 @@
                             width: 100% !important;
                             width: 96% !important;
                             margin: 4px !important;
+                            
                         }
                     }
 
 
-                    @media only screen and (min-width: 1200px) {
+                    @media only screen and (min-width: 1354px) {
                         /*Escritorio y Tablets*/
                         .textButtonIcon{
                             height: 48px;
@@ -893,6 +888,7 @@
                         }
 
                         .ppOrganizador{
+                            height: 192px;
                             width: 200px ;
                             float: right ;
                             margin-right: 7px;
@@ -902,14 +898,14 @@
                             margin-right: 150px;
                             margin-left: 8px !important;
                             height: 70% ! important;
-                            width: 91% !important;
+                            width: 100% !important;
                         }
 
                         .btnTool{
                             float: right;
                         }
                         #eventoDescC{
-                            margin-right: 110px;
+                            /*margin-right: 110px;*/
                         }
                     }
 
@@ -950,7 +946,7 @@
                     }
 
                 </style>
-                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+                <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
             </ui:define>
 
         </ui:composition>

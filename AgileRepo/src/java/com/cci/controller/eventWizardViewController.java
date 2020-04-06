@@ -5,7 +5,6 @@
  */
 package com.cci.controller;
 
-
 import java.io.Serializable;
 import org.primefaces.event.FlowEvent;
 
@@ -54,9 +53,12 @@ import org.primefaces.model.UploadedFile;
 import com.cci.model.InfoBasica;
 import com.cci.service.Dao;
 import com.cci.service.InfoBasicaDao;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -68,32 +70,29 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
-
-
-
-
 @ManagedBean(name = "wizardcontroller")
 @SessionScoped
 public class eventWizardViewController implements Serializable {
-    
-  public String descripcion="";
-  public String resumen=""; 
-  public static Integer idEvento=-1;
-      public String onFlowProcess(FlowEvent event) {
-           
-            return event.getNewStep();
-      }
- public eventWizardViewController() {
+
+    public String descripcion = "";
+    public String resumen = "";
+    public static Integer idEvento = -1;
+
+    public String onFlowProcess(FlowEvent event) {
+
+        return event.getNewStep();
+    }
+
+    public eventWizardViewController() {
 
     }
-        
-    //</editor-fold>
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Variables">
     private List<Tag> tags = new ArrayList<>();
     private String newTag;
     private String strTag = "0";
-    
+
     //Hacer los cambios que haga falta
     private String descOrganizador;
     private String nombreOrganizador;
@@ -102,7 +101,6 @@ public class eventWizardViewController implements Serializable {
     private boolean skip = false;
 
     //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public void setTags(List<Tag> tags) {
         this.tags = tags;
@@ -141,33 +139,31 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setResumen(String resumen) {
-  
+
         this.resumen = resumen;
     }
 
-  public void cambioDesc(ValueChangeEvent e){
-      
-      //Método que se dispara al escribir en el textEditor de la descripción
-      //funciona con un valueChangeListener
-      this.descripcion=e.getNewValue().toString();
- 
-  }
-  
-public void cambioResumen(ValueChangeEvent e){
-     
-    //Método que se dispara al escribir en el inputTextArea del resumen
-      //funciona con un valueChangeListener
-      this.resumen=e.getNewValue().toString();
-      
-}
+    public void cambioDesc(ValueChangeEvent e) {
 
+        //Método que se dispara al escribir en el textEditor de la descripción
+        //funciona con un valueChangeListener
+        this.descripcion = e.getNewValue().toString();
 
+    }
 
+    public void cambioResumen(ValueChangeEvent e) {
 
+        //Método que se dispara al escribir en el inputTextArea del resumen
+        //funciona con un valueChangeListener
+        this.resumen = e.getNewValue().toString();
+
+    }
 
     /*Valores de Ubicacion y hora*/
-    private String nombre; /* <- Nombre de la configuracion */
-    private String ubi; /* <- Ubicacion Fisica de la configuracion */
+    private String nombre;
+    /* <- Nombre de la configuracion */
+    private String ubi;
+    /* <- Ubicacion Fisica de la configuracion */
     private String link;/* <- Ubicacion del Link de la configuracion */
     private horarioCompleto horario = new horarioCompleto();/* <- Objeto para armar la lista de Zonas horarias */
     private Date ini;/* <- Hora Inicio */
@@ -178,7 +174,7 @@ public void cambioResumen(ValueChangeEvent e){
     private Date Ffin;
     private boolean fisico;
     private int idEvnt;
-    
+
     /*Lista de las diferentes zonas del mundo*/
     public List<ZonaHoraria> lstZona = new ArrayList<>();
     /*Lista de los Paises por zona horaria*/
@@ -193,11 +189,6 @@ public void cambioResumen(ValueChangeEvent e){
     private List<Date> range;
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
-
-    
-    
-    
-    
     public Date getFini() {
         return Fini;
     }
@@ -214,10 +205,6 @@ public void cambioResumen(ValueChangeEvent e){
         this.Ffin = Ffin;
     }
 
-    
-    
-    
-    
     public int getIdEvnt() {
         return idEvnt;
     }
@@ -225,8 +212,7 @@ public void cambioResumen(ValueChangeEvent e){
     public void setIdEvnt(int idEvnt) {
         this.idEvnt = idEvnt;
     }
-    
-    
+
     public String getStrIni() {
         return strIni;
     }
@@ -351,8 +337,8 @@ public void cambioResumen(ValueChangeEvent e){
     StringBuffer stringBuffer = new StringBuffer();
 
     /*Esta funcion llena el combo box de las zonas horarias*/
-    /*La informacion de las zonas se trae de la BD*/
-    /*Se verifica que el ID de la zona sea la misma y se concatena con el Pais para generar el string*/
+ /*La informacion de las zonas se trae de la BD*/
+ /*Se verifica que el ID de la zona sea la misma y se concatena con el Pais para generar el string*/
     public void llenarCombo() {
         lstcmpt.clear();
 
@@ -369,14 +355,14 @@ public void cambioResumen(ValueChangeEvent e){
                 int valPais = lstPais.get(y).getId();
 
                 if (valZona == valPais) {
-                    
+
                     lstcmpt.add(new horarioCompleto(lstZona.get(i).getZona().toString() + "-" + lstPais.get(y).getPais().toString()));
                 }
 
             }
         }
     }
-    
+
     /*Funcion para dar formato a la hora*/
     public String format(Date fecha) {
         String hora = "";
@@ -387,7 +373,7 @@ public void cambioResumen(ValueChangeEvent e){
         return hora;
 
     }
-    
+
     /*Funcion para dar formato a la fecha*/
     public String formatFecha(Date fecha) {
         String fechaN = "";
@@ -398,16 +384,14 @@ public void cambioResumen(ValueChangeEvent e){
         return fechaN;
 
     }
-    
-    
+
     /*Funcion para actualizar GUI*/
     private void updateUI() {
 
         PrimeFaces.current().ajax().update("publicarEventos:ubi-hora");
-            PrimeFaces.current().ajax().update("publicarEvento");
+        PrimeFaces.current().ajax().update("publicarEvento");
     }
-    
-    
+
     /*Funcion para setear las fechas en que Inicia y finaliza el evento*/
     private void setearFechas(List<Date> list) {
 
@@ -422,61 +406,55 @@ public void cambioResumen(ValueChangeEvent e){
         }
 
     }
-    
-    
+
     /*Genera un ID random para prueba*/
-    public void ranID(){
-        Random rand = new Random(); 
+    public void ranID() {
+        Random rand = new Random();
         this.idEvnt = rand.nextInt(1000);
     }
-    
-    
-    
+
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
-    /*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
-    /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+ /*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
+ /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
-         ranID();
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvnt,this.horario.getHorarioStr().toString(), this.ini,this.fin,this.fisico,this.Fini,this.Ffin);
+        ranID();
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvnt, this.horario.getHorarioStr().toString(), this.ini, this.fin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);
             container.setLink("NONE");
             System.out.println(" -> Container Creado!");
-            System.out.println("Ubicacion: "+container.getUbifisica());
-            System.out.println("Zona Horaria: "+container.getZonaHoraria());
-            
+            System.out.println("Ubicacion: " + container.getUbifisica());
+            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
         } else {
             container.setLink(this.link);
-             container.setUbifisica("NONE");
+            container.setUbifisica("NONE");
             System.out.println(" -> Container Creado!");
-            System.out.println("Link: "+container.getLink());
-            System.out.println("Zona Horaria: "+container.getZonaHoraria());
+            System.out.println("Link: " + container.getLink());
+            System.out.println("Zona Horaria: " + container.getZonaHoraria());
         }
-        
+
         dao.save(container);
-        
+
         return container;
     }
-     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-    /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
-         
 
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+ /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     public void saveMessage() {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Informacioón Guardada!") );
-       
-    }
+        context.addMessage(null, new FacesMessage("Informacioón Guardada!"));
 
- 
+    }
 
     public void setIdEvento(Integer idEvento) {
         this.idEvento = idEvento;
@@ -490,7 +468,7 @@ public void cambioResumen(ValueChangeEvent e){
         this.stringBuffer = stringBuffer;
     }
 
-       private List<Entrada> lstEntrada = new ArrayList<>();
+    private List<Entrada> lstEntrada = new ArrayList<>();
     String nombreEntrada;
     double precioEntrada;
     String fechaFinEntrada;
@@ -502,8 +480,6 @@ public void cambioResumen(ValueChangeEvent e){
     Integer indexEntrada;
     Boolean editarDivRend = false;
     Boolean validarEntradas = false;
- 
-
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="comment">
@@ -515,8 +491,6 @@ public void cambioResumen(ValueChangeEvent e){
     //Metodo cerrarEntrada, Cierra la seccion editar entrada sin aplicar cambios
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
-
-
     public void nuevaEntrada() {
 
         Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
@@ -631,7 +605,6 @@ public void cambioResumen(ValueChangeEvent e){
         this.validarEntradas = validarEntradas;
     }
 
-
     public void actualizarEntrada() {
         lstEntrada.get(this.indexEntrada).setNombre(this.nombreEntrada);
         lstEntrada.get(this.indexEntrada).setTipo(this.tipoEntrada);
@@ -672,35 +645,31 @@ public void cambioResumen(ValueChangeEvent e){
         System.out.println("Ingreso de Entradas a la BD listo");
     }
 
-    public String BotonEntrada(){
-    
-        if(lstEntrada.size() > 0 && idEvento >= 1){
-        
+    public String BotonEntrada() {
+
+        if (lstEntrada.size() > 0 && idEvento >= 1) {
+
             return "false";
-            
+
         } else {
-        
+
             return "true";
-            
+
         }
     }
-    
-    public String BotonCrearEntrada(){
-     if(idEvento != null){
-        
+
+    public String BotonCrearEntrada() {
+        if (idEvento != -1) {
+
             return "false";
-            
+
         } else {
-        
+
             return "true";
-            
+
         }
-    
+
     }
-
-
-
-
 
     public String getNombreOrganizador() {
         return nombreOrganizador;
@@ -742,7 +711,7 @@ public void cambioResumen(ValueChangeEvent e){
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void saveInfoBasica(ActionEvent event) {
-    
+
         List<String> tagStr = new ArrayList<>();
         System.out.println("Tipo : " + this.tipoEvento);
         System.out.println("Nombre:" + this.nombreEvento);
@@ -751,18 +720,37 @@ public void cambioResumen(ValueChangeEvent e){
         System.out.println("UID:" + Constantes.logguedUsserUID);
         System.out.println("Bytes :" + EventWizardImagesController.profileImage.getContentLength());
         Dao dao = new InfoBasicaDao();
-        
-        this.tags.forEach((t) -> {
-            tagStr.add(t.getTag());
-        });
-        
-        if (idEvento != -1) {
-            //Update :)
-            ((InfoBasicaDao)dao).update(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descOrganizador));
+        if (this.tags.isEmpty()) {
+            //Mensaje de error
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregue al menos un tag.", ""));
+        } else if (EventWizardImagesController.uploadedFile == null) {
+            //Mensaje de error
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Escoja una imagen que le represente.", ""));
         } else {
-            ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento,this.nombreEvento,this.nombreOrganizador,tagStr,EventWizardImagesController.profileImage.getStream(),this.descOrganizador));
+            //Todo al 100 
+            this.tags.forEach((t) -> {
+                tagStr.add(t.getTag());
+            });
+
+            if (idEvento != -1) {
+                try {
+                    //Update :)
+                    ((InfoBasicaDao) dao).update(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.uploadedFile.getInputstream(), this.descOrganizador));
+                } catch (IOException ex) {
+                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PrimeFaces.current().ajax().update("test1:crearEntrada");
+            } else {
+                try {
+                    ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.uploadedFile.getInputstream(), this.descOrganizador));
+                } catch (IOException ex) {
+                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PrimeFaces.current().ajax().update("test1:crearEntrada");
+            }
         }
-    
     }
 
     public void addTag(ActionEvent e) {
@@ -778,8 +766,8 @@ public void cambioResumen(ValueChangeEvent e){
             //Limpiando el tag
             newTag = "";
             System.out.println("Lista : " + this.tags.size());
-            PrimeFaces.current().ajax().update("tagListDiv");
-            PrimeFaces.current().ajax().update("counterContainerTag");
+            PrimeFaces.current().ajax().update("test1:tagListDiv");
+            PrimeFaces.current().ajax().update("test1:counterContainerTag");
 
         }
     }
@@ -793,12 +781,10 @@ public void cambioResumen(ValueChangeEvent e){
         this.tags.remove(t);
         this.strTag = String.valueOf(tags.size());
         //updateTagIndex();
-        PrimeFaces.current().ajax().update("tagListDiv");
-        PrimeFaces.current().ajax().update("counterContainerTag");
+        PrimeFaces.current().ajax().update("test1:tagListDiv");
+        PrimeFaces.current().ajax().update("test1:counterContainerTag");
         PrimeFaces.current().ajax().update("messageErrorTag");
     }
-
-  
 
     public void onLoad() {
         this.nombreOrganizador = UsuarioLoginController.displayName;
@@ -874,5 +860,4 @@ public void cambioResumen(ValueChangeEvent e){
         this.indexEntrada = indexEntrada;
     }
 
-      
 }
