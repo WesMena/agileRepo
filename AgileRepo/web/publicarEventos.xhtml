@@ -450,7 +450,7 @@
                                         </f:facet>
                                     </p:textEditor>
 
-                                    <p:commandButton id="submitDescripción" value="Guardar" >
+                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" >
                                         <f:ajax execute="editor2"></f:ajax>
                                         <f:ajax execute="resumenId"></f:ajax>
                                     </p:commandButton>      
