@@ -35,16 +35,16 @@ import org.primefaces.shaded.commons.io.IOUtils;
  */@ManagedBean(name = "portadacontroller")
 @SessionScoped
 public class portadaController implements Serializable {
+     //Lo que está antes del + es el directorio en donde se colocó este proyecto.
+     //Remplazar l
+ String directorioGuardado="C:/Users/wesli/Documents/GitHub/agileRepo"+"/AgileRepo/web/resources/omega-layout/images/EventosSummary/";
  private UploadedFile foto;   
- //             <img id="portadaVista" cache="false"  src="#{portadacontroller.portada}"  width="310" height="140" style=" position:relative;  z-index:5;  width:100%; height:275px;" />    
- //El valor que sale aquí es el de la foto que viene por default
+
  String ubicacionFoto="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout')";
-// String ubicacionFoto="url(\"#{resource['omega-layout:images/landing/section1_bg.jpg']}\")";
- 
+
  String ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout')";
  
 
- //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
  String fotobd="images/EventosSummary/imagen1.jpg?ln=omega-layout";
  String fotoSecundariabd;
  
@@ -107,7 +107,7 @@ public class portadaController implements Serializable {
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
+ImageIO.write(buffer,"png",new File(directorioGuardado, filename));
      }catch(IOException e){
          e.printStackTrace();
      }
@@ -207,7 +207,7 @@ ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/A
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary/", filename));
+ImageIO.write(buffer,"png",new File(directorioGuardado, filename));
      }catch(IOException e){
          e.printStackTrace();
      }
