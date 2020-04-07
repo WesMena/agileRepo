@@ -422,8 +422,8 @@ public class eventWizardViewController implements Serializable {
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
-        ranID();
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvnt, this.horario.getHorarioStr().toString(), this.ini, this.fin, this.fisico, this.Fini, this.Ffin);
+     
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.ini, this.fin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);

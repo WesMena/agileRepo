@@ -39,7 +39,7 @@ boolean repetido=false;
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, f.fechaEvento, f.horaInicio  FROM eventopublic e, fechaseventop f WHERE e.idEventoPublic=f.evento";
+            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, f.FIni, f.hIni  FROM eventopublic e, confighoraubi f WHERE e.idEventoPublic=f.idEvento";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -55,8 +55,8 @@ boolean repetido=false;
                 int finalizado=rs.getInt("finalizado");
                 String portada=rs.getString("portada");
               
-                Date fecha = rs.getDate("fechaEvento");
-                Date hora=rs.getTime("horaInicio");
+                Date fecha = rs.getDate("FIni");
+                Date hora=rs.getTime("hIni");
 
                 System.out.println(nombre);
            
@@ -156,7 +156,7 @@ boolean repetido=false;
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, e.resumen,e.imgSecundaria, f.fechaEvento, f.horaInicio  FROM eventopublic e, fechaseventop f WHERE e.idEventoPublic=f.evento AND e.idEventoPublic="+id;
+            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, e.resumen,e.imgSecundaria, f.FIni, f.hIni  FROM eventopublic e, confighoraubi f WHERE e.idEventoPublic=f.idEvento AND e.idEventoPublic="+id;
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -171,8 +171,8 @@ boolean repetido=false;
                 int finalizado=rs.getInt("finalizado");
                 String portada=rs.getString("portada");
               
-                Date fecha = rs.getDate("fechaEvento");
-                Date hora=rs.getTime("horaInicio");
+                Date fecha = rs.getDate("FIni");
+                Date hora=rs.getTime("hIni");
 
                 String resumen=rs.getString("resumen");
                 String secundaria=rs.getString("imgSecundaria");
