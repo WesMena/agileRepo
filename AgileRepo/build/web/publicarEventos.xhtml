@@ -491,13 +491,18 @@
 
                                 <p:panel id="Todo" widgetVar="todoW" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">   
 
-                                    <p:panel id="Ubicacion" widgetVar="wUbi" header=" Ubicaciones "  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important;"    >
-
+                                    <p:panel id="Ubicacion" widgetVar="wUbi"   style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important;"    >
+                                        <br></br>
+                                        <br></br>
+                                         
+                                        <h:outputText  value="Ubicación" style="font-size:28px; font-weight: bold"></h:outputText>
+                                        <br></br>
+                                        <br></br>
                                         <br></br>
                                         <br></br>
                                         <h:outputText value="El evento es presencial? " style="margin-right: 315px; font-size: 22px" />
                                         <br></br>
-                                        <br></br>
+                                        
                                         <br></br>
                                         <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px">
                                             <p:ajax listener="#{wizardcontroller.switchState()}" />
@@ -513,11 +518,10 @@
                                             <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="6" cols="33" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style="width: 400px; height: 80px;" /> <p:graphicImage name="images/map.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
                                             <br/>
                                             <h:outputText id="display" />
-                                           
+
                                         </p:panel>
 
-                                        <br></br>
-                                        <br></br>
+                                   
 
                                         <p:panel id="link" widgetVar="pnlLink" style="display:block;border:#03A8E4" header="Link del Evento" rendered="#{wizardcontroller.isLink}" >
 
@@ -527,16 +531,18 @@
                                         </p:panel>
 
 
-                                        <br></br>
-                                        <br></br>
-
+                                        
 
                                     </p:panel>
 
-                                    <p:panel id="Hora" header="Horarios"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                    <p:panel id="Hora"   style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
 
                                         <br></br>
                                         <br></br>
+                                        <h:outputText  value="Horarios" style="font-size:28px; font-weight: bold"></h:outputText>
+                                        <br></br>
+                                        <br></br>
+                                      
 
 
                                         <div class="ui-g ui-fluid">
@@ -569,7 +575,7 @@
                                                 <p:outputLabel value="El evento inicia a:" style=" margin-left: 150px;" />
                                                 <br></br>
                                                 <br></br>
-                                               
+
                                                 <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; align-content: center; align-items:center; "/>
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
