@@ -45,6 +45,7 @@ public class EventController implements Serializable {
     private List<Evento> lstEvt = new ArrayList<>();
     private List<Cronograma> lstCrono = new ArrayList<>();
     private Evento target = new Evento();
+    public boolean btnAgregarEstado = true;
 
     public Evento getDelObject() {
         return delObject;
@@ -77,6 +78,10 @@ public class EventController implements Serializable {
     }
 
     public List<Evento> getLstEvt() {
+        if(lstEvt.size()>0){
+            this.btnAgregarEstado = false;
+        } 
+        
         return lstEvt;
     }
 
@@ -279,6 +284,11 @@ public class EventController implements Serializable {
         this.lstEvt = listaEventos();
         //Refresh de la pagina
         refrescar();
+        
+        if(this.lstEvt.isEmpty()){
+        btnAgregarEstado = true;
+        }
+        
     }
 
     public void agregarEvento() {
@@ -345,5 +355,15 @@ public class EventController implements Serializable {
     public void openModal() {
         PrimeFaces.current().executeScript("PF('dlg2').show()");
     }
+
+    public boolean isBtnAgregarEstado() {
+        return btnAgregarEstado;
+    }
+
+    public void setBtnAgregarEstado(boolean btnAgregarEstado) {
+        this.btnAgregarEstado = btnAgregarEstado;
+    }
+    
+    
 
 }

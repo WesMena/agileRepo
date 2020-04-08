@@ -7,7 +7,7 @@
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    <ui:define name="title">Eventos</ui:define>
+    <ui:define name="title">Agendas</ui:define>
 
     <ui:define name="head">
         <f:metadata>
@@ -47,6 +47,13 @@
             .main-content {
                 padding: 0;
             }
+            .ui-panel .ui-panel-content {
+                padding: 0;
+                border: none;
+                               
+            }
+            
+                        
         </style>
 
     </ui:define>
@@ -54,6 +61,20 @@
     <ui:define name="content" id="content" >
         <div class="ui-g ui-fluid dashboard" >
             <div class="ui-g-12" >
+                <p:panel id="pnlagregar" style="display:#{(eventcontroller.btnAgregarEstado)?'block':'none'}; border: none;">
+                    <div style="height: 100%; margin:0;padding:0;background: #EDF0F5">
+                        <div class="card clearfix summary" style="background:gainsboro">                        
+                            <p:commandButton value="&#43;" 
+                                             action="#{eventcontroller.agregarEvento()}" 
+                                             style="height:100%;width: 100%; 
+                                             border: none; background: gainsboro;
+                                             color: white; font-weight: bold; font-size: 90px">
+                                
+                            </p:commandButton>
+                        </div>
+                    </div>
+                </p:panel>
+
                 <!-->
                 Esto vendría a ser como un For. Lo que está haciendo es tomar
                 la lista de eventos(que se obtiene de base de datos 
@@ -249,7 +270,7 @@
 
                     </h:form>
                     <!--Dialogo de ocmentarios-->
-                    
+
                     <h:form id="frmdlg2">
                         <p:dialog showEffect="fade"  modal="true"  header="Comentarios : #{globalEventController.lstComent.size()}" responsive="true" width="360" height="375" resizable="false" widgetVar="dlgComent" id="dlgC">
                             <center>
@@ -292,8 +313,8 @@
 
         <!--Dialogo de confirmacion antes de la eliminacion-->
         <h:form style="text-align: center">
-            <p:confirmDialog message="Desea eliminar el evento?" header="Eliminación de evento" severity="alert" widgetVar="cd">
-                <p:commandButton style="display: block;width: 100%" action="#{eventcontroller.delete()}" value="Sí,seguro"  oncomplete="PF('cd').hide()">
+            <p:confirmDialog message="Desea eliminar la agenda?" header="Eliminación de agenda" severity="alert" widgetVar="cd">
+                <p:commandButton style="display: block;width: 100%" action="#{eventcontroller.delete()}" value="Sí,seguro" update="pnlagregar" oncomplete="PF('cd').hide()">
                 </p:commandButton>
                 <p:commandButton  style="display: block;width: 100%" value="No aún" onclick="PF('cd').hide();" type="button" />
             </p:confirmDialog>

@@ -44,6 +44,7 @@ public class EventWizardImagesController implements Serializable {
 
     public static StreamedContent profileImage = null;
     public static UploadedFile uploadedFile;
+    public boolean btnEliminarImgInfoBasica = true;
 
     public EventWizardImagesController() {
 
@@ -64,14 +65,16 @@ public class EventWizardImagesController implements Serializable {
 
     public StreamedContent getProfileImage() {
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-
+        
         return new DefaultStreamedContent(profileImage.getStream(), "image/jpeg");
+        
     }
 
     public void setProfileImage(StreamedContent profileImage) {
-
+        
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
         this.profileImage = profileImage;
+        
     }
 
     public UploadedFile getUploadedFile() {
@@ -96,6 +99,7 @@ public class EventWizardImagesController implements Serializable {
         }
         updateUI();
         //save();
+        btnEliminarImgInfoBasica = false;
     }
 
     public void save() throws IOException {
@@ -127,4 +131,13 @@ public class EventWizardImagesController implements Serializable {
         onLoad();
     }
 
+    public boolean isBtnEliminarImgInfoBasica() {
+        return btnEliminarImgInfoBasica;
+    }
+
+    public void setBtnEliminarImgInfoBasica(boolean btnEliminarImgInfoBasica) {
+        this.btnEliminarImgInfoBasica = btnEliminarImgInfoBasica;
+    }
+    
+    
 }
