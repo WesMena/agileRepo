@@ -75,7 +75,7 @@ public class portadaController implements Serializable {
              save();
   
          }catch(IOException ex){
-        Logger.getLogger(portadaController.class.getName()).log(Level.SEVERE, null, ex);   
+           Logger.getLogger(portadaController.class.getName()).log(Level.SEVERE, null, ex);   
          }
          
          
