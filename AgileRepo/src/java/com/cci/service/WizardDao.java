@@ -117,7 +117,7 @@ public class WizardDao {
             conexion.conectar();
             stmt = conexion.conn.createStatement();
             String sql;
-                 sql = "INSERT INTO `agilerepo`.`confighoraubi`(`idEvento`,`ubiFisica`,`link`,`zonaHoraria`,`hIni`,`hFin`,`presencial`,`FIni`,`FFin`) VALUES ("+objt.getEvntID()+",'"+objt.getUbifisica()+"','"+objt.getLink()+"','"+objt.getZonaHoraria()+"','"+HoraFormatSQL(objt.getHinicial())+"','"+HoraFormatSQL(objt.getHfinal())+"',"+objt.isFisico()+",'"+ dateFormatSQL(objt.getFini())+"','"+dateFormatSQL(objt.getFfin())+"');";
+            sql = "INSERT INTO `agilerepo`.`confighoraubi`(`idEvento`,`ubiFisica`,`link`,`zonaHoraria`,`hIni`,`hFin`,`presencial`,`FIni`,`FFin`) VALUES ("+objt.getEvntID()+",'"+objt.getUbifisica()+"','"+objt.getLink()+"','"+objt.getZonaHoraria()+"','"+objt.getHinicial()+"','"+objt.getHfinal()+"',"+objt.isFisico()+",'"+ dateFormatSQL(objt.getFini())+"','"+dateFormatSQL(objt.getFfin())+"');";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {

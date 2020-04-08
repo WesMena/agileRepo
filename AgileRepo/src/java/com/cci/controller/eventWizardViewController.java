@@ -99,12 +99,11 @@ public class eventWizardViewController implements Serializable {
     private String nombreEvento;
     private String tipoEvento;
     private boolean skip = false;
-    private boolean isFisico=true;
-    private boolean isLink=false;
+    private boolean isFisico = false;
+    private boolean isLink = false;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
-
     public boolean isIsFisico() {
         return isFisico;
     }
@@ -120,8 +119,7 @@ public class eventWizardViewController implements Serializable {
     public void setIsLink(boolean isLink) {
         this.isLink = isLink;
     }
-    
-    
+
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
@@ -188,6 +186,8 @@ public class eventWizardViewController implements Serializable {
     private horarioCompleto horario = new horarioCompleto();/* <- Objeto para armar la lista de Zonas horarias */
     private Date ini;/* <- Hora Inicio */
     private Date fin;/* <- Hora Final */
+     private String strHini;/* <- String de la Hora de Inicio */
+    private String strHfin;/* <- String de la Hora de Final */
     private String strIni;/* <- String de la fecha de Inicio */
     private String strFin;/* <- String de la fecha de Final */
     private Date Fini;
@@ -209,6 +209,26 @@ public class eventWizardViewController implements Serializable {
     private List<Date> range;
 
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
+
+    public String getStrHini() {
+        return strHini;
+    }
+
+    public void setStrHini(String strHini) {
+        this.strHini = strHini;
+    }
+
+    public String getStrHfin() {
+        return strHfin;
+    }
+
+    public void setStrHfin(String strHfin) {
+        this.strHfin = strHfin;
+    }
+    
+    
+    
+    
     public Date getFini() {
         return Fini;
     }
@@ -405,6 +425,12 @@ public class eventWizardViewController implements Serializable {
 
     }
 
+    public Date formatearHora(String hora) throws ParseException {
+        Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(hora);
+        System.out.println("-> Hora Formateada: " + date.toString());
+        return date;
+    }
+
     /*Funcion para actualizar GUI*/
     private void updateUI() {
 
@@ -443,7 +469,7 @@ public class eventWizardViewController implements Serializable {
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
 
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.ini, this.fin, this.fisico, this.Fini, this.Ffin);
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(),this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);
@@ -511,7 +537,7 @@ public class eventWizardViewController implements Serializable {
     //Metodo cerrarEntrada, Cierra la seccion editar entrada sin aplicar cambios
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
-   public void nuevaEntrada() {
+    public void nuevaEntrada() {
 
         Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
         lstEntrada.add(nuevaE);
@@ -887,12 +913,12 @@ public class eventWizardViewController implements Serializable {
 
     public void switchState() {
         System.out.println(String.valueOf(this.fisico));
-        if(this.fisico == true){
-            this.isFisico = false;
-            this.isLink = true;
-        }else{
+        if (this.fisico == true) {
             this.isFisico = true;
             this.isLink = false;
+        } else {
+            this.isFisico = false;
+            this.isLink = true;
         }
         PrimeFaces.current().ajax().update("test1:Todo");
     }

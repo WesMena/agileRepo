@@ -17,13 +17,13 @@ public class UbiHoraConfig {
     private String Ubifisica;
     private String link;
     private String zonaHoraria;
-    private Date hinicial;
-    private Date hfinal;
+    private String hinicial;
+    private String hfinal;
     private boolean fisico;
     private Date Fini;
     private Date Ffin;
 
-    public UbiHoraConfig(int evntID, String zonaHoraria, Date hinicial, Date hfinal, boolean fisico, Date Fini, Date Ffin) {
+    public UbiHoraConfig(int evntID, String zonaHoraria, String hinicial, String hfinal, boolean fisico, Date Fini, Date Ffin) {
         this.evntID = evntID;
         this.zonaHoraria = zonaHoraria;
         this.hinicial = hinicial;
@@ -65,19 +65,19 @@ public class UbiHoraConfig {
         this.zonaHoraria = zonaHoraria;
     }
 
-    public Date getHinicial() {
+    public String getHinicial() {
         return hinicial;
     }
 
-    public void setHinicial(Date hinicial) {
+    public void setHinicial(String hinicial) {
         this.hinicial = hinicial;
     }
 
-    public Date getHfinal() {
+    public String getHfinal() {
         return hfinal;
     }
 
-    public void setHfinal(Date hfinal) {
+    public void setHfinal(String hfinal) {
         this.hfinal = hfinal;
     }
 
