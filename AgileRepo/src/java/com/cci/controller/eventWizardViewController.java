@@ -99,9 +99,29 @@ public class eventWizardViewController implements Serializable {
     private String nombreEvento;
     private String tipoEvento;
     private boolean skip = false;
+    private boolean isFisico=true;
+    private boolean isLink=false;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
+
+    public boolean isIsFisico() {
+        return isFisico;
+    }
+
+    public void setIsFisico(boolean isFisico) {
+        this.isFisico = isFisico;
+    }
+
+    public boolean isIsLink() {
+        return isLink;
+    }
+
+    public void setIsLink(boolean isLink) {
+        this.isLink = isLink;
+    }
+    
+    
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
@@ -124,12 +144,12 @@ public class eventWizardViewController implements Serializable {
     }
 
     public String getDescripcion() {
-        
+
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        
+
         this.descripcion = descripcion;
         System.out.println(descripcion);
     }
@@ -422,7 +442,7 @@ public class eventWizardViewController implements Serializable {
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
-     
+
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.ini, this.fin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
@@ -491,7 +511,7 @@ public class eventWizardViewController implements Serializable {
     //Metodo cerrarEntrada, Cierra la seccion editar entrada sin aplicar cambios
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
-    public void nuevaEntrada() {
+   public void nuevaEntrada() {
 
         Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
         lstEntrada.add(nuevaE);
@@ -860,10 +880,21 @@ public class eventWizardViewController implements Serializable {
         this.indexEntrada = indexEntrada;
     }
 
-      public void setDescripcionResumen(){
-        WizardDao wiz=new WizardDao();
+    public void setDescripcionResumen() {
+        WizardDao wiz = new WizardDao();
         wiz.enviarDescripcionResumen(idEvento, descripcion, resumen);
     }
-    
-    
+
+    public void switchState() {
+        System.out.println(String.valueOf(this.fisico));
+        if(this.fisico == true){
+            this.isFisico = false;
+            this.isLink = true;
+        }else{
+            this.isFisico = true;
+            this.isLink = false;
+        }
+        PrimeFaces.current().ajax().update("test1:Todo");
+    }
+
 }
