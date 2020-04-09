@@ -602,7 +602,7 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton value="Guardar"   style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" /> 
+                                        <p:commandButton value="Guardar"  rendered="#{wizardcontroller.draft}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  <p:commandButton value="Editar"  rendered="#{wizardcontroller.savedConfig}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
                                     </p:panel>

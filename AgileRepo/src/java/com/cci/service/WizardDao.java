@@ -234,7 +234,18 @@ public class WizardDao {
             e.printStackTrace();
         } finally {
             conexion.desconectar();
-        } 
-        
+        }    
+    }
+    
+    
+    public void updateUbiHora(UbiHoraConfig obj,int id) throws ParseException{
+        Conexion conne = Conexion.getInstance();
+       conne.conectar();
+        try {
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("update confighoraubi set ubiFisica='"+obj.getUbifisica()+"',link='"+obj.getLink()+"',zonaHoraria='"+obj.getZonaHoraria()+"',hIni='"+obj.getHinicial()+"',hFin='"+obj.getHfinal()+"',presencial="+obj.isFisico()+",FIni='"+dateFormatSQL(obj.getFini())+"',FFin='"+dateFormatSQL(obj.getFfin())+"' where idEvento="+id+";"));
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

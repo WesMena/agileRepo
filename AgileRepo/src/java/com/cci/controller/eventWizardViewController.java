@@ -186,7 +186,7 @@ public class eventWizardViewController implements Serializable {
     private horarioCompleto horario = new horarioCompleto();/* <- Objeto para armar la lista de Zonas horarias */
     private Date ini;/* <- Hora Inicio */
     private Date fin;/* <- Hora Final */
-     private String strHini;/* <- String de la Hora de Inicio */
+    private String strHini;/* <- String de la Hora de Inicio */
     private String strHfin;/* <- String de la Hora de Final */
     private String strIni;/* <- String de la fecha de Inicio */
     private String strFin;/* <- String de la fecha de Final */
@@ -194,6 +194,9 @@ public class eventWizardViewController implements Serializable {
     private Date Ffin;
     private boolean fisico;
     private int idEvnt;
+    private UbiHoraConfig config;
+    private boolean draft = true;
+    private boolean savedConfig = false;
 
     /*Lista de las diferentes zonas del mundo*/
     public List<ZonaHoraria> lstZona = new ArrayList<>();
@@ -208,7 +211,30 @@ public class eventWizardViewController implements Serializable {
     /*Rango de fechas del evento*/
     private List<Date> range;
 
+    public UbiHoraConfig getConfig() {
+        return config;
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Getter Setter">
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public void setDraft(boolean draft) {
+        this.draft = draft;
+    }
+
+    public boolean isSavedConfig() {
+        return savedConfig;
+    }
+
+    public void setSavedConfig(boolean savedConfig) {
+        this.savedConfig = savedConfig;
+    }
+
+    public void setConfig(UbiHoraConfig config) {
+        this.config = config;
+    }
 
     public String getStrHini() {
         return strHini;
@@ -225,10 +251,7 @@ public class eventWizardViewController implements Serializable {
     public void setStrHfin(String strHfin) {
         this.strHfin = strHfin;
     }
-    
-    
-    
-    
+
     public Date getFini() {
         return Fini;
     }
@@ -469,7 +492,7 @@ public class eventWizardViewController implements Serializable {
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
 
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(),this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
             container.setUbifisica(this.ubi);
@@ -486,8 +509,16 @@ public class eventWizardViewController implements Serializable {
             System.out.println("Zona Horaria: " + container.getZonaHoraria());
         }
 
-        dao.save(container);
-
+        try {
+          dao.save(container);
+        this.config = container;
+        this.draft = false;
+        this.savedConfig = true;
+        PrimeFaces.current().ajax().update("test1:Todo");
+        } catch (Exception x) {
+            System.out.println("Error!");
+        }
+        
         return container;
     }
 
@@ -496,6 +527,31 @@ public class eventWizardViewController implements Serializable {
  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
  /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+    public void updtConfig(ActionEvent e) throws ParseException {
+        WizardDao dao = new WizardDao();
+        setearFechas(this.range);
+
+        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+
+        if (this.fisico == true) {
+            container.setUbifisica(this.ubi);
+            container.setLink("NONE");
+            System.out.println(" -> Container Creado!");
+            System.out.println("Ubicacion: " + container.getUbifisica());
+            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
+        } else {
+            container.setLink(this.link);
+            container.setUbifisica("NONE");
+            System.out.println(" -> Container Creado!");
+            System.out.println("Link: " + container.getLink());
+            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+        }
+
+        dao.updateUbiHora(config, this.idEvnt);
+        System.out.println("Editado!");
+    }
+
     public void saveMessage() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Informacioón Guardada!"));
