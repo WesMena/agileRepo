@@ -550,7 +550,7 @@ public class eventWizardViewController implements Serializable {
             System.out.println("Zona Horaria: " + container.getZonaHoraria());
         }
 
-        dao.updateUbiHora(config, this.idEvnt);
+        dao.updateUbiHora(container, this.idEvnt);
         System.out.println("Editado!");
     }
 
