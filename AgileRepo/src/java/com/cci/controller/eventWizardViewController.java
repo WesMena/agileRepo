@@ -528,9 +528,11 @@ public class eventWizardViewController implements Serializable {
  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
  /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     public void updtConfig(ActionEvent e) throws ParseException {
+       
+        PrimeFaces.current().ajax().update("test1:Todo");
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
-
+       
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
