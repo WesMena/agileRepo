@@ -4,16 +4,16 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-       xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-    
+
     <h:head>
-      
-        
-        
-      
-        
-        
+
+
+
+
+
+
         <f:facet name="first">
             <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
             <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
@@ -38,7 +38,7 @@
         <ui:insert name="head"/>
     </h:head> 
 
-    
+
     <h:body styleClass="landing-body" style="
             width: 100%;
             height: 100%;
@@ -49,209 +49,209 @@
 
         <div class="landing-wrapper">
             <p:button style="position:fixed; width:150px; height:65px; z-index:120; background:none; border:none;" value="" outcome="landing.xhtml">
-            <p:graphicImage name="images/cciLanding.png" library="omega-layout" width="115" style="display:inline; position:fixed; top:1.5em; left:2%; z-index:100;">
-              
-            </p:graphicImage>
-                
+                <p:graphicImage name="images/cciLanding.png" library="omega-layout" width="115" style="display:inline; position:fixed; top:1.5em; left:2%; z-index:100;">
+
+                </p:graphicImage>
+
             </p:button>     
-         
+
             <div class="landing-header" style="z-index:10; background:white; opacity:95%; position:fixed; height:70px; box-shadow: 2px 2px 3px grey;">
                 <div class="landing-header-content clearfix" >
-                   
-         
+
+
                     <a id="menu-button" href="#">
                         <span class="fa fa-bars"></span>
                     </a>
                     <ul id="menu" class="menu" style="color:#7f7f7f;">
-                        
-                        
-                        
+
+
+
                         <li>
-                          <span class="topbar-search">
-                              
-                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}" class="busquedaTopbar"  />
-                        
+                            <span class="topbar-search">
 
-               
-
-                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
-               
-
-                    </p:commandButton>
+                                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}" class="busquedaTopbar"  />
 
 
-                </span>    
-                            
-                            
-                            
-                            
+
+
+                                <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
+
+
+                                </p:commandButton>
+
+
+                            </span>    
+
+
+
+
                         </li >
-                       
+
 
                         <li style="padding-top:5px;"><h:link class="botonLoginTopBar" id="redirect" value = "Iniciar Sesión" outcome = "login.xhtml" />  </li>
                     </ul>
                 </div>
             </div>
 
-         
+
 
 
             <div id="pricing"  style="background-color:#F5F5F5;" >
                 <div class=" pricing-content margenTitulo " id="servicios">
-                      <span class="titulo">PRÓXIMOS EVENTOS</span>
-                   
-                    
-                    
-                      <div class="ui-g" >
-                          
-                          <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
-                              
-                              <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'none':'block'}">
-                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
-                            <div class="pricing-basic pricing-box gridEventosSummary" >
-                               
-                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
-                                <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                        
-                                
-                     
-                                 
-                            </div>
-                                         </a> 
-                        </div>
-                           
-                          </c:forEach>
-                     
-                        
- 
-                          
-                          
-                          
-                           
-                          
-                     
-                          
-                          
-                          
-                          
-                         
-                          
-                          
-                          
-                          
-                         
-                        
+                    <span class="titulo">PRÓXIMOS EVENTOS</span>
 
-                        
-                          
-                          
-                        
-                          
-                          
-                        
-                          
-                        
-                        
-                          
-                      
-                        
-                        
-                        
-                          
-                       
-                          
+
+
+                    <div class="ui-g" >
+
+                        <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'none':'block'}">
+                                <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
+                                    <div class="pricing-basic pricing-box gridEventosSummary" >
+
+                                        <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+                                        <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
+                                        <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+
+
+
+
+                                    </div>
+                                </a> 
+                            </div>
+
+                        </c:forEach>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </div>
 
 
 
-               
+
 
 
 
                 </div>
             </div>
 
-             
-             
-      <div id="pricing"  style="background-color:#F5F5F5;" >
+
+
+            <div id="pricing"  style="background-color:#F5F5F5;" >
                 <div class=" pricing-content margenTitulo " id="servicios">
-                  
-                      <span class="titulo">EVENTOS PASADOS</span>
-                   
-                    
-                    
-                      <div class="ui-g" >
-                    
-                          
-                          
-                           <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
-                              <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'blcok':'none'}">
-                                  <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
-                            <div class="pricing-basic pricing-box gridEventosSummary" >
-                                
-                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
-                                <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                        
-                                
-                     
-                                 
-                            </div>
-                                  </a>
-                        </div>
-                              
-                          </c:forEach>
-                     
-                        
-        
-                          
-                         
-                          
-                          
-                          
-                         
-                          
-                    
-                          
-                          
-                          
-                         
-                        
 
-                        
-                          
-                          
-                        
-                          
-                          
-                        
-                          
-                        
-                        
-                          
-                      
-                        
-                        
-                        
-                          
-                       
-                          
+                    <span class="titulo">EVENTOS PASADOS</span>
+
+
+
+                    <div class="ui-g" >
+
+
+
+                        <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3" style="display:#{eventos.evtFinalizado()?'block':'none'}">
+                                <a id="evtProximo" href="faces/EventoMoreDetails.xhtml?id=#{eventos.id}" style="text-decoration:none;">
+                                    <div class="pricing-basic pricing-box gridEventosSummary" >
+
+                                        <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+                                        <p style="font-weight:600; color:#f05537;">#{eventos.fecha} , #{eventos.hora}</p>
+                                        <p style="font-weight:600;">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+
+
+
+
+                                    </div>
+                                </a>
+                            </div>
+
+                        </c:forEach>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </div>
 
 
 
-               
+
 
 
 
                 </div>
             </div>
 
-           
 
 
-         
+
+
 
 
             <ui:include src="WEB-INF/footer.xhtml" />
@@ -270,7 +270,7 @@
             }
         </script>
         <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
-            <h:outputStylesheet name="css/Eventos.css" library="omega-layout" />
+        <h:outputStylesheet name="css/Eventos.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:body>
 
