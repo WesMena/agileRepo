@@ -576,7 +576,7 @@
                                                 <br></br>
                                                 <br></br>
 
-                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; align-content: center; align-items:center; "/>
+                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; text-align: center;" />
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
 
@@ -586,7 +586,7 @@
                                                 <p:outputLabel value="El evento termina a:" style=" margin-left: 150px;" />
                                                 <br></br>
                                                 <br></br>
-                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99"  style="width:35%;margin-left:127px;" />
+                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;margin-left:127px;text-align: center;" />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
                                                 <br></br>
                                                 <br></br>
@@ -749,14 +749,13 @@
                                                     </p:panel>
 
 
-
                                                     <br/>
 
 
                                                     <p:panel style="display:inline-block;border:none !important; padding: 0;">
                                                         <h:outputText value="Fecha Fin " style='font-weight:bold' />
                                                         <br/>
-                                                        <p:inputMask id="date2" value="#{wizardcontroller.fechaFinEntrada}" mask="9999-99-99" required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:inputMask id="date2" value="#{wizardcontroller.fechaFinEntrada}" mask="9999-99-99"  required="#{wizardcontroller.validarEntradas}"/>
                                                         <p:tooltip id="toolTipFade2" for="date2" value="yyyy-mm-dd" position="top"/>
                                                     </p:panel>
 
