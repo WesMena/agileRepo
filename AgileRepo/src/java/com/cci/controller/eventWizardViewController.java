@@ -493,7 +493,7 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void nuevaEntrada() {
 
-        Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
+        Entrada nuevaE = new Entrada("Admisión General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
         lstEntrada.add(nuevaE);
     }
 
@@ -642,7 +642,7 @@ public class eventWizardViewController implements Serializable {
 
         }
 
-        System.out.println("Ingreso de Entradas a la BD listo");
+        
     }
 
     public String BotonEntrada() {
@@ -700,7 +700,8 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setNewTag(String newTag) {
-        this.newTag = newTag;
+        
+        this.newTag = newTag.replaceAll("\\s+", "");
 
     }
 
@@ -745,13 +746,13 @@ public class eventWizardViewController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "El límite de tags para un evento corresponde a 10.", ""));
         } else {
-            System.out.println("Nuevo Tag : " + this.newTag);
+            
             //Guardando el tag en la lista
-            this.tags.add(new Tag(this.tags.size(), this.newTag));
+            this.tags.add(new Tag(this.tags.size(),this.newTag));
             this.strTag = String.valueOf(tags.size());
             //Limpiando el tag
-            newTag = "";
-            System.out.println("Lista : " + this.tags.size());
+            this.newTag = "";
+            
             PrimeFaces.current().ajax().update("test1:tagListDiv");
             PrimeFaces.current().ajax().update("test1:counterContainerTag");
 

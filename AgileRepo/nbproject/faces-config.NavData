@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="404.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="publicarEventos.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="file.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="webapp/charts.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="landing.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="webapp/menu.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="Eventos.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="webapp/sample.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="dashboard.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="newxhtml.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="messages.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="sample.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="eventosGlobal.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="empty.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="webapp/error.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="docs.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="webapp/overlay.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="webapp/empty.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="menu.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="access.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="webapp/data.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="error.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="charts.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="webapp/panel.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="webapp/docs_1.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="EventoMoreDetails.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="webapp/dashEventosCreados.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="webapp/login.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="overlay.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="forms.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="webapp/forms.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="misc.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="webapp/404.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="webapp/messages.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="login.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="data.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="webapp/landing.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="webapp/access.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="DetalleEvento.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="panel.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="comingSoon.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="webapp/file_1.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="register.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="resetPass.xhtml" x="400" y="900" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

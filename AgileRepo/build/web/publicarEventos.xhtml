@@ -177,7 +177,6 @@
                                             <center>
                                                 <p:inputTextarea
                                                     value="#{wizardcontroller.nombreEvento}"
-                                                    placeholder="Joseph Joestar Fans..."
                                                     id="inputNameEvt"
                                                     class="inputNameEvt"
                                                     requiredMessage="El nombre del evento es obligatorio."
@@ -205,7 +204,7 @@
 
                                         <div style="width: 100%;">
                                             <p:selectOneMenu   value="#{wizardcontroller.tipoEvento}"  requiredMessage="Seleccione uno."  required="true" id="selectSoC" effect="fold" style="margin: 0px;padding: 0px;width:100%;margin-bottom:4px !important">
-                                                <f:selectItem itemLabel="Seminario o Charla" itemValue="" />
+                                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
                                                 <f:selectItem  itemLabel="Seminario" itemValue="Seminario" />
                                                 <f:selectItem itemLabel="Charla" itemValue="Charla" />
                                             </p:selectOneMenu>
@@ -226,17 +225,17 @@
                                                     <label style="color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Tags</label>
                                                     <center>   
                                                         <p:inputTextarea
-                                                            placeholder="JJ-6"
                                                             id="inputTag"
                                                             class="inputTag"
                                                             style="display: inline-block;width: 100%;height: 100%;margin: 0px;padding-left:  8px !important;border: none !important"
                                                             maxlength="25"
+                                                            onkeypress="if (event.keyCode == 13) { return false; }"
                                                             required="true"
                                                             requiredMessage="No pueden añadirse vacíos."
                                                             counter="eventoTagC"
                                                             value="#{wizardcontroller.newTag}"
                                                             counterTemplate="{0}/25">
-
+                                                            
                                                         </p:inputTextarea>
                                                         <!--Mensaje de error-->
                                                         <p:message  id="messagesTag" for="inputTag" showDetail="false">
@@ -247,7 +246,7 @@
                                                 <div class="ui-g-12 ui-md-3" style="vertical-align: middle;text-align: center" >
                                                     <p:commandButton 
                                                         validateClient="true"
-                                                        update="messageErrorTag"
+                                                        update="messageErrorTag inputTag"
                                                         icon="fas fa-plus"
                                                         iconPos="left"
                                                         process="@this inputTag,messageErrorTag"
@@ -339,7 +338,6 @@
                                                             counter="eventoDescC"
                                                             counterTemplate="{0}/200"
                                                             maxlength="200"
-                                                            placeholder="El candidato exitoso también se encargará de descubrir nuevas oportunidades dentro de la comunidad para establecer un vínculo más fuerte con nuestra audiencia objetivo y aumentar la cuota de mercado local..."
                                                             class="inputDesc" style="padding: 8px !important;display: block">
 
                                                         </p:inputTextarea>
@@ -357,8 +355,8 @@
 
                                                     <div class="ui-g-12 ui-md-12">
 
-                                                        <p:fileUpload multiple="false" update="imgLoader"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
-                                                        <p:commandButton icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
+                                                        <p:fileUpload update="imgLoader btnEliminarInfoB"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
+                                                        <p:commandButton id="btnEliminarInfoB" icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" disabled="#{eventWizardImageController.btnEliminarImgInfoBasica}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
 
                                                     </div>
 
@@ -422,7 +420,7 @@
 
 
 
-                                    <p:textEditor widgetVar="editor2" value="#{wizardcontroller.descripcion}" height="300" style="margin-bottom:10px; width:95%; margin-left:20px;" valueChangeListener="#{wizardcontroller.cambioDesc}" placeholder="Escribe una descripción que llame la atención del público potencial de tu evento">
+                                    <p:textEditor id="descID" widgetVar="editor2" value="#{wizardcontroller.descripcion}" height="300" style="margin-bottom:10px; width:95%; margin-left:20px;" valueChangeListener="#{wizardcontroller.cambioDesc}" placeholder="Escribe una descripción que llame la atención del público potencial de tu evento">
 
                                         <f:facet name="toolbar">
 
@@ -450,7 +448,7 @@
                                         </f:facet>
                                     </p:textEditor>
 
-                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" >
+                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true" >
                                         <f:ajax execute="editor2"></f:ajax>
                                         <f:ajax execute="resumenId"></f:ajax>
                                     </p:commandButton>      
@@ -504,7 +502,7 @@
                                             <h:outputText  value="Ubicación del evento" style="font-size: xx-small;font-weight: bold; align-items: center "></h:outputText> 
                                             <br></br>
                                             <br></br>
-                                            <p:growl id="messages" showDetail="true" />
+                                            
                                             <p:gmap id="gmap" center="9.9328313,-84.0456637,17" zoom="15" type="ROADMAP" style="width:100%;height:400px"
                                                     model="#{addMarkersView.emptyModel}" onPointClick="handlePointClick(event);" widgetVar="map" />
 
@@ -661,7 +659,7 @@
                                             <p:panel style="border: none">
                                                 <h1 style="font-size: xx-large;font-weight: bold">Entradas</h1>
                                                 <p:panel style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton id="crearEntrada" value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" update="panellista panelGuardar"></p:commandButton>
+                                                    <p:commandButton id="crearEntrada" value="Crear Entrada" action="#{wizardcontroller.nuevaEntrada()}" disabled="#{wizardcontroller.BotonCrearEntrada()}" process="@parent" update="panellista panelGuardar"></p:commandButton>
                                                 </p:panel>
                                                 <h:panelGroup  id="panellista">
                                                     <c:forEach  id="repeat"  items="#{wizardcontroller.lstEntrada}" var="entradas" varStatus="loop" >
@@ -669,7 +667,7 @@
                                                             <!-- Con loop.index se obtiene el valor del index en la lista -->
                                                             <c:set var="index" value="${loop.index}" />
                                                             <!-- Cuando se da click en el boton de edicion, se actualiza la vista con panelEditEntrada panelMainEntradas  -->
-                                                            <p:commandButton icon="fa fa-pencil" action="#{wizardcontroller.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" update="panelEditEntrada panelMainEntradas" style="float:right">
+                                                            <p:commandButton icon="fa fa-pencil" action="#{wizardcontroller.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" partialSubmit="true" process="@this" update="panelEditEntrada panelMainEntradas" style="float:right">
                                                             </p:commandButton>
                                                             <div style='display: inline;'>
                                                                 <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
@@ -690,7 +688,7 @@
                                                 </h:panelGroup>
 
                                                 <p:panel id="panelGuardar" style="width:100%; text-align: right; border: none">
-                                                    <p:commandButton value="Guardar" action="#{wizardcontroller.guardarEntradas()}" disabled="#{wizardcontroller.BotonEntrada()}"></p:commandButton>
+                                                    <p:commandButton value="Guardar" action="#{wizardcontroller.guardarEntradas()}" disabled="#{wizardcontroller.BotonEntrada()}" process="@parent"></p:commandButton>
                                                 </p:panel>
 
                                             </p:panel>
@@ -786,13 +784,13 @@
                                                     <br/>
                                                     <center>
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
-                                                        <p:commandButton value="Actualizar" action="#{wizardcontroller.actualizarEntrada()}" update="panellista panelEditEntrada panelMainEntradas" ></p:commandButton>
+                                                        <p:commandButton value="Actualizar" action="#{wizardcontroller.actualizarEntrada()}" process="@parent" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
                                                         <!-- Actualiza la lista con panellista, Actualiza Seccion Editar con panelEditEntrada, Actualiza la vista con panelMainEntradas -->
-                                                        <p:commandButton value="Borrar" action="#{wizardcontroller.borrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <p:commandButton value="Borrar" action="#{wizardcontroller.borrarEntrada()}" process="@parent" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
                                                         <br/>
                                                         <br/>
                                                         <!-- Cierra la Seccion Editar sin aplicar cambios -->
-                                                        <p:commandButton value="Cerrar" action="#{wizardcontroller.cerrarEntrada()}" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
+                                                        <p:commandButton value="Cerrar" action="#{wizardcontroller.cerrarEntrada()}" process="@parent" update="panellista panelEditEntrada panelMainEntradas"></p:commandButton>
 
 
                                                     </center>
@@ -869,7 +867,7 @@
                             width: 100% !important;
                             width: 96% !important;
                             margin: 4px !important;
-                            
+
                         }
                     }
 
