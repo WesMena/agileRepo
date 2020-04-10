@@ -45,6 +45,7 @@ public class EventWizardImagesController implements Serializable {
     public static StreamedContent profileImage = null;
     public static UploadedFile uploadedFile;
     public boolean btnEliminarImgInfoBasica = true;
+    public static InputStream  upLoadedStream = null;
 
     public EventWizardImagesController() {
 
@@ -55,9 +56,10 @@ public class EventWizardImagesController implements Serializable {
         InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
         try {
             uploadedFile = null;
+            upLoadedStream = null;
             profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
             System.out.println("Stream : " + iniIm.available());
-            updateUI();
+            //updateUI();
         } catch (IOException ex) {
             Logger.getLogger(EventWizardImagesController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,7 +95,8 @@ public class EventWizardImagesController implements Serializable {
         System.out.println("Extension : " + uploadedFile.getContentType());
         try {
             profileImage = new DefaultStreamedContent(uploadedFile.getInputstream(), "image/jpeg");
-            save();
+            upLoadedStream = uploadedFile.getInputstream();
+            //save();
         } catch (IOException ex) {
             Logger.getLogger(EventWizardImagesController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,8 +104,15 @@ public class EventWizardImagesController implements Serializable {
         //save();
         btnEliminarImgInfoBasica = false;
     }
+    
+
+    
+    
 
     public void save() throws IOException {
+        
+        
+        
         //Se optiene el nombre del archivo
         String filename = FilenameUtils.getName(uploadedFile.getFileName());
         //extrae el stream de lo que se ha subido
@@ -117,6 +127,9 @@ public class EventWizardImagesController implements Serializable {
             IOUtils.closeQuietly(input);
             IOUtils.closeQuietly(output);
         }
+        
+        
+        
     }
 
     private void updateUI() {
@@ -129,6 +142,7 @@ public class EventWizardImagesController implements Serializable {
     //"Eliminar una fotografia"
     public void deletFile(ActionEvent e) {
         onLoad();
+        updateUI();
     }
 
     public boolean isBtnEliminarImgInfoBasica() {
