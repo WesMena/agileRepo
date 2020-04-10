@@ -69,7 +69,7 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
 
             //Insert de la descripcion y la vara esa de l organizador qk
             conexion.conectar();
-            System.out.println("Uploaded file : " + EventWizardImagesController.uploadedFile.getInputstream().available());
+           // System.out.println("Uploaded file : " + EventWizardImagesController.uploadedFile.getInputstream().available());
 
             prep = conexion.conn.prepareStatement("insert into organizadoreseventos (organizador,evento,descri,profileImage) values(?,?,?,?)");
             prep.setString(1, Constantes.logguedUsserUID);
@@ -80,8 +80,6 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
 
         } catch (SQLException e) {
             System.out.println("" + e.getMessage() + e.getSQLState());
-        } catch (IOException ex) {
-            Logger.getLogger(InfoBasicaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
