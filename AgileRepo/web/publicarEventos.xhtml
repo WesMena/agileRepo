@@ -374,7 +374,7 @@
 
 
                             <p:tab id="imagenPrincipal" title="Imagen Principal">
-                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                <p:panel id="panelImg" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div style="width:90%; margin-left:20px;">
                                         <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
                                         <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
@@ -382,10 +382,13 @@
 
 
                                     <div style="width:100%; height:100%;">
-                                        <div  id="portadaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFoto}"/>
+                                        
+                                        <div  id="portadaVista" style="width:90%; height:100%; background-repeat:no-repeat; background-size:cover; position:relative;">
+                                            <p:graphicImage cache="false" id="GIPrincipal" value="#{portadacontroller.fotoPrincipal}"   height="100%" width="100%" style="margin-left:20px; "/>
+                                        </div>
 
 
-                                        <p:fileUpload   auto="true" id="imagenPortada" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFoto}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
+                                        <p:fileUpload oncomplete="#{portadacontroller.update()}" id="imagenPortada" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.handleFileUpload}" style="border:none; width:90%; margin-left:20px; height:100%;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
 
                                         </p:fileUpload>
                                     </div>
@@ -448,7 +451,7 @@
                                         </f:facet>
                                     </p:textEditor>
 
-                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true" >
+                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true" style="right:-75%;" >
                                         <f:ajax execute="editor2"></f:ajax>
                                         <f:ajax execute="resumenId"></f:ajax>
                                     </p:commandButton>      
@@ -458,26 +461,29 @@
 
 
                             <p:tab id="imagenSecundaria" title="Imagen Secundaria">
-                                <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                                <p:panel id="panelImgSecundaria" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div style="width:90%; margin-left:20px;">
                                         <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
                                         <h:outputText  value="Seleccionar la imagen secundaria del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
                                     </div>
 
 
+                                                       <div style="width:100%; height:100%;">
+                                        
+                                        <div  id="secundariaVista" style="width:90%; height:100%; background-repeat:no-repeat; background-size:cover; position:relative;">
+                                            <p:graphicImage cache="false" id="GISecundaria" value="#{portadacontroller.fotoSecundaria}"   height="100%" width="100%" style="margin-left:20px;"/>
+                                        </div>
 
 
-
-
-
-                                    <div style="width:100%; height:100%;">
-                                        <div  id="secundariaVista" style="width:90%; height:500px; background-repeat:no-repeat; background-size:cover; position:relative; background-image:#{portadacontroller.ubicacionFotoSecundaria}"/>
-
-
-                                        <p:fileUpload   auto="true" id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.subirFotoSecundaria}" style="border:none; width:90%; margin-left:20px;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
+                                                           <p:fileUpload  id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.handleSecundariaUpload}" style="border:none; width:90%; margin-left:20px; height:100%;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
 
                                         </p:fileUpload>
                                     </div>
+
+
+
+
+         
 
 
 
