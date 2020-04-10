@@ -597,7 +597,7 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void nuevaEntrada() {
 
-        Entrada nuevaE = new Entrada("Admision General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
+        Entrada nuevaE = new Entrada("Admisión General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
         lstEntrada.add(nuevaE);
     }
 
@@ -746,7 +746,7 @@ public class eventWizardViewController implements Serializable {
 
         }
 
-        System.out.println("Ingreso de Entradas a la BD listo");
+        
     }
 
     public String BotonEntrada() {
@@ -804,7 +804,8 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setNewTag(String newTag) {
-        this.newTag = newTag;
+        
+        this.newTag = newTag.replaceAll("\\s+", "");
 
     }
 
@@ -817,18 +818,12 @@ public class eventWizardViewController implements Serializable {
     public void saveInfoBasica(ActionEvent event) {
 
         List<String> tagStr = new ArrayList<>();
-        System.out.println("Tipo : " + this.tipoEvento);
-        System.out.println("Nombre:" + this.nombreEvento);
-        System.out.println("Desc:" + this.descOrganizador);
-        System.out.println("Organizador:" + this.nombreOrganizador);
-        System.out.println("UID:" + Constantes.logguedUsserUID);
-        System.out.println("Bytes :" + EventWizardImagesController.profileImage.getContentLength());
         Dao dao = new InfoBasicaDao();
         if (this.tags.isEmpty()) {
             //Mensaje de error
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregue al menos un tag.", ""));
-        } else if (EventWizardImagesController.uploadedFile == null) {
+        } else if (EventWizardImagesController.upLoadedStream == null) {
             //Mensaje de error
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Escoja una imagen que le represente.", ""));
@@ -839,19 +834,11 @@ public class eventWizardViewController implements Serializable {
             });
 
             if (idEvento != -1) {
-                try {
-                    //Update :)
-                    ((InfoBasicaDao) dao).update(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.uploadedFile.getInputstream(), this.descOrganizador));
-                } catch (IOException ex) {
-                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                //Update :)
+                ((InfoBasicaDao) dao).update(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
             } else {
-                try {
-                    ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.uploadedFile.getInputstream(), this.descOrganizador));
-                } catch (IOException ex) {
-                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
             }
         }
@@ -863,13 +850,13 @@ public class eventWizardViewController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "El límite de tags para un evento corresponde a 10.", ""));
         } else {
-            System.out.println("Nuevo Tag : " + this.newTag);
+            
             //Guardando el tag en la lista
-            this.tags.add(new Tag(this.tags.size(), this.newTag));
+            this.tags.add(new Tag(this.tags.size(),this.newTag));
             this.strTag = String.valueOf(tags.size());
             //Limpiando el tag
-            newTag = "";
-            System.out.println("Lista : " + this.tags.size());
+            this.newTag = "";
+            
             PrimeFaces.current().ajax().update("test1:tagListDiv");
             PrimeFaces.current().ajax().update("test1:counterContainerTag");
 

@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templateEventosCreados.xhtml"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="title">Eventos</ui:define>
+
+    <ui:define name="head">
+
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#007be5', '#20d077'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>  
+        </script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+            .ui-panel .ui-panel-content {
+                padding: 0;
+                border: none;
+
+            }
+
+
+        </style>
+
+    </ui:define>
+
+    <ui:define name="content" id="content" >
+            <div class="ui-g ui-fluid dashboard" >
+            <div id="pricing">
+                <div class="margenTitulo " id="servicios">
+                    
+                        <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
+                                
+                                    <div class="gridEventosSummary">
+
+                                        <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+                                        
+                                        <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
+                                        <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+                                        
+                                    </div>
+                                
+                            </div>
+
+                        </c:forEach>
+
+                    
+                </div>
+            </div>
+            </div>
+        
+        
+        <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
+               
+
+    </ui:define>
+</ui:composition>

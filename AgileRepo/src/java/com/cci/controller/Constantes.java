@@ -21,6 +21,8 @@ public class Constantes implements Serializable {
 
     public static  String logguedUsserUID;
     
+    public static final String ubicacionFotos="C:/Users/wesli/Documents/GitHub/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
+    
     public  String getLogguedUsserDisplayName() {
         return logguedUsserDisplayName;
     }

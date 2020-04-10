@@ -205,7 +205,7 @@ public class EventDao implements Dao<Evento> {
             String sql;
 
             //Ingresa un Evento nuevo en la base de datos
-            sql = "INSERT INTO `agilerepo`.`eventos` (`nombre`, `descripcion`, `horas`, `dias`,`propietario`) VALUES ('Nuevo Evento', 'Agregar Descripcion', 1, 1,'" + UsuarioLoginController.UID + "');";
+            sql = "INSERT INTO `agilerepo`.`eventos` (`nombre`, `descripcion`, `horas`, `dias`,`propietario`) VALUES ('Nueva Agenda', 'Agregar Descripcion', 1, 1,'" + UsuarioLoginController.UID + "');";
             stmt.executeUpdate(sql);
             //Ingresa un tag default en la base de datos y toma el id del Evento ingresado en el query anterior
             sql = "INSERT INTO `agilerepo`.`tagseventos` (`tag`, `evento`) VALUES ('tag', (SELECT MAX(idEvento) FROM `agilerepo`.`eventos`));";
