@@ -38,14 +38,7 @@ import org.primefaces.shaded.commons.io.IOUtils;
  */@ManagedBean(name = "portadacontroller")
 @SessionScoped
 public class portadaController implements Serializable {
- private UploadedFile foto;   
- //             <img id="portadaVista" cache="false"  src="#{portadacontroller.portada}"  width="310" height="140" style=" position:relative;  z-index:5;  width:100%; height:275px;" />    
- //El valor que sale aquí es el de la foto que viene por default
- String ubicacionFoto="/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout";
-// String ubicacionFoto="url(\"#{resource['omega-layout:images/landing/section1_bg.jpg']}\")";
- 
- String ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/imgDefault.png?ln=omega-layout')";
- 
+
 
  //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
  String fotobd="images/EventosSummary/imagen1.jpg?ln=omega-layout";
@@ -54,14 +47,19 @@ public class portadaController implements Serializable {
  
  
  public static InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/imgDefault.png");
-     public static StreamedContent profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
+ 
+ 
+ public static StreamedContent fotoPrincipal= new DefaultStreamedContent(iniIm, "image/jpeg");
+    
+  
     public static UploadedFile uploadedFile;
    
     public static InputStream  upLoadedStream = null;
 
     
      public static InputStream iniIm2 = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/imgDefault.png");
-     public static StreamedContent profileImage2 = new DefaultStreamedContent(iniIm2, "image/jpeg");
+       public static StreamedContent fotoSecundaria = new DefaultStreamedContent(iniIm2, "image/jpeg");
+  
     public static UploadedFile uploadedFile2;
    
     public static InputStream  upLoadedStream2 = null;
@@ -74,8 +72,8 @@ public class portadaController implements Serializable {
         try {
             uploadedFile = null;
             upLoadedStream = null;
-            profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
-            profileImage2=new DefaultStreamedContent(iniIm2,"image/jpeg");
+            fotoPrincipal = new DefaultStreamedContent(iniIm, "image/jpeg");
+            fotoSecundaria=new DefaultStreamedContent(iniIm2,"image/jpeg");
             System.out.println("Stream : " + iniIm.available());
             //updateUI();
         } catch (IOException ex) {
@@ -83,30 +81,27 @@ public class portadaController implements Serializable {
         }
     }
 
-    public StreamedContent getProfileImage() {
-        System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-        
-        return new DefaultStreamedContent(profileImage.getStream(), "image/jpeg");
-        
+
+
+    public  StreamedContent getFotoPrincipal() {
+           return new DefaultStreamedContent(fotoPrincipal.getStream(), "image/jpeg");
     }
 
-    public void setProfileImage(StreamedContent profileImage) {
-        
-        System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-        this.profileImage = profileImage;
-        
+    public  void setFotoPrincipal(StreamedContent fotoPrincipal) {
+        this.fotoPrincipal = fotoPrincipal;
     }
 
-    public StreamedContent getProfileImage2() {
-        System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-    return new DefaultStreamedContent(profileImage2.getStream(), "image/jpeg");
+    public  StreamedContent getFotoSecundaria() {
+    return new DefaultStreamedContent(fotoSecundaria.getStream(), "image/jpeg");
     }
 
-    public  void setProfileImage2(StreamedContent profileImage2) {
-          System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-        this.profileImage2 = profileImage2;
+    public void setFotoSecundaria(StreamedContent fotoSecundaria) {
+        this.fotoSecundaria = fotoSecundaria;
     }
 
+    
+    
+    
     public static UploadedFile getUploadedFile2() {
         return uploadedFile2;
     }
@@ -133,7 +128,7 @@ public class portadaController implements Serializable {
         System.out.println("File : " + uploadedFile.getFileName());
         System.out.println("Extension : " + uploadedFile.getContentType());
         try {
-            profileImage = new DefaultStreamedContent(uploadedFile.getInputstream(), "image/jpeg");
+            fotoPrincipal = new DefaultStreamedContent(uploadedFile.getInputstream(), "image/jpeg");
             upLoadedStream = uploadedFile.getInputstream();
             
             save();
@@ -151,7 +146,7 @@ public class portadaController implements Serializable {
         System.out.println("File : " + uploadedFile2.getFileName());
         System.out.println("Extension : " + uploadedFile2.getContentType());
         try {
-            profileImage2 = new DefaultStreamedContent(uploadedFile2.getInputstream(), "image/jpeg");
+            fotoSecundaria = new DefaultStreamedContent(uploadedFile2.getInputstream(), "image/jpeg");
             upLoadedStream2 = uploadedFile2.getInputstream();
             
             saveFotoSecundaria();
@@ -180,22 +175,7 @@ public class portadaController implements Serializable {
          }   
  }
  
-     public void subirFoto(FileUploadEvent event){
-         
-         
-         //Almacena la imagen en el controller;
-         foto=event.getFile(); 
-         
-              
-         try{
-             save();
-  
-         }catch(IOException ex){
-           Logger.getLogger(portadaController.class.getName()).log(Level.SEVERE, null, ex);   
-         }
-         
-         
-     }
+ 
      
        public void save() throws IOException {
           
@@ -223,11 +203,12 @@ public class portadaController implements Serializable {
     Image fotito=ImageIO.read(input); 
     
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
-    File archivito=new File("/home/wes/Documents/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary", filename);
+   
+    File archivito=new File(Constantes.ubicacionFotos, filename);
    
 ImageIO.write(buffer,"png",archivito);
 
-    this.ubicacionFoto="/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout";
+  
   this.fotobd="images/EventosSummary/"+filename;
  WizardDao wiz=new WizardDao();
              wiz.enviarImagenPrincipal(eventWizardViewController.idEvento,fotobd);
@@ -251,25 +232,10 @@ System.out.println(archivito.exists());
        public void update(){
         PrimeFaces.current().ajax().update("test1:panelImg");    
        }
-    public UploadedFile getFoto() {
-        return foto;
-    }
+ 
 
-    public void setFoto(UploadedFile foto) {
-        this.foto = foto;
-    }
-
-    public String getUbicacionFoto() {
-        return ubicacionFoto;
-    }
-
-    public void setUbicacionFoto(String ubicacionFoto) {
-        this.ubicacionFoto = ubicacionFoto;
-    }
-   
-    public String getPortada(){
-        return ubicacionFoto;
-    }   
+  
+     
     
     
     BufferedImage createResizedCopy(Image originalImage, int scaledWidth, int scaledHeight, boolean preserveAlpha) {
@@ -284,28 +250,9 @@ System.out.println(archivito.exists());
     return scaledBI;
 }
 
-    public String getUbicacionFotoSecundaria() {
-        return ubicacionFotoSecundaria;
-    }
-
-    public void setUbicacionFotoSecundaria(String ubicacionFotoSecundaria) {
-        this.ubicacionFotoSecundaria = ubicacionFotoSecundaria;
-    }
+   
     
-    public void subirFotoSecundaria(FileUploadEvent event){
-                
-         //Almacena la imagen en el controller;
-         foto=event.getFile(); 
-         
-              
-         try{
-             saveFotoSecundaria();
-      
-           
-         }catch(IOException ex){
-        Logger.getLogger(portadaController.class.getName()).log(Level.SEVERE, null, ex);   
-         }
-    }
+
     
     public void saveFotoSecundaria() throws IOException{
            
@@ -325,7 +272,7 @@ System.out.println(archivito.exists());
      
        //Crea el nombre de la nueva imagen y le coloca la extensión .png
    String filename = "img_"+annoStr+"_"+mesStr+"_"+diaStr+"_"+horaStr+"_"+minutoStr+"_"+segundoStr+".png";
-       this.ubicacionFotoSecundaria="url('/AgileRepo/faces/javax.faces.resource/images/EventosSummary/"+filename+"?ln=omega-layout')";
+     
    this.fotoSecundariabd="images/EventosSummary/"+filename;
    
    
@@ -338,7 +285,7 @@ System.out.println(archivito.exists());
     Image fotito=ImageIO.read(input); 
     BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File("/home/wes/Documents/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary", filename));
+ImageIO.write(buffer,"png",new File(Constantes.ubicacionFotos, filename));
      }catch(IOException e){
          e.printStackTrace();
      }
