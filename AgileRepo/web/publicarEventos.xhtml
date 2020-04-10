@@ -357,7 +357,7 @@
 
                                                     <div class="ui-g-12 ui-md-12">
 
-                                                        <p:fileUpload update="imgLoader"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
+                                                        <p:fileUpload multiple="false" update="imgLoader"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
                                                         <p:commandButton icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
 
                                                     </div>
@@ -370,7 +370,7 @@
 
                                     </p:panel>
                                 </p:panel>
-                                <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc,ppOrg"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
+                                <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
                             </p:tab>  
 
 
