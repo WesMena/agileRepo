@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/publicarEventos.xhtml</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/WizardDao.java</file>
+            <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/service/EventDao.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/dashboard.xhtml</file>
             <file>file:/C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/src/java/com/cci/model/UbiHoraConfig.java</file>
