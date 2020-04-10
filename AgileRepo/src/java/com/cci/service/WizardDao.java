@@ -101,7 +101,7 @@ public class WizardDao {
 
         System.out.println("!--------Contenedor------------!");
         System.out.println(" --> Datos en el objeto <--");
-         System.out.println("-> ID: " + objt.getEvntID());
+        System.out.println("-> ID: " + objt.getEvntID());
         System.out.println("-> Direccion: " + objt.getUbifisica());
         System.out.println("-> Link: " + objt.getLink());
         System.out.println("-> ZonaHoraria: " + objt.getZonaHoraria());
@@ -117,7 +117,7 @@ public class WizardDao {
             conexion.conectar();
             stmt = conexion.conn.createStatement();
             String sql;
-                 sql = "INSERT INTO `agilerepo`.`confighoraubi`(`idEvento`,`ubiFisica`,`link`,`zonaHoraria`,`hIni`,`hFin`,`presencial`,`FIni`,`FFin`) VALUES ("+objt.getEvntID()+",'"+objt.getUbifisica()+"','"+objt.getLink()+"','"+objt.getZonaHoraria()+"','"+HoraFormatSQL(objt.getHinicial())+"','"+HoraFormatSQL(objt.getHfinal())+"',"+objt.isFisico()+",'"+ dateFormatSQL(objt.getFini())+"','"+dateFormatSQL(objt.getFfin())+"');";
+            sql = "INSERT INTO `agilerepo`.`confighoraubi`(`idEvento`,`ubiFisica`,`link`,`zonaHoraria`,`hIni`,`hFin`,`presencial`,`FIni`,`FFin`) VALUES (" + objt.getEvntID() + ",'" + objt.getUbifisica() + "','" + objt.getLink() + "','" + objt.getZonaHoraria() + "','" + objt.getHinicial() + "','" + objt.getHfinal() + "'," + objt.isFisico() + ",'" + dateFormatSQL(objt.getFini()) + "','" + dateFormatSQL(objt.getFfin()) + "');";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {
@@ -168,8 +168,8 @@ public class WizardDao {
         return sqlDate;
     }
 
-    public void enviarDescripcionResumen(int id,String descripcion,String resumen){
-         Statement stmt = null;
+    public void enviarDescripcionResumen(int id, String descripcion, String resumen) {
+        Statement stmt = null;
         Conexion conexion = Conexion.getInstance();
         try {
 
@@ -177,8 +177,8 @@ public class WizardDao {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "UPDATE agilerepo.eventopublic SET Descripcion='" + descripcion+"',resumen='"+resumen+
-                    "' WHERE idEventoPublic=" +id;
+            sql = "UPDATE agilerepo.eventopublic SET Descripcion='" + descripcion + "',resumen='" + resumen
+                    + "' WHERE idEventoPublic=" + id;
 
             stmt.executeUpdate(sql);
 
@@ -186,15 +186,13 @@ public class WizardDao {
             e.printStackTrace();
         } finally {
             conexion.desconectar();
-        } 
-        
-        
-        
+        }
+
     }
-    
-    public void enviarImagenPrincipal(int id, String directorioImgPrincipal){
-       
-          Statement stmt = null;
+
+    public void enviarImagenPrincipal(int id, String directorioImgPrincipal) {
+
+        Statement stmt = null;
         Conexion conexion = Conexion.getInstance();
         try {
 
@@ -202,8 +200,8 @@ public class WizardDao {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "UPDATE agilerepo.eventopublic SET portada='" +directorioImgPrincipal+
-                    "' WHERE idEventoPublic=" +id;
+            sql = "UPDATE agilerepo.eventopublic SET portada='" + directorioImgPrincipal
+                    + "' WHERE idEventoPublic=" + id;
 
             stmt.executeUpdate(sql);
 
@@ -211,13 +209,12 @@ public class WizardDao {
             e.printStackTrace();
         } finally {
             conexion.desconectar();
-        } 
-        
-        
+        }
+
     }
-    
-    public void enviarImagenSecundaria(int id, String directorioImg2){
-           Statement stmt = null;
+
+    public void enviarImagenSecundaria(int id, String directorioImg2) {
+        Statement stmt = null;
         Conexion conexion = Conexion.getInstance();
         try {
 
@@ -225,8 +222,8 @@ public class WizardDao {
             stmt = conexion.conn.createStatement();
             String sql;
 
-            sql = "UPDATE agilerepo.eventopublic SET imgSecundaria='" +directorioImg2+
-                    "' WHERE idEventoPublic=" +id;
+            sql = "UPDATE agilerepo.eventopublic SET imgSecundaria='" + directorioImg2
+                    + "' WHERE idEventoPublic=" + id;
 
             stmt.executeUpdate(sql);
 
@@ -234,7 +231,19 @@ public class WizardDao {
             e.printStackTrace();
         } finally {
             conexion.desconectar();
-        } 
-        
+        }
+    }
+
+    public void updateUbiHora(UbiHoraConfig obj, int id) throws ParseException {
+        System.out.println("Cont entrando: " + obj.getUbifisica());
+     
+        Conexion conne = Conexion.getInstance();
+        conne.conectar();
+        try {
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("update confighoraubi set ubiFisica='" + obj.getUbifisica() + "',link='" + obj.getLink() + "',zonaHoraria='" + obj.getZonaHoraria() + "',hIni='" + obj.getHinicial() + "',hFin='" + obj.getHfinal() + "',presencial=" + obj.isFisico() + ",FIni='" + dateFormatSQL(obj.getFini()) + "',FFin='" + dateFormatSQL(obj.getFfin()) + "' where idEvento=" + id + ";"));
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

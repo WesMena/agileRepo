@@ -67,7 +67,7 @@ public class EventDao implements Dao<Evento> {
                     + "GROUP BY e.idEvento ORDER BY e.idEvento Desc),"
                     + " "
                     + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas"
-                    + " FROM detalleevento WHERE bloqueo = 0 GROUP BY evento),"
+                    + "FROM detalleevento WHERE bloqueo = 0 GROUP BY evento),"
                     + " "
                     + "EventoInicio AS (SELECT evento, horaInicio FROM detalleevento WHERE indiceEvento = 1)"
                     + " "
