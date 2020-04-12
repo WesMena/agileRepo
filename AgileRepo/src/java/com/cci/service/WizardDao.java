@@ -108,8 +108,8 @@ public class WizardDao {
         System.out.println("-> Hora Inicio: " + objt.getHinicial().toString());
         System.out.println("-> Hora Final: " + objt.getHfinal().toString());
         System.out.println("-> isFisico: " + objt.isFisico());
-        System.out.println("-> Fecha Inicio: " + objt.getFini().toString());
-        System.out.println("-> Fecha Final: " + objt.getFfin().toString());
+        System.out.println("-> Fecha Inicio: " + objt.getFini());
+        System.out.println("-> Fecha Final: " + objt.getFfin());
         System.out.println("!-------------------------------!");
 
         try {

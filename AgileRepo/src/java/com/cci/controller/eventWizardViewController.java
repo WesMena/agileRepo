@@ -53,18 +53,24 @@ import org.primefaces.model.UploadedFile;
 import com.cci.model.InfoBasica;
 import com.cci.service.Dao;
 import com.cci.service.InfoBasicaDao;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -77,6 +83,7 @@ public class eventWizardViewController implements Serializable {
     public String descripcion = "";
     public String resumen = "";
     public static Integer idEvento = -1;
+    public static boolean editionMode = false;
 
     public String onFlowProcess(FlowEvent event) {
 
@@ -106,6 +113,14 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public boolean isIsFisico() {
         return isFisico;
+    }
+
+    public boolean isEditionMode() {
+        return editionMode;
+    }
+
+    public void setEditionMode(boolean editionMode) {
+        eventWizardViewController.editionMode = editionMode;
     }
 
     public void setIsFisico(boolean isFisico) {
@@ -510,15 +525,16 @@ public class eventWizardViewController implements Serializable {
         }
 
         try {
-          dao.save(container);
-        this.config = container;
-        this.draft = false;
-        this.savedConfig = true;
-        PrimeFaces.current().ajax().update("test1:Todo");
+            dao.save(container);
+            this.config = container;
+            this.draft = false;
+            this.savedConfig = true;
+            PrimeFaces.current().ajax().update("test1:Todo");
         } catch (Exception x) {
+            x.printStackTrace();
             System.out.println("Error!");
         }
-        
+
         return container;
     }
 
@@ -528,11 +544,11 @@ public class eventWizardViewController implements Serializable {
  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
  /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     public void updtConfig(ActionEvent e) throws ParseException {
-       
+
         PrimeFaces.current().ajax().update("test1:Todo");
         WizardDao dao = new WizardDao();
         setearFechas(this.range);
-       
+
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
@@ -550,7 +566,7 @@ public class eventWizardViewController implements Serializable {
             System.out.println("Zona Horaria: " + container.getZonaHoraria());
         }
 
-        dao.updateUbiHora(container,container.getEvntID());
+        dao.updateUbiHora(container, container.getEvntID());
         System.out.println("Editado!");
     }
 
@@ -746,7 +762,6 @@ public class eventWizardViewController implements Serializable {
 
         }
 
-        
     }
 
     public String BotonEntrada() {
@@ -804,7 +819,7 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setNewTag(String newTag) {
-        
+
         this.newTag = newTag.replaceAll("\\s+", "");
 
     }
@@ -852,11 +867,11 @@ public class eventWizardViewController implements Serializable {
         } else {
             
             //Guardando el tag en la lista
-            this.tags.add(new Tag(this.tags.size(),this.newTag));
+            this.tags.add(new Tag(this.tags.size(), this.newTag));
             this.strTag = String.valueOf(tags.size());
             //Limpiando el tag
             this.newTag = "";
-            
+
             PrimeFaces.current().ajax().update("test1:tagListDiv");
             PrimeFaces.current().ajax().update("test1:counterContainerTag");
 
@@ -877,8 +892,84 @@ public class eventWizardViewController implements Serializable {
         PrimeFaces.current().ajax().update("messageErrorTag");
     }
 
+    public void onLoadUpdateUI() {
+        if (editionMode) {
+            PrimeFaces.current().ajax().update("test1:tagListDiv");
+            PrimeFaces.current().ajax().update("test1:counterContainerTag");
+        }
+    }
+
     public void onLoad() {
+        Dao dao = new InfoBasicaDao();
         this.nombreOrganizador = UsuarioLoginController.displayName;
+        if (editionMode) {
+            if (((InfoBasicaDao) dao).infoExists(idEvento)) {
+                //El evento existe
+
+                //Carga de datos al bean
+                //<editor-fold defaultstate="collapsed" desc="Informacion general del evento">
+                Optional infoOp = ((InfoBasicaDao) dao).get(idEvento);
+                InfoBasica infoB = (InfoBasica) infoOp.get();
+                this.descripcion = infoB.getDescripcion();
+                this.nombreEvento = infoB.getNombre();
+                this.resumen = infoB.getResumen();
+                this.tipoEvento = infoB.getTipo();
+                //Portadas
+                try {
+                    String[] splitter = infoB.getPortadaDir().split("/");
+                    String[] splitter2 = infoB.getImgSecDir().split("/");
+                    portadaController.upLoadedStream = new FileInputStream(new File(Constantes.ubicacionFotos + "/" + splitter[2]));
+                    portadaController.upLoadedStream2 = new FileInputStream(new File(Constantes.ubicacionFotos + "/" + splitter2[2]));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                portadaController.fotoPrincipal = new DefaultStreamedContent(portadaController.upLoadedStream, "image/jpeg");
+                portadaController.fotoSecundaria = new DefaultStreamedContent(portadaController.upLoadedStream2, "image/jpeg");
+
+                //Tags del evento
+                this.tags = new ArrayList<>();
+                int tagsSize = 0;
+                System.out.println("Tags : " + infoB.getTags());
+                for (String s : infoB.getTags()) {
+                    this.newTag = s;
+                    this.tags.add(new Tag(tagsSize, s));
+                    tagsSize++;
+                    this.newTag ="";
+                }
+                this.strTag = String.valueOf(tags.size());
+
+                //Imagen y descripcion del organizador
+                this.descOrganizador = infoB.getDescOrganizadorUp();
+                EventWizardImagesController.upLoadedStream = infoB.getFoto();
+                EventWizardImagesController.profileImage = new DefaultStreamedContent(EventWizardImagesController.upLoadedStream, "image/jpeg");
+                //</editor-fold>
+                
+                //<editor-fold defaultstate="collapsed" desc="Entradas a evento">
+                dao = new EntradaDao();
+                this.lstEntrada = new ArrayList<>();
+                List<Entrada> tempEntrada = ((EntradaDao)dao).getAllByIdEvt(idEvento);
+                for(Entrada e : tempEntrada ){
+                    this.lstEntrada.add(e);
+                }
+                System.out.println("Entradas : "+this.lstEntrada.size());
+                //</editor-fold>
+                
+            } else {
+                //El evento no existe
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                ExternalContext externalContext = facesContext.getExternalContext();
+                externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
+                try {
+                    externalContext.dispatch("404.xhtml");
+                } catch (IOException ex) {
+                    Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                facesContext.responseComplete();
+            }
+        } else {
+            //Modo de creacion 
+        }
     }
 
     public String handleFlow(FlowEvent event) {

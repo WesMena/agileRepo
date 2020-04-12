@@ -77,11 +77,11 @@ public class EventSummaryController {
         
         this.urlFondo="url(/AgileRepo/faces/javax.faces.resource/"+eventoDetalle.getPortada()+"?ln=omega-layout)";
         if(eventoDetalle.getId()==0){
-             FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
             ExternalContext externalContext = facesContext.getExternalContext();                
             externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
-             externalContext.dispatch("404.xhtml");
-             facesContext.responseComplete();
+            externalContext.dispatch("404.xhtml");
+            facesContext.responseComplete();
         }
     }
 

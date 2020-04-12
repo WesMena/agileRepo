@@ -66,7 +66,7 @@ public class portadaController implements Serializable {
     
    
     public void onLoad() {
-
+        //Revision de editado o creacion
         InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
         InputStream iniIm2 = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
         try {
