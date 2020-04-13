@@ -32,7 +32,15 @@ public class EventSummaryController {
 "<p style=\"text-align: justify;\">Feugiat in ante metus dictum. At in tellus integer feugiat scelerisque varius morbi enim. In iaculis nunc sed augue lacus viverra. Ut sem viverra aliquet eget sit amet. Dui id ornare arcu odio ut sem nulla pharetra diam. Arcu dui vivamus arcu felis bibendum ut tristique et. A diam sollicitudin tempor id eu nisl. Cras tincidunt lobortis feugiat vivamus at augue. Mauris in aliquam sem fringilla ut. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Mauris in aliquam sem fringilla. Purus sit amet volutpat consequat mauris. Morbi tristique senectus et netus et malesuada fames ac turpis. Volutpat odio facilisis mauris sit. Tincidunt dui ut ornare lectus sit amet est placerat in. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada. Nibh venenatis cras sed felis eget.</p>\n" +
 "<p style=\"text-align: justify;\">Volutpat consequat mauris nunc congue nisi vitae. Sed felis eget velit aliquet. Eleifend mi in nulla posuere sollicitudin aliquam. Leo a diam sollicitudin tempor id eu nisl nunc. Aliquam sem et tortor consequat. Sed euismod nisi porta lorem. Ut faucibus pulvinar elementum integer enim neque volutpat. In eu mi bibendum neque. Porttitor leo a diam sollicitudin tempor id eu. Bibendum ut tristique et egestas. Urna cursus eget nunc scelerisque viverra mauris in aliquam sem. Magna fringilla urna porttitor rhoncus dolor purus non. Sollicitudin nibh sit amet commodo.<blockquote class=\"embedly-card\"><h4><a href=\"https://www.instagram.com/p/B-kfO5cD2Ct/\">Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too fast.⁣ ⁣ Quando você assiste #LCDP4 rápido demais.⁣</a></h4><p>777.2k Likes, 8,419 Comments - La Casa de Papel (@lacasadepapel) on Instagram: \"Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too...\"</p></blockquote>\n" +
 "<script async src=\"//cdn.embedly.com/widgets/platform.js\" charset=\"UTF-8\"></script>  <iframe width=\"853\" height=\"480\" src=\"https://www.youtube.com/embed/6V1vlwwr4M0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe> </p>";
+     public boolean btnAddEstado = true;
+     
+     
     public List<EventSummary> getEventSummary() {
+        
+         if(eventSummary.size()>0){
+            this.btnAddEstado = false;
+        } 
+        
         return eventSummary;
     }
 
@@ -91,6 +99,14 @@ public class EventSummaryController {
 
     public void setUrlFondo(String urlFondo) {
         this.urlFondo = urlFondo;
+    }
+
+    public boolean isBtnAddEstado() {
+        return btnAddEstado;
+    }
+
+    public void setBtnAddEstado(boolean btnAddEstado) {
+        this.btnAddEstado = btnAddEstado;
     }
     
   

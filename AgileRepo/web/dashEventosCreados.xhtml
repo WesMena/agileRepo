@@ -56,35 +56,53 @@
     </ui:define>
 
     <ui:define name="content" id="content" >
-            <div class="ui-g ui-fluid dashboard" >
+        <p:panel id="pnlAddEvt" style="margin-top:10px; display:#{(eventsummarycontroller.btnAddEstado)?'block':'none'}">
+            <div class="ui-g" >
+                
+                    <div class="gridEventosSummary" style="padding:0 !important">
+
+                        <p:button value="&#43;" 
+                                         outcome="/faces/publicarEventos.xhtml?id=-1&amp;editMode=#{false}"
+                                         style="height:100%;width: 100%; 
+                                         border: none; background: gainsboro;
+                                         color: white; font-weight: bold; font-size: 90px">
+
+                        </p:button>
+
+                    </div>
+                
+            </div>
+        </p:panel>
+
+        <div class="ui-g ui-fluid dashboard" >
             <div id="pricing">
                 <div class="margenTitulo " id="servicios">
-                    
-                        <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
-                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
-                                
-                                    <div class="gridEventosSummary">
+                    <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
-                                        <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                        
-                                        <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
-                                        <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                                        
-                                    </div>
-                                
+                        <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
+
+                            <div class="gridEventosSummary">
+
+                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+
+                                <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
+                                <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+
                             </div>
 
-                        </c:forEach>
+                        </div>
 
-                    
+                    </c:forEach>
+
+
                 </div>
             </div>
-            </div>
-        
-        
+        </div>
+
+
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
-               
+
 
     </ui:define>
 </ui:composition>

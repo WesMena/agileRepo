@@ -43,8 +43,8 @@ public class portadaController implements Serializable {
  //Estas son las que deben ir a la base de datos(para no afectar la pantalla de eventos)
  String fotobd="images/EventosSummary/imagen1.jpg?ln=omega-layout";
  String fotoSecundariabd;
- 
- 
+ public boolean VistaDesc = false;
+ public boolean VistaUbiH = false;
  
  public static InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/imgDefault.png");
  
@@ -148,6 +148,7 @@ public class portadaController implements Serializable {
         try {
             fotoSecundaria = new DefaultStreamedContent(uploadedFile2.getInputstream(), "image/jpeg");
             upLoadedStream2 = uploadedFile2.getInputstream();
+            this.VistaUbiH = true;
             
             saveFotoSecundaria();
         } catch (IOException ex) {
@@ -155,7 +156,8 @@ public class portadaController implements Serializable {
         }
         
          PrimeFaces.current().ajax().update("test1:panelImgSecundaria");  
-             // update(); 
+         
+         // update(); 
         //save(); 
     }
  
@@ -230,7 +232,8 @@ System.out.println(archivito.exists());
        
        
        public void update(){
-        PrimeFaces.current().ajax().update("test1:panelImg");    
+        PrimeFaces.current().ajax().update("test1:panelImg");
+       this.VistaDesc = true;
        }
  
 
@@ -311,5 +314,24 @@ ImageIO.write(buffer,"png",new File(Constantes.ubicacionFotos, filename));
     public void setFotoSecundariabd(String fotoSecundariabd) {
         this.fotoSecundariabd = fotoSecundariabd;
     }
+
+    public boolean isVistaDesc() {
+        return VistaDesc;
+    }
+
+    public void setVistaDesc(boolean VistaDesc) {
+        this.VistaDesc = VistaDesc;
+    }
+
+    public boolean isVistaUbiH() {
+        return VistaUbiH;
+    }
+
+    public void setVistaUbiH(boolean VistaUbiH) {
+        this.VistaUbiH = VistaUbiH;
+    }
+
+    
+
     
 }

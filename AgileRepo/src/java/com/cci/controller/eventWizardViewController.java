@@ -65,6 +65,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -77,7 +78,14 @@ public class eventWizardViewController implements Serializable {
     public String descripcion = "";
     public String resumen = "";
     public static Integer idEvento = -1;
-
+    public boolean btnAddEstado = true;
+   
+    public boolean VistaImgP = false;
+    public boolean VistaImgS = false;
+    public boolean VistaEntrada = false;
+    
+    
+    
     public String onFlowProcess(FlowEvent event) {
 
         return event.getNewStep();
@@ -518,7 +526,7 @@ public class eventWizardViewController implements Serializable {
         } catch (Exception x) {
             System.out.println("Error!");
         }
-        
+        this.VistaEntrada = true;
         return container;
     }
 
@@ -837,9 +845,13 @@ public class eventWizardViewController implements Serializable {
                 //Update :)
                 ((InfoBasicaDao) dao).update(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
+                
+                
+                
             } else {
                 ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
+                this.VistaImgP = true;
             }
         }
     }
@@ -954,6 +966,7 @@ public class eventWizardViewController implements Serializable {
     public void setDescripcionResumen() {
         WizardDao wiz = new WizardDao();
         wiz.enviarDescripcionResumen(idEvento, descripcion, resumen);
+        this.VistaImgS = true;
     }
 
     public void switchState() {
@@ -968,4 +981,65 @@ public class eventWizardViewController implements Serializable {
         PrimeFaces.current().ajax().update("test1:Todo");
     }
 
+    
+     public void redireccionarCrearEvt() {
+        try {
+            
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "publicarEventos.xhtml"));
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public boolean isBtnAddEstado() {
+        return btnAddEstado;
+    }
+
+    public void setBtnAddEstado(boolean btnAddEstado) {
+        this.btnAddEstado = btnAddEstado;
+    }
+
+
+    public boolean isVistaImgP() {
+        return VistaImgP;
+    }
+
+    public void setVistaImgP(boolean VistaImgP) {
+        this.VistaImgP = VistaImgP;
+    }
+
+    public boolean isVistaImgS() {
+        return VistaImgS;
+    }
+
+    public void setVistaImgS(boolean VistaImgS) {
+        this.VistaImgS = VistaImgS;
+    }
+
+
+
+    public boolean isVistaEntrada() {
+        return VistaEntrada;
+    }
+
+    public void setVistaEntrada(boolean VistaEntrada) {
+        this.VistaEntrada = VistaEntrada;
+    }
+
+
+
+
+     
+     
 }

@@ -57,16 +57,18 @@ public class EventDao implements Dao<Evento> {
 //                    + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
 //                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
 //                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
-            sql = "WITH "
+ 
+                    
+                    sql = "WITH "
                     + "EventoInfo AS (SELECT e.idEvento,"
                     + "e.nombre,"
                     + "e.descripcion,"
                     + "e.dias "
                     + "FROM eventos e,tagseventos t "
                     + "WHERE e.idEvento=t.evento AND (e.nombre LIKE '"+filtro+"%' OR t.tag LIKE '"+filtro+"%') AND propietario = '"+UsuarioLoginController.UID+"'"
-                    + "GROUP BY e.idEvento ORDER BY e.idEvento Desc),"
+                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc),"
                     + " "
-                    + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas"
+                    + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas "
                     + "FROM detalleevento WHERE bloqueo = 0 GROUP BY evento),"
                     + " "
                     + "EventoInicio AS (SELECT evento, horaInicio FROM detalleevento WHERE indiceEvento = 1)"
@@ -94,7 +96,8 @@ public class EventDao implements Dao<Evento> {
                 eventos.add(new Evento(nombre, desc, id, horas, dias, hora2));
 
             }
-
+                    
+  
         } catch (Exception e) {
             e.printStackTrace();
         }
