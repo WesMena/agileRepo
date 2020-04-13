@@ -89,11 +89,11 @@
 
                         </c:forEach>
 
-                        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" icon="pi pi-check">
+                        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade" style="width:300px;">
+                            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" style="width: 45%" icon="pi pi-check">
                                 <p:ajax listener="#{eventsummarycontroller.deleteAction()}" />
                             </p:commandButton>
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" icon="pi pi-times">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" style="width: 45%;" icon="pi pi-times">
                                 <p:ajax listener="#{eventsummarycontroller.redireccionar()}" />
                             </p:commandButton>
                         </p:confirmDialog>      
