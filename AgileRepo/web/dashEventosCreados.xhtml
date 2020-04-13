@@ -56,6 +56,23 @@
     </ui:define>
 
     <ui:define name="content" id="content" >
+        <p:panel id="pnlAddEvt" style="margin-top:10px; display:#{(eventsummarycontroller.btnAddEstado)?'block':'none'}">
+            <div class="ui-g" >
+
+                <div class="gridEventosSummary" style="padding:0 !important">
+
+                    <p:button value="&#43;" 
+                              outcome="/faces/publicarEventos.xhtml?id=-1&amp;editMode=#{false}"
+                              style="height:100%;width: 100%; 
+                              border: none; background: gainsboro;
+                              color: white; font-weight: bold; font-size: 90px">
+
+                    </p:button>
+
+                </div>
+
+            </div>
+        </p:panel>
         <div class="ui-g ui-fluid dashboard" >
             <div id="pricing">
                 <div class="margenTitulo " id="servicios">

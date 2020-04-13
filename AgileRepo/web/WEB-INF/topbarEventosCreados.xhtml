@@ -34,7 +34,10 @@
                 <a href="#">
                     <span class="topbar-item-text">Nuevo</span>
 
-                    <p:commandButton  class="topbar-icon"  icon="fa fa-plus"/>
+                    <p:button  class="topbar-icon"
+                               icon="fa fa-plus"
+                               style="display:#{(eventsummarycontroller.btnAddEstado)?'none':'block'}" outcome="/faces/publicarEventos.xhtml?id=-1&amp;editMode=#{false}"
+                               />
 
                 </a>  
 

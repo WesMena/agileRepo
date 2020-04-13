@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class WizardDao {
 
-    private Statement stm;
+ private Statement stm;
     private ResultSet rst;
     public List<ZonaHoraria> zonas = new ArrayList<>();
     public List<zonaPais> paiseslst = new ArrayList<>();
@@ -108,8 +108,8 @@ public class WizardDao {
         System.out.println("-> Hora Inicio: " + objt.getHinicial().toString());
         System.out.println("-> Hora Final: " + objt.getHfinal().toString());
         System.out.println("-> isFisico: " + objt.isFisico());
-        System.out.println("-> Fecha Inicio: " + objt.getFini());
-        System.out.println("-> Fecha Final: " + objt.getFfin());
+        System.out.println("-> Fecha Inicio: " + objt.getFini().toString());
+        System.out.println("-> Fecha Final: " + objt.getFfin().toString());
         System.out.println("!-------------------------------!");
 
         try {

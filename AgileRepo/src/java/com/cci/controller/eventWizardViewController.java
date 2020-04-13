@@ -5,6 +5,10 @@
  */
 package com.cci.controller;
 
+import com.OtherSource.FiltroDeAcceso;
+import static com.cci.controller.EventWizardImagesController.profileImage;
+import static com.cci.controller.EventWizardImagesController.upLoadedStream;
+import com.cci.model.ConfigUbiHora;
 import java.io.Serializable;
 import org.primefaces.event.FlowEvent;
 
@@ -51,18 +55,22 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
 import com.cci.model.InfoBasica;
+import com.cci.service.ConfigUbiHoraDao;
 import com.cci.service.Dao;
 import com.cci.service.InfoBasicaDao;
+import com.sun.faces.facelets.tag.ui.ComponentRef;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -70,6 +78,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FlowEvent;
@@ -80,6 +89,7 @@ import org.primefaces.model.StreamedContent;
 @SessionScoped
 public class eventWizardViewController implements Serializable {
 
+    public boolean tabImgPrincp = false;
     public String descripcion = "";
     public String resumen = "";
     public static Integer idEvento = -1;
@@ -113,6 +123,14 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public boolean isIsFisico() {
         return isFisico;
+    }
+
+    public boolean isTabImgPrincp() {
+        return tabImgPrincp;
+    }
+
+    public void setTabImgPrincp(boolean tabImgPrincp) {
+        this.tabImgPrincp = tabImgPrincp;
     }
 
     public boolean isEditionMode() {
@@ -505,8 +523,9 @@ public class eventWizardViewController implements Serializable {
  /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
+        //System.out.println(""+this.range);
         setearFechas(this.range);
-
+        System.out.println(""+this.range);
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
@@ -525,16 +544,15 @@ public class eventWizardViewController implements Serializable {
         }
 
         try {
-            dao.save(container);
-            this.config = container;
-            this.draft = false;
-            this.savedConfig = true;
-            PrimeFaces.current().ajax().update("test1:Todo");
+          dao.save(container);
+        this.config = container;
+        this.draft = false;
+        this.savedConfig = true;
+        PrimeFaces.current().ajax().update("test1:Todo");
         } catch (Exception x) {
-            x.printStackTrace();
             System.out.println("Error!");
         }
-
+        
         return container;
     }
 
@@ -755,13 +773,14 @@ public class eventWizardViewController implements Serializable {
     public void guardarEntradas() {
 
         EntradaDao eDao = new EntradaDao();
-
+        //Eliminando entradas anteriores
+        eDao.deleteAllByIdEvt(idEvento);
+        //Insertando nuevas entradas
         for (Entrada ev : lstEntrada) {
 
             eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), ev.getFechaFin(), ev.getHoraFin(), ev.getFechaInicio(), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
 
         }
-
     }
 
     public String BotonEntrada() {
@@ -830,6 +849,78 @@ public class eventWizardViewController implements Serializable {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metodos">
+    public void redireccionar(String xhtml) {
+
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", xhtml));
+            //Cambiar
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public void finalizarConfiguracion(ActionEvent event) {
+
+        //<editor-fold defaultstate="collapsed" desc="Limpieza infoBasica">
+        this.descOrganizador = "";
+        this.nombreEvento = "";
+        this.newTag = "";
+        this.tipoEvento = "";
+        this.strTag = "0";
+        InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
+        EventWizardImagesController.uploadedFile = null;
+        EventWizardImagesController.upLoadedStream = null;
+        EventWizardImagesController.profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
+
+        this.tags = new ArrayList<>();
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="Limpieza Imagen principal y secundaria">
+        portadaController.upLoadedStream = null;
+        portadaController.upLoadedStream2 = null;
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="Limpieza resumen">
+        this.resumen = "";
+        this.descripcion = "";
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="Limpieza entradas">
+        this.lstEntrada = new ArrayList<>();
+        this.cantidadEntrada = 0;
+        this.nombreEntrada = "";
+        this.tipoEntrada = null;
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="Limpiar Ubicacion y horario">
+        this.isFisico = false;
+        this.isLink = false;
+        this.strHfin = "";
+        this.strHini = "";
+        this.range = new ArrayList<>();
+        this.ubi = "";
+        this.link = "";
+        this.Ffin = null;
+        this.Fini = null;
+        //</editor-fold>
+
+//        //Regreso a pantalla de eventos
+        redireccionar("dashEventosCreados.xhtml");
+    }
+
     public void saveInfoBasica(ActionEvent event) {
 
         List<String> tagStr = new ArrayList<>();
@@ -850,11 +941,17 @@ public class eventWizardViewController implements Serializable {
 
             if (idEvento != -1) {
                 //Update :)
+                this.tabImgPrincp = true;
+                System.out.println("TB:" + tabImgPrincp);
                 ((InfoBasicaDao) dao).update(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
+
             } else {
+                this.tabImgPrincp = true;
+                System.out.println("TB:" + tabImgPrincp);
                 ((InfoBasicaDao) dao).save(new InfoBasica(this.tipoEvento, this.nombreEvento, this.nombreOrganizador, tagStr, EventWizardImagesController.upLoadedStream, this.descOrganizador));
                 PrimeFaces.current().ajax().update("test1:crearEntrada");
+
             }
         }
     }
@@ -865,7 +962,7 @@ public class eventWizardViewController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("tagError", new FacesMessage(FacesMessage.SEVERITY_ERROR, "El límite de tags para un evento corresponde a 10.", ""));
         } else {
-            
+
             //Guardando el tag en la lista
             this.tags.add(new Tag(this.tags.size(), this.newTag));
             this.strTag = String.valueOf(tags.size());
@@ -873,7 +970,8 @@ public class eventWizardViewController implements Serializable {
             this.newTag = "";
 
             PrimeFaces.current().ajax().update("test1:tagListDiv");
-            PrimeFaces.current().ajax().update("test1:counterContainerTag");
+            PrimeFaces.current().ajax().update("test1:eventoTagC");
+            PrimeFaces.current().ajax().update("test1:eventoTagCc");
 
         }
     }
@@ -897,6 +995,11 @@ public class eventWizardViewController implements Serializable {
             PrimeFaces.current().ajax().update("test1:tagListDiv");
             PrimeFaces.current().ajax().update("test1:counterContainerTag");
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        //finalizarConfiguracion(new ActionEvent(new ComponentRef()));
     }
 
     public void onLoad() {
@@ -923,7 +1026,7 @@ public class eventWizardViewController implements Serializable {
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 portadaController.fotoPrincipal = new DefaultStreamedContent(portadaController.upLoadedStream, "image/jpeg");
                 portadaController.fotoSecundaria = new DefaultStreamedContent(portadaController.upLoadedStream2, "image/jpeg");
 
@@ -935,7 +1038,7 @@ public class eventWizardViewController implements Serializable {
                     this.newTag = s;
                     this.tags.add(new Tag(tagsSize, s));
                     tagsSize++;
-                    this.newTag ="";
+                    this.newTag = "";
                 }
                 this.strTag = String.valueOf(tags.size());
 
@@ -944,17 +1047,33 @@ public class eventWizardViewController implements Serializable {
                 EventWizardImagesController.upLoadedStream = infoB.getFoto();
                 EventWizardImagesController.profileImage = new DefaultStreamedContent(EventWizardImagesController.upLoadedStream, "image/jpeg");
                 //</editor-fold>
-                
+
                 //<editor-fold defaultstate="collapsed" desc="Entradas a evento">
                 dao = new EntradaDao();
                 this.lstEntrada = new ArrayList<>();
-                List<Entrada> tempEntrada = ((EntradaDao)dao).getAllByIdEvt(idEvento);
-                for(Entrada e : tempEntrada ){
+                List<Entrada> tempEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+                for (Entrada e : tempEntrada) {
                     this.lstEntrada.add(e);
                 }
-                System.out.println("Entradas : "+this.lstEntrada.size());
+                System.out.println("Entradas : " + this.lstEntrada.size());
                 //</editor-fold>
-                
+
+                //<editor-fold defaultstate="collapsed" desc="Ubicacion y horario del evento">
+                ConfigUbiHora configUH;
+                dao = new ConfigUbiHoraDao();
+                configUH = (ConfigUbiHora) ((ConfigUbiHoraDao) dao).get(idEvento).get();
+                if (configUH.isIsFisico()) {
+                    this.isFisico = true;
+                    this.ubi = configUH.getUbicacion();
+                } else {
+                    this.isFisico = false;
+                    this.link = configUH.getLink();
+                }
+                this.strHini = configUH.getHoraInicio();
+                this.strHfin = configUH.getHoraFin();
+                this.range = configUH.getRangoFechas();
+                //</editor-fold>
+
             } else {
                 //El evento no existe
                 FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -968,7 +1087,7 @@ public class eventWizardViewController implements Serializable {
                 facesContext.responseComplete();
             }
         } else {
-            //Modo de creacion 
+
         }
     }
 
@@ -1017,6 +1136,7 @@ public class eventWizardViewController implements Serializable {
             this.tag = tag;
         }
     }
+    //</editor-fold>
 
     public String getDescOrganizador() {
         return descOrganizador;

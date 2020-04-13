@@ -29,6 +29,18 @@ public class EntradaDao implements Dao<Entrada> {
     public Optional<Entrada> get(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void deleteAllByIdEvt(int idEvt){
+        Conexion conne  = Conexion.getInstance();
+        conne.conectar();
+        try {
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Delete from entrada where EventoId = %1$d;", idEvt));
+        } catch (SQLException ex) {
+            Logger.getLogger(EntradaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
 
     public List<Entrada> getAllByIdEvt(int idEvt) {
         List<Entrada> returnedOpt = new ArrayList<>();
@@ -75,7 +87,7 @@ public class EntradaDao implements Dao<Entrada> {
 
     @Override
     public void delete(Entrada t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public void nuevaEntrada(Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {

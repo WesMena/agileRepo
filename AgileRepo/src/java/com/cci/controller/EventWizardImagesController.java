@@ -59,23 +59,20 @@ public class EventWizardImagesController implements Serializable {
 
                 //Carga en modo de creacion
                 InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
-                try {
-                    uploadedFile = null;
-                    upLoadedStream = null;
-                    profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
-                    System.out.println("Stream : " + iniIm.available());
-                    //updateUI();
-                } catch (IOException ex) {
-                    Logger.getLogger(EventWizardImagesController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                uploadedFile = null;
+                upLoadedStream = null;
+                profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
+                //updateUI();
             } else {
                 //Ejecucion cuando en el modo creación ya hay una imagen cargada
                 profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
+                //updateUI();
             }
 
         } else {
-            //Ejecucion cuando en el modo creación ya hay una imagen cargada
+            //Ejecucion cuando en el modo edicion ya hay una imagen cargada
             profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
+            //updateUI();
         }
     }
 
@@ -147,7 +144,10 @@ public class EventWizardImagesController implements Serializable {
 
     //"Eliminar una fotografia"
     public void deletFile(ActionEvent e) {
-        onLoad();
+        InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
+        upLoadedStream = iniIm;
+        profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
+        upLoadedStream = null;
         updateUI();
     }
 

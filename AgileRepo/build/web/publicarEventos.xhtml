@@ -9,7 +9,7 @@
 
     <body>
 
-        <ui:composition template="./WEB-INF/templateEvtPublic.xhtml">
+        <ui:composition template="./WEB-INF/templateEvtPublic.xhtml" >
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
 
@@ -17,8 +17,8 @@
                     <f:viewParam name="id" value="#{wizardcontroller.idEvento}"/>
                     <f:viewParam name="editMode" value="#{wizardcontroller.editionMode}"/>
                     <f:viewAction action="#{wizardcontroller.onLoad()}"/>
+                    <f:viewAction action="#{eventWizardImageController.onLoad()}"/>
                     <f:viewAction action="#{wizardcontroller.llenarCombo()}" />
-                    <f:viewAction action="#{eventWizardImageController.onLoad()}" />
                 </f:metadata>
 
 
@@ -152,7 +152,7 @@
                         <p:messages closable="true"  id="messageErrorTag" >
                             <p:autoUpdate />
                         </p:messages>
-                        <p:tabView id="test1"  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                        <p:tabView  cache="false"  id="test1"  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
 
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
@@ -360,27 +360,30 @@
                                                         <p:graphicImage  width="200" height="192" cache="false" id="ppOrg" class="ppOrganizador"   value="#{eventWizardImageController.profileImage}" stream="true" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 192px;"></p:graphicImage>
                                                     </div>
 
-                                                    <div class="ui-g-12 ui-md-12">
+                                                    <div class="ui-g-12 ui-md-12" style="padding: 4px!important">
 
                                                         <p:fileUpload update="imgLoader btnEliminarInfoB"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
-                                                        <p:commandButton id="btnEliminarInfoB" icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" disabled="#{eventWizardImageController.btnEliminarImgInfoBasica}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
+                                                        <p:commandButton id="btnEliminarInfoB" icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" disabled="#{eventWizardImageController.btnEliminarImgInfoBasica}" partialSubmit="true" process="@this"   value="Eliminar Fotografía." ></p:commandButton>
 
                                                     </div>
+                                                    <div class="ui-g-12 ui-md-12" style="margin-top: 8px;padding: 2px!important">
 
+                                                        <p:commandButton icon="far fa-save" class="btnSaveCInfoB"  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}"  process="@this inputNameEvt,selectSoC,inputDesc"  partialSubmit="true" value="Guardar y continuar" style="display: inline-block;" >
+
+                                                        </p:commandButton>
+
+                                                    </div>
 
                                                 </div>
                                             </div>
                                         </p:panel>
-
-
                                     </p:panel>
                                 </p:panel>
-                                <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
                             </p:tab>  
 
 
 
-                            <p:tab id="imagenPrincipal"  title="Imagen Principal">
+                            <p:tab   id="imagenPrincipal"     title="Imagen Principal">
                                 <p:panel id="panelImg"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div style="width:90%; margin-left:20px;">
                                         <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
@@ -400,13 +403,10 @@
                                         </p:fileUpload>
                                     </div>
 
-
-
-
-
-
-                                </p:panel>   
+                                </p:panel>
                             </p:tab>
+
+
 
 
 
@@ -458,7 +458,7 @@
                                         </f:facet>
                                     </p:textEditor>
 
-                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true" style="right:-75%;" >
+                                    <p:commandButton class="btnSaveResume" id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true"  >
                                         <f:ajax execute="editor2"></f:ajax>
                                         <f:ajax execute="resumenId"></f:ajax>
                                     </p:commandButton>      
@@ -578,9 +578,7 @@
                                                 <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 100px;" />
                                                 <br></br>
                                                 <br></br>
-                                                <p:datePicker immediate="true" widgetVar="range" id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  " >
-                                                    <f:ajax execute="range"/>  
-                                                </p:datePicker>
+                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  "  />
 
 
 
@@ -618,7 +616,7 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton   partialSubmit="true" process="@this txtDir,horaFin,range,horaIni,comboZonas,txtLink" value="Guardar"  rendered="#{wizardcontroller.draft}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  <p:commandButton value="Editar"  rendered="#{wizardcontroller.savedConfig}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
+                                        <p:commandButton  process="@this ubi-hora" value="Guardar"  rendered="#{wizardcontroller.draft}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  <p:commandButton value="Editar"  rendered="#{wizardcontroller.savedConfig}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
                                     </p:panel>
@@ -803,7 +801,9 @@
                                     </div>
 
                                 </p:panel>
-
+                                <center>
+                                    <p:commandButton actionListener="#{wizardcontroller.finalizarConfiguracion}" icon="fas fa-door-open" process="@this" style="width: 96%"  value="Finalizar configuración"></p:commandButton>
+                                </center>
                             </p:tab>
 
                         </p:tabView>
@@ -839,6 +839,13 @@
                     /*No es mucho.Pero es trabajo honesto*/
                     @media only screen and (max-width: 1353px){
                         /*Dispositivos moviles grandes*/
+                        .btnSaveResume{
+                            right: -75%;
+                        }
+                        .btnSaveCInfoB{
+                            width: 100% !important;
+
+                        }
                         .txtIntro{
                             height: 150px;
                         }
@@ -875,6 +882,13 @@
 
 
                     @media only screen and (min-width: 1354px) {
+                        .btnSaveResume{
+                            right: -91%;
+                        }
+                        .btnSaveCInfoB{
+                            width: 200px !important;
+                            float: right;
+                        }
                         /*Escritorio y Tablets*/
                         .textButtonIcon{
                             height: 48px;
