@@ -100,7 +100,7 @@ public class eventWizardViewController implements Serializable {
     private String tipoEvento;
     private boolean skip = false;
     private boolean isFisico = false;
-    private boolean isLink = false;
+    private boolean isLink = true;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">

@@ -53,6 +53,7 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
+
           sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" 
                     + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
                     + "AND propietario = '" + UsuarioLoginController.UID + "'"
