@@ -119,68 +119,6 @@ public class EventSummaryDao implements Dao<EventSummary> {
 
     public EventSummaryDao() {
 
-        //Esto manda a traer los eventos que se muestran en Eventos.xhtml
-        eventosSummary = new ArrayList<>();
-        ResultSet rs = null;
-        Statement stmt = null;
-        Conexion conexion = Conexion.getInstance();
-        try {
-
-            conexion.conectar();
-            stmt = conexion.conn.createStatement();
-            String sql;
-
-            sql = "SELECT e.idEventoPublic, e.Nombre, e.Descripcion, e.finalizado, e.portada, f.FIni, f.hIni  FROM eventopublic e, confighoraubi f WHERE e.idEventoPublic=f.idEvento";
-            rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-
-                repetido = false;
-
-                int id = rs.getInt("idEventoPublic");
-                String nombre = rs.getString("Nombre");
-                String desc = rs.getString("Descripcion");
-                int finalizado = rs.getInt("finalizado");
-                String portada = rs.getString("portada");
-
-                Date fecha = rs.getDate("FIni");
-                Date hora = rs.getTime("hIni");
-
-                System.out.println(nombre);
-
-                //Ajusta la hora que viene de bd para sea correcta
-                String hora2 = horaAjustada(hora);
-
-                //Hay que agregarle un día a la que trae de bd para que esté bien
-                Calendar c = Calendar.getInstance();
-                c.setTime(fecha);
-                c.add(Calendar.DAY_OF_MONTH, 1);
-
-                fecha = c.getTime();
-
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-
-                String fecha2 = formatoFecha.format(fecha);
-
-                //Esto se asegura de que no salgan eventos repetidos en los que tienen varias fechas
-                for (EventSummary evt : eventosSummary) {
-                    if (id == evt.getId()) {
-                        repetido = true;
-                    }
-                }
-                if (repetido == false) {
-
-                    eventosSummary.add(new EventSummary(nombre, desc, portada, finalizado, fecha2, hora2, id));
-                }
-
-            }
-
-            System.out.println("EVENTOS CREADOS  DISPLAY :" + eventosSummary.size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            conexion.desconectar();
-        }
 
     }
 

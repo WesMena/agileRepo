@@ -8,6 +8,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/topbarEventosCreados.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/Evento.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/UsuarioDao.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/CallWizard.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/myLogin.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/charts.xhtml</file>
@@ -38,7 +39,6 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/GlobalEventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/data.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/myDashboard.css</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/ConfigUbiHora.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventWizardImagesController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/modalFix.css</file>
@@ -47,6 +47,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/templateEventos.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/topbar.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resetPass.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/header.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/portadaController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/ComentarioDao.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/web.xml</file>
@@ -58,7 +59,6 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/topbarEvtPublic.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/DataTableExporter.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/sidebar.xhtml</file>
-            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/OnCloseController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/Constantes.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/empty.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/eventosGlobal.xhtml</file>
@@ -72,7 +72,9 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/EntradaDao.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/topbarEvtGlob.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/messages.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/grid.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/register.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/EventosCreados.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/InfoBasica.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/template.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/Eventos.xhtml</file>
@@ -80,6 +82,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/error.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/JasperReportUtil.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/mainController.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/animate.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/RegisterController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/PasswordValidator.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/404.xhtml</file>
@@ -99,6 +102,8 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/Dao.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/UbiHoraContainer.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/LoginController.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/MediaController.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/EventSummaryDao.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/js/fireResetPass.js</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EmailValidator.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/WizardDao.java</file>

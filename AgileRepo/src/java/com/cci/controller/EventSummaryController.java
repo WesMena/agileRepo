@@ -6,6 +6,7 @@
 package com.cci.controller;
 
 import com.cci.model.EventSummary;
+import com.cci.service.Dao;
 import com.cci.service.EventSummaryDao;
 import com.sun.org.apache.bcel.internal.classfile.Constant;
 import java.io.IOException;
@@ -48,6 +49,8 @@ public class EventSummaryController {
 
         return eventSummary;
     }
+    
+    
 
     public void setEventSummary(List<EventSummary> eventSummary) {
         this.eventSummary = eventSummary;
@@ -99,6 +102,14 @@ public class EventSummaryController {
             externalContext.dispatch("404.xhtml");
             facesContext.responseComplete();
         }
+    }
+    
+    public boolean readyToPublic(int idEvt){
+        boolean returned = false;
+        Dao dao = new EventSummaryDao();
+        returned = ((EventSummaryDao)dao).readyToPublic(idEvt);
+        
+        return returned;
     }
 
     public String getUrlFondo() {

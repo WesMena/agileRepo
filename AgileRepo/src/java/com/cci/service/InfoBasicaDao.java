@@ -58,7 +58,7 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
         Conexion conne = Conexion.getInstance();
         conne.conectar();
         try {
-            //<editor-fold defaultstate="collapsed" desc="Informacion general del evento">
+             //<editor-fold defaultstate="collapsed" desc="Informacion general del evento">
             stm = conne.conn.createStatement();
             rset = stm.executeQuery(String.format("select * from eventopublic where idEventoPublic = %1$d", id));
             while (rset.next()) {
