@@ -12,12 +12,14 @@ import com.sun.org.apache.bcel.internal.classfile.Constant;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -28,8 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 @SessionScoped
 
 public class EventSummaryController {
-
+    
     public List<EventSummary> eventSummary = new ArrayList<>();
+    public List<EventSummary> eventSummaryPublic = new ArrayList<>();
+    int idEventoPublicar;
     int idEvento = 0;
     String urlFondo = "";
     EventSummary eventoDetalle = new EventSummary();
@@ -40,60 +44,113 @@ public class EventSummaryController {
             + "<p style=\"text-align: justify;\">Volutpat consequat mauris nunc congue nisi vitae. Sed felis eget velit aliquet. Eleifend mi in nulla posuere sollicitudin aliquam. Leo a diam sollicitudin tempor id eu nisl nunc. Aliquam sem et tortor consequat. Sed euismod nisi porta lorem. Ut faucibus pulvinar elementum integer enim neque volutpat. In eu mi bibendum neque. Porttitor leo a diam sollicitudin tempor id eu. Bibendum ut tristique et egestas. Urna cursus eget nunc scelerisque viverra mauris in aliquam sem. Magna fringilla urna porttitor rhoncus dolor purus non. Sollicitudin nibh sit amet commodo.<blockquote class=\"embedly-card\"><h4><a href=\"https://www.instagram.com/p/B-kfO5cD2Ct/\">Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too fast.⁣ ⁣ Quando você assiste #LCDP4 rápido demais.⁣</a></h4><p>777.2k Likes, 8,419 Comments - La Casa de Papel (@lacasadepapel) on Instagram: \"Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too...\"</p></blockquote>\n"
             + "<script async src=\"//cdn.embedly.com/widgets/platform.js\" charset=\"UTF-8\"></script>  <iframe width=\"853\" height=\"480\" src=\"https://www.youtube.com/embed/6V1vlwwr4M0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe> </p>";
     public boolean btnAddEstado = true;
-
+    
     public List<EventSummary> getEventSummary() {
-
+        
         if (eventSummary.size() > 0) {
             this.btnAddEstado = false;
         }
-
+        
         return eventSummary;
     }
     
-    
-
     public void setEventSummary(List<EventSummary> eventSummary) {
         this.eventSummary = eventSummary;
     }
-
+    
+    public void onLoadPubblic(){
+        Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao)dao).getAllPublic();
+    }
+    
     public void onLoad() {
         EventSummaryDao evtSum = new EventSummaryDao();
         this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID);
     }
-
+    
     public EventSummaryController() {
-
-
+        
     }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
+    public int getIdEventoPublicar() {
+        return idEventoPublicar;
+    }
+    
+    public void setIdEventoPublicar(int idEventoPublicar) {
+        this.idEventoPublicar = idEventoPublicar;
+    }
+    
     public EventSummary getEventoDetalle() {
         return eventoDetalle;
     }
-
+    
     public void setEventoDetalle(EventSummary eventoDetalle) {
         this.eventoDetalle = eventoDetalle;
     }
-
+    
     public int getIdEvento() {
         return idEvento;
     }
-
+    
     public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
     }
+    
+    public String getUrlFondo() {
+        return urlFondo;
+    }
+    
+    public void setUrlFondo(String urlFondo) {
+        this.urlFondo = urlFondo;
+    }
+    
+    public boolean isBtnAddEstado() {
+        return btnAddEstado;
+    }
 
+    public List<EventSummary> getEventSummaryPublic() {
+        return eventSummaryPublic;
+    }
+
+    public void setEventSummaryPublic(List<EventSummary> eventSummaryPublic) {
+        this.eventSummaryPublic = eventSummaryPublic;
+    }
+    
+    
+    
+    public void setBtnAddEstado(boolean btnAddEstado) {
+        this.btnAddEstado = btnAddEstado;
+    }
+    
+    public void publicar(ActionEvent event) {
+        
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int idEvtP = Integer.parseInt(params.get("idEvtPublic"));
+        Dao dao = new EventSummaryDao();
+        ((EventSummaryDao) dao).publicar(idEvtP);
+        
+    }
+    
+    public boolean readyToPublic(int idEvt) {
+        boolean returned = false;
+        Dao dao = new EventSummaryDao();
+        returned = ((EventSummaryDao) dao).readyToPublic(idEvt);
+        
+        return returned;
+    }
+    
     public void obtenerEvento() throws IOException {
         EventSummaryDao evtSummary = new EventSummaryDao();
         eventoDetalle = evtSummary.obtenerDetalles(idEvento);
-
+        
         this.urlFondo = "url(/AgileRepo/faces/javax.faces.resource/" + eventoDetalle.getPortada() + "?ln=omega-layout)";
         if (eventoDetalle.getId() == 0) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -104,28 +161,4 @@ public class EventSummaryController {
         }
     }
     
-    public boolean readyToPublic(int idEvt){
-        boolean returned = false;
-        Dao dao = new EventSummaryDao();
-        returned = ((EventSummaryDao)dao).readyToPublic(idEvt);
-        
-        return returned;
-    }
-
-    public String getUrlFondo() {
-        return urlFondo;
-    }
-
-    public void setUrlFondo(String urlFondo) {
-        this.urlFondo = urlFondo;
-    }
-
-    public boolean isBtnAddEstado() {
-        return btnAddEstado;
-    }
-
-    public void setBtnAddEstado(boolean btnAddEstado) {
-        this.btnAddEstado = btnAddEstado;
-    }
-
 }

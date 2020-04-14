@@ -28,7 +28,23 @@ public class EventSummaryDao implements Dao<EventSummary> {
     private Statement stm;
     private ResultSet rset;
 
+    public void publicar(int idEvento) {
+        Conexion conne = Conexion.getInstance();
+        conne.conectar();
+
+        try {
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Update eventopublic \n"
+                    + "set  publicado = 1 \n"
+                    + "where idEventoPublic = %1$d;", idEvento));
+        } catch (SQLException ex) {
+            Logger.getLogger(EventSummaryDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public boolean readyToPublic(int idEvt) {
+
         boolean returned = false;
         Conexion connne = Conexion.getInstance();
 
@@ -42,13 +58,14 @@ public class EventSummaryDao implements Dao<EventSummary> {
                     + "and ep.portada   !='' \n"
                     + "and ep.resumen !='' \n"
                     + "and ep.Descripcion  !=''; ", idEvt));
-            int response =-1;
-            while(rset.next()){
+            int response = -1;
+            while (rset.next()) {
                 response = rset.getInt("ready");
             }
-            if(response!=0)
+            if (response != 0) {
                 returned = true;
-            
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(EventSummaryDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,6 +74,68 @@ public class EventSummaryDao implements Dao<EventSummary> {
 
     public static List<EventSummary> eventosSummary = new ArrayList<>();
     boolean repetido = false;
+
+    public List<EventSummary> getAllPublic() {
+
+        List<EventSummary> returned = new ArrayList<>();
+        EventSummary returnedAdd = new EventSummary();
+
+        Conexion conne = Conexion.getInstance();
+        conne.conectar();
+        try {
+            stm = conne.conn.createStatement();
+            rset = stm.executeQuery(String.format("select * from eventopublic as ep\n"
+                    + "inner join  organizadoreseventos as oe on ep.idEventoPublic = oe.evento\n"
+                    + "where publicado = 1 \n "
+                    + "order by ep.idEventoPublic desc"));
+            while (rset.next()) {
+                returnedAdd = new EventSummary();
+                returnedAdd.setFinalizado(rset.getInt("finalizado"));
+                returnedAdd.setId(rset.getInt("idEventoPublic"));
+                returnedAdd.setNombreEvento(rset.getString("Nombre"));
+                if (rset.getString("portada") == null) {
+                    returnedAdd.setPortada("images/EventosSummary/imgDefault.png");
+                } else {
+                    returnedAdd.setPortada(rset.getString("portada"));
+                }
+                returned.add(returnedAdd);
+            }
+            //Obtencion de fechas
+            for (EventSummary evt : returned) {
+                stm = conne.conn.createStatement();
+                rset = stm.executeQuery(String.format("select * from confighoraubi \n"
+                        + "where idEvento = %1$d;", evt.getId()));
+                Date fecha;
+                Date hora;
+                while (rset.next()) {
+                    if (rset.getDate("Fini") != null) {
+                        fecha = rset.getDate("FIni");
+                        hora = rset.getDate("Hini");
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(fecha);
+                        c.add(Calendar.DAY_OF_MONTH, 1);
+
+                        fecha = c.getTime();
+
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+
+                        String fecha2 = formatoFecha.format(fecha);
+
+                        evt.setFecha(fecha2);
+                        evt.setHora(horaAjustada(hora));
+                    } else {
+                        evt.setFecha("0/0/0");
+                        evt.setHora("00:00:00");
+                    }
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EventSummaryDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return returned;
+    }
 
     public List<EventSummary> getAllByUID(String UID) {
         List<EventSummary> returned = new ArrayList<>();
@@ -68,9 +147,10 @@ public class EventSummaryDao implements Dao<EventSummary> {
             stm = conne.conn.createStatement();
             rset = stm.executeQuery(String.format("select * from eventopublic as ep\n"
                     + "inner join  organizadoreseventos as oe on ep.idEventoPublic = oe.evento\n"
-                    + "where organizador = '%1$s';", UID));
+                    + "where organizador = '%1$s' order by ep.idEventoPublic desc;", UID));
             while (rset.next()) {
                 returnedAdd = new EventSummary();
+                returnedAdd.setFinalizado(rset.getInt("finalizado"));
                 returnedAdd.setId(rset.getInt("idEventoPublic"));
                 returnedAdd.setNombreEvento(rset.getString("Nombre"));
                 if (rset.getString("portada") == null) {
@@ -118,7 +198,6 @@ public class EventSummaryDao implements Dao<EventSummary> {
     }
 
     public EventSummaryDao() {
-
 
     }
 

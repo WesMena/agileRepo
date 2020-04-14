@@ -96,11 +96,13 @@
                                     <div style="display: inline-block;float: right">
                                         <p:commandButton
                                             rendered="#{eventsummarycontroller.readyToPublic(eventos.id)}"
+                                            actionListener="#{eventsummarycontroller.publicar}"
                                             id="btnPublicar"
                                             title="Publicar."
                                             icon="fas fa-globe"
                                             class="horabtn"
                                             style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                            <f:param name="idEvtPublic"  value="#{eventos.id}" ></f:param>
                                         </p:commandButton>
                                         <p:tooltip position="top" value="Publicar." for="btnPublicar" ></p:tooltip>
 
