@@ -10,7 +10,10 @@
     <ui:define name="title">Eventos</ui:define>
 
     <ui:define name="head">
-
+        <script src="https://kit.fontawesome.com/97e85f64e0.js" crossorigin="anonymous"></script>
+        <f:metadata>
+            <f:viewAction action="#{eventsummarycontroller.onLoad()}" ></f:viewAction>
+        </f:metadata>
         <script type="text/javascript">
             //<![CDATA[
             function skinChart() {
@@ -61,13 +64,15 @@
 
                 <div class="gridEventosSummary" style="padding:0 !important">
 
-                    <p:button value="&#43;" 
-                              outcome="/faces/publicarEventos.xhtml?id=-1&amp;editMode=#{false}"
-                              style="height:100%;width: 100%; 
-                              border: none; background: gainsboro;
-                              color: white; font-weight: bold; font-size: 90px">
-
-                    </p:button>
+                    <p:commandButton value="&#43;" 
+                                     style="height:100%;width: 100%; 
+                                     border: none; background: gainsboro;
+                                     color: white; font-weight: bold; font-size: 90px"
+                                     actionListener="#{callWizard.callingWizard}">
+                        <f:param name="idEvt" value="#{-1}" />
+                        <f:param name="mode" value="#{false}" >
+                        </f:param>
+                    </p:commandButton>
 
                 </div>
 
@@ -79,20 +84,42 @@
 
                     <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
-                        <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
+                        <div class="ui-g-12 ui-md-6 ui-lg-3 ui-sm-12 ui-xl-3">
 
-                            <div class="gridEventosSummary">
+                            <div class="gridEventosSummary" >
 
                                 <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
 
-                                <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
+                                <p class="EstiloFechaEvento">#{eventos.fecha== '' ? '0/0/0': eventos.fecha} , #{eventos.hora==''?'00:00':eventos.hora}</p>
                                 <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
                                 <div  style="display: block;height: 32px;">
                                     <div style="display: inline-block;float: right">
-                                        <p:button id="deleteEvt" icon="ui-icon-pencil" value="" class="horabtn"  outcome="faces/publicarEventos.xhtml?id=#{eventos.id}&amp;editMode=#{true}" style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                        </p:button> 
-                                        <p:commandButton id="updateEvt" icon="pi pi-trash" value="" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                        </p:commandButton>      
+                                        <p:commandButton
+                                            id="btnPublicar"
+                                            title="Publicar."
+                                            icon="fas fa-globe"
+                                            class="horabtn"
+                                            style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                        </p:commandButton>
+                                        <p:tooltip position="top" value="Publicar." for="btnPublicar" ></p:tooltip>
+
+                                        <p:commandButton
+                                            title="editar"
+                                            id="updateEvt"
+                                            icon="ui-icon-pencil"
+                                            class="horabtn"
+                                            style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;"
+                                            actionListener="#{callWizard.callingWizard}">
+                                            <f:param name="idEvt" value="#{eventos.id}" />
+                                            <f:param name="mode" value="#{true}" >
+                                            </f:param>
+                                        </p:commandButton>
+                                        <p:tooltip for="updateEvt" position="top" value="Editar." ></p:tooltip>
+
+                                        <p:commandButton  title="eliminar" id="deleteEvt" icon="fas fa-trash"  class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                        </p:commandButton>   
+                                        <p:tooltip for="deleteEvt" position="top" value="Eliminar." ></p:tooltip>
+
                                     </div>
                                 </div>
                             </div>
@@ -108,6 +135,16 @@
 
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-
+        <style type="text/css">
+            .ui-button-icon-left.ui-icon.ui-c.fas.fa-globe{
+                width: 32px!important;
+            }
+            .ui-button-icon-left.ui-icon.ui-c.fas.fa-trash{
+                width: 32px!important;
+            }
+            .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
+                width: 32px!important;
+            }
+        </style>
     </ui:define>
 </ui:composition>

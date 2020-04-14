@@ -7,10 +7,13 @@ package com.cci.controller;
 
 import com.cci.model.EventSummary;
 import com.cci.service.EventSummaryDao;
+import com.sun.org.apache.bcel.internal.classfile.Constant;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -50,9 +53,13 @@ public class EventSummaryController {
         this.eventSummary = eventSummary;
     }
 
-    public EventSummaryController() {
+    public void onLoad() {
         EventSummaryDao evtSum = new EventSummaryDao();
-        this.eventSummary = evtSum.getAll();
+        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID);
+    }
+
+    public EventSummaryController() {
+
 
     }
 

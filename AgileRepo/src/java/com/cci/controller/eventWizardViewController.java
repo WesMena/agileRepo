@@ -67,6 +67,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,6 +82,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -525,7 +527,7 @@ public class eventWizardViewController implements Serializable {
         WizardDao dao = new WizardDao();
         //System.out.println(""+this.range);
         setearFechas(this.range);
-        System.out.println(""+this.range);
+        System.out.println("" + this.range);
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
@@ -544,15 +546,15 @@ public class eventWizardViewController implements Serializable {
         }
 
         try {
-          dao.save(container);
-        this.config = container;
-        this.draft = false;
-        this.savedConfig = true;
-        PrimeFaces.current().ajax().update("test1:Todo");
+            dao.save(container);
+            this.config = container;
+            this.draft = false;
+            this.savedConfig = true;
+            PrimeFaces.current().ajax().update("test1:Todo");
         } catch (Exception x) {
             System.out.println("Error!");
         }
-        
+
         return container;
     }
 
@@ -874,6 +876,11 @@ public class eventWizardViewController implements Serializable {
 
     public void finalizarConfiguracion(ActionEvent event) {
 
+        cleanBean();
+        redireccionar("dashEventosCreados.xhtml");
+    }
+
+    public void cleanBean() {
         //<editor-fold defaultstate="collapsed" desc="Limpieza infoBasica">
         this.descOrganizador = "";
         this.nombreEvento = "";
@@ -916,9 +923,6 @@ public class eventWizardViewController implements Serializable {
         this.Ffin = null;
         this.Fini = null;
         //</editor-fold>
-
-//        //Regreso a pantalla de eventos
-        redireccionar("dashEventosCreados.xhtml");
     }
 
     public void saveInfoBasica(ActionEvent event) {
@@ -1087,7 +1091,10 @@ public class eventWizardViewController implements Serializable {
                 facesContext.responseComplete();
             }
         } else {
-
+            System.out.println("ID ENTRANTE CREACION : " + idEvento);
+            if (idEvento == -1) {
+                cleanBean();
+            }
         }
     }
 

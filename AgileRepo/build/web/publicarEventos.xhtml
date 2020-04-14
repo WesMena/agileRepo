@@ -14,8 +14,6 @@
             <ui:define name="head">
 
                 <f:metadata>
-                    <f:viewParam name="id" value="#{wizardcontroller.idEvento}"/>
-                    <f:viewParam name="editMode" value="#{wizardcontroller.editionMode}"/>
                     <f:viewAction action="#{wizardcontroller.onLoad()}"/>
                     <f:viewAction action="#{eventWizardImageController.onLoad()}"/>
                     <f:viewAction action="#{wizardcontroller.llenarCombo()}" />
@@ -147,7 +145,7 @@
 
                 <center>    
 
-                    <h:form id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
+                    <h:form target="publicarEventos.xhtml" id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
 
                         <p:messages closable="true"  id="messageErrorTag" >
                             <p:autoUpdate />

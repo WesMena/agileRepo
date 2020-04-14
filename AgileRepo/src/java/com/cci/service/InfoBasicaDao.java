@@ -66,8 +66,16 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
                 returned.setDescripcion(rset.getString("Descripcion"));
                 returned.setNombre(rset.getString("Nombre"));
                 returned.setResumen(rset.getString("resumen"));
-                returned.setImgSecDir(rset.getString("imgSecundaria"));
-                returned.setPortadaDir(rset.getString("portada"));
+                if (rset.getString("imgSecundaria") != null) 
+                    returned.setImgSecDir(rset.getString("imgSecundaria"));
+                else
+                     returned.setImgSecDir("images/EventosSummary/imgDefault.png");
+                
+                if(rset.getString("portada")!=null)
+                    returned.setPortadaDir(rset.getString("portada"));
+                else
+                    returned.setPortadaDir("images/EventosSummary/imgDefault.png");
+                
             }
             //Tipo de evento
             conne.conectar();
@@ -104,7 +112,6 @@ public class InfoBasicaDao implements Dao<InfoBasica> {
             }
 
             //</editor-fold>
-            
         } catch (SQLException ex) {
             Logger.getLogger(InfoBasicaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
