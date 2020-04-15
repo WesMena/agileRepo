@@ -12,8 +12,8 @@
         
   <f:metadata>
             
-      <f:viewParam name="id" value="#{eventsummarycontroller.idEvento}"/>
-      <f:event listener="#{eventsummarycontroller.obtenerEvento()}" type="preRenderView"/>              
+      <f:viewParam name="id" value="#{evtpdetails.idEvento}"/>
+      <f:event listener="#{evtpdetails.obtenerEvento()}" type="preRenderView"/>              
         </f:metadata>
         
         
@@ -100,7 +100,7 @@
             </div>
 
          
-            <div id="introduction" style="background-image:#{eventsummarycontroller.urlFondo} ;  -webkit-filter: blur(12px);">
+            <div id="introduction" style="background-image:#{evtpdetails.urlFondo} ;  -webkit-filter: blur(12px);">
                 <div class="introduction-content">
                   
 
@@ -126,7 +126,7 @@
                                  <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="margin-left:-6px; margin-top:-17px; margin-bottom:-8px;"  >
                             
                                 
-                                <p:graphicImage  class="fotoDetalle" name="#{eventsummarycontroller.eventoDetalle.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
+                                     <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
                                
                         
                                 
@@ -142,12 +142,11 @@
                                 
                                
                               
-                                <p style="font-weight:600;" >   <span class="pricing-name">#{eventsummarycontroller.eventoDetalle.nombreEvento}</span></p>
-                                <p style="font-weight:600; color:#f05537; font-size:16px;">#{eventsummarycontroller.eventoDetalle.fecha} , #{eventsummarycontroller.eventoDetalle.hora}</p>
+                                  <p style="font-weight:600;" >   <span class="pricing-name">#{evtpdetails.detalles.nombreEvento}</span></p>
+                                  <p style="font-weight:600; color:#f05537; font-size:16px;">#{evtpdetails.detalles.fecha} , #{evtpdetails.detalles.hora}</p>
                           
-                           <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">Tipo de evento: Charla</p>
-                          <p:commandButton value="Conseguir Entradas" style="display:block; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
-                     
+                                  <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">Tipo de evento:#{evtpdetails.detalles.tipo}</p>
+                         
                                  
                            
                         </div>
@@ -159,35 +158,95 @@
                             
                             <div class="ui-g-12 ui-md-8 ui-lg-8 ui-sm-12 ui-xl-8" style="z-index:5; border-top:2px solid #787878;">
                             
-                                  <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
+                                <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{evtpdetails.detalles.resumen}</span></p>
                                 
                                 
                                                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
                                                                 
                                                                 <div style="margin-left:15px; margin-right:15px;">
-                                                                    <h:outputText escape="false" value="#{eventsummarycontroller.eventoDetalle.descripcion}"></h:outputText>     
+                                                                    <h:outputText escape="false" value="#{evtpdetails.detalles.descripcion}"></h:outputText>     
                                                                 </div>  
                                 
-                                
+                                                                <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.imgSecundaria}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
+                               
                                 
                             </div>
                             
                           
                             
                               <div class="ui-g-12 ui-md-4 ui-lg-4 ui-sm-12 ui-xl-4" style="z-index:5; border-top:2px solid #787878;">
-                            
-                                  <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
+                                  
+                                  
+                                  
+                                  
+                                  <!--Aquí está el botón para comprar entradas, solo hay que cambiarle el display -->
+                             <p:commandButton value="Conseguir Entradas" style="display:none; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
+                               
                                 
-                                
-                                                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
+                             <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify; display:#{evtpdetails.detalles.esPresencial()?'block':'none'}">Dirección </span></p>
                                                                 
-                                                                <div style="margin-left:15px; margin-right:15px;">
-                                                                    <h:outputText escape="false" value="#{eventsummarycontroller.eventoDetalle.descripcion}"></h:outputText>     
+                                                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878; display:#{evtpdetails.detalles.esPresencial()?'block':'none'}">
+                                                                    <h:outputText escape="false" value="#{evtpdetails.detalles.direccion}" style="text-align:justify; "></h:outputText>     
                                                                 </div>  
                                 
-                                
-                                
+                                    <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; display:#{evtpdetails.detalles.esPresencial()?'none':'block'}" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Link </span></p>
+                                                                
+                                                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878; display:#{evtpdetails.detalles.esPresencial()?'none':'block'} ">
+                                                                    <h:outputText escape="false" value="#{evtpdetails.detalles.link}" style="text-align:justify; "></h:outputText>     
+                                                                </div> 
+                                    
+                                    <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Organizador  </span></p>
+                                    <div class="ui-g-6">
+                                                                <div  style=" text-align: justify; color:#787878; margin-left:15px;">
+                                                                    <h:outputText escape="false" value="#{evtpdetails.detalles.nomOrganizador}" style="text-align:justify; "></h:outputText>    
+                                                                </div>  
+                                    </div>
+                                    
+                                          <div class="ui-g-6">
+                                                                <div  style=" text-align: justify; color:#787878;">
+                                                                    <p:graphicImage  class="fotoDetalle" stream="true" name="#{evtpdetails.detalles.fotoOrganizador}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:75px; width:75px; border-radius:50%; margin-top:-20px; z-index:5;  "/>
+                                                                </div>  
+                                    </div>
+                                   
+                                    
+                                           <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Información del organizador </span></p>
+                                                                
+                                                              
+                                     <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
+                                         <h:outputText escape="false" value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; "></h:outputText>     
+                                                                </div>  
+                                    
+                                    
                             </div>
+                            
+                               <div class="ui-g-12" style="z-index:5; border-top:2px solid #787878;">
+                             
+                               
+                                
+                                                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Tags </span></p>
+                                                                
+                                                                 <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
+                                                                     <ui:repeat value="#{evtpdetails.detalles.listaTags}" var="tag">
+                                                                     <h:outputText  value=" ##{tag} " style="text-align:justify; "></h:outputText>   
+                                                                     </ui:repeat>
+                                                                 
+                                                                  
+                                                                </div>  
+                                    
+                                
+                                   
+                                    
+                                  
+                                    
+                                          
+                                   
+                                    
+                                    
+                                    
+                                    
+                                    
+                            </div>
+                            
                             
                             
                                 
