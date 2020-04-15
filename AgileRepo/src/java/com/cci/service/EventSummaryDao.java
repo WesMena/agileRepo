@@ -102,7 +102,9 @@ boolean repetido=false;
     
 
     
-    
+ 
+
+            
         public String horaAjustada(Date hora) {
         /*
         Le da el formato hh:mm 24h a la fecha y la retorna como un string.
@@ -135,8 +137,6 @@ boolean repetido=false;
 
         return hora2;
     }
-
-    
     
     
     
