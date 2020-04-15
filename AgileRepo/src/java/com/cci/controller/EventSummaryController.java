@@ -141,6 +141,7 @@ public class EventSummaryController {
         }
     }
 
+
     public String getUrlFondo() {
         return urlFondo;
     }
@@ -244,19 +245,7 @@ public class EventSummaryController {
         return returned;
     }
     
-    public void obtenerEvento() throws IOException {
-        EventSummaryDao evtSummary = new EventSummaryDao();
-        eventoDetalle = evtSummary.obtenerDetalles(idEvento);
-        
-        this.urlFondo = "url(/AgileRepo/faces/javax.faces.resource/" + eventoDetalle.getPortada() + "?ln=omega-layout)";
-        if (eventoDetalle.getId() == 0) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = facesContext.getExternalContext();
-            externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
-            externalContext.dispatch("404.xhtml");
-            facesContext.responseComplete();
-        }
-    }
+  
     
     /*---------------------*/
 }

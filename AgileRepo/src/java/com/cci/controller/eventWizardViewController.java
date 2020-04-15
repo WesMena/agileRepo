@@ -917,7 +917,7 @@ public class eventWizardViewController implements Serializable {
         this.isLink = true;
         this.strHfin = "";
         this.strHini = "";
-        this.range.clear();
+      //  this.range.clear();
         this.ubi = "";
         this.link = "";
         this.Ffin = null;
