@@ -573,21 +573,28 @@
                                                 <br></br>
                                                 <br></br>
 
-                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 100px;" />
+                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 40px;" />
                                                 <br></br>
                                                 <br></br>
-                                                <p:datePicker  id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  "  />
+                                                
+                                                <h:outputText value="Fecha Inicio " style='width:35%;margin-left:65px;font-weight:bold;display: block' />
+                                                <br/>
+                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="9999-99-99" required="La fecha de finalizacion es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="yyyy-mm-dd" position="top"/>
 
+                                                
+                                                <h:outputText value="Fecha Fin "  style='width:35%;margin-left:65px;font-weight:bold;display: block' />
+                                                <br/>
+                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;margin-bottom: 8px" id="dateConfigFin" value="#{wizardcontroller.fechaFinStr}" mask="9999-99-99" required="true" requiredMessage="La fecha de finalizacion es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="yyyy-mm-dd" position="top"/>
 
 
                                             </div>
                                             <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%">
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel value="El evento inicia a:" style=" margin-left: 150px;" />
+                                                <p:outputLabel value="El evento inicia a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
                                                 <br></br>
-                                                <br></br>
-
                                                 <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; text-align: center;" />
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
@@ -595,8 +602,8 @@
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel value="El evento termina a:" style=" margin-left: 150px;" />
-                                                <br></br>
+                                                
+                                                <p:outputLabel value="El evento termina a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
                                                 <br></br>
                                                 <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;margin-left:127px;text-align: center;" />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
@@ -614,42 +621,13 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton  process="@this ubi-hora" value="Guardar"  rendered="#{wizardcontroller.draft}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  <p:commandButton value="Editar"  rendered="#{wizardcontroller.savedConfig}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
+                                        <p:commandButton  process="@this ubi-hora" value="Guardar"  rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
+                                        <p:commandButton  process="@this ubi-hora"  value="Editar"  rendered="#{wizardcontroller.savedConfig or wizardcontroller.editionMode == true }"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
                                     </p:panel>
                                     <br></br>
                                     <br></br>
-
-
-                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
-
-
-                                        <h:outputText value="Range Selection:" />
-                                        <c:forEach var="date" items="#{wizardcontroller.range}" varStatus="status" >
-                                            
-                                            #{status.first ? '' : '-'}
-                                            <h:outputText value="#{date}">
-                                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                                            </h:outputText>
-                                        </c:forEach>
-                                        <!-->
-                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
-                                        #{status.first ? '' : '-'}
-                                        <h:outputText value="#{date}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                                        </h:outputText>
-                                    </ui:repeat>
-                                        </!-->
-
-
-
-                                        <h:outputText value="Time Only:" />
-                                        <h:outputText value="#{calendarview.date14}">
-                                            <f:convertDateTime pattern="HH:mm" />
-                                        </h:outputText>
-                                    </p:dialog>
-
                                 </p:panel>
 
 

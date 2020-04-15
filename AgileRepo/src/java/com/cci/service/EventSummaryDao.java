@@ -146,7 +146,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
         try {
             stm = conne.conn.createStatement();
             rset = stm.executeQuery(String.format("select  publicado  from eventopublic\n"
-                    + "where idEventoPublic = 1;", idEvt));
+                    + "where idEventoPublic = %1$d;", idEvt));
             while (rset.next()) {
                 if (rset.getInt("publicado") == 1) {
                     returned = true;

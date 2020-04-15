@@ -66,6 +66,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -114,6 +115,8 @@ public class eventWizardViewController implements Serializable {
 
     //Hacer los cambios que haga falta
     private String descOrganizador;
+    private String fechaFinStr;
+    private String fechaIniStr;
     private String nombreOrganizador;
     private String nombreEvento;
     private String tipoEvento;
@@ -125,6 +128,22 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public boolean isIsFisico() {
         return isFisico;
+    }
+
+    public String getFechaFinStr() {
+        return fechaFinStr;
+    }
+
+    public void setFechaFinStr(String fechaFinStr) {
+        this.fechaFinStr = fechaFinStr;
+    }
+
+    public String getFechaIniStr() {
+        return fechaIniStr;
+    }
+
+    public void setFechaIniStr(String fechaIniStr) {
+        this.fechaIniStr = fechaIniStr;
     }
 
     public boolean isTabImgPrincp() {
@@ -526,8 +545,16 @@ public class eventWizardViewController implements Serializable {
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
         //System.out.println(""+this.range);
-        setearFechas(this.range);
-        System.out.println("" + this.range);
+        String[] splitFIni = this.fechaIniStr.split("-");
+        String[] splitFFin = this.fechaFinStr.split("-");
+
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+        Fini = c.getTime();
+
+        c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+        Ffin = c.getTime();
+
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
         if (this.fisico == true) {
@@ -567,7 +594,15 @@ public class eventWizardViewController implements Serializable {
 
         PrimeFaces.current().ajax().update("test1:Todo");
         WizardDao dao = new WizardDao();
-        setearFechas(this.range);
+        String[] splitFIni = this.fechaIniStr.split("-");
+        String[] splitFFin = this.fechaFinStr.split("-");
+
+        Calendar c = Calendar.getInstance();
+        c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+        Fini = c.getTime();
+
+        c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+        Ffin = c.getTime();
 
         UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
@@ -913,15 +948,15 @@ public class eventWizardViewController implements Serializable {
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="Limpiar Ubicacion y horario">
+        this.fisico = false;
         this.isFisico = false;
         this.isLink = true;
         this.strHfin = "";
         this.strHini = "";
-        this.range.clear();
         this.ubi = "";
         this.link = "";
-        this.Ffin = null;
-        this.Fini = null;
+        this.fechaFinStr = "";
+        this.fechaIniStr = "";
         //</editor-fold>
     }
 
@@ -1067,17 +1102,30 @@ public class eventWizardViewController implements Serializable {
                 dao = new ConfigUbiHoraDao();
                 configUH = (ConfigUbiHora) ((ConfigUbiHoraDao) dao).get(idEvento).get();
                 if (configUH.isIsFisico()) {
+                    this.fisico= true;
                     this.isFisico = true;
+                    this.isLink= false;
                     this.ubi = configUH.getUbicacion();
                 } else {
+                    this.fisico=false;
                     this.isFisico = false;
+                    this.isLink = true;
                     this.link = configUH.getLink();
                 }
                 this.strHini = configUH.getHoraInicio();
                 this.strHfin = configUH.getHoraFin();
-                this.range = configUH.getRangoFechas();
-                //</editor-fold>
 
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+                if (configUH.getRangoFechas().get(0) == null) {
+                    this.fechaFinStr="";
+                    this.fechaIniStr="";
+                } else {
+                    this.fechaIniStr = formatoFecha.format(configUH.getRangoFechas().get(0));
+                    this.fechaFinStr = formatoFecha.format(configUH.getRangoFechas().get(1));
+                }
+
+                //this.range = configUH.getRangoFechas();
+                //</editor-fold>
             } else {
                 //El evento no existe
                 FacesContext facesContext = FacesContext.getCurrentInstance();
