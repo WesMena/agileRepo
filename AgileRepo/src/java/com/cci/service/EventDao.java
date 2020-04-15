@@ -53,12 +53,35 @@ public class EventDao implements Dao<Evento> {
             stmt = conexion.conn.createStatement();
             String sql;
 
-//            sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" 
-//                    + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
-//                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
-//                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
-            sql = "call evtDao('" + filtro + "','" + UsuarioLoginController.UID + "');";
-            
+
+          sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias FROM eventos e,tagseventos t WHERE e.idEvento=t.evento AND (e.nombre LIKE '" 
+                    + filtro + "%' OR t.tag LIKE '" + filtro + "%') "
+                    + "AND propietario = '" + UsuarioLoginController.UID + "'"
+                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
+/*
+            sql = "WITH "
+                    + "EventoInfo AS (SELECT e.idEvento,"
+                    + "e.nombre,"
+                    + "e.descripcion,"
+                    + "e.dias "
+                    + "FROM eventos e,tagseventos t "
+                    + "WHERE e.idEvento=t.evento AND (e.nombre LIKE '"+filtro+"%' OR t.tag LIKE '"+filtro+"%') AND propietario = '"+UsuarioLoginController.UID+"'"
+                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc),"
+                    + " "
+                    + "EventoTiempo AS (SELECT evento, FORMAT(SUM(duracion)/60,1) AS horas "
+                    + "FROM detalleevento WHERE bloqueo = 0 GROUP BY evento),"
+                    + " "
+                    + "EventoInicio AS (SELECT evento, horaInicio FROM detalleevento WHERE indiceEvento = 1)"
+                    + " "
+                    + "SELECT EventoInfo.idEvento,"
+                    + " EventoInfo.nombre,"
+                    + " EventoInfo.descripcion,"
+                    + " EventoInfo.dias,"
+                    + " IF(EventoTiempo.horas IS NULL,0,EventoTiempo.horas) AS horas,"
+                    + " IF(EventoInicio.horaInicio IS NULL,'00:00:00',EventoInicio.horaInicio) AS horaInicio FROM EventoInfo LEFT JOIN EventoTiempo ON"
+                    + " EventoInfo.idEvento = EventoTiempo.evento LEFT JOIN EventoInicio ON"
+                    + " EventoTiempo.evento = EventoInicio.evento;";
+*/
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -67,9 +90,10 @@ public class EventDao implements Dao<Evento> {
                 String desc = rs.getString("descripcion");
                 double horas = rs.getDouble("horas");
                 int dias = rs.getInt("dias");
-                Date hora = rs.getTime("horaInicio");
-                String hora2 = horaAjustada(hora);
-
+               // Date hora = rs.getTime("horaInicio");
+               // String hora2 = horaAjustada(hora);
+                    
+                    String hora2="08:30";
                 eventos.add(new Evento(nombre, desc, id, horas, dias, hora2));
 
             }
@@ -109,7 +133,61 @@ public class EventDao implements Dao<Evento> {
             e.printStackTrace();
         }
 
+        rs = null;
+        stmt = null;
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            sql = "SELECT indiceEvento, evento, duracion, horaInicio from detalleevento where borrado=b'0'";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                for (Evento e : eventos) {
+                    if (e.getId() == rs.getInt("evento")) {
+                        String horaAntes=e.getDuracion();
+                        horaAntes=horaAntes.replace("h","");
+                        double duracionMin=rs.getInt("duracion")+Double.parseDouble(horaAntes)*60;
+                     
+                        
+                        
+                        
+                       int indiceActual=rs.getInt("indiceEvento");
+                       if(indiceActual==1){
+                           duracionMin=duracionMin-60;
+                         Date hora = rs.getTime("horaInicio");
+                         String hora2 = horaAjustada(hora);
+                        e.setHoraInicio(hora2);
+                           
+                       }
+                       
+                          double horas=duracionMin/60;
+                        
+                        horas=Math.round(horas*100.0)/100.0;
+                        e.setDuracion(Double.toString(horas)+"h");
+
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }   
+        
+        
+        
+
+        
+        
+        
+        
     }
+    
+    
+    
 
     public Optional<Evento> get(long id) {
         throw new UnsupportedOperationException("Not supported yet.");
