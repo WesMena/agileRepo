@@ -74,68 +74,73 @@
                         </f:param>
                     </p:commandButton>
 
-                </div>
+                </div> 
 
             </div>
         </p:panel>
-        <div class="ui-g ui-fluid dashboard" >
-            <div id="pricing">
-                <div class="margenTitulo " id="servicios">
+        <p:panel id="pnlUIrepeat">
+            <div class="ui-g ui-fluid dashboard" >
+                <div id="pricing">
+                    <div class="margenTitulo " id="servicios">
 
-                    <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
+                        <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
-                        <div class="ui-g-12 ui-md-6 ui-lg-3 ui-sm-12 ui-xl-3">
+                            <div class="ui-g-12 ui-md-6 ui-lg-3 ui-sm-12 ui-xl-3">
 
-                            <div class="gridEventosSummary" >
+                                <div class="gridEventosSummary" >
 
-                                <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+                                    <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
 
-                                <p class="EstiloFechaEvento">#{eventos.fecha== '' ? '0/0/0': eventos.fecha} , #{eventos.hora==''?'00:00':eventos.hora}</p>
-                                <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                                <div  style="display: block;height: 32px;">
-                                    <div style="display: inline-block;float: right">
-                                        <p:commandButton
-                                            rendered="#{eventsummarycontroller.readyToPublic(eventos.id)}"
-                                            actionListener="#{eventsummarycontroller.publicar}"
-                                            id="btnPublicar"
-                                            title="Publicar."
-                                            icon="fas fa-globe"
-                                            class="horabtn"
-                                            style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                            <f:param name="idEvtPublic"  value="#{eventos.id}" ></f:param>
-                                        </p:commandButton>
-                                        <p:tooltip position="top" value="Publicar." for="btnPublicar" ></p:tooltip>
+                                    <p class="EstiloFechaEvento">#{eventos.fecha== '' ? '0/0/0': eventos.fecha} , #{eventos.hora==''?'00:00':eventos.hora}</p>
+                                    <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+                                    <div  style="display: block;height: 32px;">
+                                        <div style="display: inline-block;float: right">
+                                            <p:commandButton
+                                                rendered="#{eventsummarycontroller.readyToPublic(eventos.id)  and eventsummarycontroller.isAlreadyPublic(eventos.id) == false}"
+                                                actionListener="#{eventsummarycontroller.publicar}"
+                                                id="btnPublicar"
+                                                title="Publicar."
+                                                icon="fas fa-globe"
+                                                class="horabtn"
+                                                style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                                <f:param name="idEvtPublic"  value="#{eventos.id}" ></f:param>
+                                            </p:commandButton>
+                                            <p:tooltip position="top" value="Publicar." for="btnPublicar" ></p:tooltip>
 
-                                        <p:commandButton
-                                            title="editar"
-                                            id="updateEvt"
-                                            icon="ui-icon-pencil"
-                                            class="horabtn"
-                                            style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;"
-                                            actionListener="#{callWizard.callingWizard}">
-                                            <f:param name="idEvt" value="#{eventos.id}" />
-                                            <f:param name="mode" value="#{true}" >
-                                            </f:param>
-                                        </p:commandButton>
-                                        <p:tooltip for="updateEvt" position="top" value="Editar." ></p:tooltip>
+                                            <p:commandButton
+                                                title="editar"
+                                                id="updateEvt"
+                                                icon="ui-icon-pencil"
+                                                class="horabtn"
+                                                style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;"
+                                                actionListener="#{callWizard.callingWizard}">
+                                                <f:param name="idEvt" value="#{eventos.id}" />
+                                                <f:param name="mode" value="#{true}" >
+                                                </f:param>
+                                            </p:commandButton>
+                                            <p:tooltip for="updateEvt" position="top" value="Editar." ></p:tooltip>
 
-                                        <p:commandButton  title="eliminar" id="deleteEvt" icon="fas fa-trash"  class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                        </p:commandButton>   
-                                        <p:tooltip for="deleteEvt" position="top" value="Eliminar." ></p:tooltip>
+                                            <p:commandButton  title="eliminar" id="deleteEvt" icon="fas fa-trash"  class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                            </p:commandButton>   
+                                            <p:tooltip for="deleteEvt" position="top" value="Eliminar." ></p:tooltip>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </c:forEach>
+                        </c:forEach>
 
 
+                    </div>
                 </div>
             </div>
-        </div>
-
-
+        </p:panel>
+        <!--Modal de confirmación al intentar un evento ya publicado-->
+        <p:confirmDialog   message="El evento ya se encuentra publicado¿En realidad desea editarlo?" showEffect="fade" hideEffect="fade" widgetVar="mdUpdateP" style="background-color:white">
+            <p:commandButton value="Sí" styleClass="ui-confirmdialog-yes" icon="fas fa-check-circle " actionListener="#{callWizard.updatePy}"/>
+            <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fas fa-times" onsuccess="PF('mdUpdateP').hide()"/>
+        </p:confirmDialog>   
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <style type="text/css">

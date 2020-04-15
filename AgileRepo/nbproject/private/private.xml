@@ -16,6 +16,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/templateEvtPublic.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/PasswordView.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/faces-config.xml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/file.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/DetalleEvento.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/myDashComment.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/comingSoon.xhtml</file>
@@ -39,6 +40,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/GlobalEventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/data.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/myDashboard.css</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/testDatePicker.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventWizardImagesController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/EventController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/modalFix.css</file>
@@ -66,6 +68,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/Conexion.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/js/fireInit.js</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/service/InfoBasicaDao.java</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/calendarView.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/nanoscroller.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/DetalleEvento.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/publicarEventos.xhtml</file>
@@ -94,6 +97,7 @@
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/WEB-INF/topbarComingSoon.xhtml</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/css/layout.css</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/access.xhtml</file>
+            <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/controller/datePickerTestController.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/Usuario.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/src/java/com/cci/model/Respuesta.java</file>
             <file>file:/C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/menu.xhtml</file>

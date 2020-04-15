@@ -576,7 +576,7 @@
                                                 <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 100px;" />
                                                 <br></br>
                                                 <br></br>
-                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  "  />
+                                                <p:datePicker  id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  "  />
 
 
 
@@ -626,13 +626,21 @@
 
 
                                         <h:outputText value="Range Selection:" />
-                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
+                                        <c:forEach var="date" items="#{wizardcontroller.range}" varStatus="status" >
+                                            
                                             #{status.first ? '' : '-'}
                                             <h:outputText value="#{date}">
                                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                                             </h:outputText>
-                                        </ui:repeat>
-
+                                        </c:forEach>
+                                        <!-->
+                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
+                                        #{status.first ? '' : '-'}
+                                        <h:outputText value="#{date}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </ui:repeat>
+                                        </!-->
 
 
 

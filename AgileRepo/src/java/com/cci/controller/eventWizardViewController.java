@@ -119,7 +119,7 @@ public class eventWizardViewController implements Serializable {
     private String tipoEvento;
     private boolean skip = false;
     private boolean isFisico = false;
-    private boolean isLink = false;
+    private boolean isLink = true;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
@@ -914,10 +914,10 @@ public class eventWizardViewController implements Serializable {
 
         //<editor-fold defaultstate="collapsed" desc="Limpiar Ubicacion y horario">
         this.isFisico = false;
-        this.isLink = false;
+        this.isLink = true;
         this.strHfin = "";
         this.strHini = "";
-        this.range = new ArrayList<>();
+        this.range.clear();
         this.ubi = "";
         this.link = "";
         this.Ffin = null;

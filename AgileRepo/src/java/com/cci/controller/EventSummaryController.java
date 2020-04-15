@@ -21,6 +21,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletResponse;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -136,6 +137,7 @@ public class EventSummaryController {
         int idEvtP = Integer.parseInt(params.get("idEvtPublic"));
         Dao dao = new EventSummaryDao();
         ((EventSummaryDao) dao).publicar(idEvtP);
+        PrimeFaces.current().ajax().update("pnlUIrepeat");
         
     }
     
@@ -144,6 +146,12 @@ public class EventSummaryController {
         Dao dao = new EventSummaryDao();
         returned = ((EventSummaryDao) dao).readyToPublic(idEvt);
         
+        return returned;
+    }
+    
+    public boolean isAlreadyPublic(int idEvento){
+        Dao dao = new EventSummaryDao();
+        boolean returned = ((EventSummaryDao)dao).isAlreadyPublic(idEvento);
         return returned;
     }
     

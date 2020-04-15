@@ -137,6 +137,31 @@ public class EventSummaryDao implements Dao<EventSummary> {
         return returned;
     }
 
+    public boolean isAlreadyPublic(int idEvt) {
+        boolean returned = false;
+
+        Conexion conne = Conexion.getInstance();
+        conne.conectar();
+
+        try {
+            stm = conne.conn.createStatement();
+            rset = stm.executeQuery(String.format("select  publicado  from eventopublic\n"
+                    + "where idEventoPublic = 1;", idEvt));
+            while (rset.next()) {
+                if (rset.getInt("publicado") == 1) {
+                    returned = true;
+                } else {
+                    returned = false;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EventSummaryDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return returned;
+    }
+
     public List<EventSummary> getAllByUID(String UID) {
         List<EventSummary> returned = new ArrayList<>();
         EventSummary returnedAdd = new EventSummary();
@@ -204,8 +229,8 @@ public class EventSummaryDao implements Dao<EventSummary> {
     public String horaAjustada(Date hora) {
         /*
         Le da el formato hh:mm 24h a la fecha y la retorna como un string.
-        
-        
+
+
          */
         hora = DateUtils.addHours(hora, 6);
 
@@ -232,6 +257,21 @@ public class EventSummaryDao implements Dao<EventSummary> {
         hora2 = hora2.substring(0, 5);
 
         return hora2;
+    }
+
+    public void delPublic(int idEvt) {
+        Conexion conne = Conexion.getInstance();
+        conne.conectar();
+
+        try {
+            stm = conne.conn.createStatement();
+            stm.execute(String.format("Update eventopublic \n"
+                    + "set  publicado = 0 \n"
+                    + "where idEventoPublic = %1$d;", idEvt));
+        } catch (SQLException ex) {
+            Logger.getLogger(EventSummaryDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     //Detalles del evento(los que se cargan en EventoMoreDetails.xhtml)
