@@ -10,6 +10,9 @@
     <ui:define name="title">Eventos</ui:define>
 
     <ui:define name="head">
+        <f:metadata>
+            <f:viewAction action="#{eventsummarycontroller.refreshList()}" />
+        </f:metadata>
 
         <script type="text/javascript">
             //<![CDATA[
@@ -49,42 +52,59 @@
                 border: none;
 
             }
-
-
         </style>
 
     </ui:define>
 
     <ui:define name="content" id="content" >
-            <div class="ui-g ui-fluid dashboard" >
-            <div id="pricing">
-                <div class="margenTitulo " id="servicios">
-                    
+
+        <h:form id="frmContent" style="height:100%; width:100%; min-height:100%;" >
+
+            <div class="ui-g ui-fluid dashboard" id="todo" >
+                <div id="pricing">
+                    <div class="margenTitulo " id="servicios">
+
                         <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
                             <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
-                                
-                                    <div class="gridEventosSummary">
 
-                                        <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
-                                        
-                                        <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
-                                        <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
-                                        
+                                <div class="gridEventosSummary">
+
+                                    <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
+
+                                    <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
+                                    <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
+                                    <div  style="display: block;height: 32px;">
+                                        <div style="display: inline-block;float: right">
+                                            <p:commandButton id="deleteEvt" icon="ui-icon-pencil" value="" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                            </p:commandButton> 
+                                            <p:commandButton id="updateEvt" icon="pi pi-trash" value="" actionListener="#{eventsummarycontroller.getTarget}" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                                <f:attribute name="getEvt" value="#{eventos}"/>
+                                            </p:commandButton>      
+                                        </div>
                                     </div>
-                                
+                                </div>
+
                             </div>
 
                         </c:forEach>
 
-                    
+                        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade" style="width:300px;">
+                            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" style="width: 45%" icon="pi pi-check">
+                                <p:ajax listener="#{eventsummarycontroller.deleteAction()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" style="width: 45%;" icon="pi pi-times">
+                                <p:ajax listener="#{eventsummarycontroller.redireccionar()}" />
+                            </p:commandButton>
+                        </p:confirmDialog>      
+
+                    </div>
                 </div>
             </div>
-            </div>
-        
-        
+        </h:form>
+        <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" />
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
-               
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
 
     </ui:define>
 </ui:composition>

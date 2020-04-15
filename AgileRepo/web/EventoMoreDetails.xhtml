@@ -118,77 +118,84 @@
                    
                     
                     
-                      <div class="ui-g" style="margin-top:-650px;" >
-                    
-                          
-                          
-                         
-                              <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="margin-right:-15px;  " >
-                            <div class="pricing-basic pricing-box " >
+                  
+
+                    <div class="ui-g" style="z-index:5; margin-top:-650px; border-radius:3px;">
+                        <div class="pricing-basic pricing-box " style="margin-top:-10px; z-index:5;" >
                                 
-                                <p:graphicImage  class="fotoDetalle" name="#{eventsummarycontroller.eventoDetalle.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5; top:-10px; "/>
+                                 <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="margin-left:-6px; margin-top:-17px; margin-bottom:-8px;"  >
+                            
+                                
+                                <p:graphicImage  class="fotoDetalle" name="#{eventsummarycontroller.eventoDetalle.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
                                
                         
                                 
                      
                                  
-                            </div>
+                         
                         </div>
                               
                           
                                               
                               <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="z-index:5;">
-                            <div class="pricing-basic pricing-box tituloDetalle" style="margin-right: -15px;"  >
+                           
                                 
                                
                               
                                 <p style="font-weight:600;" >   <span class="pricing-name">#{eventsummarycontroller.eventoDetalle.nombreEvento}</span></p>
                                 <p style="font-weight:600; color:#f05537; font-size:16px;">#{eventsummarycontroller.eventoDetalle.fecha} , #{eventsummarycontroller.eventoDetalle.hora}</p>
                           
-                           <p style="font-weight:600; color:#f05537; font-size:16px; display:none;">Tipo de evento: Charla</p>
-                          <p:commandButton value="Conseguir Entradas" style="display:none; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
+                           <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">Tipo de evento: Charla</p>
+                          <p:commandButton value="Conseguir Entradas" style="display:block; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
                      
                                  
-                            </div>
+                           
                         </div>
-                        
-   
-                           <div class="ui-g-12" style="z-index:5;">
-                            <div class="pricing-basic pricing-box " style="margin-top:-35px;" >
-                                
-                               
-                              
-                                <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
+                            
+                            
+                            
+                            
+                            
+                            
+                            <div class="ui-g-12 ui-md-8 ui-lg-8 ui-sm-12 ui-xl-8" style="z-index:5; border-top:2px solid #787878;">
+                            
+                                  <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
                                 
                                 
                                                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
                                                                 
                                                                 <div style="margin-left:15px; margin-right:15px;">
                                                                     <h:outputText escape="false" value="#{eventsummarycontroller.eventoDetalle.descripcion}"></h:outputText>     
-                                                                </div>
-                                                               
+                                                                </div>  
+                                
+                                
+                                
+                            </div>
+                            
+                          
+                            
+                              <div class="ui-g-12 ui-md-4 ui-lg-4 ui-sm-12 ui-xl-4" style="z-index:5; border-top:2px solid #787878;">
+                            
+                                  <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{eventsummarycontroller.eventoDetalle.resumen}</span></p>
+                                
+                                
+                                                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
+                                                                
+                                                                <div style="margin-left:15px; margin-right:15px;">
+                                                                    <h:outputText escape="false" value="#{eventsummarycontroller.eventoDetalle.descripcion}"></h:outputText>     
+                                                                </div>  
+                                
+                                
+                                
+                            </div>
+                            
+                            
                                 
                      
                                  
-                            </div>
-                        </div>
-                          
-                          
-                          
-                         
-                          
-                    
-                          
-                          
-                          
-                         
+                            </div>   
                         
-
-
-                          
-                    </div>
-
-
+                    </div> 
 
                
 
