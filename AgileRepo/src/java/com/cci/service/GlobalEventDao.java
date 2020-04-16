@@ -9,6 +9,7 @@ import com.cci.controller.UsuarioLoginController;
 import com.cci.model.Comentario;
 import com.cci.model.Evento;
 import com.cci.model.Tag;
+import static com.cci.service.EventDao.eventos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,6 +44,12 @@ public class GlobalEventDao implements Dao<Evento> {
         conne.conectar();
         try {
             String sql;
+            
+                    sql = "SELECT e.idEvento,e.nombre,e.descripcion,e.horas,e.dias,u.displayName FROM eventos e,tagseventos t, usuarios u WHERE e.idEvento=t.evento "
+                    + "AND propietario not in ('" + UsuarioLoginController.UID + "') AND u.uid = e.propietario"
+                    + " GROUP BY e.idEvento ORDER BY e.idEvento Desc";
+            
+            /*
             sql = "WITH "
                     + "EventoInfo AS (SELECT e.idEvento,"
                     + "e.nombre,"
@@ -68,12 +75,14 @@ public class GlobalEventDao implements Dao<Evento> {
                     + " IF(EventoInicio.horaInicio IS NULL,'00:00:00',EventoInicio.horaInicio) AS horaInicio FROM EventoInfo LEFT JOIN EventoTiempo ON"
                     + " EventoInfo.idEvento = EventoTiempo.evento LEFT JOIN EventoInicio ON"
                     + " EventoTiempo.evento = EventoInicio.evento;";
+            
+            */
             stm = conne.conn.createStatement();
 
             rset = stm.executeQuery(sql);
             while (rset.next()) {
                 //  Evento added =  new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getDouble("horas"), rset.getInt("dias"), horaAjustada(rset.getTime("horaInicio")), rset.getString("displayName"));
-                returned.add(new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getDouble("horas"), rset.getInt("dias"), horaAjustada(rset.getTime("horaInicio")), rset.getString("displayName")));
+                returned.add(new Evento(rset.getString("nombre"), rset.getString("descripcion"), rset.getInt("idEvento"), rset.getDouble("horas"), rset.getInt("dias"), "08:30", rset.getString("displayName")));
             }
 
             stm = conne.conn.createStatement();
@@ -87,6 +96,44 @@ public class GlobalEventDao implements Dao<Evento> {
                     }
                 }
             }
+            
+            
+            //Info Duracion
+                       sql = "SELECT indiceEvento, evento, duracion, horaInicio from detalleevento where borrado=b'0'";
+            rset = stm.executeQuery(sql);
+
+            while (rset.next()) {
+                for (Evento e : eventos) {
+                    if (e.getId() == rset.getInt("evento")) {
+                        String horaAntes=e.getDuracion();
+                        horaAntes=horaAntes.replace("h","");
+                        double duracionMin=rset.getInt("duracion")+Double.parseDouble(horaAntes)*60;
+                     
+                        
+                        
+                        
+                       int indiceActual=rset.getInt("indiceEvento");
+                       if(indiceActual==1){
+                           duracionMin=duracionMin-60;
+                         Date hora = rset.getTime("horaInicio");
+                         String hora2 = horaAjustada(hora);
+                        e.setHoraInicio(hora2);
+                           
+                       }
+                       
+                          double horas=duracionMin/60;
+                        
+                        horas=Math.round(horas*100.0)/100.0;
+                        e.setDuracion(Double.toString(horas)+"h");
+
+                    }
+                }
+
+            }
+            
+            
+            
+            
 
             //Traida de comentarios
             List<Comentario> prueba = new ArrayList<>();

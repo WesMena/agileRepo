@@ -52,8 +52,6 @@
                 border: none;
 
             }
-
-
         </style>
 
     </ui:define>
@@ -120,8 +118,10 @@
                                             </p:commandButton>
                                             <p:tooltip for="updateEvt" position="top" value="Editar." ></p:tooltip>
 
-                                            <p:commandButton  title="eliminar" id="deleteEvt" icon="fas fa-trash"  class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                            </p:commandButton>   
+                                            <p:commandButton id="deleteEvt" icon="pi pi-trash" value="" actionListener="#{eventsummarycontroller.getTarget}" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                                <f:attribute name="getEvt" value="#{eventos}"/>
+                                            </p:commandButton>      
+                                          
                                             <p:tooltip for="deleteEvt" position="top" value="Eliminar." ></p:tooltip>
 
                                         </div>
@@ -131,6 +131,14 @@
 
                         </c:forEach>
 
+                        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade" style="width:300px;">
+                            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" style="width: 45%" icon="pi pi-check">
+                                <p:ajax listener="#{eventsummarycontroller.deleteAction()}" />
+                            </p:commandButton>
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" style="width: 45%;" icon="pi pi-times">
+                                <p:ajax listener="#{eventsummarycontroller.redireccionar()}" />
+                            </p:commandButton>
+                        </p:confirmDialog>      
 
                     </div>
                 </div>
@@ -143,6 +151,7 @@
         </p:confirmDialog>   
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" />
         <style type="text/css">
             .ui-button-icon-left.ui-icon.ui-c.fas.fa-globe{
                 width: 32px!important;

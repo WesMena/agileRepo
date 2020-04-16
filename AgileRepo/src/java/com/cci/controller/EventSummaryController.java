@@ -9,6 +9,7 @@ import com.cci.model.EventSummary;
 import com.cci.service.Dao;
 import com.cci.service.EventSummaryDao;
 import com.sun.org.apache.bcel.internal.classfile.Constant;
+import com.cci.service.PublicEventDao;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 
@@ -38,6 +40,7 @@ public class EventSummaryController {
     int idEvento = 0;
     String urlFondo = "";
     EventSummary eventoDetalle = new EventSummary();
+        private int target;
     String descripcion = "<p style=\"text-align: justify;\"><em>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim facilisis gravida neque convallis a. Fa</em>mes ac turpis egestas sed tempus urna et pharetra. Aliquam eleif<strong>end mi in nulla posuere sollicitudin aliquam ultrices sagittis. Tellus at urna condimentum</strong> mattis pellentesque id nibh tortor id. Vel facilisis volutpat est velit egestas dui. M<span style=\"color: #ff0000;\">orbi blandit cursus risus at ultrices mi. Morbi blandit cursus risus at ultrices. Sit amet luctus venenatis lectus magna fringilla urna porttitor. Pretium nibh ipsum consequat nisl vel pretium lectus quam.</span></p>\n"
             + "<p style=\"text-align: justify;\">M<strong>orbi tristique senectus et netus et malesuada fames ac. Feugiat in ante metus dictum at tempor commodo. Ullamcorper eget nulla facilisi etiam dignissim. At lectus urna duis</strong> convallis convallis tellus. Risus commodo viverra maecenas accumsan lacus vel facilisis volutpat est. Id diam maecenas ultricies mi eget mauris pharetra et. Lectus urna duis convallis convallis. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Enim diam vulputate ut pharetra sit. Consequat mauris nunc congue nisi. Senectus et netus et malesuada fames ac. Amet mauris commodo quis imperdiet massa. Orci ac auctor augue mauris augue. Lorem donec massa sapien faucibus et molestie. Gravida cum sociis natoque penatibus et. Sed faucibus turpis in eu mi bibendum. At lectus urna duis convallis convallis tellus id interdum velit.</p>\n"
             + "<p style=\"text-align: justify;\">Nullam ac tortor vitae purus faucibus ornare. Vivamus at augue eget arcu dictum varius duis at. Quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum. Proin sed libero enim sed faucibus. Risus feugiat in ante metus dictum. Adipiscing at in tellus integer feugiat. Feugiat in fermentum posuere urna nec tincidunt praesent semper. Ac turpis egestas integer eget. Porttitor lacus luctus accumsan tortor posuere ac ut consequat. Sem fringilla ut morbi tincidunt augue interdum velit euismod in. Ipsum a arcu cursus vitae congue mauris rhoncus aenean. Diam maecenas sed enim ut sem viverra aliquet. Tincidunt arcu non sodales neque sodales ut etiam sit.</p>\n"
@@ -70,8 +73,27 @@ public class EventSummaryController {
     }
     
     public EventSummaryController() {
-        
+        EventSummaryDao evtSum = new EventSummaryDao();
+        this.eventSummary = evtSum.getAll();
+
     }
+
+    public void refreshList() {
+        EventSummaryDao evtSum = new EventSummaryDao();
+        this.eventSummary = evtSum.getAll();
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
+    }
+    
+    
+    
+    
     
     public String getDescripcion() {
         return descripcion;
@@ -104,13 +126,80 @@ public class EventSummaryController {
     public void setIdEvento(int idEvento) {
         this.idEvento = idEvento;
     }
-    
+
+    public void obtenerEvento() throws IOException {
+        EventSummaryDao evtSummary = new EventSummaryDao();
+        eventoDetalle = evtSummary.obtenerDetalles(idEvento);
+
+        this.urlFondo = "url(/AgileRepo/faces/javax.faces.resource/" + eventoDetalle.getPortada() + "?ln=omega-layout)";
+        if (eventoDetalle.getId() == 0) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
+            externalContext.dispatch("404.xhtml");
+            facesContext.responseComplete();
+        }
+    }
+
     public String getUrlFondo() {
         return urlFondo;
     }
     
     public void setUrlFondo(String urlFondo) {
         this.urlFondo = urlFondo;
+    }
+
+    
+    
+    
+    /*--------------------------*/
+    
+    public void openModal() {
+        PrimeFaces.current().executeScript("PF('confrDialog').show()");
+    }
+    
+    public void update(){
+        refreshList();
+        PrimeFaces.current().ajax().update("content");
+    }
+
+    public void getTarget(ActionEvent e) {
+        EventSummary evt = new EventSummary();
+        evt = (EventSummary) e.getComponent().getAttributes().get("getEvt");
+        System.out.println("idEvnt: " + evt.getId());
+        this.target = evt.getId();
+        openModal();
+       
+    }
+
+    public void deleteAction() {
+        System.out.println("Entra al delete");
+        PublicEventDao dao = new PublicEventDao();
+        dao.deleteEvent(target);
+        redireccionar();
+    }
+
+    
+    
+    
+    public void redireccionar() {
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "dashEventosCreados.xhtml"));
+
+        } catch (Exception e) {
+
+        }
+
     }
     
     public boolean isBtnAddEstado() {
@@ -169,4 +258,5 @@ public class EventSummaryController {
         }
     }
     
+    /*---------------------*/
 }
