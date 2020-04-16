@@ -153,6 +153,13 @@
             </p:commandButton>
         </p:confirmDialog>
 
+        <p:confirmDialog header="System" widgetVar="dlgPEvent" style="background: white !important">
+            <f:facet name="message">
+                Su evento ha sido publicado con exito!<br/>Desea ver como ha quedado?
+            </f:facet>
+            <p:button value="Sí" styleClass="ui-confirmdialog-yes" icon="fas fa-check-circle " outcome="Eventos"/>
+            <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fas fa-times" onsuccess="PF('dlgPEvent').hide()"/>
+        </p:confirmDialog>
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <style type="text/css">
