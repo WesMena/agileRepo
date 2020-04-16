@@ -20,6 +20,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 
@@ -31,7 +32,8 @@ import org.primefaces.PrimeFaces;
 @SessionScoped
 
 public class EventSummaryController {
-    
+    String filtro=""; 
+    String filtroPublic="";
     public List<EventSummary> eventSummary = new ArrayList<>();
     public List<EventSummary> eventSummaryPublic = new ArrayList<>();
     int idEventoPublicar;
@@ -61,12 +63,83 @@ public class EventSummaryController {
     
     public void onLoadPubblic(){
         Dao dao = new EventSummaryDao();
-        this.eventSummaryPublic = ((EventSummaryDao)dao).getAllPublic();
+        this.eventSummaryPublic = ((EventSummaryDao)dao).getAllPublic(filtroPublic);
+    }
+    
+    /*
+      public void redireccionar(int id, String nombre) {
+        this.idEvento = id;
+        this.nombreEvento = nombre;
+        init();
+        tituloCorto();
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "DetalleEvento.xhtml"));
+            //Cambiar
+
+        } catch (Exception e) {
+
+        }
+
+    }
+    
+    */
+    
+    public void applyFilterRedirect(){
+        Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao)dao).getAllPublic(filtroPublic);  
+        
+        
+        
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "Eventos.xhtml"));
+            //Cambiar
+
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
+    public void applyFilterPublico(){
+  
+          Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao)dao).getAllPublic(filtroPublic);  
+        
+        
+    }
+    
+    public void applyFilter(){
+     
+          EventSummaryDao evtSum = new EventSummaryDao();
+        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID,filtro); 
+          PrimeFaces.current().ajax().update("pnlUIrepeat");
     }
     
     public void onLoad() {
         EventSummaryDao evtSum = new EventSummaryDao();
-        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID);
+        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID,filtro);
     }
     
     public EventSummaryController() {
@@ -168,5 +241,23 @@ public class EventSummaryController {
             facesContext.responseComplete();
         }
     }
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
+    public String getFiltroPublic() {
+        return filtroPublic;
+    }
+
+    public void setFiltroPublic(String filtroPublic) {
+        this.filtroPublic = filtroPublic;
+    }
+    
+    
     
 }

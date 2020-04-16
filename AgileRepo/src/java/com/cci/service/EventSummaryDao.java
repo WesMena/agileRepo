@@ -75,7 +75,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
     public static List<EventSummary> eventosSummary = new ArrayList<>();
     boolean repetido = false;
 
-    public List<EventSummary> getAllPublic() {
+    public List<EventSummary> getAllPublic(String filtro) {
 
         List<EventSummary> returned = new ArrayList<>();
         EventSummary returnedAdd = new EventSummary();
@@ -84,10 +84,12 @@ public class EventSummaryDao implements Dao<EventSummary> {
         conne.conectar();
         try {
             stm = conne.conn.createStatement();
-            rset = stm.executeQuery(String.format("select * from eventopublic as ep\n"
+            
+            //LIKE '"+filtro+ "%'
+            rset = stm.executeQuery("select * from eventopublic as ep\n"
                     + "inner join  organizadoreseventos as oe on ep.idEventoPublic = oe.evento\n"
-                    + "where publicado = 1 \n "
-                    + "order by ep.idEventoPublic desc"));
+                    + "where publicado = 1 and Nombre LIKE '"+filtro+"%' \n "
+                    + "order by ep.idEventoPublic desc");
             while (rset.next()) {
                 returnedAdd = new EventSummary();
                 returnedAdd.setFinalizado(rset.getInt("finalizado"));
@@ -162,7 +164,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
         return returned;
     }
 
-    public List<EventSummary> getAllByUID(String UID) {
+    public List<EventSummary> getAllByUID(String UID,String filtro) {
         List<EventSummary> returned = new ArrayList<>();
         EventSummary returnedAdd = new EventSummary();
 
@@ -170,9 +172,9 @@ public class EventSummaryDao implements Dao<EventSummary> {
         conne.conectar();
         try {
             stm = conne.conn.createStatement();
-            rset = stm.executeQuery(String.format("select * from eventopublic as ep\n"
+            rset = stm.executeQuery("select * from eventopublic as ep\n"
                     + "inner join  organizadoreseventos as oe on ep.idEventoPublic = oe.evento\n"
-                    + "where organizador = '%1$s' order by ep.idEventoPublic desc;", UID));
+                    + "where organizador = '"+UID+"' and Nombre LIKE '"+filtro+ "%' order by ep.idEventoPublic desc;");
             while (rset.next()) {
                 returnedAdd = new EventSummary();
                 returnedAdd.setFinalizado(rset.getInt("finalizado"));

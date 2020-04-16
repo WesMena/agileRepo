@@ -19,12 +19,16 @@
         <div id="topbar-icons" class="animated">
             <h:form>
                 <span class="topbar-search">
-                    <p:inputText type="text" id="filtro" placeholder="Buscar" />
+                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtro}" />
 
 
 
 
-                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" >
+                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventsummarycontroller.applyFilter()}" >
+                         <f:ajax execute="filtro" render="pnlUIrepeat"/>  
+                        <f:ajax execute="filtro" render="pnlUIrepeat"/> 
+                        
+                        
                     </p:commandButton>
 
 

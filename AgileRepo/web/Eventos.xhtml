@@ -69,20 +69,27 @@
 
 
                         <li>
-                            <span class="topbar-search">
+                            <h:form id="buscar">
+                           <span class="topbar-search">
 
-                                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventcontroller.filtro}" class="busquedaTopbar"  />
+                                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtroPublic}" class="busquedaTopbar"  />
 
 
 
 
-                                <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventcontroller.filtrarEventos()}" >
-
+                                <p:commandButton process="@this" id="busqueda" class="topbar-search-icon fa fa-search" value="" actionListener="#{eventsummarycontroller.applyFilterPublico()}" ajax="false" >
+                                        <f:ajax execute="filtro" render="buscar"/>  
+                                         <f:ajax execute="filtro" render="buscar"/> 
+                        
 
                                 </p:commandButton>
 
 
-                            </span>    
+                            </span>     
+                                
+                                
+                            </h:form>
+                          
 
 
 
