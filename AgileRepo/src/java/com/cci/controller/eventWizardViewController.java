@@ -592,37 +592,47 @@ public class eventWizardViewController implements Serializable {
  /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     public void updtConfig(ActionEvent e) throws ParseException {
 
-        PrimeFaces.current().ajax().update("test1:Todo");
-        WizardDao dao = new WizardDao();
-        String[] splitFIni = this.fechaIniStr.split("-");
-        String[] splitFFin = this.fechaFinStr.split("-");
+        WizardDao dao2 = new WizardDao();
 
-        Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
-        Fini = c.getTime();
+        if (dao2.savedUbiConfig(idEvento)) {
+            //Algo guardado
+            PrimeFaces.current().ajax().update("test1:Todo");
+            WizardDao dao = new WizardDao();
+            String[] splitFIni = this.fechaIniStr.split("-");
+            String[] splitFFin = this.fechaFinStr.split("-");
 
-        c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
-        Ffin = c.getTime();
+            Calendar c = Calendar.getInstance();
+            c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+            Fini = c.getTime();
 
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+            c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+            Ffin = c.getTime();
 
-        if (this.fisico == true) {
-            container.setUbifisica(this.ubi);
-            container.setLink("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Ubicacion: " + container.getUbifisica());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+
+            if (this.fisico == true) {
+                container.setUbifisica(this.ubi);
+                container.setLink("NONE");
+                System.out.println(" -> Container Creado!");
+                System.out.println("Ubicacion: " + container.getUbifisica());
+                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
+            } else {
+                container.setLink(this.link);
+                container.setUbifisica("NONE");
+                System.out.println(" -> Container Creado!");
+                System.out.println("Link: " + container.getLink());
+                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            }
+
+            dao.updateUbiHora(container, container.getEvntID());
+            System.out.println("Editado!");
 
         } else {
-            container.setLink(this.link);
-            container.setUbifisica("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Link: " + container.getLink());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            //Nada guardado
+            fillContainer(new ActionEvent(new ComponentRef()));
         }
 
-        dao.updateUbiHora(container, container.getEvntID());
-        System.out.println("Editado!");
     }
 
     public void saveMessage() {
@@ -1102,12 +1112,12 @@ public class eventWizardViewController implements Serializable {
                 dao = new ConfigUbiHoraDao();
                 configUH = (ConfigUbiHora) ((ConfigUbiHoraDao) dao).get(idEvento).get();
                 if (configUH.isIsFisico()) {
-                    this.fisico= true;
+                    this.fisico = true;
                     this.isFisico = true;
-                    this.isLink= false;
+                    this.isLink = false;
                     this.ubi = configUH.getUbicacion();
                 } else {
-                    this.fisico=false;
+                    this.fisico = false;
                     this.isFisico = false;
                     this.isLink = true;
                     this.link = configUH.getLink();
@@ -1117,8 +1127,8 @@ public class eventWizardViewController implements Serializable {
 
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
                 if (configUH.getRangoFechas().get(0) == null) {
-                    this.fechaFinStr="";
-                    this.fechaIniStr="";
+                    this.fechaFinStr = "";
+                    this.fechaIniStr = "";
                 } else {
                     this.fechaIniStr = formatoFecha.format(configUH.getRangoFechas().get(0));
                     this.fechaFinStr = formatoFecha.format(configUH.getRangoFechas().get(1));

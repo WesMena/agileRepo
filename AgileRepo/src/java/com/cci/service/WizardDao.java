@@ -28,10 +28,33 @@ import java.util.logging.Logger;
  */
 public class WizardDao {
 
- private Statement stm;
+    private Statement stm;
     private ResultSet rst;
     public List<ZonaHoraria> zonas = new ArrayList<>();
     public List<zonaPais> paiseslst = new ArrayList<>();
+
+    public boolean savedUbiConfig(int idEvento) {
+        boolean returned = false;
+
+        Conexion conne = Conexion.getInstance();
+
+        try {
+
+            stm = conne.conn.createStatement();
+            rst = stm.executeQuery(String.format("select count(*) saved from confighoraubi \n"
+                    + "where idEvento = %1$d;", idEvento));
+            int exist =-1;
+            while(rst.next())
+                exist = rst.getInt("saved");
+            if(exist==1)
+                returned = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(WizardDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return returned;
+    }
 
     public List<ZonaHoraria> getzonas() {
 
@@ -236,7 +259,7 @@ public class WizardDao {
 
     public void updateUbiHora(UbiHoraConfig obj, int id) throws ParseException {
         System.out.println("Cont entrando: " + obj.getUbifisica());
-     
+
         Conexion conne = Conexion.getInstance();
         conne.conectar();
         try {
