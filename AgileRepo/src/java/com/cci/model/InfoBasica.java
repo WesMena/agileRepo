@@ -20,6 +20,10 @@ public class InfoBasica   {
     private List<String> tags  = new ArrayList<>();;
     private InputStream  foto;
     private String descripcion;
+    private String resumen;
+    private String imgSecDir;
+    private String portadaDir;
+    private String descOrganizadorUp;
     
     
     public InfoBasica(){
@@ -47,12 +51,47 @@ public class InfoBasica   {
         this.foto = foto;
     }
 
+    public String getDescOrganizadorUp() {
+        return descOrganizadorUp;
+    }
+
+    public void setDescOrganizadorUp(String descOrganizadorUp) {
+        this.descOrganizadorUp = descOrganizadorUp;
+    }
+
+    
+    public String getImgSecDir() {
+        return imgSecDir;
+    }
+
+    public void setImgSecDir(String imgSecDir) {
+        this.imgSecDir = imgSecDir;
+    }
+
+    public String getPortadaDir() {
+        return portadaDir;
+    }
+
+    public void setPortadaDir(String portadaDir) {
+        this.portadaDir = portadaDir;
+    }
+    
+    
+
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
     }
     
     

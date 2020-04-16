@@ -10,10 +10,10 @@
     <ui:define name="title">Eventos</ui:define>
 
     <ui:define name="head">
+        <script src="https://kit.fontawesome.com/97e85f64e0.js" crossorigin="anonymous"></script>
         <f:metadata>
-            <f:viewAction action="#{eventsummarycontroller.refreshList()}" />
+            <f:viewAction action="#{eventsummarycontroller.onLoad()}" ></f:viewAction>
         </f:metadata>
-
         <script type="text/javascript">
             //<![CDATA[
             function skinChart() {
@@ -52,59 +52,119 @@
                 border: none;
 
             }
+
+
         </style>
 
     </ui:define>
 
     <ui:define name="content" id="content" >
 
-        <h:form id="frmContent" style="height:100%; width:100%; min-height:100%;" >
+        <p:panel id="pnlAddEvt" style="margin-top:10px; display:#{(eventsummarycontroller.btnAddEstado)?'block':'none'}">
+            <div class="ui-g" >
 
-            <div class="ui-g ui-fluid dashboard" id="todo" >
+                <div class="gridEventosSummary" style="padding:0 !important">
+
+                    <p:commandButton value="&#43;" 
+                                     style="height:100%;width: 100%; 
+                                     border: none; background: gainsboro;
+                                     color: white; font-weight: bold; font-size: 90px"
+                                     actionListener="#{callWizard.callingWizard}">
+                        <f:param name="idEvt" value="#{-1}" />
+                        <f:param name="mode" value="#{false}" >
+                        </f:param>
+                    </p:commandButton>
+
+                </div> 
+
+            </div>
+        </p:panel>
+        <p:panel id="pnlUIrepeat">
+            <div class="ui-g ui-fluid dashboard" >
                 <div id="pricing">
                     <div class="margenTitulo " id="servicios">
 
                         <c:forEach id="repeat" items="#{eventsummarycontroller.eventSummary}" var="eventos" varStatus="true">
 
-                            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-sm-12 ui-xl-3">
+                            <div class="ui-g-12 ui-md-6 ui-lg-3 ui-sm-12 ui-xl-3">
 
-                                <div class="gridEventosSummary">
+                                <div class="gridEventosSummary" >
 
                                     <p:graphicImage name="#{eventos.portada}" library="omega-layout" width="310" height="140" style=" position:relative;  z-index:5; top:-10px; width:100%;"/>
 
-                                    <p class="EstiloFechaEvento">#{eventos.fecha} , #{eventos.hora}</p>
+                                    <p class="EstiloFechaEvento">#{eventos.fecha== '' ? '0/0/0': eventos.fecha} , #{eventos.hora==''?'00:00':eventos.hora}</p>
                                     <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
                                     <div  style="display: block;height: 32px;">
                                         <div style="display: inline-block;float: right">
-                                            <p:commandButton id="deleteEvt" icon="ui-icon-pencil" value="" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
-                                            </p:commandButton> 
-                                            <p:commandButton id="updateEvt" icon="pi pi-trash" value="" actionListener="#{eventsummarycontroller.getTarget}" class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                            <p:commandButton
+                                                rendered="#{eventsummarycontroller.readyToPublic(eventos.id)  and eventsummarycontroller.isAlreadyPublic(eventos.id) == false}"
+                                                actionListener="#{eventsummarycontroller.publicar}"
+                                                id="btnPublicar"
+                                                title="Publicar."
+                                                icon="fas fa-globe"
+                                                class="horabtn"
+                                                style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
+                                                <f:param name="idEvtPublic"  value="#{eventos.id}" ></f:param>
+                                            </p:commandButton>
+                                            <p:tooltip position="top" value="Publicar." for="btnPublicar" ></p:tooltip>
+
+                                            <p:commandButton
+                                                title="editar"
+                                                id="updateEvt"
+                                                icon="ui-icon-pencil"
+                                                class="horabtn"
+                                                style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;"
+                                                actionListener="#{callWizard.callingWizard}">
+                                                <f:param name="idEvt" value="#{eventos.id}" />
+                                                <f:param name="mode" value="#{true}" >
+                                                </f:param>
+                                            </p:commandButton>
+                                            <p:tooltip for="updateEvt" position="top" value="Editar." ></p:tooltip>
+
+                                            <p:commandButton  actionListener="#{eventsummarycontroller.getTarget}" title="eliminar" id="deleteEvt" icon="fas fa-trash"  class="horabtn"  style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;">
                                                 <f:attribute name="getEvt" value="#{eventos}"/>
-                                            </p:commandButton>      
+                                            </p:commandButton>   
+                                            <p:tooltip for="deleteEvt" position="top" value="Eliminar." ></p:tooltip>
+
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </c:forEach>
 
-                        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade" style="width:300px;">
-                            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" style="width: 45%" icon="pi pi-check">
-                                <p:ajax listener="#{eventsummarycontroller.deleteAction()}" />
-                            </p:commandButton>
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" style="width: 45%;" icon="pi pi-times">
-                                <p:ajax listener="#{eventsummarycontroller.redireccionar()}" />
-                            </p:commandButton>
-                        </p:confirmDialog>      
 
                     </div>
                 </div>
             </div>
-        </h:form>
-        <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" />
+        </p:panel>
+        <!--Modal de confirmación al intentar un evento ya publicado-->
+        <p:confirmDialog   message="El evento ya se encuentra publicado¿En realidad desea editarlo?" showEffect="fade" hideEffect="fade" widgetVar="mdUpdateP" style="background-color:white">
+            <p:commandButton value="Sí" styleClass="ui-confirmdialog-yes" icon="fas fa-check-circle " actionListener="#{callWizard.updatePy}"/>
+            <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fas fa-times" onsuccess="PF('mdUpdateP').hide()"/>
+        </p:confirmDialog> 
+        <!--Modal de confirmacion de confirmacion de borrado-->
+        <p:confirmDialog widgetVar="confrDialog" message="Desea eliminar el Evento?" header="Borrar evento" global="true" showEffect="fade" hideEffect="fade" style="width:300px;background: white !important">
+            <p:commandButton value="Sí" type="button"  oncomplete="#{eventsummarycontroller.redireccionar}" styleClass="ui-confirmdialog-yes" style="width: 45%" icon="pi pi-check">
+                <p:ajax listener="#{eventsummarycontroller.deleteAction()}" />
+            </p:commandButton>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="PF('confrDialog').hide()" style="width: 45%;" icon="pi pi-times">
+                <p:ajax listener="#{eventsummarycontroller.redireccionar()}" />
+            </p:commandButton>
+        </p:confirmDialog>
+
         <h:outputStylesheet name="css/EventosCreados.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
-
+        <style type="text/css">
+            .ui-button-icon-left.ui-icon.ui-c.fas.fa-globe{
+                width: 32px!important;
+            }
+            .ui-button-icon-left.ui-icon.ui-c.fas.fa-trash{
+                width: 32px!important;
+            }
+            .ui-button-icon-left.ui-icon.ui-c.ui-icon-pencil{
+                width: 32px!important;
+            }
+        </style>
     </ui:define>
 </ui:composition>

@@ -19,12 +19,16 @@
         <div id="topbar-icons" class="animated">
             <h:form>
                 <span class="topbar-search">
-                    <p:inputText type="text" id="filtro" placeholder="Buscar" />
+                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtro}" />
 
 
 
 
-                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" >
+                    <p:commandButton id="busqueda" class="topbar-search-icon fa fa-search" value="" action="#{eventsummarycontroller.applyFilter()}" >
+                         <f:ajax execute="filtro" render="pnlUIrepeat"/>  
+                        <f:ajax execute="filtro" render="pnlUIrepeat"/> 
+                        
+                        
                     </p:commandButton>
 
 
@@ -34,8 +38,13 @@
                 <a href="#">
                     <span class="topbar-item-text">Nuevo</span>
 
-                    <p:commandButton  class="topbar-icon"  icon="fa fa-plus"/>
-
+                    <p:commandButton
+                        class="topbar-icon"
+                        icon="fa fa-plus"
+                        style="display:#{(eventsummarycontroller.btnAddEstado)?'none':'block'}" actionListener="#{callWizard.callingWizard}">
+                        <f:param name="idEvt" value="#{-1}" />
+                        <f:param name="mode" value="#{false}" ></f:param>
+                    </p:commandButton>
                 </a>  
 
             </h:form>
