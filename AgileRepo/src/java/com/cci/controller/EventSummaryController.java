@@ -259,7 +259,7 @@ public class EventSummaryController {
         Dao dao = new EventSummaryDao();
         ((EventSummaryDao) dao).publicar(idEvtP);
         PrimeFaces.current().ajax().update("pnlUIrepeat");
-
+        PrimeFaces.current().executeScript("PF('dlgPEvent').show()");
     }
 
     public void applyFilterPublico() {
