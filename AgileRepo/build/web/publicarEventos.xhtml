@@ -9,14 +9,14 @@
 
     <body>
 
-        <ui:composition template="./WEB-INF/templateEvtPublic.xhtml">
+        <ui:composition template="./WEB-INF/templateEvtPublic.xhtml" >
             <ui:define name="title">Publica tus eventos</ui:define>
             <ui:define name="head">
 
                 <f:metadata>
+                    <f:viewAction action="#{wizardcontroller.onLoad()}"/>
+                    <f:viewAction action="#{eventWizardImageController.onLoad()}"/>
                     <f:viewAction action="#{wizardcontroller.llenarCombo()}" />
-                    <f:viewAction action="#{wizardcontroller.onLoad()}" />
-                    <f:viewAction action="#{eventWizardImageController.onLoad()}" />
                 </f:metadata>
 
 
@@ -145,12 +145,12 @@
 
                 <center>    
 
-                    <h:form id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
+                    <h:form target="publicarEventos.xhtml" id="publicarEvento"  prependId="false" style="width: 90%;height: 100%;padding: 30px">
 
                         <p:messages closable="true"  id="messageErrorTag" >
                             <p:autoUpdate />
                         </p:messages>
-                        <p:tabView id="test1"  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
+                        <p:tabView  cache="false"  id="test1"  widgetVar="wPublicacion" style="width: 100%;height: 100%;margin-top: 10px !important;" >
 
                             <p:tab id="infoBasica" title="Información Básica"  >
                                 <p:panel  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
@@ -182,6 +182,9 @@
                                                     requiredMessage="El nombre del evento es obligatorio."
                                                     style="color: #000;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;width: 100%;border: none !important;margin: 0px;padding: 8px !important"
                                                     required="true"
+                                                    onkeypress="if (event.keyCode == 13) {
+                                                                return false;
+                                                            }"
                                                     maxlength="75"
                                                     counter="eventoNombreC"
                                                     counterTemplate="{0}/75">
@@ -229,13 +232,15 @@
                                                             class="inputTag"
                                                             style="display: inline-block;width: 100%;height: 100%;margin: 0px;padding-left:  8px !important;border: none !important"
                                                             maxlength="25"
-                                                            onkeypress="if (event.keyCode == 13) { return false; }"
+                                                            onkeypress="if (event.keyCode == 13) {
+                                                                        return false;
+                                                                    }"
                                                             required="true"
                                                             requiredMessage="No pueden añadirse vacíos."
                                                             counter="eventoTagC"
                                                             value="#{wizardcontroller.newTag}"
                                                             counterTemplate="{0}/25">
-                                                            
+
                                                         </p:inputTextarea>
                                                         <!--Mensaje de error-->
                                                         <p:message  id="messagesTag" for="inputTag" showDetail="false">
@@ -353,28 +358,31 @@
                                                         <p:graphicImage  width="200" height="192" cache="false" id="ppOrg" class="ppOrganizador"   value="#{eventWizardImageController.profileImage}" stream="true" style="background-attachment: fixed ;border-radius: 6px;display: block;height: 192px;"></p:graphicImage>
                                                     </div>
 
-                                                    <div class="ui-g-12 ui-md-12">
+                                                    <div class="ui-g-12 ui-md-12" style="padding: 4px!important">
 
                                                         <p:fileUpload update="imgLoader btnEliminarInfoB"  id="imgLoader" fileLimit="1" chooseIcon="fas fa-file-image" uploadIcon="fas fa-cloud-upload-alt"   fileUploadListener="#{eventWizardImageController.handleFileUpload}"  cancelLabel="Cancelar" invalidFileMessage="Tipo no soportado." fileLimitMessage="El archivo excede el tamaño permitido." allowTypes="/(\.|\/)(jpe?g|png)$/" uploadLabel="Confirmar" style="display: block" label="Fotografía del Organizador." ></p:fileUpload>
-                                                        <p:commandButton id="btnEliminarInfoB" icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" disabled="#{eventWizardImageController.btnEliminarImgInfoBasica}" partialSubmit="true" process="@this"   value="Eliminar Fotografía."></p:commandButton>
+                                                        <p:commandButton id="btnEliminarInfoB" icon="fas fa-folder-minus" actionListener="#{eventWizardImageController.deletFile}" disabled="#{eventWizardImageController.btnEliminarImgInfoBasica}" partialSubmit="true" process="@this"   value="Eliminar Fotografía." ></p:commandButton>
 
                                                     </div>
+                                                    <div class="ui-g-12 ui-md-12" style="margin-top: 8px;padding: 2px!important">
 
+                                                        <p:commandButton icon="far fa-save" class="btnSaveCInfoB"  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}"  process="@this inputNameEvt,selectSoC,inputDesc"  partialSubmit="true" value="Guardar y continuar" style="display: inline-block;" >
+
+                                                        </p:commandButton>
+
+                                                    </div>
 
                                                 </div>
                                             </div>
                                         </p:panel>
-
-
                                     </p:panel>
                                 </p:panel>
-                                <p:commandButton  validateClient="true" actionListener="#{wizardcontroller.saveInfoBasica}" process="@this inputNameEvt,selectSoC,inputDesc"  partialSubmit="true" value="Guardar y continuar" style="float: right" ></p:commandButton>
                             </p:tab>  
 
 
 
-                            <p:tab id="imagenPrincipal" title="Imagen Principal">
-                                <p:panel id="panelImg" style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
+                            <p:tab   id="imagenPrincipal"     title="Imagen Principal">
+                                <p:panel id="panelImg"  style="text-align: left;width: 100%;height: 100%;border: none !important;background: #ffffff">
                                     <div style="width:90%; margin-left:20px;">
                                         <i class="pi pi-image" style="font-size:48px; color:#0388e5;"></i>
                                         <h:outputText  value="Seleccionar la imagen principal del evento" style="font-size:28px; font-weight: bold"></h:outputText>      
@@ -382,9 +390,9 @@
 
 
                                     <div style="width:100%; height:100%;">
-                                        
+
                                         <div  id="portadaVista" style="width:90%; height:100%; background-repeat:no-repeat; background-size:cover; position:relative;">
-                                            <p:graphicImage cache="false" id="GIPrincipal" value="#{portadacontroller.fotoPrincipal}"   height="100%" width="100%" style="margin-left:20px; "/>
+                                            <p:graphicImage cache="false" id="GIPrincipal" value="#{portadacontroller.fotoPrincipal}"    height="100%" width="100%" style="margin-left:20px; "/>
                                         </div>
 
 
@@ -393,9 +401,12 @@
                                         </p:fileUpload>
                                     </div>
 
-
-                                </p:panel>   
+                                </p:panel>
                             </p:tab>
+
+
+
+
 
 
 
@@ -445,7 +456,7 @@
                                         </f:facet>
                                     </p:textEditor>
 
-                                    <p:commandButton id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true" style="right:-75%;" >
+                                    <p:commandButton class="btnSaveResume" id="submitDescripción" value="Guardar" action="#{wizardcontroller.setDescripcionResumen()}" process="@this resumenId descID"  partialSubmit="true"  >
                                         <f:ajax execute="editor2"></f:ajax>
                                         <f:ajax execute="resumenId"></f:ajax>
                                     </p:commandButton>      
@@ -462,17 +473,26 @@
                                     </div>
 
 
-                                                       <div style="width:100%; height:100%;">
-                                        
+                                    <div style="width:100%; height:100%;">
+
                                         <div  id="secundariaVista" style="width:90%; height:100%; background-repeat:no-repeat; background-size:cover; position:relative;">
-                                            <p:graphicImage cache="false" id="GISecundaria" value="#{portadacontroller.fotoSecundaria}"   height="100%" width="100%" style="margin-left:20px;"/>
+                                            <p:graphicImage cache="false" id="GISecundaria" value="#{portadacontroller.fotoSecundaria}" stream="true"   height="100%" width="100%" style="margin-left:20px;"/>
                                         </div>
 
 
-                                                           <p:fileUpload  id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.handleSecundariaUpload}" style="border:none; width:90%; margin-left:20px; height:100%;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
+                                        <p:fileUpload  id="imagenSecundariaSube" chooseIcon="pi pi-image"   fileUploadListener="#{portadacontroller.handleSecundariaUpload}" style="border:none; width:90%; margin-left:20px; height:100%;" allowTypes="/(\.|\/)(jpe?g|png)$/"  invalidFileMessage="El tipo de archivo no es compatible. Utilice archivos .jpg o .png" label="Agregar archivo" multiple="false" uploadLabel="Subir" cancelLabel="Cancelar"  >
 
                                         </p:fileUpload>
                                     </div>
+
+
+
+
+
+
+
+
+
 
 
                                 </p:panel>   
@@ -486,7 +506,7 @@
                                     <p:panel id="Ubicacion" widgetVar="wUbi"   style="text-align: left;width: 100%;height: 100%;border: none !important;background: #0084b4 !important; background-color: #03A8E4 !important; color: #03A8E4 !important;"    >
                                         <br></br>
                                         <br></br>
-                                         
+
                                         <h:outputText  value="Ubicación" style="font-size:28px; font-weight: bold"></h:outputText>
                                         <br></br>
                                         <br></br>
@@ -494,9 +514,9 @@
                                         <br></br>
                                         <h:outputText value="El evento es presencial? " style="margin-right: 315px; font-size: 22px" />
                                         <br></br>
-                                        
+
                                         <br></br>
-                                        <p:inputSwitch value="#{wizardcontroller.fisico}" onLabel="Sí" offLabel="No" style="height:25px; width:200px;margin-right: 315px">
+                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px">
                                             <p:ajax listener="#{wizardcontroller.switchState()}" />
                                         </p:inputSwitch>
                                         <br></br>
@@ -513,7 +533,7 @@
 
                                         </p:panel>
 
-                                   
+
 
                                         <p:panel id="link" widgetVar="pnlLink" style="display:block;border:#03A8E4" header="Link del Evento" rendered="#{wizardcontroller.isLink}" >
 
@@ -523,7 +543,7 @@
                                         </p:panel>
 
 
-                                        
+
 
                                     </p:panel>
 
@@ -534,7 +554,7 @@
                                         <h:outputText  value="Horarios" style="font-size:28px; font-weight: bold"></h:outputText>
                                         <br></br>
                                         <br></br>
-                                      
+
 
 
                                         <div class="ui-g ui-fluid">
@@ -553,21 +573,28 @@
                                                 <br></br>
                                                 <br></br>
 
-                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 100px;" />
+                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 40px;" />
                                                 <br></br>
                                                 <br></br>
-                                                <p:datePicker id="range" selectionMode="range" value="#{wizardcontroller.range}" readonlyInput="true" style=" width:80%; margin-left:20px; border: 50px  black  "  />
+                                                
+                                                <h:outputText value="Fecha Inicio " style='width:35%;margin-left:65px;font-weight:bold;display: block' />
+                                                <br/>
+                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="9999-99-99" required="La fecha de finalizacion es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="yyyy-mm-dd" position="top"/>
 
+                                                
+                                                <h:outputText value="Fecha Fin "  style='width:35%;margin-left:65px;font-weight:bold;display: block' />
+                                                <br/>
+                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;margin-bottom: 8px" id="dateConfigFin" value="#{wizardcontroller.fechaFinStr}" mask="9999-99-99" required="true" requiredMessage="La fecha de finalizacion es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="yyyy-mm-dd" position="top"/>
 
 
                                             </div>
                                             <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%">
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel value="El evento inicia a:" style=" margin-left: 150px;" />
+                                                <p:outputLabel value="El evento inicia a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
                                                 <br></br>
-                                                <br></br>
-
                                                 <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; text-align: center;" />
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
@@ -575,8 +602,8 @@
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel value="El evento termina a:" style=" margin-left: 150px;" />
-                                                <br></br>
+                                                
+                                                <p:outputLabel value="El evento termina a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
                                                 <br></br>
                                                 <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;margin-left:127px;text-align: center;" />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
@@ -594,34 +621,13 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton value="Guardar"  rendered="#{wizardcontroller.draft}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  <p:commandButton value="Editar"  rendered="#{wizardcontroller.savedConfig}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
+                                        <p:commandButton  process="@this ubi-hora" value="Guardar"  rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
+                                        <p:commandButton  process="@this ubi-hora"  value="Editar"  rendered="#{wizardcontroller.savedConfig or wizardcontroller.editionMode == true }"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
                                     </p:panel>
                                     <br></br>
                                     <br></br>
-
-
-                                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlgHora" showEffect="fold">
-
-
-                                        <h:outputText value="Range Selection:" />
-                                        <ui:repeat var="date" value="#{wizardcontroller.range}" varStatus="status" size="#{wizardcontroller.range.size()}">
-                                            #{status.first ? '' : '-'}
-                                            <h:outputText value="#{date}">
-                                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                                            </h:outputText>
-                                        </ui:repeat>
-
-
-
-
-                                        <h:outputText value="Time Only:" />
-                                        <h:outputText value="#{calendarview.date14}">
-                                            <f:convertDateTime pattern="HH:mm" />
-                                        </h:outputText>
-                                    </p:dialog>
-
                                 </p:panel>
 
 
@@ -779,7 +785,9 @@
                                     </div>
 
                                 </p:panel>
-
+                                <center>
+                                    <p:commandButton actionListener="#{wizardcontroller.finalizarConfiguracion}" icon="fas fa-door-open" process="@this" style="width: 96%"  value="Finalizar configuración"></p:commandButton>
+                                </center>
                             </p:tab>
 
                         </p:tabView>
@@ -815,6 +823,13 @@
                     /*No es mucho.Pero es trabajo honesto*/
                     @media only screen and (max-width: 1353px){
                         /*Dispositivos moviles grandes*/
+                        .btnSaveResume{
+                            right: -75%;
+                        }
+                        .btnSaveCInfoB{
+                            width: 100% !important;
+
+                        }
                         .txtIntro{
                             height: 150px;
                         }
@@ -851,6 +866,13 @@
 
 
                     @media only screen and (min-width: 1354px) {
+                        .btnSaveResume{
+                            right: -91%;
+                        }
+                        .btnSaveCInfoB{
+                            width: 200px !important;
+                            float: right;
+                        }
                         /*Escritorio y Tablets*/
                         .textButtonIcon{
                             height: 48px;

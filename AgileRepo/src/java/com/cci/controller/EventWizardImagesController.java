@@ -45,38 +45,49 @@ public class EventWizardImagesController implements Serializable {
     public static StreamedContent profileImage = null;
     public static UploadedFile uploadedFile;
     public boolean btnEliminarImgInfoBasica = true;
-    public static InputStream  upLoadedStream = null;
+    public static InputStream upLoadedStream = null;
 
     public EventWizardImagesController() {
 
     }
 
     public void onLoad() {
+        //Modo creacion
+        if (!eventWizardViewController.editionMode) {
+            //Ejecucion cuando no hay imagen cargada
+            if (upLoadedStream == null) {
 
-        InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
-        try {
-            uploadedFile = null;
-            upLoadedStream = null;
-            profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
-            System.out.println("Stream : " + iniIm.available());
+                //Carga en modo de creacion
+                InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
+                uploadedFile = null;
+                upLoadedStream = null;
+                profileImage = new DefaultStreamedContent(iniIm, "image/jpeg");
+                //updateUI();
+            } else {
+                //Ejecucion cuando en el modo creación ya hay una imagen cargada
+                profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
+                //updateUI();
+            }
+
+        } else {
+            //Ejecucion cuando en el modo edicion ya hay una imagen cargada
+            profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
             //updateUI();
-        } catch (IOException ex) {
-            Logger.getLogger(EventWizardImagesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public StreamedContent getProfileImage() {
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
-        
+
         return new DefaultStreamedContent(profileImage.getStream(), "image/jpeg");
-        
+
     }
 
     public void setProfileImage(StreamedContent profileImage) {
-        
+
         System.out.println("Imagen : " + FiltroDeAcceso.class.getClassLoader().getResource("com/OtherSource/404.png"));
         this.profileImage = profileImage;
-        
+
     }
 
     public UploadedFile getUploadedFile() {
@@ -104,15 +115,9 @@ public class EventWizardImagesController implements Serializable {
         //save();
         btnEliminarImgInfoBasica = false;
     }
-    
-
-    
-    
 
     public void save() throws IOException {
-        
-        
-        
+
         //Se optiene el nombre del archivo
         String filename = FilenameUtils.getName(uploadedFile.getFileName());
         //extrae el stream de lo que se ha subido
@@ -120,28 +125,29 @@ public class EventWizardImagesController implements Serializable {
         //Crea el archivo en una direccion
         OutputStream output = new FileOutputStream(new File("C:/Users/Nvidi/source", filename));
         //Aca se p[odria subir la imagen a la BD
-        
+
         try {
             IOUtils.copy(input, output);
         } finally {
             IOUtils.closeQuietly(input);
             IOUtils.closeQuietly(output);
         }
-        
-        
-        
+
     }
 
     private void updateUI() {
         PrimeFaces.current().ajax().update("test1:ppOrg");
         PrimeFaces.current().ajax().update("test1:counterContainerTag");
-               
+
         //PrimeFaces.current().ajax().update("publicarEvento:pnlHelp");
     }
 
     //"Eliminar una fotografia"
     public void deletFile(ActionEvent e) {
-        onLoad();
+        InputStream iniIm = FiltroDeAcceso.class.getClassLoader().getResourceAsStream("com/OtherSource/nonuser.jpg");
+        upLoadedStream = iniIm;
+        profileImage = new DefaultStreamedContent(upLoadedStream, "image/jpeg");
+        upLoadedStream = null;
         updateUI();
     }
 
@@ -152,6 +158,5 @@ public class EventWizardImagesController implements Serializable {
     public void setBtnEliminarImgInfoBasica(boolean btnEliminarImgInfoBasica) {
         this.btnEliminarImgInfoBasica = btnEliminarImgInfoBasica;
     }
-    
-    
+
 }
