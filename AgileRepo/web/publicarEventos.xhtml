@@ -516,7 +516,7 @@
                                         <br></br>
 
                                         <br></br>
-                                        <p:inputSwitch value="#{wizardcontroller.fisico}" style="height:25px; width:200px;margin-right: 315px">
+                                        <p:inputSwitch value="#{wizardcontroller.fisico}" onLabel="Sí" offLabel="No" style="height:25px; width:200px;margin-right: 315px">
                                             <p:ajax listener="#{wizardcontroller.switchState()}" />
                                         </p:inputSwitch>
                                         <br></br>
@@ -577,25 +577,22 @@
                                                 <br></br>
                                                 <br></br>
                                                 
-                                                <h:outputText value="Fecha Inicio " style='width:35%;margin-left:65px;font-weight:bold;display: block' />
-                                                <br/>
-                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="9999-99-99" required="La fecha de finalizacion es obligatoria."/>
-                                                <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="yyyy-mm-dd" position="top"/>
-
-                                                
-                                                <h:outputText value="Fecha Fin "  style='width:35%;margin-left:65px;font-weight:bold;display: block' />
-                                                <br/>
-                                                <p:inputMask style="width:35%;margin-left:65px;text-align: center;margin-bottom: 8px" id="dateConfigFin" value="#{wizardcontroller.fechaFinStr}" mask="9999-99-99" required="true" requiredMessage="La fecha de finalizacion es obligatoria."/>
-                                                <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="yyyy-mm-dd" position="top"/>
-
+                                                <p:outputLabel  style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" for="dateConfigIni" value="Fecha Inicio : "></p:outputLabel>
+                                                <p:inputMask  style="margin-left: 16px;width:200px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="99-99-9999" required="true" requiredMessage="La fecha de inicio es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="dd-mm-yyyy" position="top"/>
+                                                <br></br>
+                                                <br></br>
+                                                <p:outputLabel style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" for="dateConfigFin" value="Fecha Fin : "></p:outputLabel>
+                                                <p:inputMask style="margin-left: 16px;width:200px;text-align: center;margin-bottom: 8px" id="dateConfigFin" value="#{wizardcontroller.fechaFinStr}" mask="99-99-9999" required="true" requiredMessage="La fecha de finalizacion es obligatoria."/>
+                                                <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="dd-mm-yyyy" position="top"/>
 
                                             </div>
                                             <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%">
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel value="El evento inicia a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
+                                                <p:outputLabel for="horaIni" value="El evento inicia a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
-                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;margin-left:127px; text-align: center;" />
+                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;text-align: center; margin-left: 110px;" required="true" requiredMessage="La hora de inicio es obligatoria." />
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
 
@@ -603,14 +600,13 @@
                                                 <br></br>
                                                 <br></br>
                                                 
-                                                <p:outputLabel value="El evento termina a:" style='width:35%;margin-left:127px;font-weight:bold;display: block' />
+                                                <p:outputLabel for="horaFin" value="El evento termina a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
-                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;margin-left:127px;text-align: center;" />
+                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;margin-left: 110px;" required="true" requiredMessage="La hora de finalizacion es obligatoria." />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
                                                 <br></br>
                                                 <br></br>
-                                                <br></br>
-                                                <br></br>
+                                              
                                             </div>
 
                                             <br></br>

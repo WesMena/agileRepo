@@ -602,11 +602,13 @@ public class eventWizardViewController implements Serializable {
             String[] splitFFin = this.fechaFinStr.split("-");
 
             Calendar c = Calendar.getInstance();
-            c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+            c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
             Fini = c.getTime();
+            Fini.setMonth(Fini.getMonth()-1);
 
-            c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+            c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
             Ffin = c.getTime();
+            Ffin.setMonth(Ffin.getMonth()-1);
 
             UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
