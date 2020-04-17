@@ -151,7 +151,7 @@
                                 <p style="font-weight:600;" >   <span class="pricing-name">#{evtpdetails.detalles.nombreEvento}</span></p>
                                 <p style="font-weight:600; color:#f05537; font-size:16px;">#{evtpdetails.detalles.fecha} , #{evtpdetails.detalles.hora} #{evtpdetails.detalles.zonaHoraria}</p>
 
-                                <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">Tipo de evento:#{evtpdetails.detalles.tipo}</p>
+                                <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">#{evtpdetails.detalles.tipo}</p>
 
 
 
@@ -170,10 +170,10 @@
                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
 
                                 <div style="margin-left:15px; margin-right:15px;">
-                                    <h:outputText escape="false" value="#{evtpdetails.detalles.descripcion}"></h:outputText>     
+                                    <h:outputText escape="false" value="#{evtpdetails.detalles.descripcion}" style="text-align:justify;"></h:outputText>     
                                 </div>  
 
-                                <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.imgSecundaria}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
+                                <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.imgSecundaria}" library="omega-layout" width="1920px"  style=" position:relative;  z-index:5;  "/>
 
 
                             </div>
@@ -210,7 +210,7 @@
 
                                 <div class="ui-g-6">
                                     <div  style=" text-align: justify; color:#787878;">
-                                        <p:graphicImage  class="fotoDetalle" stream="true" value="#{evtpdetails.detalles.fotoOrganizador}" width="1920px" height="1280px" style=" position:relative; height:75px; width:75px; border-radius:50%; margin-top:-20px; z-index:5;  "/>
+                                        <p:graphicImage cache="false" class="fotoDetalle" stream="true" value="#{evtpdetails.detalles.fotoOrganizador}" width="1920px" height="1280px" style=" position:relative; height:75px; width:75px; border-radius:50%; margin-top:-20px; z-index:5;  "/>
                                     </div>  
                                 </div>
 
@@ -219,7 +219,8 @@
 
 
                                 <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
-                                    <h:outputText escape="false" value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; "></h:outputText>     
+                                    <h:outputText  value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; word-break:break-all;"></h:outputText>
+                                   
                                 </div>  
 
 

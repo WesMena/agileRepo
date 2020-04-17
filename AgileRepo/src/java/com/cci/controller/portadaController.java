@@ -279,10 +279,10 @@ System.out.println(archivito.exists());
    
      try{
     InputStream input =  uploadedFile2.getInputstream();
-    Image fotito=ImageIO.read(input); 
-    BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
+    BufferedImage fotito=ImageIO.read(input); 
+    //BufferedImage buffer=this.createResizedCopy(fotito,1920,1280, true);
     
-ImageIO.write(buffer,"png",new File(Constantes.ubicacionFotos, filename));
+ImageIO.write(fotito,"png",new File(Constantes.ubicacionFotos, filename));
      }catch(IOException e){
          e.printStackTrace();
      }
