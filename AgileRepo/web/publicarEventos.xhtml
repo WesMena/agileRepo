@@ -730,8 +730,8 @@
                                                     <p:panel style="display:inline-block; border:none !important;">
                                                         <h:outputText value="Fecha Inicio " style='font-weight:bold' />
                                                         <br/>
-                                                        <p:inputMask id="date1" value="#{wizardcontroller.fechaInicioEntrada}" mask="9999-99-99" required="#{wizardcontroller.validarEntradas}"/>
-                                                        <p:tooltip id="toolTipFade" for="date1" value="yyyy-mm-dd" position="top"/>
+                                                        <p:inputMask id="date1" value="#{wizardcontroller.fechaInicioEntrada}" mask="99-99-9999" required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade" for="date1" value="dd-mm-yyyy" position="top"/>
                                                     </p:panel>
 
                                                     <p:panel style="display:inline-block; border:none !important;">
@@ -749,8 +749,8 @@
                                                     <p:panel style="display:inline-block;border:none !important; padding: 0;">
                                                         <h:outputText value="Fecha Fin " style='font-weight:bold' />
                                                         <br/>
-                                                        <p:inputMask id="date2" value="#{wizardcontroller.fechaFinEntrada}" mask="9999-99-99"  required="#{wizardcontroller.validarEntradas}"/>
-                                                        <p:tooltip id="toolTipFade2" for="date2" value="yyyy-mm-dd" position="top"/>
+                                                        <p:inputMask id="date2" value="#{wizardcontroller.fechaFinEntrada}" mask="99-99-9999"  required="#{wizardcontroller.validarEntradas}"/>
+                                                        <p:tooltip id="toolTipFade2" for="date2" value="dd-mm-yyyy" position="top"/>
                                                     </p:panel>
 
                                                     <p:panel style="display:inline-block;border:none !important">
@@ -816,6 +816,16 @@
                         margin-top: -8px;
                     }
 
+                    @media only screen and (max-width: 1348px) and (min-width:681px) {
+                        .inputDesc{
+                            width: 100% !important;
+
+                        }
+                        
+                    }
+
+                    
+                    
                     /*No es mucho.Pero es trabajo honesto*/
                     @media only screen and (max-width: 1353px){
                         /*Dispositivos moviles grandes*/

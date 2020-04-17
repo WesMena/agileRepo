@@ -680,7 +680,7 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void nuevaEntrada() {
 
-        Entrada nuevaE = new Entrada("Admisión General", 0.00, "2020-05-20", "00:00", "2020-05-20", "00:00", 0, 1);
+        Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1);
         lstEntrada.add(nuevaE);
     }
 
@@ -729,6 +729,8 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setFechaFinEntrada(String fechaFinEntrada) {
+        
+        
         this.fechaFinEntrada = fechaFinEntrada;
     }
 
@@ -827,7 +829,7 @@ public class eventWizardViewController implements Serializable {
         //Insertando nuevas entradas
         for (Entrada ev : lstEntrada) {
 
-            eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), ev.getFechaFin(), ev.getHoraFin(), ev.getFechaInicio(), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
+            eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
 
         }
     }
@@ -1246,4 +1248,19 @@ public class eventWizardViewController implements Serializable {
         PrimeFaces.current().ajax().update("test1:Todo");
     }
 
+    public String FechaCambiarIngresoBD(String fecha){
+        String fechaN = "";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date date = formatter.parse(fecha);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            fechaN = dateFormat.format(date); 
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    return fechaN;
+    }
+    
 }

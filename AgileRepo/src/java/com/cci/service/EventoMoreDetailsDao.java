@@ -159,12 +159,15 @@ public class EventoMoreDetailsDao implements Dao<EvtPDetails> {
 
             conexion.conectar();
             stmt = conexion.conn.createStatement();
+            System.out.println(id);
             String sql;
-sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizadoreseventos o, usuarios u WHERE evento="+id+" AND u.uid=o.organizador";
+sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizadoreseventos o, usuarios u WHERE evento="+id;
 
             rs = stmt.executeQuery(sql);
 
+            int i=1;
             while (rs.next()) {
+                System.out.println("Cuenta:"+i);
           String nombreOrg=rs.getString("displayName");
           
         String descOrg=rs.getString("descri");
@@ -175,7 +178,7 @@ sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizad
      eventoDetalles.setFotoOrganizador(fotoOrg);
      eventoDetalles.setDescOrganizador(descOrg);
      eventoDetalles.setNomOrganizador(nombreOrg);
-     
+     i++;
             }
             
             
