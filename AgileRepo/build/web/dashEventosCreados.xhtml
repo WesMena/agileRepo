@@ -96,6 +96,19 @@
                                     <p class="EstilotituloEvento">   <span class="pricing-name">#{eventos.nombreEvento}</span></p>
                                     <div  style="display: block;height: 32px;">
                                         <div style="display: inline-block;float: right">
+                                               <p:commandButton
+                                                title="ver"
+                                               rendered="#{eventsummarycontroller.readyToPublic(eventos.id)  and eventsummarycontroller.isAlreadyPublic(eventos.id) == false}"
+                                                icon="fas fa-eye"
+                                                class="horabtn"
+                                                style="border: none;margin-left:5px; height:32px;width: 32px ;background:#fff; color:#424954; font-size:20px;margin-right:8px;"
+                                                actionListener="#{eventsummarycontroller.lanzarVistaPrevia}" >
+                                                <f:param name="idEvt" value="#{eventos.id}" />
+                                            </p:commandButton>
+                                            
+                                            
+                                         
+                                            
                                             <p:commandButton
                                                 rendered="#{eventsummarycontroller.readyToPublic(eventos.id)  and eventsummarycontroller.isAlreadyPublic(eventos.id) == false}"
                                                 actionListener="#{eventsummarycontroller.publicar}"

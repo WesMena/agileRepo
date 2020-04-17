@@ -9,7 +9,9 @@ and open the template in the editor.
 */
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 
-
+.ui-button-icon-only .ui-icon.fas{
+    width:100%;
+}
 .textoDetalle{
     margin-top:100px;
 }
