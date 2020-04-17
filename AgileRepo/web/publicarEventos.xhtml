@@ -337,15 +337,40 @@
                                                     <div class="ui-g-12 ui-md-9">
                                                         <p:outputLabel style="height: 100px;padding: 4px;margin-bottom: 8px" value="#{wizardcontroller.nombreOrganizador}" ></p:outputLabel>
                                                         <label style="display: block;color: #999999;font-family: latoregular,Trebuchet MS,Arial,Helvetica,sans-serif;margin:4px">Descripción</label>
-                                                        <p:inputTextarea 
-                                                            id="inputDesc"
-                                                            value="#{wizardcontroller.descOrganizador}"
-                                                            counter="eventoDescC"
-                                                            counterTemplate="{0}/200"
-                                                            maxlength="200"
-                                                            class="inputDesc" style="padding: 8px !important;display: block">
+                                                        <div
+                                                            class="inputDesc">
+                                                            <p:textEditor
 
-                                                        </p:inputTextarea>
+                                                                id="inputDesc"
+                                                                value="#{wizardcontroller.descOrganizador}"
+                                                                class="inputDesc" style="padding: 8px !important;display: block">
+                                                                <f:facet name="toolbar">
+
+                                                                    <!-->
+                                                                    Esta es la lista de los controles del textEditor que generan 
+                                                                    html legible por un h:outputText
+                                                                      
+                                                                      </!-->
+
+
+
+                                                                    <span class="ql-formats">
+                                                                        <button class="ql-header ql-active" value="1"></button>
+                                                                        <button class="ql-header ql-active" value="2"></button>
+                                                                        <button class="ql-bold"></button>
+                                                                        <button class="ql-italic"></button>
+                                                                        <button class="ql-underline"></button>
+                                                                        <button class="ql-strike"></button>
+                                                                        <button class="ql-list" value="ordered"></button>
+                                                                        <button class="ql-list" value="bullet"></button>
+                                                                        <select class="ql-color ql-picker ql-color-picker"></select>
+                                                                        <select class="ql-align"></select>
+                                                                    </span>
+
+                                                                </f:facet>
+                                                            </p:textEditor>
+                                                        </div>
+
                                                         <!--Mensaje de error-->
                                                         <p:message  id="messagesDesc" for="inputDesc" showDetail="false">
                                                             <p:autoUpdate />
@@ -377,7 +402,7 @@
                                         </p:panel>
                                     </p:panel>
                                 </p:panel>
-                            </p:tab>  
+                            </p:tab> 
 
 
 
@@ -799,6 +824,7 @@
 
 
                 <!-->Estilos feos</!-->
+                <!-->Estilos feos</!-->
                 <style>
 
 
@@ -862,13 +888,12 @@
                             height: auto !important;
                         }
                         .inputDesc{
-                            height: 66px !important;
-                            width: 100% !important;
-                            width: 96% !important;
                             margin: 4px !important;
 
                         }
                     }
+
+
 
 
                     @media only screen and (min-width: 1354px) {
@@ -899,10 +924,7 @@
                         }  
 
                         .inputDesc{
-                            margin-right: 150px;
                             margin-left: 8px !important;
-                            height: 70% ! important;
-                            width: 100% !important;
                         }
 
                         .btnTool{
