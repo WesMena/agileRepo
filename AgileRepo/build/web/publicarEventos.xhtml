@@ -578,7 +578,7 @@
                                                 <br></br>
                                                 
                                                 <p:outputLabel  style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" for="dateConfigIni" value="Fecha Inicio : "></p:outputLabel>
-                                                <p:inputMask  style="margin-left: 16px;width:200px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="99-99-9999" required="true"/>
+                                                <p:inputMask  style="margin-left: 16px;width:200px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="99-99-9999" required="true" requiredMessage="La fecha de inicio es obligatoria."/>
                                                 <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="dd-mm-yyyy" position="top"/>
                                                 <br></br>
                                                 <br></br>
@@ -592,7 +592,7 @@
                                                 <br></br>
                                                 <p:outputLabel for="horaIni" value="El evento inicia a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
-                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;text-align: center; margin-left: 110px;" />
+                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;text-align: center; margin-left: 110px;" required="true" requiredMessage="La hora de inicio es obligatoria." />
 
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
 
@@ -602,7 +602,7 @@
                                                 
                                                 <p:outputLabel for="horaFin" value="El evento termina a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
-                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;margin-left: 110px;" />
+                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;margin-left: 110px;" required="true" requiredMessage="La hora de finalizacion es obligatoria." />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
                                                 <br></br>
                                                 <br></br>
