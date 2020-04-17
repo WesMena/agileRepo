@@ -6,11 +6,13 @@
 package com.cci.controller;
 
 import com.cci.model.EventSummary;
+import com.cci.service.Dao;
 import com.cci.service.EventSummaryDao;
 import com.cci.service.PublicEventDao;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -29,7 +31,12 @@ import org.primefaces.PrimeFaces;
 
 public class EventSummaryController {
 
+    String filtro = "";
+    String filtroPublic = "";
     public List<EventSummary> eventSummary = new ArrayList<>();
+    public List<EventSummary> eventSummaryPublic = new ArrayList<>();
+    int idEventoPublicar;
+    public boolean btnAddEstado = true;
     int idEvento = 0;
     String urlFondo = "";
     EventSummary eventoDetalle = new EventSummary();
@@ -41,8 +48,18 @@ public class EventSummaryController {
             + "<p style=\"text-align: justify;\">Volutpat consequat mauris nunc congue nisi vitae. Sed felis eget velit aliquet. Eleifend mi in nulla posuere sollicitudin aliquam. Leo a diam sollicitudin tempor id eu nisl nunc. Aliquam sem et tortor consequat. Sed euismod nisi porta lorem. Ut faucibus pulvinar elementum integer enim neque volutpat. In eu mi bibendum neque. Porttitor leo a diam sollicitudin tempor id eu. Bibendum ut tristique et egestas. Urna cursus eget nunc scelerisque viverra mauris in aliquam sem. Magna fringilla urna porttitor rhoncus dolor purus non. Sollicitudin nibh sit amet commodo.<blockquote class=\"embedly-card\"><h4><a href=\"https://www.instagram.com/p/B-kfO5cD2Ct/\">Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too fast.⁣ ⁣ Quando você assiste #LCDP4 rápido demais.⁣</a></h4><p>777.2k Likes, 8,419 Comments - La Casa de Papel (@lacasadepapel) on Instagram: \"Cuando has visto #LCDP4 un poquito demasiado rápido.⁣ ⁣ When you've finished #LCDP4 a little too...\"</p></blockquote>\n"
             + "<script async src=\"//cdn.embedly.com/widgets/platform.js\" charset=\"UTF-8\"></script>  <iframe width=\"853\" height=\"480\" src=\"https://www.youtube.com/embed/6V1vlwwr4M0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe> </p>";
 
+    //Obtenido de GC Sprt7
     public List<EventSummary> getEventSummary() {
+
+        if (eventSummary.size() > 0) {
+            this.btnAddEstado = false;
+        }
+
         return eventSummary;
+    }
+
+    public void setEventSummaryPublic(List<EventSummary> eventSummaryPublic) {
+        this.eventSummaryPublic = eventSummaryPublic;
     }
 
     public void setEventSummary(List<EventSummary> eventSummary) {
@@ -50,8 +67,8 @@ public class EventSummaryController {
     }
 
     public EventSummaryController() {
-        EventSummaryDao evtSum = new EventSummaryDao();
-        this.eventSummary = evtSum.getAll();
+//        EventSummaryDao evtSum = new EventSummaryDao();
+//        this.eventSummary = evtSum.getAll();
 
     }
 
@@ -67,11 +84,7 @@ public class EventSummaryController {
     public void setTarget(int target) {
         this.target = target;
     }
-    
-    
-    
-    
-    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -110,6 +123,42 @@ public class EventSummaryController {
         }
     }
 
+    public void setBtnAddEstado(boolean btnAddEstado) {
+        this.btnAddEstado = btnAddEstado;
+    }
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
+    public int getIdEventoPublicar() {
+        return idEventoPublicar;
+    }
+
+    public void setIdEventoPublicar(int idEventoPublicar) {
+        this.idEventoPublicar = idEventoPublicar;
+    }
+
+    public String getFiltroPublic() {
+        return filtroPublic;
+    }
+
+    public void setFiltroPublic(String filtroPublic) {
+        this.filtroPublic = filtroPublic;
+    }
+
+    public List<EventSummary> getEventSummaryPublic() {
+        return eventSummaryPublic;
+    }
+
+    public boolean isBtnAddEstado() {
+        return btnAddEstado;
+    }
+
     public String getUrlFondo() {
         return urlFondo;
     }
@@ -118,16 +167,12 @@ public class EventSummaryController {
         this.urlFondo = urlFondo;
     }
 
-    
-    
-    
     /*--------------------------*/
-    
     public void openModal() {
         PrimeFaces.current().executeScript("PF('confrDialog').show()");
     }
-    
-    public void update(){
+
+    public void update() {
         refreshList();
         PrimeFaces.current().ajax().update("content");
     }
@@ -138,7 +183,7 @@ public class EventSummaryController {
         System.out.println("idEvnt: " + evt.getId());
         this.target = evt.getId();
         openModal();
-       
+
     }
 
     public void deleteAction() {
@@ -148,9 +193,6 @@ public class EventSummaryController {
         redireccionar();
     }
 
-    
-    
-    
     public void redireccionar() {
         try {
 
@@ -170,7 +212,79 @@ public class EventSummaryController {
         }
 
     }
-    
-    
+
     /*---------------------*/
+    //<editor-fold defaultstate="collapsed" desc="Metodos utilizados por GC para el control de los eventos en la parte externa e interna">
+    public void onLoadPubblic() {
+        Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao) dao).getAllPublic(filtroPublic);
+    }
+
+    public boolean readyToPublic(int idEvt) {
+        boolean returned = false;
+        Dao dao = new EventSummaryDao();
+        returned = ((EventSummaryDao) dao).readyToPublic(idEvt);
+
+        return returned;
+    }
+
+    public void applyFilterRedirect() {
+        Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao) dao).getAllPublic(filtroPublic);
+
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "Eventos.xhtml"));
+            //Cambiar
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void publicar(ActionEvent event) {
+
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int idEvtP = Integer.parseInt(params.get("idEvtPublic"));
+        Dao dao = new EventSummaryDao();
+        ((EventSummaryDao) dao).publicar(idEvtP);
+        PrimeFaces.current().ajax().update("pnlUIrepeat");
+        PrimeFaces.current().executeScript("PF('dlgPEvent').show()");
+    }
+
+    public void applyFilterPublico() {
+
+        Dao dao = new EventSummaryDao();
+        this.eventSummaryPublic = ((EventSummaryDao) dao).getAllPublic(filtroPublic);
+
+    }
+
+    public void applyFilter() {
+
+        EventSummaryDao evtSum = new EventSummaryDao();
+        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID, filtro);
+        PrimeFaces.current().ajax().update("pnlUIrepeat");
+    }
+
+    public void onLoad() {
+        EventSummaryDao evtSum = new EventSummaryDao();
+        this.eventSummary = evtSum.getAllByUID(Constantes.logguedUsserUID, filtro);
+    }
+
+    public boolean isAlreadyPublic(int idEvento) {
+        Dao dao = new EventSummaryDao();
+        boolean returned = ((EventSummaryDao) dao).isAlreadyPublic(idEvento);
+        return returned;
+    }
+//</editor-fold>
 }

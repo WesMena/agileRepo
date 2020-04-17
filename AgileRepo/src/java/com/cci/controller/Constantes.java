@@ -21,7 +21,7 @@ public class Constantes implements Serializable {
 
     public static  String logguedUsserUID;
     
-    public static final String ubicacionFotos="C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
+    public static final String ubicacionFotos="/home/wes/Documents/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
     
     public  String getLogguedUsserDisplayName() {
         return logguedUsserDisplayName;
