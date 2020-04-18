@@ -19,6 +19,10 @@ auth.onAuthStateChanged(function (user) {
     }
 });
 
+function validAccount(userEmail){
+    return userEmail.split('@')[1] === 'cciconsultorescr.com';
+}
+
 
 function getProfile(user) {
     if (user.photoURL) {

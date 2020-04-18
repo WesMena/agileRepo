@@ -72,32 +72,32 @@
 
 
                         <li>
-                        <h:form id="buscar">
-                            <span class="topbar-search">
+                            <h:form id="buscar">
+                                <span class="topbar-search">
 
-                                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtroPublic}" class="busquedaTopbar"  />
-
-
-
-
-                                <p:commandButton process="@this" id="busqueda" class="topbar-search-icon fa fa-search" value="" actionListener="#{eventsummarycontroller.applyFilterRedirect()}" ajax="false" >
-                                    <f:ajax execute="filtro" render="buscar"/>  
-                                    <f:ajax execute="filtro" render="buscar"/> 
-
-
-                                </p:commandButton>
-
-
-                            </span>    
+                                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtroPublic}" class="busquedaTopbar"  />
 
 
 
-                        </h:form>
-                            
-                            
-                            
+
+                                    <p:commandButton process="@this" id="busqueda" class="topbar-search-icon fa fa-search" value="" actionListener="#{eventsummarycontroller.applyFilterRedirect()}" ajax="false" >
+                                        <f:ajax execute="filtro" render="buscar"/>  
+                                        <f:ajax execute="filtro" render="buscar"/> 
+
+
+                                    </p:commandButton>
+
+
+                                </span>    
+
+
+
+                            </h:form>
+
+
+
                         </li>
-                    
+
 
 
                         <li style="padding-top:5px;"><h:link class="botonLoginTopBar" id="redirect" value = "Iniciar Sesión" outcome = "login.xhtml" />  </li>
@@ -198,13 +198,13 @@
                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; display:#{evtpdetails.detalles.esPresencial()?'none':'block'}" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Link </span></p>
 
                                 <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878; display:#{evtpdetails.detalles.esPresencial()?'none':'block'} ">
-                                    <h:outputText escape="false" value="#{evtpdetails.detalles.link}" style="text-align:justify; "></h:outputText>     
+                                    <h:outputText escape="false" value="#{evtpdetails.detalles.link}" style="text-align:justify;word-wrap: break-word "></h:outputText>     
                                 </div> 
 
                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Organizador  </span></p>
                                 <div class="ui-g-6">
                                     <div  style=" text-align: justify; color:#787878; margin-left:15px;">
-                                        <h:outputText escape="false" value="#{evtpdetails.detalles.nomOrganizador}" style="text-align:justify; "></h:outputText>    
+                                        <h:outputText escape="false" value="#{evtpdetails.detalles.nomOrganizador}" style="text-align:justify;word-wrap:break-word"></h:outputText>    
                                     </div>  
                                 </div>
 
@@ -219,8 +219,7 @@
 
 
                                 <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
-                                    <h:outputText  value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; word-wrap:break-word;"></h:outputText>
-                                   
+                                    <h:outputText  escape="false"  value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify;"></h:outputText>
                                 </div>  
 
 
