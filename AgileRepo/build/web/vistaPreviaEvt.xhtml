@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+    <h:head>
+
+
+        <f:metadata>
+
+            <f:viewParam name="id" value="#{evtpdetails.idEvento}"/>
+            <f:event listener="#{evtpdetails.obtenerEvento()}" type="preRenderView"/>              
+        </f:metadata>
+
+
+
+
+
+        <f:facet name="first">
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+            <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+            <!-- Add Firebase products that you want to use -->
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>Eventos CCI</title>
+        <script type="text/javascript">
+            $(function () {
+                $('#menu-button').on('click', function (e) {
+                    $('#menu').toggleClass('overlay-menu');
+                    e.preventDefault();
+                });
+            });
+        </script>
+        <ui:insert name="head"/>
+    </h:head> 
+
+
+    <h:body styleClass="landing-body" style="
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden; 
+            ">
+
+        <div class="landing-wrapper">
+            <p:button style="position:fixed; width:150px; height:65px; z-index:120; background:none; border:none;" value="" outcome="dashEventosCreados.xhtml">
+                <p:graphicImage name="images/backIcon.svg" library="omega-layout" width="115" style="display:inline;position:fixed;top: 1.5em;left: 0%;z-index:100;height: 5%;">
+
+                </p:graphicImage>
+
+            </p:button>     
+
+            <div class="landing-header" style="z-index:10; background:white; opacity:95%; position:fixed; height:70px; box-shadow: 2px 2px 3px grey;">
+                <div class="landing-header-content clearfix" >
+
+
+                
+                </div>
+            </div>
+
+
+            <div id="introduction" style="background-image:#{evtpdetails.urlFondo} ;  -webkit-filter: blur(12px);">
+                <div class="introduction-content">
+
+
+                </div>
+            </div>
+
+
+
+
+
+            <div id="pricing"  style="background-color:#F5F5F5;" >
+                <div class=" pricing-content margenTitulo " id="servicios">
+
+
+
+
+
+
+
+                    <div class="ui-g" style="z-index:5; margin-top:-650px; border-radius:3px;">
+                        <div class="pricing-basic pricing-box " style="margin-top:-10px; z-index:5;" >
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="margin-left:-6px; margin-top:-17px; margin-bottom:-8px;"  >
+
+
+                                <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.portada}" library="omega-layout" width="1920px" height="1280px" style=" position:relative; height:250px; z-index:5;  "/>
+
+
+
+
+
+
+                            </div>
+
+
+
+                            <div class="ui-g-12 ui-md-6 ui-lg-6 ui-sm-12 ui-xl-6" style="z-index:5;">
+
+
+
+
+                                <p style="font-weight:600;" >   <span class="pricing-name">#{evtpdetails.detalles.nombreEvento}</span></p>
+                                <p style="font-weight:600; color:#f05537; font-size:16px;">#{evtpdetails.detalles.fecha} , #{evtpdetails.detalles.hora} #{evtpdetails.detalles.zonaHoraria}</p>
+
+                                <p style="font-weight:600; color:#f05537; font-size:16px; display:block;">#{evtpdetails.detalles.tipo}</p>
+
+
+
+                            </div>
+
+
+
+
+
+
+                            <div class="ui-g-12 ui-md-8 ui-lg-8 ui-sm-12 ui-xl-8" style="z-index:5; border-top:2px solid #787878;">
+
+                                <p style="font-weight:600; font-size:10px; text-align:justify; margin-left:15px; margin-right:15px; color:#4a4a4a;" >   <span class="pricing-name" style="font-size:16px; text-align:justify;">#{evtpdetails.detalles.resumen}</span></p>
+
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Acerca de este evento </span></p>
+
+                                <div style="margin-left:15px; margin-right:15px;">
+                                    <h:outputText escape="false" value="#{evtpdetails.detalles.descripcion}" style="text-align:justify;"></h:outputText>     
+                                </div>  
+
+                                <p:graphicImage  class="fotoDetalle" name="#{evtpdetails.detalles.imgSecundaria}" library="omega-layout" width="1920px"  style=" position:relative;  z-index:5;  "/>
+
+
+                            </div>
+
+
+
+                            <div class="ui-g-12 ui-md-4 ui-lg-4 ui-sm-12 ui-xl-4" style="z-index:5; border-top:2px solid #787878;">
+
+
+
+
+                                <!--Aquí está el botón para comprar entradas, solo hay que cambiarle el display -->
+                                <p:commandButton value="Conseguir Entradas" style="display:none; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
+
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify; display:#{evtpdetails.detalles.esPresencial()?'block':'none'}">Dirección </span></p>
+
+                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878; display:#{evtpdetails.detalles.esPresencial()?'block':'none'}">
+                                    <h:outputText escape="false" value="#{evtpdetails.detalles.direccion}" style="text-align:justify; "></h:outputText>     
+                                </div>  
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; display:#{evtpdetails.detalles.esPresencial()?'none':'block'}" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Link </span></p>
+
+                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878; display:#{evtpdetails.detalles.esPresencial()?'none':'block'} ">
+                                    <h:outputText escape="false" value="#{evtpdetails.detalles.link}" style="text-align:justify; "></h:outputText>     
+                                </div> 
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px;" >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Organizador  </span></p>
+                                <div class="ui-g-6">
+                                    <div  style=" text-align: justify; color:#787878; margin-left:15px;">
+                                        <h:outputText escape="false" value="#{evtpdetails.detalles.nomOrganizador}" style="text-align:justify; "></h:outputText>    
+                                    </div>  
+                                </div>
+
+                                <div class="ui-g-6">
+                                    <div  style=" text-align: justify; color:#787878;">
+                                        <p:graphicImage cache="false" class="fotoDetalle" stream="true" value="#{evtpdetails.detalles.fotoOrganizador}" width="1920px" height="1280px" style=" position:relative; height:75px; width:75px; border-radius:50%; margin-top:-20px; z-index:5;  "/>
+                                    </div>  
+                                </div>
+
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Información del organizador </span></p>
+
+
+                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
+                                    <h:outputText  value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; word-wrap:break-word;"></h:outputText>
+                                   
+                                </div>  
+
+
+                            </div>
+
+                            <div class="ui-g-12" style="z-index:5; border-top:2px solid #787878;">
+
+
+
+                                <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify;">Tags </span></p>
+
+                                <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
+                                    <ui:repeat value="#{evtpdetails.detalles.listaTags}" var="tag">
+                                        <h:outputText  value=" ##{tag} " style="text-align:justify; "></h:outputText>   
+                                    </ui:repeat>
+
+
+                                </div>  
+
+                            </div>
+
+                        </div>   
+
+                    </div> 
+
+                </div>
+            </div>
+
+            <ui:include src="WEB-INF/footer.xhtml" />
+
+
+        </div>
+
+        <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+        <h:outputScript name="omega-layout/js/fireInit.js"></h:outputScript>
+        <script type="text/javascript">
+            function googleLogOut() {
+                firebase.auth().signOut().then(function () {
+                    window.location.assign('faces/login.xhtml');
+                }).catch(function (error) {
+                });
+            }
+        </script>
+        <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
+        <h:outputStylesheet name="css/Eventos.css" library="omega-layout" />
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    </h:body>
+
+</html>

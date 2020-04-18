@@ -6,10 +6,13 @@
 package com.cci.service;
 
 import com.cci.controller.UsuarioLoginController;
+import com.cci.controller.eventWizardViewController;
 import com.cci.model.Entrada;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,8 +122,8 @@ public class EntradaDao implements Dao<Entrada> {
                 timeIni = rset.getDate("horaInicio");
                 timeFin = rset.getDate("horaFin");
                 
-                fechaIniStr = formatoFecha.format(fechaIni);
-                fechaFinStr = formatoFecha.format(fechaFin);
+                fechaIniStr = FechaCambiar(formatoFecha.format(fechaIni));
+                fechaFinStr = FechaCambiar(formatoFecha.format(fechaFin));
                 
                 returned.setNombre(rset.getString("nombreEntrada"));
                 returned.setPrecio(rset.getDouble("precio"));
@@ -190,6 +193,22 @@ public class EntradaDao implements Dao<Entrada> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+        public String FechaCambiar(String fecha){
+        String fechaN = "";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = formatter.parse(fecha);
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            fechaN = dateFormat.format(date); 
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    return fechaN;
     }
 
 }

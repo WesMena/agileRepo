@@ -88,7 +88,61 @@ public class EventSummaryController {
     public String getDescripcion() {
         return descripcion;
     }
+    
+    
+    public boolean hayProximos(){
+       //Para ver si hay eventos próximos 
+       boolean proximos=false;
+        
+          for(EventSummary e:eventSummaryPublic){
+          if(e.getFinalizado()==0){
+              proximos=true;
+          }
+      }
+       
+      return proximos; 
+       
+        
+    }
 
+    
+    public boolean hayPasados(){
+    //Para ver si hay eventos pasados 
+      boolean pasados=false; 
+      
+      for(EventSummary e:eventSummaryPublic){
+          if(e.getFinalizado()==1){
+              pasados=true;
+          }
+      }
+       
+      return pasados; 
+    }
+    
+    public void lanzarVistaPrevia(ActionEvent evt){
+          Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int idEvt = Integer.parseInt(params.get("idEvt"));
+       
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
+
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext
+                    .getCurrentInstance()
+                    .getExternalContext()
+                    .redirect(
+                            request.getContextPath()
+                            + String.format("/faces/%s", "vistaPreviaEvt.xhtml?id="+idEvt));
+
+        } catch (Exception e) {
+
+        }
+        
+    }
+    
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
