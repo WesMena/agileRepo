@@ -86,7 +86,7 @@ public class EntradaDao implements Dao<Entrada> {
         List<Entrada> returnedOpt = new ArrayList<>();
         Entrada returned = new Entrada();
         Conexion conne = Conexion.getInstance();
-
+        conne.conectar();
         try {
 
             stm = conne.conn.createStatement();
@@ -188,6 +188,28 @@ public class EntradaDao implements Dao<Entrada> {
             e.printStackTrace();
         }
     }
+    
+        public void viejaEntrada(Integer idEntrada,Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
+        ResultSet rs = null;
+        Statement stmt = null;
+
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            //Ingresa un Evento nuevo en la base de datos
+            sql = "INSERT INTO `agilerepo`.`entrada` (`idEntrada`,`EventoId`, `cantidad`, `nombreEntrada`,`precio`,`fechaInicio`,`horaInicio`,`fechaFin`,`horaFin`,`Tipo`) VALUES "
+                    + "("+ idEntrada + ","+ idEvento + "," + cantidad + ",'" + nombre + "'," + precio + ",'" + fechaInicio + "','" + horaInicio + "','" + fechaFin + "','" + horaFin + "'," + tipo + ")";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 
     public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono) {
         ResultSet rs = null;
@@ -234,6 +256,32 @@ public class EntradaDao implements Dao<Entrada> {
         }
                 
         return entradascompradas;
+    }
+    
+public void entradExistente(int idEntrada,Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
+        ResultSet rs = null;
+        Statement stmt = null;
+
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            String sqlDos;
+            sqlDos = String.format("UPDATE entrada \n"
+                    + "set cantidad =%2$d , \n"
+                    + "nombreEntrada ='%3$s' , \n"
+                    + "precio = %4$f, \n"
+                    + "fechaInicio='%5$s', \n"
+                    + "horaInicio ='%6$s', \n"
+                    + "fechaFin ='%7$s', \n"
+                    + "horaFin='%8$s', \n"
+                    + "Tipo = %9$d \n"
+                    + "where idEntrada = %1$d;",idEntrada,cantidad,nombre,precio,fechaInicio,horaInicio,fechaFin,horaFin,tipo );
+            stmt.executeUpdate(sqlDos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

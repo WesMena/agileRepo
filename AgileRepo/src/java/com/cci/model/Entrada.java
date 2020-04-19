@@ -33,6 +33,20 @@ public class Entrada {
         this.cantidad = cantidad;
         
     }
+    
+    public Entrada(String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad, Integer idEntrada) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.fechaFin = fechaFin;
+        this.horaFin = horaFin;
+        this.fechaInicio = fechaInicio;
+        this.horaInicio = horaInicio;
+        this.tipo = tipo;
+        this.cantidad = cantidad;
+        this.idEntrada = idEntrada;
+
+    }
+    
 
     public Entrada() {
     }

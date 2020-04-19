@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -44,8 +46,7 @@ public class EvtPDetailsController implements Serializable {
     String telefono;
     int cantcompra = 1;
     boolean pnlMostrarE = false;
-    
-    
+
     private List<Entrada> lstEntrada = new ArrayList<>();
 
     public EvtPDetailsController() {
@@ -104,15 +105,14 @@ public class EvtPDetailsController implements Serializable {
 
         EntradaDao dao = new EntradaDao();
         this.lstEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
-        
-        for(Entrada ent:lstEntrada){
-        
-           ent.setCantComprada(dao.compradas(ent.getIdEntrada()));
-            System.out.println("NUMERO DE CANTCOMPRADA:"+ent.getCantComprada());
-            System.out.println("NUMERO DEL DAO:"+dao.compradas(ent.getIdEntrada()));
+
+        for (Entrada ent : lstEntrada) {
+
+            ent.setCantComprada(dao.compradas(ent.getIdEntrada()));
+            System.out.println("NUMERO DE CANTCOMPRADA:" + ent.getCantComprada());
+            System.out.println("NUMERO DEL DAO:" + dao.compradas(ent.getIdEntrada()));
         }
-        
-                
+
     }
 
     public String getNombreEntrada() {
@@ -186,8 +186,6 @@ public class EvtPDetailsController implements Serializable {
     public void setPnlMostrarE(boolean pnlMostrarE) {
         this.pnlMostrarE = pnlMostrarE;
     }
-    
-    
 
     public void seleccionarEntrada(int idEntrada, String nombreEntrada, double Precio) {
 
@@ -195,24 +193,30 @@ public class EvtPDetailsController implements Serializable {
         this.nombreEntrada = nombreEntrada;
         this.precioEntrada = Precio;
         this.pnlMostrarE = true;
-        
+
     }
-    
-    public void regresarVista(){
-    
+
+    public void regresarVista() {
+
         this.pnlMostrarE = false;
+
+    }
+
+    public void comprarEntrada() {
+
+        EntradaDao daoC = new EntradaDao();
+        daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono);
         
-    }
-    
-    public void comprarEntrada(){
-    
-    EntradaDao daoC = new EntradaDao();
-    daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono);
-    regresarVista();
-    
-    }
-    
-    
-    
-    
+        this.nombre = "";
+        this.correo = "";
+        this.telefono = "";
+
+        onLoad();
+
+        regresarVista();
+        
+    }         
+        
+
+
 }

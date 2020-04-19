@@ -96,6 +96,7 @@ public class eventWizardViewController implements Serializable {
     public String descripcion = "";
     public String resumen = "";
     public static Integer idEvento = -1;
+   
     public static boolean editionMode = false;
 
     public String onFlowProcess(FlowEvent event) {
@@ -680,7 +681,7 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void nuevaEntrada() {
 
-        Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1);
+        Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1, -1);
         this.lstEntrada.add(nuevaE);
 
         System.out.println("ESTE EL TAMANO DE LA LISTA AL CREAR NUEVA: " + lstEntrada.size());
@@ -826,20 +827,35 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void guardarEntradas() {
+
         System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR ANTES DE DELETE: " + lstEntrada.size());
         EntradaDao eDao = new EntradaDao();
         //Eliminando entradas anteriores
-        eDao.deleteAllByIdEvt(idEvento);
+        //eDao.deleteAllByIdEvt(idEvento);
         //Insertando nuevas entradas
 
         System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE DELETE: " + lstEntrada.size());
 
         for (Entrada ev : lstEntrada) {
+            if (ev.getIdEntrada() != -1) {
+                //Pedimos ID de entrada y forzamos ID
+                System.out.println("ID" + ev.getIdEntrada());
+                eDao.entradExistente(ev.getIdEntrada(), this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
 
-            eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
-
+            } else {
+                eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
+            }
+        }
+        Dao dao = new EntradaDao();
+        //Recargamos la lista 
+        List<Entrada> tempE = new ArrayList<>();
+        tempE = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+        this.lstEntrada.clear();
+        for (Entrada e : tempE) {
+            lstEntrada.add(e);
         }
         System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE GUARDAR: " + lstEntrada.size());
+
     }
 
     public String BotonEntrada() {

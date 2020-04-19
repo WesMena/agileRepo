@@ -266,7 +266,7 @@
         </script>
 
 
-        <p:dialog header="Compra de entrada" fitViewport="true" responsive="true" draggable="false" style="background: white; border-radius: 10px; padding-top: 0" position="top" widgetVar="dlg2" modal="true" height="70%" width="70%">
+        <p:dialog class="dlgEntrada" header="Compra de entrada" fitViewport="true" responsive="true" draggable="false" style="background: white; border-radius: 10px; padding-top: 0; width: 70%" position="top" widgetVar="dlg2" modal="true" height="70%">
 
             <h:form>
 
@@ -281,11 +281,9 @@
 
                                             <!-- Con loop.index se obtiene el valor del index en la lista -->
                                             <c:set var="index" value="${loop.index}" />
-                                            <!-- Cuando se da click en el boton de edicion, se actualiza la vista con panelEditEntrada panelMainEntradas  
-                                            <p:commandButton icon="fa fa-pencil" action="#{wizardcontroller.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" partialSubmit="true" process="@this" update="panelEditEntrada panelMainEntradas" style="float:right">
-                                            </p:commandButton>-->
+
                                             <div style="margin-top: 0 !important;padding-top: 0 !important; margin-bottom: 0; padding-bottom: 0; background-color: #0D8547; display: inline-block; border-radius: 10px">
-                                                <p:commandButton value="$" action="#{evtpdetails.seleccionarEntrada(entradas.idEntrada,entradas.nombre, entradas.precio)}" partialSubmit="true" process="@this" update="pnlcompra pnlentradas" style="color:white; font-size: x-large; font-weight: bold; margin: 0; padding: 0;">
+                                                <p:commandButton value="$" disabled="#{entradas.cantidad - entradas.cantComprada == 0 ? 'true':'false'}" action="#{evtpdetails.seleccionarEntrada(entradas.idEntrada,entradas.nombre, entradas.precio)}" partialSubmit="true" process="@this" update="pnlcompra pnlentradas" style="color:white; font-size: x-large; font-weight: bold; margin: 0; padding: 0;">
                                                 </p:commandButton>
                                             </div>
                                             <div style='display: inline-block;'>
@@ -338,20 +336,17 @@
                             <h:panelGrid columns="2" cellpadding="10px" style="border:none !important;">
 
                                 <h:outputText value="Nombre Completo*" style="font-weight: bold" />
-                                <p:inputText id="nombre" value="#{evtpdetails.nombre}"></p:inputText>
+                                <p:inputText id="nombre" value="#{evtpdetails.nombre}" required="true"></p:inputText>
 
                                 <h:outputText value="Correo Electrónico*" style="font-weight: bold" />
-                                <p:inputText id="correo" value="#{evtpdetails.correo}"></p:inputText>
+                                <p:inputText id="correo" value="#{evtpdetails.correo}" required="true"></p:inputText>
 
                                 <h:outputText value="Teléfono" style="font-weight: bold"/>
-                                <p:inputText id="tel" value="#{evtpdetails.telefono}"></p:inputText>
-
+                                <p:inputMask id="tel" value="#{evtpdetails.telefono}" mask="9999-99-99"/>
                             </h:panelGrid>
+                            <p:tooltip id="toolTipFade2" for="tel" value="xxxx-xx-xx" position="top"/>
                             <br/>
                             <p:commandButton value="Comprar"
-                                             action="#{evtpdetails.comprarEntrada()}"
-                                             update="pnlcompra pnlentradas"
-                                             onclick="PF('dlg2').hide();"
                                              style="display:inline-block; 
                                              background:#0D8547; 
                                              border-radius:2px; 
@@ -359,11 +354,15 @@
                                              font-size:18px; 
                                              font-weight:600;  
                                              padding: 5px 15px 5px 15px;
-                                             margin: 10px;">                      
+                                             margin: 10px;">
+                                <p:confirm header="Confirmación" message=" ¿Desea realizar la compra?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
                             <p:commandButton value="Regresar"
                                              action="#{evtpdetails.regresarVista}"
                                              update="pnlcompra pnlentradas"
+                                             partialSubmit="true" 
+                                             process="@this" 
+                                             validateClient="false"
                                              style="display:inline-block; 
                                              background:#0D8547; 
                                              border-radius:2px; 
@@ -386,6 +385,36 @@
                                              padding: 5px 15px 5px 15px;
                                              margin: 10px;">                      
                             </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" style="background-color:white">
+                                <div style="margin:0; padding: 0; text-align: center">
+                                    <p:commandButton value="Sí"
+                                                     styleClass="ui-confirmdialog-yes"
+                                                     actionListener="#{evtpdetails.comprarEntrada()}"
+                                                     update="pnlentradas pnlcompra"
+                                                      
+                                                     
+                                                     validateClient="true"
+                                                     style="display:inline-block"/>
+                                    <p:commandButton value="No"
+                                                     styleClass="ui-confirmdialog-no"
+                                                     style="display:inline-block"
+                                                     />
+                                </div>
+                            </p:confirmDialog>
+                            
+                            <p:dialog header="Compra de entrada"
+                                      fitViewport="true"
+                                      responsive="true"
+                                      draggable="false"
+                                      style="background: white;
+                                      border-radius: 10px; 
+                                      padding-top: 0" 
+                                      widgetVar="dlg5" 
+                                      modal="true" 
+                                      height="70%" 
+                                      width="70%">
+                                <h:outputText value="Compra Exitosa, recibira la entrada a su correo"></h:outputText>
+                            </p:dialog>
                             <p:separator/>
                         </p:panel>
 
