@@ -36,9 +36,9 @@ public class EntradaDao implements Dao<Entrada> {
     public Optional<Entrada> get(long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void deleteAllByIdEvt(int idEvt){
-        Conexion conne  = Conexion.getInstance();
+
+    public void deleteAllByIdEvt(int idEvt) {
+        Conexion conne = Conexion.getInstance();
         conne.conectar();
         try {
             stm = conne.conn.createStatement();
@@ -46,10 +46,10 @@ public class EntradaDao implements Dao<Entrada> {
         } catch (SQLException ex) {
             Logger.getLogger(EntradaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
-    
-        public String horaAjustada(Date hora) {
+
+    public String horaAjustada(Date hora) {
         /*
         Le da el formato hh:mm 24h a la fecha y la retorna como un string.
         
@@ -86,63 +86,60 @@ public class EntradaDao implements Dao<Entrada> {
         List<Entrada> returnedOpt = new ArrayList<>();
         Entrada returned = new Entrada();
         Conexion conne = Conexion.getInstance();
-
+        conne.conectar();
         try {
-            
+
             stm = conne.conn.createStatement();
             rset = stm.executeQuery(String.format("select * from entrada where EventoId = %1$d", idEvt));
             while (rset.next()) {
-                
+
                 Calendar c = Calendar.getInstance();
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
-                
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+
                 Date fechaIni;
                 Date fechaFin;
-     
-                
+
                 String fechaIniStr;
                 String fechaFinStr;
                 Date timeIni;
                 Date timeFin;
-                
-                
-                
+
                 fechaIni = rset.getDate("fechaInicio");
                 c.setTime(fechaIni);
                 c.add(Calendar.DAY_OF_MONTH, 1);
                 fechaIni = c.getTime();
-                
 
-                
                 fechaFin = rset.getDate("fechaFin");
                 c.setTime(fechaFin);
                 c.add(Calendar.DAY_OF_MONTH, 1);
                 fechaFin = c.getTime();
-                
+
                 timeIni = rset.getDate("horaInicio");
                 timeFin = rset.getDate("horaFin");
-                
-                fechaIniStr = FechaCambiar(formatoFecha.format(fechaIni));
-                fechaFinStr = FechaCambiar(formatoFecha.format(fechaFin));
-                
+
+                fechaIniStr = formatoFecha.format(fechaIni);
+                fechaFinStr = formatoFecha.format(fechaFin);
+
+                returned.setIdEntrada(rset.getInt("idEntrada"));
+
                 returned.setNombre(rset.getString("nombreEntrada"));
                 returned.setPrecio(rset.getDouble("precio"));
-                
+
                 returned.setFechaFin(fechaFinStr);
                 returned.setFechaInicio(fechaIniStr);
-     
+
                 returned.setHoraFin(horaAjustada(timeFin));
                 returned.setHoraInicio(horaAjustada(timeIni));
-                
+
                 returned.setTipo(rset.getInt("Tipo"));
                 returned.setCantidad(rset.getInt("cantidad"));
                 returnedOpt.add(returned);
-                System.out.println("HINIE : "+returned.getHoraInicio());
-                System.out.println("HFE   : "+returned.getHoraFin());
-                System.out.println("FINI :"+returned.getFechaInicio());
-                System.out.println("FFIN :"+returned.getFechaFin());
+                System.out.println("HINIE : " + returned.getHoraInicio());
+                System.out.println("HFE   : " + returned.getHoraFin());
+                System.out.println("FINI :" + returned.getFechaInicio());
+                System.out.println("FFIN :" + returned.getFechaFin());
                 returned = new Entrada();
-                
+
             }
 
         } catch (SQLException ex) {
@@ -169,7 +166,7 @@ public class EntradaDao implements Dao<Entrada> {
 
     @Override
     public void delete(Entrada t) {
-        
+
     }
 
     public void nuevaEntrada(Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
@@ -186,9 +183,26 @@ public class EntradaDao implements Dao<Entrada> {
             sql = "INSERT INTO `agilerepo`.`entrada` (`EventoId`, `cantidad`, `nombreEntrada`,`precio`,`fechaInicio`,`horaInicio`,`fechaFin`,`horaFin`,`Tipo`) VALUES "
                     + "(" + idEvento + "," + cantidad + ",'" + nombre + "'," + precio + ",'" + fechaInicio + "','" + horaInicio + "','" + fechaFin + "','" + horaFin + "'," + tipo + ")";
             stmt.executeUpdate(sql);
-            //Ingresa un tag default en la base de datos y toma el id del Evento ingresado en el query anterior
 
-            System.out.println("listo sql Entrada");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+        public void viejaEntrada(Integer idEntrada,Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
+        ResultSet rs = null;
+        Statement stmt = null;
+
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            //Ingresa un Evento nuevo en la base de datos
+            sql = "INSERT INTO `agilerepo`.`entrada` (`idEntrada`,`EventoId`, `cantidad`, `nombreEntrada`,`precio`,`fechaInicio`,`horaInicio`,`fechaFin`,`horaFin`,`Tipo`) VALUES "
+                    + "("+ idEntrada + ","+ idEvento + "," + cantidad + ",'" + nombre + "'," + precio + ",'" + fechaInicio + "','" + horaInicio + "','" + fechaFin + "','" + horaFin + "'," + tipo + ")";
+            stmt.executeUpdate(sql);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,19 +210,78 @@ public class EntradaDao implements Dao<Entrada> {
     }
     
     
-        public String FechaCambiar(String fecha){
-        String fechaN = "";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+    public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono) {
+        ResultSet rs = null;
+        Statement stmt = null;
+
         try {
-            Date date = formatter.parse(fecha);
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            fechaN = dateFormat.format(date); 
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+
+            //Ingresa compra de Entrada a la BD
+            sql = "INSERT INTO `agilerepo`.`entradacomprada` (`idEvento`, `idEntrada`, `Cantidad`,`Nombre`,`Correo`,`Telefono`) VALUES "
+                    + "(" + idEvento + "," + idEntrada + "," + Cantidad + ",'" + Nombre + "','" + Correo + "','" + Telefono + "')";
+            stmt.executeUpdate(sql);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    return fechaN;
+    }
+
+    public int compradas(int idEntrada) {
+        ResultSet rs = null;
+        Statement stmt = null;
+        int entradascompradas = 0;
+
+        try{
+            
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            sql = "SELECT sum(Cantidad) AS cant FROM entradacomprada WHERE idEntrada="+idEntrada;
+            rs = stmt.executeQuery(sql);
+            while(rs.next()){
+            entradascompradas = rs.getInt("cant");
+            }
+            
+        }catch(Exception e){
+            
+            e.printStackTrace();
+            
+        }
+                
+        return entradascompradas;
+    }
+    
+public void entradExistente(int idEntrada,Integer idEvento, String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
+        ResultSet rs = null;
+        Statement stmt = null;
+
+        try {
+            Conexion conexion = Conexion.getInstance();
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+            String sql;
+            String sqlDos;
+            sqlDos = String.format("UPDATE entrada \n"
+                    + "set cantidad =%2$d , \n"
+                    + "nombreEntrada ='%3$s' , \n"
+                    + "precio = %4$f, \n"
+                    + "fechaInicio='%5$s', \n"
+                    + "horaInicio ='%6$s', \n"
+                    + "fechaFin ='%7$s', \n"
+                    + "horaFin='%8$s', \n"
+                    + "Tipo = %9$d \n"
+                    + "where idEntrada = %1$d;",idEntrada,cantidad,nombre,precio,fechaInicio,horaInicio,fechaFin,horaFin,tipo );
+            stmt.executeUpdate(sqlDos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
