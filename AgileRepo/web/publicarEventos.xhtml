@@ -679,7 +679,7 @@
                                                                 <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
                                                             </div>
                                                             <div style='display: inline; padding: 10px'>
-                                                                <h:outputText value="Cantidad restante: #{entradas.cantidad}"/>
+                                                                <h:outputText value="Cantidad restante: #{entradas.cantidad - entradas.cantComprada} / #{entradas.cantidad}"/>
                                                             </div>
                                                             <div style='display: inline; padding: 10px'>
                                                                 <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->

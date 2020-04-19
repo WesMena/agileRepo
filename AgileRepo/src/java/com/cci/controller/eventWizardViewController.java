@@ -604,11 +604,11 @@ public class eventWizardViewController implements Serializable {
             Calendar c = Calendar.getInstance();
             c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
             Fini = c.getTime();
-            Fini.setMonth(Fini.getMonth()-1);
+            Fini.setMonth(Fini.getMonth() - 1);
 
             c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
             Ffin = c.getTime();
-            Ffin.setMonth(Ffin.getMonth()-1);
+            Ffin.setMonth(Ffin.getMonth() - 1);
 
             UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
@@ -681,7 +681,10 @@ public class eventWizardViewController implements Serializable {
     public void nuevaEntrada() {
 
         Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1);
-        lstEntrada.add(nuevaE);
+        this.lstEntrada.add(nuevaE);
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL CREAR NUEVA: " + lstEntrada.size());
+
     }
 
     public List<Entrada> getLstEntrada() {
@@ -729,8 +732,7 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setFechaFinEntrada(String fechaFinEntrada) {
-        
-        
+
         this.fechaFinEntrada = fechaFinEntrada;
     }
 
@@ -806,6 +808,8 @@ public class eventWizardViewController implements Serializable {
 
         this.editarDivRend = false;
         this.validarEntradas = false;
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL ACTUALIZAR: " + lstEntrada.size());
     }
 
     public void borrarEntrada() {
@@ -822,16 +826,20 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void guardarEntradas() {
-
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR ANTES DE DELETE: " + lstEntrada.size());
         EntradaDao eDao = new EntradaDao();
         //Eliminando entradas anteriores
         eDao.deleteAllByIdEvt(idEvento);
         //Insertando nuevas entradas
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE DELETE: " + lstEntrada.size());
+
         for (Entrada ev : lstEntrada) {
 
             eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
 
         }
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE GUARDAR: " + lstEntrada.size());
     }
 
     public String BotonEntrada() {
@@ -1103,11 +1111,21 @@ public class eventWizardViewController implements Serializable {
 
                 //<editor-fold defaultstate="collapsed" desc="Entradas a evento">
                 dao = new EntradaDao();
-                this.lstEntrada = new ArrayList<>();
-                List<Entrada> tempEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
-                for (Entrada e : tempEntrada) {
+                //this.lstEntrada = new ArrayList<>();
+                this.lstEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+                //List<Entrada> tempEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+                /*for (Entrada e : tempEntrada) {
                     this.lstEntrada.add(e);
+                }*/
+                
+                EntradaDao comp = new EntradaDao();
+                
+                for (Entrada ent : lstEntrada) {
+
+                    ent.setCantComprada(comp.compradas(ent.getIdEntrada()));
+
                 }
+
                 System.out.println("Entradas : " + this.lstEntrada.size());
                 //</editor-fold>
 
@@ -1248,19 +1266,19 @@ public class eventWizardViewController implements Serializable {
         PrimeFaces.current().ajax().update("test1:Todo");
     }
 
-    public String FechaCambiarIngresoBD(String fecha){
+    public String FechaCambiarIngresoBD(String fecha) {
         String fechaN = "";
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date date = formatter.parse(fecha);
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            fechaN = dateFormat.format(date); 
-            
+            fechaN = dateFormat.format(date);
+
         } catch (ParseException ex) {
             Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    return fechaN;
+        return fechaN;
     }
-    
+
 }

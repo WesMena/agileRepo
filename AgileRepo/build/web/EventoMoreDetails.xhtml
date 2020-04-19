@@ -11,9 +11,9 @@
 
 
         <f:metadata>
-
             <f:viewParam name="id" value="#{evtpdetails.idEvento}"/>
-            <f:event listener="#{evtpdetails.obtenerEvento()}" type="preRenderView"/>              
+            <f:event listener="#{evtpdetails.obtenerEvento()}" type="preRenderView"/>
+            <f:viewAction action="#{evtpdetails.onLoad()}"/>
         </f:metadata>
 
 
@@ -72,32 +72,32 @@
 
 
                         <li>
-                        <h:form id="buscar">
-                            <span class="topbar-search">
+                            <h:form id="buscar">
+                                <span class="topbar-search">
 
-                                <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtroPublic}" class="busquedaTopbar"  />
-
-
-
-
-                                <p:commandButton process="@this" id="busqueda" class="topbar-search-icon fa fa-search" value="" actionListener="#{eventsummarycontroller.applyFilterRedirect()}" ajax="false" >
-                                    <f:ajax execute="filtro" render="buscar"/>  
-                                    <f:ajax execute="filtro" render="buscar"/> 
-
-
-                                </p:commandButton>
-
-
-                            </span>    
+                                    <p:inputText type="text" id="filtro" placeholder="Buscar" value="#{eventsummarycontroller.filtroPublic}" class="busquedaTopbar"  />
 
 
 
-                        </h:form>
-                            
-                            
-                            
+
+                                    <p:commandButton process="@this" id="busqueda" class="topbar-search-icon fa fa-search" value="" actionListener="#{eventsummarycontroller.applyFilterRedirect()}" ajax="false" >
+                                        <f:ajax execute="filtro" render="buscar"/>  
+                                        <f:ajax execute="filtro" render="buscar"/> 
+
+
+                                    </p:commandButton>
+
+
+                                </span>    
+
+
+
+                            </h:form>
+
+
+
                         </li>
-                    
+
 
 
                         <li style="padding-top:5px;"><h:link class="botonLoginTopBar" id="redirect" value = "Iniciar Sesión" outcome = "login.xhtml" />  </li>
@@ -186,7 +186,7 @@
 
 
                                 <!--Aquí está el botón para comprar entradas, solo hay que cambiarle el display -->
-                                <p:commandButton value="Conseguir Entradas" style="display:none; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
+                                <p:commandButton value="Conseguir Entradas" onclick="PF('dlg2').show();" style="display:block; margin-left:20%; background:#0D8547; border-radius:2px; color:#fff;   font-size:18px; font-weight:600;  padding: 5px 15px 5px 15px;"></p:commandButton>           
 
 
                                 <p style="font-weight:600; font-size:16px; text-align:justify; margin-left:15px; margin-right:15px; " >   <span class="pricing-name" style="font-size:18px; text-align:justify; display:#{evtpdetails.detalles.esPresencial()?'block':'none'}">Dirección </span></p>
@@ -220,7 +220,7 @@
 
                                 <div style="margin-left:15px; margin-right:15px; text-align: justify; color:#787878;">
                                     <h:outputText  value="#{evtpdetails.detalles.descOrganizador}" style="text-align:justify; word-wrap:break-word;"></h:outputText>
-                                   
+
                                 </div>  
 
 
@@ -264,9 +264,144 @@
                 });
             }
         </script>
+
+
+        <p:dialog header="Compra de entrada" fitViewport="true" responsive="true" draggable="false" style="background: white; border-radius: 10px; padding-top: 0" position="top" widgetVar="dlg2" modal="true" height="70%" width="70%">
+
+            <h:form>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-12 ui-1g-6">
+                        <p:panel id="pnlentradas" style="display: #{evtpdetails.pnlMostrarE ? 'none':'block'}">
+                            <p:outputPanel style="overflow:auto">
+                                <h1 style="font-size: x-large;font-weight: bold">Elija la entrada que desea</h1>
+                                <h:panelGroup  id="panellista">
+                                    <c:forEach  id="repeat"  items="#{evtpdetails.lstEntrada}" var="entradas" varStatus="loop" >
+                                        <div class="card clearfix summary" style='background:#f5f5f5' >
+
+                                            <!-- Con loop.index se obtiene el valor del index en la lista -->
+                                            <c:set var="index" value="${loop.index}" />
+                                            <!-- Cuando se da click en el boton de edicion, se actualiza la vista con panelEditEntrada panelMainEntradas  
+                                            <p:commandButton icon="fa fa-pencil" action="#{wizardcontroller.seleccionarEntrada(entradas.nombre,entradas.tipo,entradas.cantidad,entradas.precio,entradas.fechaInicio,entradas.horaInicio,entradas.fechaFin,entradas.horaFin,index)}" partialSubmit="true" process="@this" update="panelEditEntrada panelMainEntradas" style="float:right">
+                                            </p:commandButton>-->
+                                            <div style="margin-top: 0 !important;padding-top: 0 !important; margin-bottom: 0; padding-bottom: 0; background-color: #0D8547; display: inline-block; border-radius: 10px">
+                                                <p:commandButton value="$" action="#{evtpdetails.seleccionarEntrada(entradas.idEntrada,entradas.nombre, entradas.precio)}" partialSubmit="true" process="@this" update="pnlcompra pnlentradas" style="color:white; font-size: x-large; font-weight: bold; margin: 0; padding: 0;">
+                                                </p:commandButton>
+                                            </div>
+                                            <div style='display: inline-block;'>
+                                                <div style='display: inline;'>
+                                                    <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
+                                                </div>
+                                                <div style='display: inline; padding: 10px'>
+                                                    <h:outputText value="Cantidad restante: #{entradas.cantidad - entradas.cantComprada} / #{entradas.cantidad}"/>
+                                                </div>
+                                                <div style='display: inline; padding: 10px'>
+                                                    <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
+                                                    <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
+                                                </div>
+                                                <div style='display: inline; padding: 10px'>
+                                                    <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
+                                                    <h:outputText value="#{entradas.precio} USD"/>
+                                                </div>
+                                                <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
+                                            </div>
+
+                                        </div>
+
+                                    </c:forEach>
+                                </h:panelGroup>
+                            </p:outputPanel>
+                        </p:panel>
+                        <p:panel id="pnlcompra" style="display: #{evtpdetails.pnlMostrarE ? 'block':'none'}">
+                            <p:separator/>
+                            <h1 style="font-size: x-large;font-weight: bold">Entrada seleccionada:</h1>
+                            <br/>
+                            <h:panelGrid columns="2" cellpadding="10px" style="border:none !important;">
+                                <h:outputText value="Entrada:" style="font-weight: bold" />
+                                <h:outputText value="#{evtpdetails.nombreEntrada}"/>
+
+                                <h:outputText value="Fecha de Evento:" style="font-weight: bold" />
+                                <h:outputText value="#{evtpdetails.detalles.fecha}"/>
+
+                                <h:outputText value="Precio:" style="font-weight: bold" />
+                                <h:outputText value="#{evtpdetails.precioEntrada} USD"/>
+
+                                <h:outputText value="Cantidad:" style="font-weight: bold" />
+                                <h:outputText value="#{evtpdetails.cantcompra}"/>
+
+
+                            </h:panelGrid>
+                            <p:separator/>
+
+                            <h1 style="font-size: x-large;font-weight: bold">Información de contacto</h1>
+                            <br/>
+                            <h:panelGrid columns="2" cellpadding="10px" style="border:none !important;">
+
+                                <h:outputText value="Nombre Completo*" style="font-weight: bold" />
+                                <p:inputText id="nombre" value="#{evtpdetails.nombre}"></p:inputText>
+
+                                <h:outputText value="Correo Electrónico*" style="font-weight: bold" />
+                                <p:inputText id="correo" value="#{evtpdetails.correo}"></p:inputText>
+
+                                <h:outputText value="Teléfono" style="font-weight: bold"/>
+                                <p:inputText id="tel" value="#{evtpdetails.telefono}"></p:inputText>
+
+                            </h:panelGrid>
+                            <br/>
+                            <p:commandButton value="Comprar"
+                                             action="#{evtpdetails.comprarEntrada()}"
+                                             update="pnlcompra pnlentradas"
+                                             onclick="PF('dlg2').hide();"
+                                             style="display:inline-block; 
+                                             background:#0D8547; 
+                                             border-radius:2px; 
+                                             color:#fff;   
+                                             font-size:18px; 
+                                             font-weight:600;  
+                                             padding: 5px 15px 5px 15px;
+                                             margin: 10px;">                      
+                            </p:commandButton>
+                            <p:commandButton value="Regresar"
+                                             action="#{evtpdetails.regresarVista}"
+                                             update="pnlcompra pnlentradas"
+                                             style="display:inline-block; 
+                                             background:#0D8547; 
+                                             border-radius:2px; 
+                                             color:#fff;   
+                                             font-size:18px; 
+                                             font-weight:600;  
+                                             padding: 5px 15px 5px 15px;
+                                             margin: 10px;">                      
+                            </p:commandButton>
+                            <p:commandButton value="Cancelar"
+                                             action="#{evtpdetails.regresarVista}"
+                                             update="pnlcompra pnlentradas"
+                                             onclick="PF('dlg2').hide();"
+                                             style="display:inline-block; 
+                                             background:#0D8547; 
+                                             border-radius:2px; 
+                                             color:#fff;   
+                                             font-size:18px; 
+                                             font-weight:600;  
+                                             padding: 5px 15px 5px 15px;
+                                             margin: 10px;">                      
+                            </p:commandButton>
+                            <p:separator/>
+                        </p:panel>
+
+                    </div>
+                </div>
+
+            </h:form>
+
+        </p:dialog>  
+
+
+
         <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
         <h:outputStylesheet name="css/Eventos.css" library="omega-layout" />
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
     </h:body>
 
 </html>
