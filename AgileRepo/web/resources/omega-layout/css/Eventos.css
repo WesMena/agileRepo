@@ -188,6 +188,10 @@ menuTopBar{
   margin-right: 0px !important;
   margin-top:-35px;
 }
+
+.dlgEntrada{
+    width:100% !important;
+}
     
     
     .landing-wrapper #introduction .introduction-content .title{
