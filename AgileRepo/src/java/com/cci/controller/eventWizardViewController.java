@@ -96,6 +96,7 @@ public class eventWizardViewController implements Serializable {
     public String descripcion = "";
     public String resumen = "";
     public static Integer idEvento = -1;
+   
     public static boolean editionMode = false;
 
     public String onFlowProcess(FlowEvent event) {
@@ -125,7 +126,7 @@ public class eventWizardViewController implements Serializable {
     private boolean isLink = true;
 
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
+    //<editor-fold defaultstate="collapsed" desc="Tab Ubicacion y hora">
     public boolean isIsFisico() {
         return isFisico;
     }
@@ -536,6 +537,39 @@ public class eventWizardViewController implements Serializable {
         this.idEvnt = rand.nextInt(1000);
     }
 
+    public void displayError() {
+        PrimeFaces.current().executeScript("PF('ErrorMsg').show()");
+    }
+
+    public boolean verificarFecha(Date ini, Date fin) {
+        boolean value = true;
+        Calendar c = Calendar.getInstance();
+        /*Si el año de inicio mayor al final*/
+        if (ini.getYear() > fin.getYear()) {
+
+            value = false;
+            /* Si el año inicial es menor al año final hace las otras validaciones*/
+        } else if (ini.getYear() < fin.getYear()) {
+
+            /*Si es en el mismo año*/
+            if (ini.getYear() == fin.getYear()) {
+
+                if (ini.getMonth() > fin.getMonth()) {
+                    value = false;
+                }
+            }
+            /*Si alguno de los Dias no es valido*/
+        } else if (ini.getDay() > 31 || fin.getDay() > 31) {
+            value = false;
+        } else if (ini.getYear() < c.getTime().getYear() || fin.getYear() < c.getTime().getYear()) {
+            value = false;
+        } else if (ini.getMonth() > 12 && fin.getMonth() > 12) {
+            value = false;
+        }
+
+        return value;
+    }
+
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -544,73 +578,25 @@ public class eventWizardViewController implements Serializable {
  /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
+        boolean value = true;
+        UbiHoraConfig container = null;
         //System.out.println(""+this.range);
         String[] splitFIni = this.fechaIniStr.split("-");
         String[] splitFFin = this.fechaFinStr.split("-");
 
         Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+        c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
         Fini = c.getTime();
+        Fini.setMonth(Fini.getMonth() - 1);
 
-        c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+        c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
         Ffin = c.getTime();
+        Ffin.setMonth(Ffin.getMonth() - 1);
 
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+        value = verificarFecha(Fini, Ffin);
 
-        if (this.fisico == true) {
-            container.setUbifisica(this.ubi);
-            container.setLink("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Ubicacion: " + container.getUbifisica());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
-
-        } else {
-            container.setLink(this.link);
-            container.setUbifisica("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Link: " + container.getLink());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
-        }
-
-        try {
-            dao.save(container);
-            this.config = container;
-            this.draft = false;
-            this.savedConfig = true;
-            PrimeFaces.current().ajax().update("test1:Todo");
-        } catch (Exception x) {
-            System.out.println("Error!");
-        }
-
-        return container;
-    }
-
-    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
- /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
- /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
- /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
- /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
-    public void updtConfig(ActionEvent e) throws ParseException {
-
-        WizardDao dao2 = new WizardDao();
-
-        if (dao2.savedUbiConfig(idEvento)) {
-            //Algo guardado
-            PrimeFaces.current().ajax().update("test1:Todo");
-            WizardDao dao = new WizardDao();
-            String[] splitFIni = this.fechaIniStr.split("-");
-            String[] splitFFin = this.fechaFinStr.split("-");
-
-            Calendar c = Calendar.getInstance();
-            c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
-            Fini = c.getTime();
-            Fini.setMonth(Fini.getMonth()-1);
-
-            c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
-            Ffin = c.getTime();
-            Ffin.setMonth(Ffin.getMonth()-1);
-
-            UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+        if (value == true) {
+            container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
             if (this.fisico == true) {
                 container.setUbifisica(this.ubi);
@@ -627,15 +613,82 @@ public class eventWizardViewController implements Serializable {
                 System.out.println("Zona Horaria: " + container.getZonaHoraria());
             }
 
-            dao.updateUbiHora(container, container.getEvntID());
-            System.out.println("Editado!");
-
+            try {
+                dao.save(container);
+                this.config = container;
+                this.draft = false;
+                this.savedConfig = true;
+                PrimeFaces.current().ajax().update("test1:Todo");
+            } catch (Exception x) {
+                System.out.println("Error!");
+            }
+            /**/
         } else {
-            //Nada guardado
-            fillContainer(new ActionEvent(new ComponentRef()));
+            displayError();
+        }
+        return container;
+    }
+
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+ /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+ /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+    public void updtConfig(ActionEvent e) throws ParseException {
+
+        WizardDao dao2 = new WizardDao();
+        boolean value = true;
+
+        if (dao2.savedUbiConfig(idEvento)) {
+            //Algo guardado
+            PrimeFaces.current().ajax().update("test1:Todo");
+            WizardDao dao = new WizardDao();
+            String[] splitFIni = this.fechaIniStr.split("-");
+            String[] splitFFin = this.fechaFinStr.split("-");
+
+            Calendar c = Calendar.getInstance();
+            c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
+            Fini = c.getTime();
+            Fini.setMonth(Fini.getMonth() - 1);
+
+            c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
+            Ffin = c.getTime();
+            Ffin.setMonth(Ffin.getMonth() - 1);
+
+            value = verificarFecha(Fini, Ffin);
+
+            if (value == true) {
+
+                UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+
+                if (this.fisico == true) {
+                    container.setUbifisica(this.ubi);
+                    container.setLink("NONE");
+                    System.out.println(" -> Container Creado!");
+                    System.out.println("Ubicacion: " + container.getUbifisica());
+                    System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
+                } else {
+                    container.setLink(this.link);
+                    container.setUbifisica("NONE");
+                    System.out.println(" -> Container Creado!");
+                    System.out.println("Link: " + container.getLink());
+                    System.out.println("Zona Horaria: " + container.getZonaHoraria());
+                }
+
+                dao.updateUbiHora(container, container.getEvntID());
+                System.out.println("Editado!");
+
+            } else {
+                //Nada guardado
+                 displayError();
+                fillContainer(new ActionEvent(new ComponentRef()));
+            }
         }
 
-    }
+        }
+
+    
 
     public void saveMessage() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -680,8 +733,11 @@ public class eventWizardViewController implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Metodos">
     public void nuevaEntrada() {
 
-        Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1);
-        lstEntrada.add(nuevaE);
+        Entrada nuevaE = new Entrada("Admisión General", 0.00, this.fechaFinStr, this.strHfin, this.fechaIniStr, this.strHini, 0, 1, -1);
+        this.lstEntrada.add(nuevaE);
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL CREAR NUEVA: " + lstEntrada.size());
+
     }
 
     public List<Entrada> getLstEntrada() {
@@ -729,8 +785,7 @@ public class eventWizardViewController implements Serializable {
     }
 
     public void setFechaFinEntrada(String fechaFinEntrada) {
-        
-        
+
         this.fechaFinEntrada = fechaFinEntrada;
     }
 
@@ -806,6 +861,8 @@ public class eventWizardViewController implements Serializable {
 
         this.editarDivRend = false;
         this.validarEntradas = false;
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL ACTUALIZAR: " + lstEntrada.size());
     }
 
     public void borrarEntrada() {
@@ -823,15 +880,34 @@ public class eventWizardViewController implements Serializable {
 
     public void guardarEntradas() {
 
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR ANTES DE DELETE: " + lstEntrada.size());
         EntradaDao eDao = new EntradaDao();
         //Eliminando entradas anteriores
-        eDao.deleteAllByIdEvt(idEvento);
+        //eDao.deleteAllByIdEvt(idEvento);
         //Insertando nuevas entradas
+
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE DELETE: " + lstEntrada.size());
+
         for (Entrada ev : lstEntrada) {
+            if (ev.getIdEntrada() != -1) {
+                //Pedimos ID de entrada y forzamos ID
+                System.out.println("ID" + ev.getIdEntrada());
+                eDao.entradExistente(ev.getIdEntrada(), this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
 
-            eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
-
+            } else {
+                eDao.nuevaEntrada(this.idEvento, ev.getNombre(), ev.getPrecio(), FechaCambiarIngresoBD(ev.getFechaFin()), ev.getHoraFin(), FechaCambiarIngresoBD(ev.getFechaInicio()), ev.getHoraInicio(), ev.getTipo(), ev.getCantidad());
+            }
         }
+        Dao dao = new EntradaDao();
+        //Recargamos la lista 
+        List<Entrada> tempE = new ArrayList<>();
+        tempE = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+        this.lstEntrada.clear();
+        for (Entrada e : tempE) {
+            lstEntrada.add(e);
+        }
+        System.out.println("ESTE EL TAMANO DE LA LISTA AL GUARDAR DESPUES DE GUARDAR: " + lstEntrada.size());
+
     }
 
     public String BotonEntrada() {
@@ -1103,11 +1179,21 @@ public class eventWizardViewController implements Serializable {
 
                 //<editor-fold defaultstate="collapsed" desc="Entradas a evento">
                 dao = new EntradaDao();
-                this.lstEntrada = new ArrayList<>();
-                List<Entrada> tempEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
-                for (Entrada e : tempEntrada) {
+                //this.lstEntrada = new ArrayList<>();
+                this.lstEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+                //List<Entrada> tempEntrada = ((EntradaDao) dao).getAllByIdEvt(idEvento);
+                /*for (Entrada e : tempEntrada) {
                     this.lstEntrada.add(e);
+                }*/
+                
+                EntradaDao comp = new EntradaDao();
+                
+                for (Entrada ent : lstEntrada) {
+
+                    ent.setCantComprada(comp.compradas(ent.getIdEntrada()));
+
                 }
+
                 System.out.println("Entradas : " + this.lstEntrada.size());
                 //</editor-fold>
 
@@ -1248,19 +1334,19 @@ public class eventWizardViewController implements Serializable {
         PrimeFaces.current().ajax().update("test1:Todo");
     }
 
-    public String FechaCambiarIngresoBD(String fecha){
+    public String FechaCambiarIngresoBD(String fecha) {
         String fechaN = "";
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date date = formatter.parse(fecha);
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            fechaN = dateFormat.format(date); 
-            
+            fechaN = dateFormat.format(date);
+
         } catch (ParseException ex) {
             Logger.getLogger(eventWizardViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    return fechaN;
+        return fechaN;
     }
-    
+
 }

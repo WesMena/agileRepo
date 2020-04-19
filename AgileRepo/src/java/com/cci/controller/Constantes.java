@@ -23,6 +23,18 @@ public class Constantes implements Serializable {
     
     public static final String ubicacionFotos="C:/Users/Nvidi/Documents/GitHub/agileRepo/AgileRepo/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
     
+    public static final String dirProyecto="/home/wes/Documents/agileRepo/AgileRepo";
+    
+       //Credenciales de la cuenta que envía los correos
+   public static final String cuentaSMTP="ventasestructurasulatina@gmail.com";
+   public static final String contraSTMP="wvjjk611";
+      
+           //Correo de la cuenta a la que se quiere enviar los reportes de compra 
+           //Si el usuario adquiere una entrada de pago
+    public static final String correoReporte="weslinmena@gmail.com"; 
+    
+    
+    
     public  String getLogguedUsserDisplayName() {
         return logguedUsserDisplayName;
     }

@@ -19,7 +19,8 @@ public class Entrada {
     String horaInicio;
     Integer tipo;
     Integer cantidad;
-    
+    Integer cantComprada = 0;
+    Integer idEntrada;
 
     public Entrada(String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad) {
         this.nombre = nombre;
@@ -30,7 +31,22 @@ public class Entrada {
         this.horaInicio = horaInicio;
         this.tipo = tipo;
         this.cantidad = cantidad;
+        
     }
+    
+    public Entrada(String nombre, double precio, String fechaFin, String horaFin, String fechaInicio, String horaInicio, Integer tipo, Integer cantidad, Integer idEntrada) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.fechaFin = fechaFin;
+        this.horaFin = horaFin;
+        this.fechaInicio = fechaInicio;
+        this.horaInicio = horaInicio;
+        this.tipo = tipo;
+        this.cantidad = cantidad;
+        this.idEntrada = idEntrada;
+
+    }
+    
 
     public Entrada() {
     }
@@ -99,6 +115,24 @@ public class Entrada {
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
+
+    public Integer getCantComprada() {
+        return cantComprada;
+    }
+
+    public void setCantComprada(Integer cantComprada) {
+        this.cantComprada = cantComprada;
+    }
+
+    public Integer getIdEntrada() {
+        return idEntrada;
+    }
+
+    public void setIdEntrada(Integer idEntrada) {
+        this.idEntrada = idEntrada;
+    }
+
+    
     
     
     
