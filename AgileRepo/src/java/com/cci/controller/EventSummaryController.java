@@ -9,6 +9,7 @@ import com.cci.model.EventSummary;
 import com.cci.service.Dao;
 import com.cci.service.EventSummaryDao;
 import com.cci.service.PublicEventDao;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -316,8 +317,11 @@ public class EventSummaryController {
         PrimeFaces.current().executeScript("PF('dlgPEvent').show()");
     }
 
-    public void applyFilterPublico() {
-
+    public void applyFilterPublico() throws FileNotFoundException {
+       
+   
+        
+        
         Dao dao = new EventSummaryDao();
         this.eventSummaryPublic = ((EventSummaryDao) dao).getAllPublic(filtroPublic);
 
