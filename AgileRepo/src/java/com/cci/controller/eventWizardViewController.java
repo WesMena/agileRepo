@@ -126,7 +126,7 @@ public class eventWizardViewController implements Serializable {
     private boolean isLink = true;
 
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
+    //<editor-fold defaultstate="collapsed" desc="Tab Ubicacion y hora">
     public boolean isIsFisico() {
         return isFisico;
     }
@@ -537,6 +537,39 @@ public class eventWizardViewController implements Serializable {
         this.idEvnt = rand.nextInt(1000);
     }
 
+    public void displayError() {
+        PrimeFaces.current().executeScript("PF('ErrorMsg').show()");
+    }
+
+    public boolean verificarFecha(Date ini, Date fin) {
+        boolean value = true;
+        Calendar c = Calendar.getInstance();
+        /*Si el año de inicio mayor al final*/
+        if (ini.getYear() > fin.getYear()) {
+
+            value = false;
+            /* Si el año inicial es menor al año final hace las otras validaciones*/
+        } else if (ini.getYear() < fin.getYear()) {
+
+            /*Si es en el mismo año*/
+            if (ini.getYear() == fin.getYear()) {
+
+                if (ini.getMonth() > fin.getMonth()) {
+                    value = false;
+                }
+            }
+            /*Si alguno de los Dias no es valido*/
+        } else if (ini.getDay() > 31 || fin.getDay() > 31) {
+            value = false;
+        } else if (ini.getYear() < c.getTime().getYear() || fin.getYear() < c.getTime().getYear()) {
+            value = false;
+        } else if (ini.getMonth() > 12 && fin.getMonth() > 12) {
+            value = false;
+        }
+
+        return value;
+    }
+
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
  /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -545,44 +578,54 @@ public class eventWizardViewController implements Serializable {
  /*Genera el objeto con el contenido requerido de Fechas,Horas y ubicacion*/
     public UbiHoraConfig fillContainer(ActionEvent e) {
         WizardDao dao = new WizardDao();
+        boolean value = true;
+        UbiHoraConfig container = null;
         //System.out.println(""+this.range);
         String[] splitFIni = this.fechaIniStr.split("-");
         String[] splitFFin = this.fechaFinStr.split("-");
 
         Calendar c = Calendar.getInstance();
-        c.set(Integer.parseInt(splitFIni[0]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[2]));
+        c.set(Integer.parseInt(splitFIni[2]), Integer.parseInt(splitFIni[1]), Integer.parseInt(splitFIni[0]));
         Fini = c.getTime();
+        Fini.setMonth(Fini.getMonth() - 1);
 
-        c.set(Integer.parseInt(splitFFin[0]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[2]));
+        c.set(Integer.parseInt(splitFFin[2]), Integer.parseInt(splitFFin[1]), Integer.parseInt(splitFFin[0]));
         Ffin = c.getTime();
+        Ffin.setMonth(Ffin.getMonth() - 1);
 
-        UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+        value = verificarFecha(Fini, Ffin);
 
-        if (this.fisico == true) {
-            container.setUbifisica(this.ubi);
-            container.setLink("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Ubicacion: " + container.getUbifisica());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+        if (value == true) {
+            container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
 
+            if (this.fisico == true) {
+                container.setUbifisica(this.ubi);
+                container.setLink("NONE");
+                System.out.println(" -> Container Creado!");
+                System.out.println("Ubicacion: " + container.getUbifisica());
+                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
+            } else {
+                container.setLink(this.link);
+                container.setUbifisica("NONE");
+                System.out.println(" -> Container Creado!");
+                System.out.println("Link: " + container.getLink());
+                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            }
+
+            try {
+                dao.save(container);
+                this.config = container;
+                this.draft = false;
+                this.savedConfig = true;
+                PrimeFaces.current().ajax().update("test1:Todo");
+            } catch (Exception x) {
+                System.out.println("Error!");
+            }
+            /**/
         } else {
-            container.setLink(this.link);
-            container.setUbifisica("NONE");
-            System.out.println(" -> Container Creado!");
-            System.out.println("Link: " + container.getLink());
-            System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            displayError();
         }
-
-        try {
-            dao.save(container);
-            this.config = container;
-            this.draft = false;
-            this.savedConfig = true;
-            PrimeFaces.current().ajax().update("test1:Todo");
-        } catch (Exception x) {
-            System.out.println("Error!");
-        }
-
         return container;
     }
 
@@ -594,6 +637,7 @@ public class eventWizardViewController implements Serializable {
     public void updtConfig(ActionEvent e) throws ParseException {
 
         WizardDao dao2 = new WizardDao();
+        boolean value = true;
 
         if (dao2.savedUbiConfig(idEvento)) {
             //Algo guardado
@@ -611,32 +655,40 @@ public class eventWizardViewController implements Serializable {
             Ffin = c.getTime();
             Ffin.setMonth(Ffin.getMonth() - 1);
 
-            UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+            value = verificarFecha(Fini, Ffin);
 
-            if (this.fisico == true) {
-                container.setUbifisica(this.ubi);
-                container.setLink("NONE");
-                System.out.println(" -> Container Creado!");
-                System.out.println("Ubicacion: " + container.getUbifisica());
-                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+            if (value == true) {
+
+                UbiHoraConfig container = new UbiHoraConfig(this.idEvento, this.horario.getHorarioStr().toString(), this.strHini, this.strHfin, this.fisico, this.Fini, this.Ffin);
+
+                if (this.fisico == true) {
+                    container.setUbifisica(this.ubi);
+                    container.setLink("NONE");
+                    System.out.println(" -> Container Creado!");
+                    System.out.println("Ubicacion: " + container.getUbifisica());
+                    System.out.println("Zona Horaria: " + container.getZonaHoraria());
+
+                } else {
+                    container.setLink(this.link);
+                    container.setUbifisica("NONE");
+                    System.out.println(" -> Container Creado!");
+                    System.out.println("Link: " + container.getLink());
+                    System.out.println("Zona Horaria: " + container.getZonaHoraria());
+                }
+
+                dao.updateUbiHora(container, container.getEvntID());
+                System.out.println("Editado!");
 
             } else {
-                container.setLink(this.link);
-                container.setUbifisica("NONE");
-                System.out.println(" -> Container Creado!");
-                System.out.println("Link: " + container.getLink());
-                System.out.println("Zona Horaria: " + container.getZonaHoraria());
+                //Nada guardado
+                 displayError();
+                fillContainer(new ActionEvent(new ComponentRef()));
             }
-
-            dao.updateUbiHora(container, container.getEvntID());
-            System.out.println("Editado!");
-
-        } else {
-            //Nada guardado
-            fillContainer(new ActionEvent(new ComponentRef()));
         }
 
-    }
+        }
+
+    
 
     public void saveMessage() {
         FacesContext context = FacesContext.getCurrentInstance();
