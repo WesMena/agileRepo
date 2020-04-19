@@ -54,7 +54,7 @@ and open the template in the editor.
 
                         <div style="width: 100%" >
                             <span class="title">Registro</span>
-                                <br></br>
+                            <br></br>
                             <p:spacer></p:spacer>
 
 
@@ -92,15 +92,15 @@ and open the template in the editor.
                                 value="Registrar"
                                 type="submit">Registrar
                             </button>
-                            
-                             
-                      
-                            
+
+
+
+
                         </div>
-                            
-                            <br></br>
-                          <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/login.xhtml" > Volver a inicio </p:link>
-                         <br></br>
+
+                        <br></br>
+                        <p:link style="color: #03A8E4; margin-top: 0.5em" href="faces/login.xhtml" > Volver a inicio </p:link>
+                        <br></br>
                     </h:form>
                     <h:form onsubmit=" return false" id="frmaHidden" >
                         <h:inputText id="txtHidden" style="display: none" value="#{RegisterController.uid}">
@@ -113,6 +113,28 @@ and open the template in the editor.
                     </h:form>
                 </div>
             </div>    
+        </div>
+        <div id="myModalReject" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 style="color: red" class="modal-title">Lo sentimos.</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <p>¡Oh no! Esta funcionalidad no se encuentra lista para ti.</p>
+                        <p>Revisa nuestros eventos.</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -155,7 +177,7 @@ and open the template in the editor.
             </div>
         </div>
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
-          <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
+        <h:outputStylesheet name="css/myLogin.css" library="omega-layout" />
         <h:outputScript name="js/fireInit.js" library="omega-layout"></h:outputScript>
         <h:outputScript name="js/fireRegister.js" library="omega-layout"></h:outputScript>
     </h:body>

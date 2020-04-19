@@ -25,7 +25,7 @@ String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     
     String USER = "root";
 
-    String PASS = "Leiasuri85";
+    String PASS = "123";
     Connection conn = null;
     
 private static Conexion INSTANCE = null;

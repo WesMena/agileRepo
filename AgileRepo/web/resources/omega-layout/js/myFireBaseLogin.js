@@ -9,8 +9,13 @@ let btnLogGoogle;
 var googleProvider;
 var frmaLogin;
 
-async function ini() {
+function ini() {
     //Asociando evento submit al form
+    googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.setCustomParameters({
+        hd: "cciconsultorescr.com"
+    });
+
     frmaLogin = document.getElementById('frmaLogin');
 
     frmaLogin.addEventListener('submit', signInWithEmailAndPassword, false);
@@ -20,15 +25,27 @@ async function ini() {
             console.log(user);
             //Pasar al landing
             //Seteando input escondido para enviar UID al bean
-            if (user.displayName) {
-                let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.displayName}]);
+            if (validAccount(user.email)) {
+                //Cuenta valida
+                if (user.displayName) {
+                    let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.displayName}]);
+
+                } else {
+                    let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.email}]);
+                }
+                window.location.pathname ="/AgileRepo/faces/dashboard.xhtml";
             } else {
-                let resp = googleLogin([{name: 'googleResponse', value: user.uid}, {name: 'googleDisplayName', value: user.email}]);
+                //Cuenta no valida
+                firebase.auth().signOut().then(function () {
+                    $('#myModalReject').modal();
+                }).catch(function (error) {
+                    console.error(error);
+                });
             }
 
-            window.location.assign('faces/dashboard.xhtml');
+
         } else {
-            //Nada
+            //Nadie logueado
         }
     });
 
@@ -37,6 +54,10 @@ async function ini() {
 
 function stateChanged(response, callback) {
 
+}
+
+function validAccount(userEmail) {
+    return userEmail.split('@')[1] === 'gmail.com';
 }
 
 function signInWithEmailAndPassword(event) {
@@ -70,17 +91,18 @@ function googleLogIn(event) {
     if (window.matchMedia("(max-width:767px)").matches) {
         //Dispositivo movil
         //llamado a SDK de firebase
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(function(result){
+        firebase.auth().signInWithRedirect(googleProvider).then(function (result) {
             //Todo bien,el listener se encarga de la direccion ini()
-        }).catch(function(error){
+        }).catch(function (error) {
             console.log(error);
         });
     } else {
         //Tablet o escritorio
         //Llamado al SDK de firebase
-        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {
+        firebase.auth().signInWithPopup(googleProvider).then(function (result) {
             //Todo bien,el listener se encarga de la direccion ini()
             //window.location.assign('faces/dashboard.xhtml');
+
         }).catch(function (error) {
             console.log(error);
         });
@@ -106,4 +128,7 @@ function resetPassword(event, emailID) {
     }
 }
 
-
+//Controlando cierre del modal y pasando al landing
+$('#myModalReject').on('hidden.bs.modal', function () {
+     window.location.pathname ="/AgileRepo/faces/Eventos.xhtml";
+});

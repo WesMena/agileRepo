@@ -15,6 +15,7 @@ function ini() {
 }
 
 
+
 function resetPassword(event) {
     let em = event.target.txtEmail.value;
     var auth = firebase.auth();

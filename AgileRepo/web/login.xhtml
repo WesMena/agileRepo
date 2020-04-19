@@ -90,6 +90,28 @@
         <h:form>
             <p:remoteCommand name="googleLogin" actionListener="#{usuarioController.setResponse}"  />
         </h:form>
+        <div id="myModalReject" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                         <h4 style="color: red" class="modal-title">Lo sentimos.</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <p>¡Oh no! Esta funcionalidad no se encuentra lista para ti.</p>
+                        <p>Revisa nuestros eventos.</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <h:outputStylesheet name="css/myLogin.css" library="omega-layout"></h:outputStylesheet>
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
         <script type="text/javascript">
