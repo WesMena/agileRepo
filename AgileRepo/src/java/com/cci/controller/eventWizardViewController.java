@@ -1215,7 +1215,7 @@ public class eventWizardViewController implements Serializable {
                 this.strHini = configUH.getHoraInicio();
                 this.strHfin = configUH.getHoraFin();
 
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
                 if (configUH.getRangoFechas().get(0) == null) {
                     this.fechaFinStr = "";
                     this.fechaIniStr = "";
