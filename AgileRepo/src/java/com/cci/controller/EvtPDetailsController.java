@@ -8,9 +8,11 @@ package com.cci.controller;
 import static com.cci.controller.eventWizardViewController.idEvento;
 import com.cci.model.Entrada;
 import com.cci.model.EvtPDetails;
+import com.cci.model.entradaID;
 import com.cci.service.EntradaDao;
 import com.cci.service.EventSummaryDao;
 import com.cci.service.EventoMoreDetailsDao;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -202,15 +204,26 @@ public class EvtPDetailsController implements Serializable {
 
     }
 
-    public void comprarEntrada() {
+    public void comprarEntrada() throws FileNotFoundException {
 
         EntradaDao daoC = new EntradaDao();
         daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono);
         
+       
+        entradaID entrada=daoC.getIdTransaccion(this.idEvento,this.idEntrada,this.nombre,this.correo);
+        MailController correoController=new MailController();
+        
+       //(int idTransaccion,String nombreCompleto, String nombreEvento, 
+            //String fechaYHora, String tipoEntrada, Double precio, String correoUser,
+           // String telUser) 
+    
+        correoController.enviarCorreo(entrada.getIdTransaccion(),this.nombre,entrada.getNomEvt(), detalles.getFecha(),this.nombreEntrada,this.precioEntrada,this.correo, this.telefono);
+        
         this.nombre = "";
         this.correo = "";
         this.telefono = "";
-
+        
+        
         onLoad();
 
         regresarVista();

@@ -8,6 +8,7 @@ package com.cci.service;
 import static com.cci.controller.portadaController.iniIm2;
 import com.cci.model.EventSummary;
 import com.cci.model.EvtPDetails;
+import com.cci.model.entradaID;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -192,6 +193,9 @@ sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizad
         
      return eventoDetalles;     
     }
+        
+      
+        
         
         
         
