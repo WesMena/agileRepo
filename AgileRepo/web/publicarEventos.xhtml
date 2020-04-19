@@ -597,7 +597,7 @@
                                                 <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="dd-mm-yyyy" position="top"/>
 
                                             </div>
-                                            <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%">
+                                            <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%" >
                                                 <br></br>
                                                 <br></br>
                                                 <p:outputLabel for="horaIni" value="El evento inicia a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
@@ -627,7 +627,7 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton  process="@this ubi-hora" value="Guardar"  rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
+                                        <p:commandButton  process="@this ubi-hora" value="Guardar"   rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
                                         <p:commandButton  process="@this ubi-hora"  value="Editar"  rendered="#{wizardcontroller.savedConfig or wizardcontroller.editionMode == true }"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
@@ -636,7 +636,7 @@
                                     <br></br>
                                 </p:panel>
                                 
-                                <p:dialog id="error" header="Error!" widgetVar="ErrorMsg">
+                                <p:dialog id="error" modal="true" draggable="false" resizable="false" responsive="true" header="Error!" widgetVar="ErrorMsg">
                                      <h3>Revise las fechas ingresadas</h3>
                                 </p:dialog>
 
@@ -808,7 +808,6 @@
                 <!-->Estilos feos</!-->
                 <!-->Estilos feos</!-->
                 <style>
-
 
                     .ui-fileupload-content .ui-progressbar {
                         width: 99%;
