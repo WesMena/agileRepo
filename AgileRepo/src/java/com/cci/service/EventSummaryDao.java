@@ -70,6 +70,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
                         + "where idEvento = %1$d;", evt.getId()));
                 Date fecha;
                 Date hora;
+                Date fechaFin;
                 while (rset.next()) {
                     if (rset.getDate("Fini") != null) {
                         fecha = rset.getDate("FIni");
@@ -77,15 +78,42 @@ public class EventSummaryDao implements Dao<EventSummary> {
                         Calendar c = Calendar.getInstance();
                         c.setTime(fecha);
                         c.add(Calendar.DAY_OF_MONTH, 1);
-
+                      
                         fecha = c.getTime();
 
                         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
                         String fecha2 = formatoFecha.format(fecha);
 
+                        
+                        
                         evt.setFecha(fecha2);
                         evt.setHora(horaAjustada(hora));
+                        
+                           fechaFin=rset.getDate("FFin");
+                           Calendar cFin=Calendar.getInstance();
+                           Calendar cNow=Calendar.getInstance();
+                       
+                         //  cNow.add(Calendar.HOUR_OF_DAY, 18);
+                         //  cNow.add(Calendar.HOUR,6);
+                           cNow.add(Calendar.MONTH,1);
+                               System.out.println("time NOW");
+                           System.out.println(cNow);
+                           
+                           cFin.setTime(fechaFin);
+                          
+                           cFin.add(Calendar.DAY_OF_MONTH, 1);
+                           cFin.add(Calendar.MONTH,1);
+                          System.out.println(cFin);
+                           
+                          Boolean evtTerminado=cFin.before(cNow);
+                          
+                         if(evtTerminado){
+                             evt.setFinalizado(1);
+                         }else{
+                             evt.setFinalizado(0);
+                         }
+                           
                     } else {
                         evt.setFecha("0/0/0");
                         evt.setHora("00:00:00");
