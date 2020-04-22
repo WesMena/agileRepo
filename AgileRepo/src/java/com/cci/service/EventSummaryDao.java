@@ -49,7 +49,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
             //LIKE '"+filtro+ "%'
             rset = stm.executeQuery("select * from eventopublic as ep\n"
                     + "inner join  organizadoreseventos as oe on ep.idEventoPublic = oe.evento\n"
-                    + "where publicado = 1 and Nombre LIKE '" + filtro + "%' \n "
+                    + "where publicado = 1 and (Nombre LIKE '" + filtro +"%' OR Descripcion LIKE '"+filtro+"%')\n"
                     + "order by ep.idEventoPublic desc");
             while (rset.next()) {
                 returnedAdd = new EventSummary();
