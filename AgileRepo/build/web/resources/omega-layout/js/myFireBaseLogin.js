@@ -57,7 +57,7 @@ function stateChanged(response, callback) {
 }
 
 function validAccount(userEmail) {
-    return userEmail.split('@')[1] === 'gmail.com';
+    return userEmail.split('@')[1] === 'cciconsultorescr.com';
 }
 
 function signInWithEmailAndPassword(event) {
