@@ -249,7 +249,10 @@ public class EvtPDetailsController implements Serializable {
             //String fechaYHora, String tipoEntrada, Double precio, String correoUser,
            // String telUser) 
     
-        correoController.enviarCorreo(entrada.getIdTransaccion(),this.nombre,entrada.getNomEvt(), detalles.getFecha(),this.nombreEntrada,this.precioEntrada,this.correo, this.telefono);
+           String fechaHoraInicio=detalles.getFecha()+", "+detalles.getHora();
+           
+           Double total=this.precioEntrada*this.cantcompra;
+        correoController.enviarCorreo(entrada.getIdTransaccion(),this.nombre,entrada.getNomEvt(),fechaHoraInicio,this.nombreEntrada,total,this.correo, this.telefono,this.observacion,this.cantcompra);
         
         this.nombre = "";
         this.correo = "";

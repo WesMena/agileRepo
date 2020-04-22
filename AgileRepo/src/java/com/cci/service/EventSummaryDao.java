@@ -81,7 +81,7 @@ public class EventSummaryDao implements Dao<EventSummary> {
                       
                         fecha = c.getTime();
 
-                        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
 
                         String fecha2 = formatoFecha.format(fecha);
 
