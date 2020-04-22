@@ -38,7 +38,7 @@ public class EvtPDetailsController implements Serializable {
     String urlFondo;
     int idEvento = 0;
     String tipo;
-
+    String observacion;
     String nombreEntrada;
     String fechaEntrada;
     double precioEntrada;
@@ -48,9 +48,12 @@ public class EvtPDetailsController implements Serializable {
     String telefono;
     int cantcompra = 1;
     boolean pnlMostrarE = false;
-
+    
     private List<Entrada> lstEntrada = new ArrayList<>();
-
+    int cantidadTotal;
+    int cantidadCompradaT;
+    
+    
     public EvtPDetailsController() {
     }
 
@@ -189,12 +192,41 @@ public class EvtPDetailsController implements Serializable {
         this.pnlMostrarE = pnlMostrarE;
     }
 
-    public void seleccionarEntrada(int idEntrada, String nombreEntrada, double Precio) {
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public int getCantidadTotal() {
+        return cantidadTotal;
+    }
+
+    public void setCantidadTotal(int cantidadTotal) {
+        this.cantidadTotal = cantidadTotal;
+    }
+
+    public int getCantidadCompradaT() {
+        return cantidadCompradaT;
+    }
+
+    public void setCantidadCompradaT(int cantidadCompradaT) {
+        this.cantidadCompradaT = cantidadCompradaT;
+    }
+     
+    
+    
+    
+    public void seleccionarEntrada(int idEntrada, String nombreEntrada, double Precio, int cantTotal, int cantCompradaT) {
 
         this.idEntrada = idEntrada;
         this.nombreEntrada = nombreEntrada;
         this.precioEntrada = Precio;
         this.pnlMostrarE = true;
+        this.cantidadTotal = cantTotal;
+        this.cantidadCompradaT = cantCompradaT;
 
     }
 
@@ -207,7 +239,7 @@ public class EvtPDetailsController implements Serializable {
     public void comprarEntrada() throws FileNotFoundException {
 
         EntradaDao daoC = new EntradaDao();
-        daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono);
+        daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono,this.observacion);
         
        
         entradaID entrada=daoC.getIdTransaccion(this.idEvento,this.idEntrada,this.nombre,this.correo);

@@ -212,7 +212,7 @@ public class EntradaDao implements Dao<Entrada> {
     
     
 
-    public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono) {
+    public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono, String observacion) {
         ResultSet rs = null;
         Statement stmt = null;
 
@@ -223,8 +223,8 @@ public class EntradaDao implements Dao<Entrada> {
             String sql;
 
             //Ingresa compra de Entrada a la BD
-            sql = "INSERT INTO `agilerepo`.`entradacomprada` (`idEvento`, `idEntrada`, `Cantidad`,`Nombre`,`Correo`,`Telefono`) VALUES "
-                    + "(" + idEvento + "," + idEntrada + "," + Cantidad + ",'" + Nombre + "','" + Correo + "','" + Telefono + "')";
+            sql = "INSERT INTO `agilerepo`.`entradacomprada` (`idEvento`, `idEntrada`, `Cantidad`,`Nombre`,`Correo`,`Telefono`,`observacion`) VALUES "
+                    + "(" + idEvento + "," + idEntrada + "," + Cantidad + ",'" + Nombre + "','" + Correo + "','" + Telefono + "','" + observacion + "')";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {

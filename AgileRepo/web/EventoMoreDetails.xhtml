@@ -24,7 +24,7 @@
             <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
             <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
             <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
-              <!-- Add Firebase products that you want to use -->
+            <!-- Add Firebase products that you want to use -->
             <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
             <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -281,28 +281,36 @@
                                             <!-- Con loop.index se obtiene el valor del index en la lista -->
                                             <c:set var="index" value="${loop.index}" />
 
-                                            <div style="margin-top: 0 !important;padding-top: 0 !important; margin-bottom: 0; padding-bottom: 0; background-color: #0D8547; display: inline-block; border-radius: 10px">
-                                                <p:commandButton value="$" disabled="#{entradas.cantidad - entradas.cantComprada == 0 ? 'true':'false'}" action="#{evtpdetails.seleccionarEntrada(entradas.idEntrada,entradas.nombre, entradas.precio)}" partialSubmit="true" process="@this" update="pnlcompra pnlentradas" style="color:white; font-size: x-large; font-weight: bold; margin: 0; padding: 0;">
+                                            <p:panel style="margin: 15px !important;padding: 0 !important; background-color: #0D8547; display: inline-block; float: left; border-radius: 10px">
+                                                <p:commandButton value="$" 
+                                                                 disabled="#{entradas.cantidad - entradas.cantComprada == 0 ? 'true':'false'}" 
+                                                                 action="#{evtpdetails.seleccionarEntrada(entradas.idEntrada,entradas.nombre, entradas.precio, entradas.cantidad,entradas.cantComprada)}" 
+                                                                 partialSubmit="true" 
+                                                                 process="@this" update="pnlcompra pnlentradas" 
+                                                                 style="color:white; font-size: x-large; font-weight: bold; margin: 0; padding: 0; height: 100%">
                                                 </p:commandButton>
-                                            </div>
-                                            <div style='display: inline-block;'>
-                                                <div style='display: inline;'>
-                                                    <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
-                                                </div>
-                                                <div style='display: inline; padding: 10px'>
-                                                    <h:outputText value="Cantidad restante: #{entradas.cantidad - entradas.cantComprada} / #{entradas.cantidad}"/>
-                                                </div>
-                                                <div style='display: inline; padding: 10px'>
-                                                    <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
-                                                    <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
-                                                </div>
-                                                <div style='display: inline; padding: 10px'>
-                                                    <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
-                                                    <h:outputText value="#{entradas.precio} USD"/>
-                                                </div>
-                                                <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
-                                            </div>
+                                            </p:panel>
+                                            <p:panel style="display:inline-block">
+                                                <h:panelGrid columns="2" style="display:block; width: 100%">
 
+
+
+                                                    <h:outputText value="#{entradas.nombre}" style="font-weight:bold;"/>
+
+                                                    <h:outputText value="Cantidad restante: #{entradas.cantidad - entradas.cantComprada}/#{entradas.cantidad}"/>
+                                                </h:panelGrid>
+                                                <h:panelGrid columns="2" style="display:block; width: 100%">
+                                                    <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
+
+                                                    <h:outputText value="#{entradas.precio} USD"/>
+
+
+
+                                                </h:panelGrid>
+                                                <h:panelGrid style="display:block; width: 100%">
+                                                <h:outputText value="Fin de ventas: #{entradas.fechaFin}"/>
+                                                </h:panelGrid>
+                                            </p:panel>
                                         </div>
 
                                     </c:forEach>
@@ -318,16 +326,17 @@
                                 <h:outputText value="#{evtpdetails.nombreEntrada}"/>
 
                                 <h:outputText value="Fecha de Evento:" style="font-weight: bold" />
-                                <h:outputText value="#{evtpdetails.detalles.fecha}"/>
+                                <h:outputText value="#{evtpdetails.detalles.fecha} , #{evtpdetails.detalles.hora} #{evtpdetails.detalles.zonaHoraria}"/>
 
                                 <h:outputText value="Precio:" style="font-weight: bold" />
                                 <h:outputText value="#{evtpdetails.precioEntrada} USD"/>
 
                                 <h:outputText value="Cantidad:" style="font-weight: bold" />
-                                <h:outputText value="#{evtpdetails.cantcompra}"/>
-
-
+                                <p:inputText id="txt1" value="#{evtpdetails.cantcompra}" style="width:80px"/>
+                                <div></div>
+                                <p:slider for="txt1" minValue="1" maxValue="#{evtpdetails.cantidadTotal - evtpdetails.cantidadCompradaT}" style="width:90px" />
                             </h:panelGrid>
+
                             <p:separator/>
 
                             <h1 style="font-size: x-large;font-weight: bold">Información de contacto</h1>
@@ -342,6 +351,9 @@
 
                                 <h:outputText value="Teléfono" style="font-weight: bold"/>
                                 <p:inputMask id="tel" value="#{evtpdetails.telefono}" mask="9999-99-99"/>
+                                <h:outputText value="Observación" style="font-weight: bold"/>
+                                <p:inputText id="observacion" value="#{evtpdetails.observacion}"></p:inputText>
+
                             </h:panelGrid>
                             <p:tooltip id="toolTipFade2" for="tel" value="xxxx-xx-xx" position="top"/>
                             <br/>
@@ -356,13 +368,13 @@
                                              margin: 10px;">
                                 <p:confirm header="Confirmación" message=" ¿Desea realizar la compra?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
-                            <p:commandButton value="Regresar"
+                            <p:commandButton value="Cambiar Entrada"
                                              action="#{evtpdetails.regresarVista}"
                                              update="pnlcompra pnlentradas"
                                              partialSubmit="true" 
                                              process="@this" 
                                              validateClient="false"
-                                             style="display:inline-block; 
+                                             style="display:#{evtpdetails.lstEntrada.size() == 1 ? 'none':'inline-block'}; 
                                              background:#0D8547; 
                                              border-radius:2px; 
                                              color:#fff;   
@@ -390,8 +402,6 @@
                                                      styleClass="ui-confirmdialog-yes"
                                                      actionListener="#{evtpdetails.comprarEntrada()}"
                                                      update="pnlentradas pnlcompra"
-                                                      
-                                                     
                                                      validateClient="true"
                                                      style="display:inline-block"/>
                                     <p:commandButton value="No"
@@ -400,7 +410,7 @@
                                                      />
                                 </div>
                             </p:confirmDialog>
-                            
+
                             <p:dialog header="Compra de entrada"
                                       fitViewport="true"
                                       responsive="true"

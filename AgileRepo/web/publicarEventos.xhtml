@@ -586,7 +586,7 @@
                                                 <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 40px;" />
                                                 <br></br>
                                                 <br></br>
-                                                
+
                                                 <p:outputLabel  style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" for="dateConfigIni" value="Fecha Inicio : "></p:outputLabel>
                                                 <p:inputMask  style="margin-left: 16px;width:200px;text-align: center;" id="dateConfigIni" value="#{wizardcontroller.fechaIniStr}" mask="99-99-9999" required="true" requiredMessage="La fecha de inicio es obligatoria."/>
                                                 <p:tooltip id="toolTipFadeFini" for="dateConfigIni" value="dd-mm-yyyy" position="top"/>
@@ -609,14 +609,14 @@
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
-                                                
+
                                                 <p:outputLabel for="horaFin" value="El evento termina a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
                                                 <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;margin-left: 110px;" required="true" requiredMessage="La hora de finalizacion es obligatoria." />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
                                                 <br></br>
                                                 <br></br>
-                                              
+
                                             </div>
 
                                             <br></br>
@@ -635,9 +635,9 @@
                                     <br></br>
                                     <br></br>
                                 </p:panel>
-                                
+
                                 <p:dialog id="error" modal="true" draggable="false" resizable="false" responsive="true" header="Error!" widgetVar="ErrorMsg">
-                                     <h3>Revise las fechas ingresadas</h3>
+                                    <h3>Revise las fechas ingresadas</h3>
                                 </p:dialog>
 
                             </p:tab>
@@ -670,6 +670,10 @@
                                                             <div style='display: inline; padding: 10px'>
                                                                 <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
                                                                 <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
+                                                            </div>
+                                                            <div style='display: inline; padding: 10px'>
+                                                                <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
+                                                                <h:outputText value="#{entradas.precio} USD"/>
                                                             </div>
                                                             <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
 
