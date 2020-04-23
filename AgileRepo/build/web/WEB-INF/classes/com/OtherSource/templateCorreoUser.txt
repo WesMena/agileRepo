@@ -448,7 +448,7 @@
                   <tr>
                     <td class="content-cell">
                       <div class="f-fallback">
-                        <h1>¡Hola %1$s !,</h1>
+                        <h1>¡Hola, %1$s !,</h1>
                         <p>Gracias por registrarte en %2$s. Aquí está tu entrada</p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
@@ -457,30 +457,36 @@
                         </table>
                         <!-- Action -->
                         
+                        <p># transacción: %3$s</p>
+                          
+                                <p>Fecha evento:%4$s</p>
+                        
+                        
                         <table class="purchase" width="100%" cellpadding="0" cellspacing="0">
-                          <tr>
-                            <td>
-                              <h3># transacción:%3$s</h3>
-                            </td>
-                            <td>
-                              <h3 class="align-right">Fecha evento:%4$s</h3>
-                            </td>
-                          </tr>
-                          <tr>
+                         
+                         
+                           <tr>
                             <td colspan="2">
                               <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
-                                  <th class="purchase_heading" align="left">
-                                    <p class="f-fallback">Tipo de entrada</p>
+                                  
+                                    <th class="purchase_heading" align="left" >
+                                    <p class="f-fallback" style="width:60px;">Cantidad</p>
+                                  </th>
+                                    
+                                    
+                                  <th class="purchase_heading" align="center" >
+                                    <p class="f-fallback" >Tipo de entrada</p>
                                   </th>
                                   <th class="purchase_heading" align="right">
-                                    <p class="f-fallback">Precio</p>
+                                    <p class="f-fallback">Total</p>
                                   </th>
                                 </tr>
                                 
                                 <tr>
-                                  <td width="80%" class="purchase_item"><span class="f-fallback entrada">%5$s</span></td>
-                                  <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback" style="margin-left:-15px;">$ %6$s</span></td>
+                                    <td  class="purchase_item"><span class="f-fallback entrada"><p>%69$s</p></span></td>
+                                              <td width="80%" class="purchase_item"><span class="f-fallback entrada" ><p style="margin-left:30%">%5$s</p></span></td>
+                                              <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback" style="margin-left:-15px;"><p style="margin-right:-25px">$ %6$s</p></span></td>
                                 </tr>
                                 
                                

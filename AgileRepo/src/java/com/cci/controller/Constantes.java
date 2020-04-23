@@ -21,9 +21,9 @@ public class Constantes implements Serializable {
 
     public static  String logguedUsserUID;
     
-    public static final String ubicacionFotos="C:/Users/Daniel/Documents/NetBeansProjects/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
+    public static final String ubicacionFotos="/home/wes/Music/agileRepo/AgileRepo/web/resources/omega-layout/images/EventosSummary";
     
-    public static final String dirProyecto="/home/wes/Documents/agileRepo/AgileRepo";
+    public static final String dirProyecto="/home/wes/Music/agileRepo/AgileRepo";
     
        //Credenciales de la cuenta que envía los correos
    public static final String cuentaSMTP="ventasestructurasulatina@gmail.com";

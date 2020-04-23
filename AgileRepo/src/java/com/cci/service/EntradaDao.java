@@ -8,6 +8,7 @@ package com.cci.service;
 import com.cci.controller.UsuarioLoginController;
 import com.cci.controller.eventWizardViewController;
 import com.cci.model.Entrada;
+import com.cci.model.entradaID;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -211,7 +212,7 @@ public class EntradaDao implements Dao<Entrada> {
     
     
 
-    public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono) {
+    public void compraEntrada(int idEvento, int idEntrada, int Cantidad, String Nombre, String Correo, String Telefono, String observacion) {
         ResultSet rs = null;
         Statement stmt = null;
 
@@ -222,8 +223,8 @@ public class EntradaDao implements Dao<Entrada> {
             String sql;
 
             //Ingresa compra de Entrada a la BD
-            sql = "INSERT INTO `agilerepo`.`entradacomprada` (`idEvento`, `idEntrada`, `Cantidad`,`Nombre`,`Correo`,`Telefono`) VALUES "
-                    + "(" + idEvento + "," + idEntrada + "," + Cantidad + ",'" + Nombre + "','" + Correo + "','" + Telefono + "')";
+            sql = "INSERT INTO `agilerepo`.`entradacomprada` (`idEvento`, `idEntrada`, `Cantidad`,`Nombre`,`Correo`,`Telefono`,`observacion`) VALUES "
+                    + "(" + idEvento + "," + idEntrada + "," + Cantidad + ",'" + Nombre + "','" + Correo + "','" + Telefono + "','" + observacion + "')";
             stmt.executeUpdate(sql);
 
         } catch (Exception e) {
@@ -283,5 +284,56 @@ public void entradExistente(int idEntrada,Integer idEvento, String nombre, doubl
             e.printStackTrace();
         }
     }
+
+
+  public entradaID getIdTransaccion(int idEvento, int idEntrada, String nombreUsuario,String correo){
+        
+              ResultSet rs = null;
+        Statement stmt = null;
+              Conexion conexion = Conexion.getInstance();
+            
+      
+       String nomEvt="";
+       int idTransaccion=0;
+        
+        try {
+
+            conexion.conectar();
+            stmt = conexion.conn.createStatement();
+          
+            
+            
+            String sql;
+sql="SELECT max(e.idCompra) as idTrans, evt.Nombre FROM  entradacomprada e, eventopublic evt WHERE e.idEvento='"+idEvento+"' AND e.idEntrada='"+idEntrada+"' AND e.Nombre='"+nombreUsuario+"' AND e.Correo='"+correo+"' AND e.idEvento=evt.idEventoPublic;";
+
+            rs = stmt.executeQuery(sql);
+
+          
+            while (rs.next()) {
+             nomEvt=rs.getString("Nombre");
+             idTransaccion=rs.getInt("idTrans");
+                
+            }
+            
+            
+        
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexion.desconectar();
+        }
+            
+          entradaID entrada=new entradaID(idTransaccion,nomEvt);
+          
+          
+            
+            
+         return entrada;   
+        }
+
+
+
+
 
 }

@@ -8,6 +8,7 @@ package com.cci.service;
 import static com.cci.controller.portadaController.iniIm2;
 import com.cci.model.EventSummary;
 import com.cci.model.EvtPDetails;
+import com.cci.model.entradaID;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -81,7 +82,7 @@ public class EventoMoreDetailsDao implements Dao<EvtPDetails> {
                 
                 fecha=c.getTime();
                 
-               SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/yyyy");
+               SimpleDateFormat formatoFecha=new SimpleDateFormat("dd-MM-yyyy");
                
                String fecha2=formatoFecha.format(fecha);
                String tipoStr;
@@ -161,7 +162,9 @@ public class EventoMoreDetailsDao implements Dao<EvtPDetails> {
             stmt = conexion.conn.createStatement();
             System.out.println(id);
             String sql;
-sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizadoreseventos o, usuarios u WHERE evento="+id;
+            
+            
+sql="SELECT o.profileImage, o.organizador, o.descri, u.displayName FROM organizadoreseventos o, usuarios u WHERE evento='"+id+ "' AND o.organizador=u.uid";
 
             rs = stmt.executeQuery(sql);
 
@@ -192,6 +195,9 @@ sql="SELECT o.profileImage,o.organizador, o.descri, u.displayName FROM organizad
         
      return eventoDetalles;     
     }
+        
+      
+        
         
         
         

@@ -672,6 +672,10 @@
                                                                 <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
                                                                 <h:outputText value="#{entradas.tipo == 0 ? 'Gratis':'Pago'}"/>
                                                             </div>
+                                                            <div style='display: inline; padding: 10px'>
+                                                                <!-- Segun el valor de tipo muestra en la tarjeta Gratis o Pago-->
+                                                                <h:outputText value="#{entradas.precio} USD"/>
+                                                            </div>
                                                             <h:outputText value="Fin de ventas: #{entradas.fechaFin}" style='display: block;'/>
 
 
@@ -824,16 +828,8 @@
                         margin-top: -8px;
                     }
 
-                    @media only screen and (max-width: 1348px) and (min-width:681px) {
-                        .inputDesc{
-                            width: 100% !important;
-
-                        }
-
-                    }
-
-
-
+                 
+                    
                     /*No es mucho.Pero es trabajo honesto*/
                     @media only screen and (max-width: 1353px){
                         /*Dispositivos moviles grandes*/
@@ -871,7 +867,6 @@
                         }
                         .inputDesc{
                             margin: 4px !important;
-
                         }
                     }
 

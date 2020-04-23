@@ -50,10 +50,16 @@
             .ui-panel .ui-panel-content {
                 padding: 0;
                 border: none;
-                               
+
             }
-            
-                        
+            .dashboard .summary .count.visitors.orange{
+                background-color: #f8982a;
+            }
+            .ui-chips-container.ui-inputfield.ui-state-default.ui-corner-all{
+                border:none;
+            }
+
+
         </style>
 
     </ui:define>
@@ -69,7 +75,7 @@
                                              style="height:100%;width: 100%; 
                                              border: none; background: gainsboro;
                                              color: white; font-weight: bold; font-size: 90px">
-                                
+
                             </p:commandButton>
                         </div>
                     </div>
@@ -100,7 +106,7 @@
                                 </!-->
                                 <h:panelGrid columns="2">
                                     <span  class="count visitors">#{eventos.duracion}</span>
-                                    <span  class="count visitors">#{eventos.horaInicio}</span>
+                                    <span  class="count visitors orange">#{eventos.horaInicio}</span>
                                 </h:panelGrid>
 
 
@@ -159,10 +165,8 @@
                                 "#" 
                                </!-->   
 
-                                <div class="tags" style="display: block;width: 80%;border: none" contenteditable="#{eventos.onEdit}">
-                                    <h:inputText id="tags" value="#{eventos.losTags}" readonly="#{!eventos.onEdit}"   style="display: block;border: none;color: #{eventcontroller.colorCode}">
-
-                                    </h:inputText>
+                                <div class="tags" style="overflow: hidden;display: block;width: 80%;border: none" contenteditable="#{eventos.onEdit}">
+                                    <p:chips id="tags" disabled="#{!eventos.onEdit}" readonly="#{!eventos.onEdit}" style="border: none !important"  value="#{eventos.losChips}" ></p:chips>
                                 </div>
                                 <p:commandButton
                                     actionListener="#{globalEventController.comentariosListener}"

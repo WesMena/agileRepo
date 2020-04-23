@@ -251,7 +251,7 @@
         <p:sidebar id="sidebarslot" widgetVar="side_info" position="right" baseZIndex='0' style="background: white;width: 100%; height: 100%; overflow: scroll;">
             <div style="margin:0 auto; width: 80%">
                 <h:form id="Slot">
-                    <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                    <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                         <h1>Título #{detallecontroller.esBloque?'del Bloque':'del Slot'}</h1>
                     </div>
                     <p:inputTextarea counter="titulo" rows="1" placeholder="TITULO DEL #{detallecontroller.esBloque?'BLOQUE':'SLOT'}" readonly="false" value="#{detallecontroller.titulo}" style="width:99.25%; font-size: 20px; " maxlength="100" counterTemplate="{0} caracteres restantes."/>
@@ -260,20 +260,20 @@
                     <p:separator />
                     <div style="visibility: #{detallecontroller.esBloque?'hidden':'visible'}">
 
-                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                        <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Descripción</h1>
                         </div>
-                        <p:inputTextarea counter="descripcion" rows="4" placeholder="DESCRIPCION" readonly="false" value="#{detallecontroller.descripcion}" style="width:99.25%; font-size: 14px;" maxlength="300" counterTemplate="{0} caracteres restantes."/>
+                        <p:inputTextarea counter="descripcion" rows="4" placeholder="DESCRIPCIÓN" readonly="false" value="#{detallecontroller.descripcion}" style="width:99.25%; font-size: 14px;" maxlength="300" counterTemplate="{0} caracteres restantes."/>
                         <br/>
                         <h:outputText id="descripcion" />
-                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                        <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Objetivo</h1>
                         </div>
                         <p:inputTextarea counter="objetivo" rows="4" placeholder="OBJETIVO" readonly="false" value="#{detallecontroller.objetivo}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
                         <br/>
                         <h:outputText id="objetivo" />
                         <p:separator />
-                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                        <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Categoría</h1>
                         </div>
                         <h:panelGrid columns="2" cellpadding="2">
@@ -284,13 +284,13 @@
                             <p:colorPicker style="color:white" value="#{detallecontroller.colorCategoria}" onchange="#{detallecontroller.colorCategoria}" />
                         </h:panelGrid>
                         <p:separator />
-                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                        <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Pasos</h1>
                         </div>
                         <p:inputTextarea counter="pasos" rows="5" placeholder="Pasos" readonly="false" value="#{detallecontroller.pasos}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>
                         <br/>
                         <h:outputText id="pasos" />
-                        <div style="background-color:#003F6F;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
+                        <div style="background-color:#2399E1;color:#FFFFFF; font-size: 14px; margin-bottom: 5px;margin-top: 5px; width: 100%">
                             <h1>Materiales</h1>
                         </div>
                         <p:inputTextarea counter="materiales" rows="5" placeholder="Materiales" readonly="false" value="#{detallecontroller.materiales}" style="width:99.25%; font-size: 14px;" maxlength="3000" counterTemplate="{0} caracteres restantes."/>

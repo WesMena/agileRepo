@@ -8,9 +8,11 @@ package com.cci.controller;
 import static com.cci.controller.eventWizardViewController.idEvento;
 import com.cci.model.Entrada;
 import com.cci.model.EvtPDetails;
+import com.cci.model.entradaID;
 import com.cci.service.EntradaDao;
 import com.cci.service.EventSummaryDao;
 import com.cci.service.EventoMoreDetailsDao;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class EvtPDetailsController implements Serializable {
     String urlFondo;
     int idEvento = 0;
     String tipo;
-
+    String observacion;
     String nombreEntrada;
     String fechaEntrada;
     double precioEntrada;
@@ -46,9 +48,12 @@ public class EvtPDetailsController implements Serializable {
     String telefono;
     int cantcompra = 1;
     boolean pnlMostrarE = false;
-
+    
     private List<Entrada> lstEntrada = new ArrayList<>();
-
+    int cantidadTotal;
+    int cantidadCompradaT;
+    
+    
     public EvtPDetailsController() {
     }
 
@@ -187,12 +192,41 @@ public class EvtPDetailsController implements Serializable {
         this.pnlMostrarE = pnlMostrarE;
     }
 
-    public void seleccionarEntrada(int idEntrada, String nombreEntrada, double Precio) {
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public int getCantidadTotal() {
+        return cantidadTotal;
+    }
+
+    public void setCantidadTotal(int cantidadTotal) {
+        this.cantidadTotal = cantidadTotal;
+    }
+
+    public int getCantidadCompradaT() {
+        return cantidadCompradaT;
+    }
+
+    public void setCantidadCompradaT(int cantidadCompradaT) {
+        this.cantidadCompradaT = cantidadCompradaT;
+    }
+     
+    
+    
+    
+    public void seleccionarEntrada(int idEntrada, String nombreEntrada, double Precio, int cantTotal, int cantCompradaT) {
 
         this.idEntrada = idEntrada;
         this.nombreEntrada = nombreEntrada;
         this.precioEntrada = Precio;
         this.pnlMostrarE = true;
+        this.cantidadTotal = cantTotal;
+        this.cantidadCompradaT = cantCompradaT;
 
     }
 
@@ -202,15 +236,29 @@ public class EvtPDetailsController implements Serializable {
 
     }
 
-    public void comprarEntrada() {
+    public void comprarEntrada() throws FileNotFoundException {
 
         EntradaDao daoC = new EntradaDao();
-        daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono);
+        daoC.compraEntrada(this.idEvento, this.idEntrada, this.cantcompra, this.nombre, this.correo, this.telefono,this.observacion);
+        
+       
+        entradaID entrada=daoC.getIdTransaccion(this.idEvento,this.idEntrada,this.nombre,this.correo);
+        MailController correoController=new MailController();
+        
+       //(int idTransaccion,String nombreCompleto, String nombreEvento, 
+            //String fechaYHora, String tipoEntrada, Double precio, String correoUser,
+           // String telUser) 
+    
+           String fechaHoraInicio=detalles.getFecha()+", "+detalles.getHora();
+           
+           Double total=this.precioEntrada*this.cantcompra;
+        correoController.enviarCorreo(entrada.getIdTransaccion(),this.nombre,entrada.getNomEvt(),fechaHoraInicio,this.nombreEntrada,total,this.correo, this.telefono,this.observacion,this.cantcompra);
         
         this.nombre = "";
         this.correo = "";
         this.telefono = "";
-
+        
+        
         onLoad();
 
         regresarVista();

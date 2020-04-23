@@ -218,8 +218,13 @@ public class EventController implements Serializable {
     public void edit(Evento ev) {
         //Escondiendo el boton
         Dao dao = new EventDao();
+        String losChips="";
+        for(String c: ev.getLosChips()){
+            losChips=losChips+c;
+        }
+        System.out.println("ChipSize : "+ev.getLosChips().size());
         System.out.println("" + tags + " Tags");
-        ((EventDao) dao).update(new Evento(ev.getNombre(), ev.getDesc(), ev.getId(), ev.getLosTags()));
+        ((EventDao) dao).update(new Evento(ev.getNombre(), ev.getDesc(), ev.getId(),losChips));
         System.out.println("" + ev.getNombre() + " entrando a edicion");
         System.out.println("" + ev.getDesc());
     }

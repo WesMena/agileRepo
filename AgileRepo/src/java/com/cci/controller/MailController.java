@@ -38,7 +38,7 @@ public class MailController{
     
     void enviarCorreo(int idTransaccion,String nombreCompleto, String nombreEvento, 
             String fechaYHora, String tipoEntrada, Double precio, String correoUser,
-            String telUser) throws FileNotFoundException{
+            String telUser,String comentarios, int cant) throws FileNotFoundException{
        
         
         
@@ -97,7 +97,7 @@ public class MailController{
       templateStr=templateStr.replace("%4$s",fechaYHora);
       templateStr=templateStr.replace("%5$s",tipoEntrada);
       templateStr=templateStr.replace("%6$s",precioStr);
-     
+      templateStr=templateStr.replace("%69$s",String.valueOf(cant));
       try{
           /*
           Define la configuración del servidor smtp para utilizar Gmail 
@@ -163,7 +163,8 @@ public class MailController{
       templateAdminStr=templateAdminStr.replace("%6$s",precioStr);
       templateAdminStr=templateAdminStr.replace("%7$s",telUser);
       templateAdminStr=templateAdminStr.replace("%8$s",correoUser);
-      
+      templateAdminStr=templateAdminStr.replace("%69$s",String.valueOf(cant));
+       templateAdminStr=templateAdminStr.replace("%10$s",comentarios);
        try{
             /*
           Define la configuración del servidor smtp para utilizar Gmail 

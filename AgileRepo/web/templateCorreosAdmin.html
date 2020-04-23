@@ -449,7 +449,7 @@
                     <td class="content-cell">
                       <div class="f-fallback">
                         <h1>Reporte de compra</h1>
-                        <p>El usuario {{nombre}} adquirió una entrada de pago para el evento [Nombre evento]. </p>
+                        <p>El usuario %1$s adquirió una entrada de pago para el evento %2$s. </p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                           <tr>
                             
@@ -457,30 +457,45 @@
                         </table>
                         <!-- Action -->
                         
+                    
+                        
+                       
+                            
+                                <p># transacción: %3$s</p>
+                          
+                                <p>Fecha evento:%4$s</p>
+                                
+                            
+                           
+                          
+                        
                         <table class="purchase" width="100%" cellpadding="0" cellspacing="0">
-                          <tr>
-                            <td>
-                              <h3># transacción:{{id}}</h3>
-                            </td>
-                            <td>
-                              <h3 class="align-right">Fecha evento:{{fecha_hora}}</h3>
-                            </td>
-                          </tr>
+                         
+                            
+                            
+                            
                           <tr>
                             <td colspan="2">
                               <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
-                                  <th class="purchase_heading" align="left">
-                                    <p class="f-fallback">Tipo de entrada</p>
+                                  
+                                    <th class="purchase_heading" align="left" >
+                                    <p class="f-fallback" style="width:60px;">Cantidad</p>
+                                  </th>
+                                    
+                                    
+                                  <th class="purchase_heading" align="center" >
+                                    <p class="f-fallback" >Tipo de entrada</p>
                                   </th>
                                   <th class="purchase_heading" align="right">
-                                    <p class="f-fallback">Precio</p>
+                                    <p class="f-fallback">Total</p>
                                   </th>
                                 </tr>
                                 
                                 <tr>
-                                  <td width="80%" class="purchase_item"><span class="f-fallback entrada">{{nom.entrada}}</span></td>
-                                  <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback" style="margin-left:-15px;">${{precio}}</span></td>
+                                    <td  class="purchase_item"><span class="f-fallback entrada"><p>%69$s</p></span></td>
+                                              <td width="80%" class="purchase_item"><span class="f-fallback entrada" ><p style="margin-left:30%">%5$s</p></span></td>
+                                              <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback" style="margin-left:-15px;"><p style="margin-right:-25px">$ %6$s</p></span></td>
                                 </tr>
                                 
                                
@@ -488,7 +503,9 @@
                             </td>
                           </tr>
                         </table>
-                        <p>Favor ponerse en contacto con el usuario al número {{num}} o al correo {{correo}} para completar la compra </p>
+                        <p style="font-weight:600;">Notas del usuario:</p>
+                        <p>%10$s </p>
+                        <p>Favor ponerse en contacto con el usuario al número %7$s o al correo %8$s para completar la compra </p>
                         
                         <!-- Sub copy -->
                       
