@@ -12,7 +12,7 @@
 
         <f:metadata>
             <f:viewAction action="#{detallecontroller.onLoad()}" />
-            
+
         </f:metadata>
 
 
@@ -96,6 +96,19 @@
 
 
             <h:form id="eventos" style="height:100%; width:100%; min-height:100%;" >
+
+
+                <p:panel id="pnlVacio" style="display:#{(detallecontroller.vacio)?'block':'none'}; border: none;">
+                    <div style="height: 100%; margin:0;padding:0;background: #EDF0F5">
+                        <div class="card clearfix summary" style="background:gainsboro">                        
+                            <h:outputText id="titulo" value="No hay slots creados" style="height:90%;width: 100%; 
+                                             border: none; background: gainsboro;
+                                             color:  #000; font-weight: bold; font-size: 50px; margin-left: 150px; align-content: center; text-align: center "/>
+                        </div>
+                    </div>
+                </p:panel>
+
+
 
                 <!-->
                 Este es el control que se encarga del drag and drop. Trae una 
@@ -197,9 +210,9 @@
                                                  margin-left:#{detalle.esBloque()?'50px':'100px'} " 
                                                  class="#{detalle.esBloque()?'title2':'title'}"
                                                  value="#{detalle.titulo}">
-                                    
+
                                 </h:inputTextarea>
-                                
+
                             </div>
 
                             <!--->
@@ -305,21 +318,21 @@
 
         <p:dialog header="Nombre de Bloque" widgetVar="dlglTituloBloque" minHeight="40" style="background:white">
             <h:form>
-            <p:inputTextarea rows="1" 
-                             readonly="false" 
-                             value="#{detallecontroller.titulo}" 
-                             style="width:99.25%; font-size: 20px; " 
-                             maxlength="100" 
-                             counter="titulocount"
-                             counterTemplate="{0}/100"/>
-            <div style="width: 100%;text-align: left" id="counterContainerTag">
-                <h:outputText style="float: right" id="titulocount" ></h:outputText>
-            </div>
-            <br/>
-            <center>
-            <p:commandButton action="#{detallecontroller.editarTituloBloq()}" icon="pi pi-save" onclick="#{detallecontroller.onReorder()}" onsuccess="PF('dlglTituloBloque').hide()">
-            </p:commandButton>
-            </center>    
+                <p:inputTextarea rows="1" 
+                                 readonly="false" 
+                                 value="#{detallecontroller.titulo}" 
+                                 style="width:99.25%; font-size: 20px; " 
+                                 maxlength="100" 
+                                 counter="titulocount"
+                                 counterTemplate="{0}/100"/>
+                <div style="width: 100%;text-align: left" id="counterContainerTag">
+                    <h:outputText style="float: right" id="titulocount" ></h:outputText>
+                </div>
+                <br/>
+                <center>
+                    <p:commandButton action="#{detallecontroller.editarTituloBloq()}" icon="pi pi-save" onclick="#{detallecontroller.onReorder()}" onsuccess="PF('dlglTituloBloque').hide()">
+                    </p:commandButton>
+                </center>    
             </h:form>
         </p:dialog>
 

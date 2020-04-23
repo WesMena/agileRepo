@@ -63,7 +63,16 @@ public class DetalleController implements Serializable {
     private String materiales;
     private boolean esBloque;
     private boolean estadoRO = true;
+    private boolean vacio = true;
 
+    public boolean isVacio() {
+        return vacio;
+    }
+
+    public void setVacio(boolean vacio) {
+        this.vacio = vacio;
+    }
+    
     public String getNombreEvento() {
         return nombreEvento;
     }
@@ -134,13 +143,14 @@ public class DetalleController implements Serializable {
 
     public void onLoad() {
         List<DetalleEvento> evts = listaDetalles();
-        this.detalles = evts;
-        /*
-        for (DetalleEvento evt : evts) {
-            this.detalles.add(evt);
-            System.out.println("" + evt.toString());
+        if(evts.size()>0){
+            this.vacio =false;
+        }else{
+             this.vacio =true;
         }
-         */
+        
+        this.detalles = evts;
+       
     }
 
     public DetalleController(int idEvento) {

@@ -159,7 +159,7 @@
                                             <p:commandButton  partialSubmit="true"
                                                               class="textButtonIcon"
                                                               process="@this" validateClient="true"  
-                                                              iconPos="center" icon="fa fa-align-left"></p:commandButton>
+                                                              iconPos="center" icon="fa fa-pencil"></p:commandButton>
                                             <h:outputText  value="Información Básica" style="font-size: xx-large;font-weight: bold"></h:outputText>  
                                         </p:panel>
 
@@ -535,9 +535,9 @@
 
                                         <p:panel id="ubi"  style="display:block;border:  #03A8E4"  header="Ubicación presencial" rendered="#{wizardcontroller.isFisico}"  >
 
-                                            <h3>Digite la direccion del evento:</h3>
+                                            <h3>Digite la dirección del evento:</h3>
 
-                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="6" cols="33" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style="width: 400px; height: 80px;" /> <p:graphicImage name="images/map.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+                                            <p:inputTextarea id="txtDir" value="#{wizardcontroller.ubi}" rows="6" cols="33" counter="display" maxlength="150" counterTemplate="{0} carácteres restante." autoResize="false" style="width: 400px; height: 80px;" /> 
                                             <br/>
                                             <h:outputText id="display" />
 
@@ -548,7 +548,7 @@
                                         <p:panel id="link" widgetVar="pnlLink" style="display:block;border:#03A8E4" header="Link del Evento" rendered="#{wizardcontroller.isLink}" >
 
                                             <h3>Digita el link al evento:</h3>
-                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"/>   <p:graphicImage name="images/internet-png-icon-6.png" library="omega-layout" style=" height:110px; width: 100px; margin-left: 315px; " width="80px" height="80px"  />
+                                            <p:inputTextarea id="txtLink" value="#{wizardcontroller.link}" rows="6" cols="33" style=" width: 400px; height: 80px;"/>   
 
                                         </p:panel>
 
@@ -564,26 +564,26 @@
                                         <h:outputText  value="Horarios" style="font-size:28px; font-weight: bold"></h:outputText>
                                         <br></br>
                                         <br></br>
+                                        
 
+                                        <div class="ui-g ui-fluid" style="border-left:1px solid #cccccc; border-right:1px solid #cccccc; border-top:1px solid #cccccc;border-bottom: 1px solid #cccccc; ">
 
+                                            <p:outputLabel value="Zona Horaria:" style=" margin-left: 370px;" />
+                                            <br></br>
+                                            <br></br>
+                                            <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width:80%; height:25px;margin-left: 75px;"  required="true" label="Text 3">
 
-                                        <div class="ui-g ui-fluid">
-                                            <div class="ui-g-12 ui-md-8" style="border:0.5px solid lightslategrey ; width: 50%"  >
-                                                <br></br>
-                                                <br></br>
-                                                <p:outputLabel value="Zona Horaria:" style=" margin-left: 150px;" />
-                                                <br></br>
-                                                <br></br>
-                                                <h:selectOneMenu id="comboZonas" value="#{wizardcontroller.horario.horarioStr}"   style=" width: 80%; margin-left: 20px;"  required="true" label="Text 3">
+                                                <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
 
-                                                    <f:selectItems  value="#{wizardcontroller.lstcmpt}" var="zona"  itemLabel="#{zona.horarioStr}" itemValue="#{zona.horarioStr}" />
+                                            </h:selectOneMenu>
 
-                                                </h:selectOneMenu>
+                                            <br></br>
+                                            <br></br>
+                                            <div class="ui-g-12 ui-md-8" style="width: 50%"  >
                                                 <br></br>
                                                 <br></br>
                                                 <br></br>
-
-                                                <p:outputLabel value="Selecciona la fecha de inicio y final:" style=" margin-left: 40px;" />
+                        
                                                 <br></br>
                                                 <br></br>
 
@@ -597,22 +597,23 @@
                                                 <p:tooltip id="toolTipFadeFfin" for="dateConfigFin" value="dd-mm-yyyy" position="top"/>
 
                                             </div>
-                                            <div class="ui-g-12 ui-md-3" style="border:0.5px solid lightslategrey; width: 50%" >
+                                            <div class="ui-g-12 ui-md-8" style=" width: 50%;"  >
                                                 <br></br>
                                                 <br></br>
-                                                <p:outputLabel for="horaIni" value="El evento inicia a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
                                                 <br></br>
-                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;text-align: center; margin-left: 110px;" required="true" requiredMessage="La hora de inicio es obligatoria." />
+                      
+                                                <br></br>
+                                                <br></br>
 
+                                                <p:outputLabel for="horaIni" value="El evento inicia: " style="margin-left: 16px;display: inline-block;width: 150px;font-weight:bold;" />                                       
+                                                <p:inputMask id="horaIni" value="#{wizardcontroller.strHini}" mask="99:99" style="width:35%;text-align: center;" required="true" requiredMessage="La hora de inicio es obligatoria." />
                                                 <p:tooltip id="toolTipHoraIni" for="horaIni" value="hh:mm Formato 24h" position="top"/>
 
                                                 <br></br>
                                                 <br></br>
-                                                <br></br>
 
-                                                <p:outputLabel for="horaFin" value="El evento termina a:" style="margin-left: 16px;display: inline-block;width: 100px;font-weight:bold;" />
-                                                <br></br>
-                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;margin-left: 110px;" required="true" requiredMessage="La hora de finalizacion es obligatoria." />
+                                                <p:outputLabel for="horaFin" value="El evento termina: " style="margin-left: 16px;display: inline-block;width: 150px;font-weight:bold;" />
+                                                <p:inputMask id="horaFin" value="#{wizardcontroller.strHfin}" mask="99:99" style="width:35%;text-align: center;" required="true" requiredMessage="La hora de finalizacion es obligatoria." />
                                                 <p:tooltip id="toolTipHoraFin" for="horaFin" value="hh:mm Formato 24h" position="top"/>
                                                 <br></br>
                                                 <br></br>
@@ -627,8 +628,8 @@
                                         <br></br>
                                         <br></br>
 
-                                        <p:commandButton  process="@this ubi-hora" value="Guardar"   rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
-                                        <p:commandButton  process="@this ubi-hora"  value="Editar"  rendered="#{wizardcontroller.savedConfig or wizardcontroller.editionMode == true }"  style="margin-left:400px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
+                                        <p:commandButton  process="@this ubi-hora" value="Guardar"   rendered="#{wizardcontroller.draft and wizardcontroller.editionMode == false}"  style="margin-left:370px; height: 32px; width:120px;" actionListener="#{wizardcontroller.fillContainer}" />  
+                                        <p:commandButton  process="@this ubi-hora"  value="Editar"  rendered="#{wizardcontroller.savedConfig or wizardcontroller.editionMode == true }"  style="margin-left:370px; height: 32px; width:120px;" actionListener="#{wizardcontroller.updtConfig}" /> 
 
 
                                     </p:panel>
@@ -948,6 +949,17 @@
                     }
 
                 </style>
+
+                <style type="text/css">
+                    .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+                        text-align: center;
+                    }
+
+                    .customPanelGrid .ui-panelgrid-content {
+                        align-items: center;
+                    }
+                </style>
+
                 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
                 <h:outputStylesheet name="css/myDashboard.css" library="omega-layout" ></h:outputStylesheet>
             </ui:define>
