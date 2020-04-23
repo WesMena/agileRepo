@@ -3,20 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/service/GlobalEventDao.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/MediaController.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/service/EventDao.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/EventWizardImagesController.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/portadaController.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/web/WEB-INF/web.xml</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/MailController.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/OtherSource/templateCorreoAdmin.txt</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/eventWizardViewController.java</file>
+            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/service/WizardDao.java</file>
+            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/service/EntradaDao.java</file>
             <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/EventSummaryController.java</file>
             <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/Constantes.java</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/web/templateCorreosAdmin.html</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/web/DetalleEvento.xhtml</file>
-            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/OtherSource/templateCorreoUser.txt</file>
+            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/EvtPDetailsController.java</file>
+            <file>file:/home/wes/Documents/agileRepo/AgileRepo/src/java/com/cci/controller/MailController.java</file>
         </group>
     </open-files>
 </project-private>

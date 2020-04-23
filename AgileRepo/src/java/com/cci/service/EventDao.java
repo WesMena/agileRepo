@@ -104,6 +104,7 @@ public class EventDao implements Dao<Evento> {
 
         rs = null;
         stmt = null;
+        List<String> tagsChip = new ArrayList<>();
         try {
             Conexion conexion = Conexion.getInstance();
             conexion.conectar();
@@ -121,13 +122,14 @@ public class EventDao implements Dao<Evento> {
                         String tag = rs.getString("tag");
                         Tag nuevo = new Tag(tag, idTag);
                         e.setLosTags(e.getLosTags() + " #" + tag);
-
+                        
                         e.agregarTag(nuevo);
-
+                        e.addChip("#"+tag);
                     }
                 }
 
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();

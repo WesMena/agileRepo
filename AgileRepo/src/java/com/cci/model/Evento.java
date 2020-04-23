@@ -34,12 +34,28 @@ public class Evento implements Serializable {
     private String nombre;
     private String propietario;
     private List<Comentario> comentarios = new ArrayList<>();
-    
-    
-    public void addComment(Comentario c){
+    private List<String> losChips;
+
+    public void addComment(Comentario c) {
         this.comentarios.add(c);
     }
-    
+
+    public String getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
+    }
+
+    public List<String> getLosChips() {
+        return losChips;
+    }
+
+    public void setLosChips(List<String> losChips) {
+        this.losChips = losChips;
+    }
+
     public String getProietario() {
         return propietario;
     }
@@ -92,9 +108,11 @@ public class Evento implements Serializable {
     public static List<Tag> tags = new ArrayList<>();
 
     public Evento() {
+        this.losChips = new ArrayList<>();
     }
 
     public Evento(String nombre, String desc, int id, double horas, int dias, String inicio) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
 
         this.id = id;
@@ -123,6 +141,7 @@ public class Evento implements Serializable {
     }
 
     public Evento(String nombre, String desc, int id, double horas, int dias, String inicio, String propietario) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
 
         this.id = id;
@@ -137,6 +156,7 @@ public class Evento implements Serializable {
     }
 
     public Evento(String nombre, String desc, int id) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
         this.desc = desc;
         this.id = id;
@@ -144,6 +164,7 @@ public class Evento implements Serializable {
     }
 
     public Evento(String nombre, String desc, int id, String losTags) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
         this.desc = desc;
         this.id = id;
@@ -152,6 +173,7 @@ public class Evento implements Serializable {
     }
 
     public Evento(String nombre, String desc) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
         this.desc = desc;
         tituloCorto();
@@ -275,6 +297,7 @@ public class Evento implements Serializable {
     }
 
     public Evento(String nombre, String desc, int id, double horas, int dias) {
+        this.losChips = new ArrayList<>();
         this.nombre = nombre;
         this.desc = desc;
         this.id = id;
@@ -288,6 +311,10 @@ public class Evento implements Serializable {
 
     public void setOnComment(boolean onComment) {
         this.onComment = onComment;
+    }
+    
+    public void addChip(String chip){
+        this.losChips.add(chip);
     }
 
 }
