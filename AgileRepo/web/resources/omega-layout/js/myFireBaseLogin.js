@@ -13,7 +13,7 @@ function ini() {
     //Asociando evento submit al form
     googleProvider = new firebase.auth.GoogleAuthProvider();
     googleProvider.setCustomParameters({
-        hd: "cciconsultorescr.com"
+        hd: "gmail.com"
     });
 
     frmaLogin = document.getElementById('frmaLogin');
@@ -57,7 +57,7 @@ function stateChanged(response, callback) {
 }
 
 function validAccount(userEmail) {
-    return userEmail.split('@')[1] === 'cciconsultorescr.com';
+    return userEmail.split('@')[1] === 'gmail.com';
 }
 
 function signInWithEmailAndPassword(event) {

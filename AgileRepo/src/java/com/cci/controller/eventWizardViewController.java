@@ -635,8 +635,7 @@ public class eventWizardViewController implements Serializable {
  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
  /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
     public void updtConfig(ActionEvent e) throws ParseException {
-
-        WizardDao dao2 = new WizardDao();
+          WizardDao dao2 = new WizardDao();
         boolean value = true;
 
         if (dao2.savedUbiConfig(idEvento)) {
@@ -681,12 +680,14 @@ public class eventWizardViewController implements Serializable {
 
             } else {
                 //Nada guardado
-                 displayError();
-                fillContainer(new ActionEvent(new ComponentRef()));
+                displayError();
             }
+        } else {
+            fillContainer(new ActionEvent(new ComponentRef()));
         }
 
-        }
+      
+    }
 
     
 
